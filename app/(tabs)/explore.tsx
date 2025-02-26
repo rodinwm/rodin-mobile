@@ -7,7 +7,7 @@ import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
 import LucideIcon from "@/components/ui/LucideIcon";
 
-export default function TabTwoScreen() {
+export default function Explore() {
     return (
         <ParallaxScrollView
             headerBackgroundColor={{light: '#D0D0D0', dark: '#353636'}}
