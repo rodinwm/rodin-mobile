@@ -4,9 +4,10 @@ import {Platform} from 'react-native';
 
 import {HapticTab} from '@/components/HapticTab';
 import TabBarBackground from '@/components/ui/TabBarBackground';
-import {Colors} from '@/constants/Colors';
+import {Colors} from '@/constants/colors';
 import {useColorScheme} from '@/hooks/useColorScheme';
 import LucideIcon from "@/components/ui/LucideIcon";
+import {mainFont} from "@/constants/strings";
 
 export default function TabLayout() {
     const colorScheme = useColorScheme();
@@ -18,6 +19,9 @@ export default function TabLayout() {
                 headerShown: false,
                 tabBarButton: HapticTab,
                 tabBarBackground: TabBarBackground,
+                tabBarLabelStyle: {
+                    fontFamily: mainFont,
+                },
                 tabBarStyle: Platform.select({
                     ios: {
                         // Use a transparent background on iOS to show the blur effect

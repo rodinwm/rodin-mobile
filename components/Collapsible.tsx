@@ -3,7 +3,7 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 
 import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
-import {Colors} from '@/constants/Colors';
+import {Colors} from '@/constants/colors';
 import {useColorScheme} from '@/hooks/useColorScheme';
 import LucideIcon from "@/components/ui/LucideIcon";
 

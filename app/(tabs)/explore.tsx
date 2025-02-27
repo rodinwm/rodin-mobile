@@ -57,7 +57,7 @@ export default function Explore() {
             <Collapsible title="Custom fonts">
                 <ThemedText>
                     Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-                    <ThemedText style={{fontFamily: 'SpaceMono'}}>
+                    <ThemedText>
                         custom fonts such as this one.
                     </ThemedText>
                 </ThemedText>

@@ -26,7 +26,7 @@ export function ThemedText({
 
     return (
         <Text
-            className={classNames[type]}
+            className={`${classNames[type]} font-sans`}
             style={{color}}
             {...rest}
         />
