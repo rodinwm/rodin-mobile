@@ -15,7 +15,12 @@ SplashScreen.preventAutoHideAsync().then();
 export default function RootLayout() {
     const colorScheme = useColorScheme();
     const [loaded] = useFonts({
-        FunnelDisplay: require('@/assets/fonts/FunnelDisplay-VariableFontWeight.ttf'),
+        "FunnelDisplay-Light": require('@/assets/fonts/FunnelDisplay/FunnelDisplay-Light.ttf'),
+        "FunnelDisplay-Regular": require('@/assets/fonts/FunnelDisplay/FunnelDisplay-Regular.ttf'),
+        "FunnelDisplay-Medium": require('@/assets/fonts/FunnelDisplay/FunnelDisplay-Medium.ttf'),
+        "FunnelDisplay-SemiBold": require('@/assets/fonts/FunnelDisplay/FunnelDisplay-SemiBold.ttf'),
+        "FunnelDisplay-Bold": require('@/assets/fonts/FunnelDisplay/FunnelDisplay-Bold.ttf'),
+        "FunnelDisplay-ExtraBold": require('@/assets/fonts/FunnelDisplay/FunnelDisplay-ExtraBold.ttf'),
     });
 
     useEffect(() => {

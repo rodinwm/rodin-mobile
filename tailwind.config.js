@@ -8,9 +8,13 @@ module.exports = {
     presets: [require("nativewind/preset")],
     theme: {
         extend: {
+            /*
             fontFamily: {
                 sans: ["FunnelDisplay", "ui-sans-serif", "system-ui"],
-            }
+                serif: ["FunnelDisplay", "ui-serif", "Georgia"],
+                mono: ["FunnelDisplay", "ui-monospace", "SFMono-Regular"],
+            },
+             */
         },
     },
     plugins: [],
