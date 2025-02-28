@@ -12,26 +12,26 @@ export type ThemedButtonProps = ButtonProps & {
     filled?: boolean;
 };
 
-export function ThemedButton({icon, showTitle = true, filled = true, title, ...rest}: ThemedButtonProps) {
+export function ThemedButton({icon, showTitle = true, filled = true, title, ...otherProps}: ThemedButtonProps) {
     const classNames: string[] = [
         'flex flex-row gap-2 items-center justify-center rounded-2xl border',
         showTitle ? 'px-6 py-3' : 'p-3',
         filled ?
             'bg-background-dark dark:bg-background-light border-foreground-light dark:border-foreground-dark'
-            : 'bg-background-dark/10 dark:bg-background-light/10 border-foreground-dark/10 dark:border-foreground-light/10',
+            : 'bg-background-dark/10 dark:bg-background-light/10 border-foreground-light/20 dark:border-foreground-dark/20',
     ];
 
     return (
         <TouchableOpacity
             className={classNames.join(' ')}
-            {...rest}
+            {...otherProps}
         >
             {icon && (
-                <LucideIcon size={20} name={icon.name} inverseColor={filled && true}/>
+                <LucideIcon size={20} name={icon.name} inverseColor={filled}/>
             )}
 
             {showTitle && (
-                <ThemedText type={"defaultSemiBold"} inverseColor={filled && true}>{title}</ThemedText>
+                <ThemedText type={"defaultSemiBold"} inverseColor={filled}>{title}</ThemedText>
             )}
         </TouchableOpacity>
     );
