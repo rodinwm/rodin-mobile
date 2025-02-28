@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const {Colors} = require("./constants/colors");
 module.exports = {
     // NOTE: Update this to include the paths to all of your component files.
     content: [
@@ -6,15 +7,13 @@ module.exports = {
         "./components/**/*.{js,jsx,ts,tsx}",
     ],
     presets: [require("nativewind/preset")],
+    darkMode: "class",
     theme: {
         extend: {
-            /*
             fontFamily: {
-                sans: ["FunnelDisplay", "ui-sans-serif", "system-ui"],
-                serif: ["FunnelDisplay", "ui-serif", "Georgia"],
-                mono: ["FunnelDisplay", "ui-monospace", "SFMono-Regular"],
+                sans: ["FunnelDisplay-Light", "ui-sans-serif", "system-ui"],
             },
-             */
+            colors: Colors,
         },
     },
     plugins: [],

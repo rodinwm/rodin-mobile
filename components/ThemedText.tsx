@@ -1,43 +1,41 @@
 import {Text, type TextProps} from 'react-native';
-import {useThemeColor} from '@/hooks/useThemeColor';
 import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
 
 export type ThemedTextProps = TextProps & {
-    lightColor?: string;
-    darkColor?: string;
     type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+    inverseColor?: boolean;
 };
 
-export function ThemedText({
-                               lightColor,
-                               darkColor,
-                               type = 'default',
-                               ...rest
-                           }: ThemedTextProps
-) {
-    const color = useThemeColor({light: lightColor, dark: darkColor}, 'text');
-    const classNames = {
-        default: "text-base",
-        defaultSemiBold: "text-base",
-        title: "text-3xl",
-        subtitle: "text-xl",
-        link: "text-base text-blue-500",
-    }
-    const fontWeights = {
-        default: FontWeightEnum.Light,
-        defaultSemiBold: FontWeightEnum.SemiBold,
-        title: FontWeightEnum.ExtraBold,
-        subtitle: FontWeightEnum.Bold,
-        link: FontWeightEnum.Medium,
-    }
+export function ThemedText({type = 'default', inverseColor = false, ...rest}: ThemedTextProps) {
+    const style = {
+        default: {
+            fontSize: "text-base",
+            fontWeight: FontWeightEnum.Light,
+        },
+        defaultSemiBold: {
+            fontSize: "text-base",
+            fontWeight: FontWeightEnum.SemiBold,
+        },
+        title: {
+            fontSize: "text-3xl",
+            fontWeight: FontWeightEnum.ExtraBold,
+        },
+        subtitle: {
+            fontSize: "text-xl",
+            fontWeight: FontWeightEnum.Bold,
+        },
+        link: {
+            fontSize: "text-base text-blue-500",
+            fontWeight: FontWeightEnum.Medium,
+        },
+    };
 
     return (
         <Text
-            className={classNames[type]}
+            className={`${style[type].fontSize} ${!inverseColor ? 'text-foreground-light dark:text-foreground-dark' : 'text-foreground-dark dark:text-foreground-light'}`}
             style={{
-                color,
-                fontFamily: FontHelper.getMainFont(fontWeights[type]),
+                fontFamily: FontHelper.getMainFontStatic(style[type].fontWeight)
             }}
             {...rest}
         />
