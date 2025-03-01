@@ -6,8 +6,10 @@ import {useBottomTabOverflow} from "@/components/base/TabBarBackground";
 import {SafeAreaView, useSafeAreaInsets} from "react-native-safe-area-context";
 import LucideIcon from "@/components/base/LucideIcon";
 import {dailyTips} from "@/assets/static/daily-tips";
+import {useRouter} from "expo-router";
 
 export default function Page() {
+    const router = useRouter();
     const insets = useSafeAreaInsets();
     const bottomOverflow = useBottomTabOverflow();
 
@@ -60,7 +62,7 @@ export default function Page() {
 
                     <ThemedButton
                         title={"Start"}
-                        onPress={() => console.log("Start")}
+                        onPress={() => router.push('/timer')}
                     />
                 </ThemedView>
 
