@@ -1,11 +1,11 @@
 import {PropsWithChildren, useState} from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 
-import {ThemedText} from '@/components/ThemedText';
-import {ThemedView} from '@/components/ThemedView';
-import {Colors} from '@/constants/colors';
-import {useColorScheme} from '@/hooks/useColorScheme';
-import LucideIcon from "@/components/ui/LucideIcon";
+import {ThemedText} from '@/components/base/ThemedText';
+import {ThemedView} from '@/components/base/ThemedView';
+import {Colors} from '@/utils/colors';
+import {useColorScheme} from '@/utils/hooks/useColorScheme';
+import LucideIcon from "@/components/base/LucideIcon";
 
 export function Collapsible({children, title}: PropsWithChildren & { title: string }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +19,7 @@ export function Collapsible({children, title}: PropsWithChildren & { title: stri
                 activeOpacity={0.8}>
                 <LucideIcon
                     size={20}
-                    color={theme === 'light' ? Colors.light.icon : Colors.dark.icon}
+                    color={theme === 'light' ? Colors.foreground.light : Colors.foreground.dark}
                     name="ChevronRight"
                     style={{
                         transform: [{rotate: isOpen ? `90deg` : '0deg'}]

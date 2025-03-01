@@ -1,7 +1,7 @@
-import LucideIcon from "@/components/ui/LucideIcon";
+import LucideIcon from "@/components/base/LucideIcon";
 import {type ButtonProps, TouchableOpacity} from "react-native";
 import React from "react";
-import {ThemedText} from "@/components/ThemedText";
+import {ThemedText} from "@/components/base/ThemedText";
 import {icons} from "lucide-react-native";
 
 export type ThemedButtonProps = ButtonProps & {

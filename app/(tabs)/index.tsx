@@ -1,10 +1,11 @@
-import {ThemedText} from '@/components/ThemedText';
-import {ThemedView} from '@/components/ThemedView';
+import {ThemedText} from '@/components/base/ThemedText';
+import {ThemedView} from '@/components/base/ThemedView';
 import React from "react";
-import {ThemedButton} from "@/components/ThemedButton";
-import {useBottomTabOverflow} from "@/components/ui/TabBarBackground";
+import {ThemedButton} from "@/components/base/ThemedButton";
+import {useBottomTabOverflow} from "@/components/base/TabBarBackground";
 import {SafeAreaView, useSafeAreaInsets} from "react-native-safe-area-context";
-import LucideIcon from "@/components/ui/LucideIcon";
+import LucideIcon from "@/components/base/LucideIcon";
+import {dailyTips} from "@/assets/static/daily-tips";
 
 export default function Page() {
     const insets = useSafeAreaInsets();
@@ -12,7 +13,7 @@ export default function Page() {
 
 
     return (
-        <ThemedView className={"w-full"} filled={true}>
+        <ThemedView className={"w-full h-screen"} fillStyle={"default"}>
             <SafeAreaView
                 className={"w-full h-screen flex flex-col justify-between gap-4 p-6 pt-0"}
                 style={{paddingBottom: insets.bottom + bottomOverflow}}
@@ -47,9 +48,11 @@ export default function Page() {
                 {/* Stats texts */}
                 <ThemedView className={'w-full flex flex-col gap-3'}>
                     <ThemedView
-                        filled={false}
-                        rounded={true}
-                        className={'w-full flex flex-col items-center p-6 gap-3 dark:bg-foreground-dark/15'}
+                        fillStyle={"opacity-15"}
+                        outlined={true}
+                        radiusStyle={"default"}
+                        paddingStyle={"default"}
+                        className={'w-full flex flex-col items-center gap-3 bg-foreground-light/15 dark:bg-foreground-dark/15'}
                     >
                         <LucideIcon name={'ChartPie'} size={150}/>
                         <ThemedText type={'subtitle'}>Statistiques</ThemedText>
@@ -63,13 +66,15 @@ export default function Page() {
 
                 {/* Conseils */}
                 <ThemedView
-                    filled={false}
-                    rounded={true}
-                    className={'w-full flex flex-col items-center px-6 py-3 gap-2 dark:bg-foreground-dark/15'}
+                    fillStyle={"opacity-15"}
+                    outlined={true}
+                    radiusStyle={"default"}
+                    paddingStyle={"asymetric"}
+                    className={'w-full flex flex-col items-center gap-2'}
                 >
-                    <ThemedText type={'subtitle'}>Conseils du jour</ThemedText>
+                    <ThemedText type={'subtitle'}>Conseil du jour</ThemedText>
                     <ThemedText type={'mini'} className={'w-full text-center'}>
-                        Lorem ipsum dolor sit amet, consect etur adix pisci ng elit. Sed do e sfg srg.
+                        {dailyTips[0].text}
                     </ThemedText>
                 </ThemedView>
             </SafeAreaView>

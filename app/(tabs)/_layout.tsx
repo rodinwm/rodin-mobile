@@ -3,12 +3,12 @@ import React from 'react';
 import {Platform} from 'react-native';
 
 import {HapticTab} from '@/components/HapticTab';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import {Colors} from '@/constants/colors';
-import {useColorScheme} from '@/hooks/useColorScheme';
-import LucideIcon from "@/components/ui/LucideIcon";
+import TabBarBackground from '@/components/base/TabBarBackground';
+import {useColorScheme} from '@/utils/hooks/useColorScheme';
+import LucideIcon from "@/components/base/LucideIcon";
 import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
+import {Colors} from "@/utils/colors";
 
 export default function TabLayout() {
     const colorScheme = useColorScheme();
@@ -40,10 +40,10 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="explore"
+                name="profile"
                 options={{
-                    title: 'Explore',
-                    tabBarIcon: ({color}) => <LucideIcon size={28} name="Telescope" color={color}/>,
+                    title: 'Profil',
+                    tabBarIcon: ({color}) => <LucideIcon size={28} name="CircleUser" color={color}/>,
                 }}
             />
         </Tabs>

@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const {Colors} = require("./constants/colors");
+const {Colors} = require("./utils/colors");
 module.exports = {
     // NOTE: Update this to include the paths to all of your component files.
     content: [

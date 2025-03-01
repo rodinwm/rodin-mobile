@@ -5,9 +5,17 @@ import {FontWeightEnum} from "@/utils/enums";
 export type ThemedTextProps = TextProps & {
     type?: 'mini' | 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
     inverseColor?: boolean;
+    numberOfLines?: number;
 };
 
-export function ThemedText({type = 'default', inverseColor = false, className, ...otherProps}: ThemedTextProps) {
+export function ThemedText({
+                               className,
+                               numberOfLines,
+                               type = 'default',
+                               inverseColor = false,
+                               ...otherProps
+                           }: ThemedTextProps
+) {
     const style = {
         mini: {
             fontSize: "text-xs",
@@ -49,6 +57,8 @@ export function ThemedText({type = 'default', inverseColor = false, className, .
             style={{
                 fontFamily: FontHelper.getMainFontStatic(style[type].fontWeight)
             }}
+            numberOfLines={numberOfLines}
+            ellipsizeMode="tail"
             {...otherProps}
         />
     );

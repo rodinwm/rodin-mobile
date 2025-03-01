@@ -1,6 +1,7 @@
 import {icons} from 'lucide-react-native';
-import {Colors} from "@/constants/colors";
-import {useColorScheme} from "@/hooks/useColorScheme";
+import {Colors} from "@/utils/colors";
+import {useColorScheme} from "@/utils/hooks/useColorScheme";
+import {StyleProp, ViewStyle} from "react-native";
 
 interface ComponentProps {
     name: keyof typeof icons,
@@ -8,6 +9,7 @@ interface ComponentProps {
     size?: number,
     className?: string,
     inverseColor?: boolean;
+    style?: StyleProp<ViewStyle>;
 }
 
 export default function LucideIcon(props: ComponentProps) {
@@ -20,8 +22,9 @@ export default function LucideIcon(props: ComponentProps) {
 
     return <LucideIcon
         color={props.color ?? Colors.foreground[colorScheme ?? 'light']}
-        className={props.className}
+        className={`flex-shrink-0 ${props.className}`}
         size={props.size}
+        style={props.style}
         //strokeWidth={2.5}
     />;
 };
