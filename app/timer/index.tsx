@@ -54,7 +54,7 @@ export default function Page() {
 
                     {/* Temps de travail */}
                     <ThemedView className={'w-full flex flex-col gap-3'}>
-                        <ThemedView className={'w-full flex flex-row items-center gap-3'}>
+                        <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
                             <LucideIcon name={'Briefcase'}/>
                             <ThemedText type={'defaultSemiBold'}>Temps de travail</ThemedText>
                         </ThemedView>
@@ -64,7 +64,7 @@ export default function Page() {
 
                     {/* Temps de repos */}
                     <ThemedView className={'w-full flex flex-col gap-3'}>
-                        <ThemedView className={'w-full flex flex-row items-center gap-3'}>
+                        <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
                             <LucideIcon name={'OctagonPause'}/>
                             <ThemedText type={'defaultSemiBold'}>Temps de repos</ThemedText>
                         </ThemedView>
@@ -74,7 +74,7 @@ export default function Page() {
 
                     {/* Nombre de sessions */}
                     <ThemedView className={'w-full flex flex-col gap-3'}>
-                        <ThemedView className={'w-full flex flex-row items-center gap-3'}>
+                        <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
                             <LucideIcon name={'CirclePlay'}/>
                             <ThemedText type={'defaultSemiBold'}>Nombre de sessions</ThemedText>
                         </ThemedView>
@@ -150,7 +150,29 @@ export default function Page() {
             </KeyboardAwareScrollView>
 
             {/* Bottom sheet */}
-            <ThemedBottomSheet ref={bottomSheetRef}/>
+            <ThemedBottomSheet ref={bottomSheetRef}>
+                <ThemedText type={'title'}>Minuteur par défaut</ThemedText>
+
+                {/* Temps de travail */}
+                <ThemedView className={'w-full flex flex-col gap-3'}>
+                    <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
+                        <LucideIcon name={'Briefcase'}/>
+                        <ThemedText type={'defaultSemiBold'}>Temps de travail</ThemedText>
+                    </ThemedView>
+
+                    <TimerSelect onChange={(time) => setWorkTime(time)}/>
+                </ThemedView>
+
+                {/* Temps de repos */}
+                <ThemedView className={'w-full flex flex-col gap-3'}>
+                    <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
+                        <LucideIcon name={'OctagonPause'}/>
+                        <ThemedText type={'defaultSemiBold'}>Temps de repos</ThemedText>
+                    </ThemedView>
+
+                    <TimerSelect onChange={(time) => setBreakTime(time)}/>
+                </ThemedView>
+            </ThemedBottomSheet>
         </ThemedView>
     );
 }

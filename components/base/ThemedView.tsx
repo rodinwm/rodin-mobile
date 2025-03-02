@@ -2,8 +2,8 @@ import {View, type ViewProps} from 'react-native';
 
 export type ThemedViewProps = ViewProps & {
     outlined?: boolean;
-    fillStyle?: "default" | "opacity-15" | "warning" | "none";
-    radiusStyle?: "default" | "full" | "none";
+    fillStyle?: "default" | "opacity-15" | "opacity-50" | "warning" | "inversed-opacity-15" | "none";
+    radiusStyle?: "default" | "full" | "big" | "none";
     paddingStyle?: "default" | "asymetric" | "mini" | "none";
 };
 
@@ -18,12 +18,15 @@ export function ThemedView({
 ) {
     const classNames: string[] = [
         fillStyle === "default" ?
-            'bg-background-light dark:bg-background-dark' : fillStyle === "opacity-15" ?
-                'bg-foreground-light/15 dark:bg-foreground-dark/15' : fillStyle === "warning" ?
-                    'bg-background-warning-light dark:bg-background-warning-dark' : '',
+            'bg-background-light dark:bg-background-dark' : fillStyle === "opacity-50" ?
+                'bg-foreground-light/50 dark:bg-foreground-dark/50 backdrop-blur-md' : fillStyle === "opacity-15" ?
+                    'bg-foreground-light/15 dark:bg-foreground-dark/15 backdrop-blur-md' : fillStyle === "inversed-opacity-15" ?
+                        'bg-foreground-dark/15 dark:bg-foreground-light/15 backdrop-blur-md' : fillStyle === "warning" ?
+                            'bg-background-warning-light dark:bg-background-warning-dark' : '',
         radiusStyle === "default" ?
             'rounded-3xl' : radiusStyle === "full" ?
-                'rounded-full' : '',
+                'rounded-full' : radiusStyle === "big" ?
+                    'rounded-6xl' : '',
         outlined ? 'border border-foreground-light/20 dark:border-foreground-dark/20' : '',
         paddingStyle === "default" ?
             'p-6' : paddingStyle === "asymetric" ?
