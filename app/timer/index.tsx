@@ -98,6 +98,8 @@ export default function Page() {
                                 textAlign={"center"}
                                 className={'flex-1 h-full'}
                                 radiusStyle={"none"}
+                                keyboardType={"number-pad"}
+                                maxLength={2}
                                 bigText={true}
                                 onChangeText={(text) => {
                                     const parsedNumber = parseInt(text, 10);

@@ -12,6 +12,7 @@ export type ThemedButtonProps = ButtonProps & {
     showTitle?: boolean;
     fullWidth?: boolean;
     fullHeight?: boolean;
+    miniText?: boolean;
     className?: string;
     radiusStyle?: "default" | "full" | "left-only" | "right-only" | "none";
     type?: 'default' | 'outlined' | 'danger' | 'success';
@@ -23,6 +24,7 @@ export function ThemedButton({
                                  className,
                                  fullWidth,
                                  fullHeight,
+                                 miniText,
                                  showTitle = true,
                                  radiusStyle = "default",
                                  type = "default",
@@ -58,7 +60,7 @@ export function ThemedButton({
 
             {showTitle && (
                 <ThemedText
-                    type={"defaultSemiBold"}
+                    type={miniText ? "miniBold" : "defaultSemiBold"}
                     filled={type !== "danger"}
                     className={type === "danger" ? 'text-foreground-dark' : ''}
                     inverseColor={type === "default"}

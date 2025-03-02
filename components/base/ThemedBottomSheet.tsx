@@ -11,7 +11,7 @@ export type ThemedBottomSheetProps = {
 };
 
 export default function ThemedBottomSheet(props: ThemedBottomSheetProps) {
-    const margin = 16;
+    const margin = 10;
     const ref = useRef<BottomSheet>(null);
 
     useEffect(() => {
@@ -60,7 +60,7 @@ export default function ThemedBottomSheet(props: ThemedBottomSheetProps) {
                 )}
                 backgroundComponent={({style}) => (
                     <ThemedView
-                        style={[style, {borderRadius: 36}]}
+                        style={[style, {borderRadius: 40}]}
                         fillStyle={"default"}
                         radiusStyle={"big"}
                         outlined={true}

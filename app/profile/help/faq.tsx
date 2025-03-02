@@ -40,7 +40,7 @@ export default function Page() {
 
                     {/* Contents */}
                     <ThemedView className={'w-full flex flex-col gap-3'}>
-                        <ThemedText type={"title"}>
+                        <ThemedText type={"h1"}>
                             Comment démarrer ?
                         </ThemedText>
                         <ThemedText type={"default"}>
@@ -52,7 +52,7 @@ export default function Page() {
                     </ThemedView>
 
                     <ThemedView className={'w-full flex flex-col gap-3'}>
-                        <ThemedText type={"title"}>
+                        <ThemedText type={"h1"}>
                             Exercices et jeux
                         </ThemedText>
                         <ThemedText type={"default"}>
@@ -62,7 +62,7 @@ export default function Page() {
                     </ThemedView>
 
                     <ThemedView className={'w-full flex flex-col gap-3'}>
-                        <ThemedText type={"title"}>
+                        <ThemedText type={"h1"}>
                             Suivi et progression
                         </ThemedText>
                         <ThemedText type={"default"}>
@@ -73,7 +73,7 @@ export default function Page() {
                     </ThemedView>
 
                     <ThemedView className={'w-full flex flex-col gap-3'}>
-                        <ThemedText type={"title"}>
+                        <ThemedText type={"h1"}>
                             Un problème ?
                         </ThemedText>
                         <ThemedText type={"default"}>

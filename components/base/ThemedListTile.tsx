@@ -3,43 +3,76 @@ import LucideIcon from "@/components/base/LucideIcon";
 import {ThemedText} from "@/components/base/ThemedText";
 import {type ButtonProps, TouchableOpacity} from "react-native";
 import {icons} from "lucide-react-native";
+import {isValidElement, ReactNode} from "react";
 
 export type ThemedListTileProps = ButtonProps & {
     subtitle?: string;
     icon?: keyof typeof icons;
+    suffixIcon?: keyof typeof icons | ReactNode | null;
+    fillStyle?: "default" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
 };
 
-export default function ThemedListTile({icon, title, subtitle, ...otherProps}: ThemedListTileProps) {
+export default function ThemedListTile({
+                                           icon,
+                                           title,
+                                           subtitle,
+                                           suffixIcon = 'ChevronRight',
+                                           fillStyle = "opacity-15",
+                                           ...otherProps
+                                       }: ThemedListTileProps
+) {
     return (
         <TouchableOpacity
             {...otherProps}
         >
             <ThemedView
                 outlined={true}
-                fillStyle={"opacity-15"}
+                fillStyle={fillStyle}
                 radiusStyle={"default"}
                 paddingStyle={"mini"}
                 className={'w-full flex flex-row justify-between items-center gap-2'}
             >
                 <ThemedView className={'h-fit flex flex-row items-center gap-2 flex-1'}>
-                    {icon !== undefined ? (
-                        <ThemedView radiusStyle={'full'} className={"p-2 bg-background-dark dark:bg-background-light"}
-                                    outlined={true}>
-                            <LucideIcon name={icon} inverseColor={true}/>
+                    {icon !== undefined && icon !== null ? (
+                        <ThemedView
+                            fillStyle={fillStyle !== "inversed" ? "inversed" : 'default'}
+                            radiusStyle={'full'}
+                            className={"p-2"}
+                            outlined={true}
+                        >
+                            <LucideIcon name={icon} inverseColor={fillStyle !== "inversed"}/>
                         </ThemedView>
                     ) : null}
 
                     <ThemedView className={'flex-1'}>
-                        <ThemedText type={'defaultSemiBold'} numberOfLines={2}>
+                        <ThemedText
+                            type={'defaultSemiBold'}
+                            numberOfLines={2}
+                            inverseColor={fillStyle === "inversed"}
+                        >
                             {title}
                         </ThemedText>
                         {subtitle && (
-                            <ThemedText type={'mini'}>{subtitle}</ThemedText>
+                            <ThemedText
+                                type={'mini'}
+                                inverseColor={fillStyle === "inversed"}
+                            >
+                                {subtitle}
+                            </ThemedText>
                         )}
                     </ThemedView>
                 </ThemedView>
 
-                <LucideIcon name={'ChevronRight'} size={20}/>
+                {suffixIcon !== undefined && suffixIcon !== null ? (
+                    isValidElement(suffixIcon) ? (suffixIcon) : (
+                        <LucideIcon
+                            size={20}
+                            name={suffixIcon as keyof typeof icons}
+                            inverseColor={fillStyle === "inversed"}
+                        />
+                    )
+                ) : null}
+
             </ThemedView>
         </TouchableOpacity>
 

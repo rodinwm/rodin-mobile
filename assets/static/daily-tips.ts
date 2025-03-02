@@ -1,6 +1,6 @@
-import {DailyTips} from "@/utils/interfaces";
+import {DailyTip} from "@/utils/interfaces";
 
-export const dailyTips: DailyTips[] = [
+export const dailyTips: DailyTip[] = [
     {
         text: "Ceci est un conseil du jour"
     }

@@ -1,6 +1,6 @@
 import {FlatListProps, StyleProp, TextStyle, ViewStyle} from "react-native";
 
-export interface DailyTips {
+export interface DailyTip {
     text: string;
 }
 

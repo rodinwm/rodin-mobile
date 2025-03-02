@@ -37,7 +37,7 @@ export default function Page() {
                             icon={{name: 'Users'}}
                             showTitle={false}
                             type={"outlined"}
-                            onPress={() => console.log("Friends")}
+                            onPress={() => router.push('/community')}
                         />
                     </ThemedView>
 

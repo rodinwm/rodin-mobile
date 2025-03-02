@@ -40,7 +40,7 @@ export default function Page() {
 
                     {/* Contents */}
                     <ThemedView className={'w-full flex flex-col gap-3'}>
-                        <ThemedText type={"title"}>
+                        <ThemedText type={"h1"}>
                             C’est quoi Rodin ?
                         </ThemedText>
                         <ThemedText type={"default"}>
@@ -51,7 +51,7 @@ export default function Page() {
                     </ThemedView>
 
                     <ThemedView className={'w-full flex flex-col gap-3'}>
-                        <ThemedText type={"title"}>
+                        <ThemedText type={"h1"}>
                             Comment ça marche ?
                         </ThemedText>
                         {
@@ -71,7 +71,7 @@ export default function Page() {
                     </ThemedView>
 
                     <ThemedView className={'w-full flex flex-col gap-3'}>
-                        <ThemedText type={"title"}>
+                        <ThemedText type={"h1"}>
                             Pourquoi Rodin ?
                         </ThemedText>
                         <ThemedText type={"default"}>
