@@ -33,7 +33,7 @@ export default function Page() {
                         />
 
                         <ThemedText type={'title'} className={'text-center'}>
-                            Aide
+                            Confidentialité
                         </ThemedText>
 
                         <HeaderSpacer/>

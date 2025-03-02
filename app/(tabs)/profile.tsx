@@ -8,6 +8,7 @@ import ThemedListTile from "@/components/base/ThemedListTile";
 import {ThemedButton} from "@/components/base/ThemedButton";
 import LucideIcon from "@/components/base/LucideIcon";
 import {useRouter} from "expo-router";
+import {AppNameTag} from "@/components/AppNameTag";
 
 export default function Page() {
     const router = useRouter();
@@ -22,7 +23,7 @@ export default function Page() {
                 showsVerticalScrollIndicator={false}
             >
                 <SafeAreaView
-                    className={"w-full flex flex-col gap-14 p-6 pt-0"}
+                    className={"w-full h-full flex flex-col gap-14 p-6 pt-0"}
                     style={{paddingBottom: insets.bottom + bottomOverflow}}
                 >
                     {/* Name */}
@@ -49,16 +50,19 @@ export default function Page() {
                             icon={'User'}
                             title={'Infos personnelles'}
                             subtitle={'Biographie, ID, Statut, Photo de profil'}
+                            onPress={() => router.push('/profile/personal-data')}
                         />
                         <ThemedListTile
                             icon={"Cookie"}
                             title={'Confidentialité'}
                             subtitle={'Données personnellles, Sécurité, Notifications, Autres services'}
+                            onPress={() => router.push('/profile/privacy')}
                         />
                         <ThemedListTile
                             icon={'SunMoon'}
                             title={'Apparence'}
                             subtitle={'Thème clair, Thème sombre, Thème automatique'}
+                            onPress={() => router.push('/profile/appearance')}
                         />
                         <ThemedListTile
                             icon={"LifeBuoy"}
@@ -75,10 +79,7 @@ export default function Page() {
                     />
 
                     {/* App name & Version */}
-                    <ThemedView className={'w-full flex flex-col justify-center items-center'}>
-                        <ThemedText type={'defaultSemiBold'}>Rodin</ThemedText>
-                        <ThemedText type={'mini'} className={"opacity-50"}>Version 1.0.0</ThemedText>
-                    </ThemedView>
+                    <AppNameTag/>
                 </SafeAreaView>
             </ScrollView>
         </ThemedView>

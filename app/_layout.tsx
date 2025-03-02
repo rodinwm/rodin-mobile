@@ -10,6 +10,7 @@ import './app.css';
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
+import Routes from "@/app/routes";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync().then();
@@ -41,10 +42,13 @@ export default function RootLayout() {
             <SafeAreaProvider>
                 <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
                     <Stack>
-                        <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
-                        <Stack.Screen name="timer/index" options={{headerShown: false}}/>
-                        <Stack.Screen name="timer/request-exercise-before" options={{headerShown: false}}/>
-                        <Stack.Screen name="profile/help" options={{headerShown: false}}/>
+                        {Routes.map((route) => (
+                            <Stack.Screen
+                                key={route}
+                                name={route}
+                                options={{headerShown: false}}
+                            />
+                        ))}
                         <Stack.Screen name="+not-found"/>
                     </Stack>
                     <StatusBar style="auto"/>
