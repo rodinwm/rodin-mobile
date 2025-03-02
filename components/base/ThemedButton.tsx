@@ -12,6 +12,7 @@ export type ThemedButtonProps = ButtonProps & {
     showTitle?: boolean;
     fullWidth?: boolean;
     fullHeight?: boolean;
+    className?: string;
     radiusStyle?: "default" | "full" | "left-only" | "right-only" | "none";
     type?: 'default' | 'outlined' | 'danger' | 'success';
 };
@@ -19,6 +20,7 @@ export type ThemedButtonProps = ButtonProps & {
 export function ThemedButton({
                                  icon,
                                  title,
+                                 className,
                                  fullWidth,
                                  fullHeight,
                                  showTitle = true,
@@ -30,8 +32,8 @@ export function ThemedButton({
     const classNames: string[] = [
         'flex flex-row gap-2 items-center justify-center border',
         showTitle ? 'px-6 py-3' : 'p-3',
-        fullWidth ? 'w-full flex-1' : 'w-fit',
-        fullHeight ? 'h-full flex-1' : 'h-fit',
+        fullWidth ? 'w-full' : '',
+        fullHeight ? 'h-full' : '',
         radiusStyle === "default" ?
             'rounded-2xl' : radiusStyle === "full" ?
                 'rounded-full' : radiusStyle === "left-only" ?
@@ -42,6 +44,7 @@ export function ThemedButton({
                 'bg-background-dark/10 dark:bg-background-light/10 border-foreground-light/20 dark:border-foreground-dark/20' : type === "danger" ?
                     'bg-red-700 border-red-700' : type === "success" ?
                         'bg-emerald-700 border-emerald-700' : '',
+        className ?? '',
     ];
 
     return (
@@ -54,7 +57,14 @@ export function ThemedButton({
             )}
 
             {showTitle && (
-                <ThemedText type={"defaultSemiBold"} inverseColor={type === "default"}>{title}</ThemedText>
+                <ThemedText
+                    type={"defaultSemiBold"}
+                    filled={type !== "danger"}
+                    className={type === "danger" ? 'text-foreground-dark' : ''}
+                    inverseColor={type === "default"}
+                >
+                    {title}
+                </ThemedText>
             )}
         </TouchableOpacity>
     );

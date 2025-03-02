@@ -67,6 +67,7 @@ export default function Page() {
 
                     <ThemedButton
                         title={"Déconnexion"}
+                        type={"danger"}
                         onPress={() => console.log("Déconnexion")}
                     />
 

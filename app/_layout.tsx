@@ -41,6 +41,7 @@ export default function RootLayout() {
                 <Stack>
                     <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
                     <Stack.Screen name="timer/index" options={{headerShown: false}}/>
+                    <Stack.Screen name="timer/request-exercise-before" options={{headerShown: false}}/>
                     <Stack.Screen name="+not-found"/>
                 </Stack>
                 <StatusBar style="auto"/>

@@ -4,6 +4,7 @@ import {FontWeightEnum} from "@/utils/enums";
 
 export type ThemedTextProps = TextProps & {
     type?: 'mini' | 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+    filled?: boolean;
     inverseColor?: boolean;
     numberOfLines?: number;
 };
@@ -12,6 +13,7 @@ export function ThemedText({
                                className,
                                numberOfLines,
                                type = 'default',
+                               filled = true,
                                inverseColor = false,
                                ...otherProps
                            }: ThemedTextProps
@@ -45,9 +47,11 @@ export function ThemedText({
 
     const classNames: string[] = [
         style[type].fontSize,
-        !inverseColor ?
-            'text-foreground-light dark:text-foreground-dark'
-            : 'text-foreground-dark dark:text-foreground-light',
+        filled ?
+            !inverseColor ?
+                'text-foreground-light dark:text-foreground-dark'
+                : 'text-foreground-dark dark:text-foreground-light'
+            : '',
         className ?? ''
     ];
 

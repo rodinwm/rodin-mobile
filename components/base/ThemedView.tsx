@@ -2,7 +2,7 @@ import {View, type ViewProps} from 'react-native';
 
 export type ThemedViewProps = ViewProps & {
     outlined?: boolean;
-    fillStyle?: "default" | "opacity-15" | "none";
+    fillStyle?: "default" | "opacity-15" | "warning" | "none";
     radiusStyle?: "default" | "full" | "none";
     paddingStyle?: "default" | "asymetric" | "mini" | "none";
 };
@@ -19,7 +19,8 @@ export function ThemedView({
     const classNames: string[] = [
         fillStyle === "default" ?
             'bg-background-light dark:bg-background-dark' : fillStyle === "opacity-15" ?
-                'bg-foreground-light/15 dark:bg-foreground-dark/15' : '',
+                'bg-foreground-light/15 dark:bg-foreground-dark/15' : fillStyle === "warning" ?
+                    'bg-warning-light dark:bg-warning-dark' : '',
         radiusStyle === "default" ?
             'rounded-3xl' : radiusStyle === "full" ?
                 'rounded-full' : '',
