@@ -7,8 +7,10 @@ import {ScrollView} from "react-native";
 import ThemedListTile from "@/components/base/ThemedListTile";
 import {ThemedButton} from "@/components/base/ThemedButton";
 import LucideIcon from "@/components/base/LucideIcon";
+import {useRouter} from "expo-router";
 
 export default function Page() {
+    const router = useRouter();
     const insets = useSafeAreaInsets();
     const bottomOverflow = useBottomTabOverflow();
 
@@ -61,7 +63,8 @@ export default function Page() {
                         <ThemedListTile
                             icon={"LifeBuoy"}
                             title={'Aide'}
-                            subtitle={'Serivce client'}
+                            subtitle={'Serivce client, Guide, Règles générales'}
+                            onPress={() => router.push('/profile/help')}
                         />
                     </ThemedView>
 

@@ -11,8 +11,8 @@ export type ThemedBottomSheetProps = {
 };
 
 export default function ThemedBottomSheet(props: ThemedBottomSheetProps) {
-    const ref = useRef<BottomSheet>(null);
     const margin = 16;
+    const ref = useRef<BottomSheet>(null);
 
     useEffect(() => {
         if (props.isOpen) {
@@ -28,15 +28,13 @@ export default function ThemedBottomSheet(props: ThemedBottomSheetProps) {
             <Pressable
                 className={props.isOpen ? '' : 'hidden'}
                 onPress={props.onClose}
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                }}
+                style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}
             >
-                <BlurView intensity={50} tint="dark" style={{flex: 1}}/>
+                <BlurView
+                    intensity={50}
+                    tint="dark"
+                    className={'flex-1'}
+                />
             </Pressable>
 
             {/* Bottom sheet */}
@@ -66,6 +64,7 @@ export default function ThemedBottomSheet(props: ThemedBottomSheetProps) {
                         fillStyle={"default"}
                         radiusStyle={"big"}
                         outlined={true}
+                        className={'shadow-xl'}
                     />
                 )}
             >
