@@ -1,6 +1,6 @@
 import {ThemedText} from '@/components/base/ThemedText';
 import {ThemedView} from '@/components/base/ThemedView';
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import LucideIcon from "@/components/base/LucideIcon";
 import {ThemedButton} from "@/components/base/ThemedButton";
@@ -8,6 +8,8 @@ import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {useNavigation, useRouter} from "expo-router";
 import {TimerSelect} from "@/components/TimerSelect";
+import {ThemedBottomSheet} from "@/components/base/ThemedBottomSheet";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 export default function Page() {
     const router = useRouter();
@@ -15,6 +17,7 @@ export default function Page() {
     const [numberOfSessions, setNumberOfSessions] = useState(0);
     const [workTime, setWorkTime] = useState({hour: 0, minute: 0, second: 0});
     const [breakTime, setBreakTime] = useState({hour: 0, minute: 0, second: 0});
+    const bottomSheetRef = useRef<BottomSheet>(null);
 
 
     return (
@@ -45,7 +48,7 @@ export default function Page() {
                             icon={{name: 'Settings'}}
                             showTitle={false}
                             type={"outlined"}
-                            onPress={() => console.log("Profile")}
+                            onPress={() => bottomSheetRef.current?.expand()}
                         />
                     </ThemedView>
 
@@ -145,6 +148,9 @@ export default function Page() {
 
                 </SafeAreaView>
             </KeyboardAwareScrollView>
+
+            {/* Bottom sheet */}
+            <ThemedBottomSheet ref={bottomSheetRef}/>
         </ThemedView>
     );
 }

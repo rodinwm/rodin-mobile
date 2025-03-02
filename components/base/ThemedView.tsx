@@ -20,7 +20,7 @@ export function ThemedView({
         fillStyle === "default" ?
             'bg-background-light dark:bg-background-dark' : fillStyle === "opacity-15" ?
                 'bg-foreground-light/15 dark:bg-foreground-dark/15' : fillStyle === "warning" ?
-                    'bg-warning-light dark:bg-warning-dark' : '',
+                    'bg-background-warning-light dark:bg-background-warning-dark' : '',
         radiusStyle === "default" ?
             'rounded-3xl' : radiusStyle === "full" ?
                 'rounded-full' : '',
