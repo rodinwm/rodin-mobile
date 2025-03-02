@@ -1,16 +1,20 @@
 import {ThemedText} from '@/components/base/ThemedText';
 import {ThemedView} from '@/components/base/ThemedView';
-import {useState} from "react";
+import React, {useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import LucideIcon from "@/components/base/LucideIcon";
 import {ThemedButton} from "@/components/base/ThemedButton";
 import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {useNavigation} from "expo-router";
+import {TimerSelect} from "@/components/TimerSelect";
 
 export default function Page() {
     const navigation = useNavigation();
     const [numberOfSessions, setNumberOfSessions] = useState(0);
+    const [workTime, setWorkTime] = useState({hour: 0, minute: 0, second: 0});
+    const [breakTime, setBreakTime] = useState({hour: 0, minute: 0, second: 0});
+
 
     return (
         <ThemedView className={"w-full h-screen"} fillStyle={"default"}>
@@ -18,6 +22,7 @@ export default function Page() {
                 enableOnAndroid={true}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
             >
                 <SafeAreaView
                     className={"w-full flex flex-col gap-14 p-6 pt-0"}
@@ -28,7 +33,7 @@ export default function Page() {
                             title={"Test"}
                             icon={{name: 'ChevronLeft'}}
                             showTitle={false}
-                            filled={false}
+                            type={"outlined"}
                             onPress={() => navigation.goBack()}
                         />
 
@@ -38,7 +43,7 @@ export default function Page() {
                             title={"Test"}
                             icon={{name: 'Settings'}}
                             showTitle={false}
-                            filled={false}
+                            type={"outlined"}
                             onPress={() => console.log("Profile")}
                         />
                     </ThemedView>
@@ -50,16 +55,7 @@ export default function Page() {
                             <ThemedText type={'defaultSemiBold'}>Temps de travail</ThemedText>
                         </ThemedView>
 
-                        <ThemedView
-                            fillStyle={"opacity-15"}
-                            outlined={true}
-                            radiusStyle={"default"}
-                            paddingStyle={"default"}
-                            className={'w-full flex flex-col items-center gap-3 bg-foreground-light/15 dark:bg-foreground-dark/15'}
-                        >
-                            <LucideIcon name={'Briefcase'} size={150}/>
-                            <ThemedText type={'subtitle'}>Temps de travail</ThemedText>
-                        </ThemedView>
+                        <TimerSelect onChange={(time) => setWorkTime(time)}/>
                     </ThemedView>
 
                     {/* Temps de repos */}
@@ -69,16 +65,7 @@ export default function Page() {
                             <ThemedText type={'defaultSemiBold'}>Temps de repos</ThemedText>
                         </ThemedView>
 
-                        <ThemedView
-                            fillStyle={"opacity-15"}
-                            outlined={true}
-                            radiusStyle={"default"}
-                            paddingStyle={"default"}
-                            className={'w-full flex flex-col items-center gap-3 bg-foreground-light/15 dark:bg-foreground-dark/15'}
-                        >
-                            <LucideIcon name={'OctagonPause'} size={150}/>
-                            <ThemedText type={'subtitle'}>Temps de repos</ThemedText>
-                        </ThemedView>
+                        <TimerSelect onChange={(time) => setBreakTime(time)}/>
                     </ThemedView>
 
                     {/* Nombre de sessions */}
@@ -126,6 +113,30 @@ export default function Page() {
                         </ThemedView>
                     </ThemedView>
 
+
+                    {/* Debug */}
+                    <ThemedText>
+                        Temps de travail: {workTime.hour}h {workTime.minute}m {workTime.second}s
+                    </ThemedText>
+                    <ThemedText>
+                        Temps de repos: {breakTime.hour}h {breakTime.minute}m {breakTime.second}s
+                    </ThemedText>
+
+
+                    <ThemedView className={'w-full flex flex-row items-center gap-3'}>
+                        <ThemedButton
+                            title={"Réinitialiser"}
+                            fullWidth={true}
+                            type={"danger"}
+                            onPress={() => console.log('/timer')}
+                        />
+                        <ThemedButton
+                            title={"Suivant"}
+                            fullWidth={true}
+                            type={"success"}
+                            onPress={() => console.log('/timer')}
+                        />
+                    </ThemedView>
 
                 </SafeAreaView>
             </KeyboardAwareScrollView>

@@ -26,7 +26,7 @@ export default function Page() {
                         title={"Test"}
                         icon={{name: 'Users'}}
                         showTitle={false}
-                        filled={false}
+                        type={"outlined"}
                         onPress={() => console.log("Home")}
                     />
 
@@ -36,7 +36,7 @@ export default function Page() {
                         title={"Test"}
                         icon={{name: 'User'}}
                         showTitle={false}
-                        filled={false}
+                        type={"outlined"}
                         onPress={() => console.log("Profile")}
                     />
                 </ThemedView>
@@ -54,7 +54,7 @@ export default function Page() {
                         outlined={true}
                         radiusStyle={"default"}
                         paddingStyle={"default"}
-                        className={'w-full flex flex-col items-center gap-3 bg-foreground-light/15 dark:bg-foreground-dark/15'}
+                        className={'w-full flex flex-col items-center gap-3'}
                     >
                         <LucideIcon name={'ChartPie'} size={150}/>
                         <ThemedText type={'subtitle'}>Statistiques</ThemedText>

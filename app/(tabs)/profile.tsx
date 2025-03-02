@@ -35,7 +35,7 @@ export default function Page() {
                         fillStyle={"opacity-15"}
                         radiusStyle={"default"}
                         paddingStyle={"default"}
-                        className={'w-full flex flex-col items-center gap-3 bg-foreground-light/15 dark:bg-foreground-dark/15'}
+                        className={'w-full flex flex-col items-center gap-3'}
                     >
                         <LucideIcon name={'Megaphone'} size={150}/>
                         <ThemedText type={'subtitle'}>Publicités</ThemedText>
