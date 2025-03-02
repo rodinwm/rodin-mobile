@@ -1,6 +1,6 @@
 import {ThemedText} from '@/components/base/ThemedText';
 import {ThemedView} from '@/components/base/ThemedView';
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import LucideIcon from "@/components/base/LucideIcon";
 import {ThemedButton} from "@/components/base/ThemedButton";
@@ -8,8 +8,7 @@ import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {useNavigation, useRouter} from "expo-router";
 import {TimerSelect} from "@/components/TimerSelect";
-import {ThemedBottomSheet} from "@/components/base/ThemedBottomSheet";
-import BottomSheet from "@gorhom/bottom-sheet";
+import ThemedBottomSheet from "@/components/base/ThemedBottomSheet";
 
 export default function Page() {
     const router = useRouter();
@@ -17,7 +16,7 @@ export default function Page() {
     const [numberOfSessions, setNumberOfSessions] = useState(0);
     const [workTime, setWorkTime] = useState({hour: 0, minute: 0, second: 0});
     const [breakTime, setBreakTime] = useState({hour: 0, minute: 0, second: 0});
-    const bottomSheetRef = useRef<BottomSheet>(null);
+    const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
 
     return (
@@ -44,11 +43,11 @@ export default function Page() {
                         <ThemedText type={'title'}>Minuteur</ThemedText>
 
                         <ThemedButton
-                            title={"Test"}
+                            title={"Settings"}
                             icon={{name: 'Settings'}}
                             showTitle={false}
                             type={"outlined"}
-                            onPress={() => bottomSheetRef.current?.expand()}
+                            onPress={() => setIsBottomSheetOpen(true)}
                         />
                     </ThemedView>
 
@@ -149,8 +148,12 @@ export default function Page() {
                 </SafeAreaView>
             </KeyboardAwareScrollView>
 
+
             {/* Bottom sheet */}
-            <ThemedBottomSheet ref={bottomSheetRef}>
+            <ThemedBottomSheet
+                isOpen={isBottomSheetOpen}
+                onClose={() => setIsBottomSheetOpen(false)}
+            >
                 <ThemedText type={'title'}>Minuteur par défaut</ThemedText>
 
                 {/* Temps de travail */}

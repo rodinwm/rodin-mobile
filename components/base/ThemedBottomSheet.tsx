@@ -1,29 +1,59 @@
 import BottomSheet, {BottomSheetView} from "@gorhom/bottom-sheet";
-import React, {forwardRef, ReactNode} from "react";
-import {BottomSheetMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
+import React, {ReactNode, useEffect, useRef} from "react";
 import {ThemedView} from "@/components/base/ThemedView";
+import {Pressable} from "react-native";
+import {BlurView} from "expo-blur";
 
 export type ThemedBottomSheetProps = {
+    isOpen: boolean;
     children?: ReactNode;
+    onClose?: () => void;
 };
 
-export const ThemedBottomSheet = forwardRef<BottomSheetMethods, ThemedBottomSheetProps>(
-    (props, ref) => {
-        return (
+export default function ThemedBottomSheet(props: ThemedBottomSheetProps) {
+    const ref = useRef<BottomSheet>(null);
+    const margin = 16;
+
+    useEffect(() => {
+        if (props.isOpen) {
+            ref.current?.expand();
+        } else {
+            ref.current?.close();
+        }
+    }, [props.isOpen]);
+
+    return (
+        <>
+            {/* Flou d'arrière-plan */}
+            <Pressable
+                className={props.isOpen ? '' : 'hidden'}
+                onPress={props.onClose}
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                }}
+            >
+                <BlurView intensity={50} tint="dark" style={{flex: 1}}/>
+            </Pressable>
+
+            {/* Bottom sheet */}
             <BottomSheet
                 ref={ref}
                 index={-1}
                 detached={true}
-                bottomInset={20}
                 enablePanDownToClose={true}
-                style={{marginHorizontal: 16}}
+                bottomInset={margin}
+                onClose={props.onClose}
+                style={{marginHorizontal: margin}}
                 handleComponent={() => (
                     <ThemedView
                         paddingStyle={"mini"}
                         className={'w-full flex items-center justify-center'}
                     >
                         <ThemedView
-                            //outlined={true}
                             radiusStyle={"full"}
                             className={'w-10 h-2'}
                             fillStyle={"opacity-15"}
@@ -43,6 +73,7 @@ export const ThemedBottomSheet = forwardRef<BottomSheetMethods, ThemedBottomShee
                     {props.children}
                 </BottomSheetView>
             </BottomSheet>
-        );
-    }
-);
+        </>
+    );
+
+}
