@@ -16,6 +16,7 @@
       }
     },
     "android": {
+      "package": "com.rod1n.rodinmobile",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
