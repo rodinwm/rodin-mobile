@@ -1,18 +1,16 @@
 import {ThemedText} from '@/components/base/ThemedText';
 import {ThemedView} from '@/components/base/ThemedView';
 import React, {useState} from "react";
-import {SafeAreaView} from "react-native-safe-area-context";
 import LucideIcon from "@/components/base/LucideIcon";
 import {ThemedButton} from "@/components/base/ThemedButton";
 import {ThemedTextInput} from "@/components/base/ThemedTextInput";
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {useNavigation, useRouter} from "expo-router";
+import {useRouter} from "expo-router";
 import {TimerSelect} from "@/components/TimerSelect";
 import ThemedBottomSheet from "@/components/base/ThemedBottomSheet";
+import ScreenTemplate from "@/components/layouts/ScreenTemplate";
 
 export default function Page() {
     const router = useRouter();
-    const navigation = useNavigation();
     const [numberOfSessions, setNumberOfSessions] = useState(0);
     const [workTime, setWorkTime] = useState({hour: 0, minute: 0, second: 0});
     const [breakTime, setBreakTime] = useState({hour: 0, minute: 0, second: 0});
@@ -20,36 +18,18 @@ export default function Page() {
 
 
     return (
-        <ThemedView className={"w-full h-screen"} fillStyle={"default"}>
-            <KeyboardAwareScrollView
-                enableOnAndroid={true}
-                showsHorizontalScrollIndicator={false}
-                showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps="handled"
-            >
-                <SafeAreaView
-                    className={"w-full flex flex-col gap-14 p-6 pt-0"}
+        <ScreenTemplate
+            headerLeftBtn={"backBtn"}
+            headerRightBtn={{
+                icon: 'Settings',
+                onPress: () => setIsBottomSheetOpen(true),
+            }}
+            bottomSheet={(
+                <ThemedBottomSheet
+                    isOpen={isBottomSheetOpen}
+                    onClose={() => setIsBottomSheetOpen(false)}
                 >
-                    {/* Header */}
-                    <ThemedView className={'w-full flex flex-row items-center justify-between'}>
-                        <ThemedButton
-                            title={"Test"}
-                            icon={{name: 'ChevronLeft'}}
-                            showTitle={false}
-                            type={"outlined"}
-                            onPress={() => navigation.goBack()}
-                        />
-
-                        <ThemedText type={'title'}>Minuteur</ThemedText>
-
-                        <ThemedButton
-                            title={"Settings"}
-                            icon={{name: 'Settings'}}
-                            showTitle={false}
-                            type={"outlined"}
-                            onPress={() => setIsBottomSheetOpen(true)}
-                        />
-                    </ThemedView>
+                    <ThemedText type={'title'}>Minuteur par défaut</ThemedText>
 
                     {/* Temps de travail */}
                     <ThemedView className={'w-full flex flex-col gap-3'}>
@@ -70,58 +50,81 @@ export default function Page() {
 
                         <TimerSelect onChange={(time) => setBreakTime(time)}/>
                     </ThemedView>
+                </ThemedBottomSheet>
+            )}
+        >
 
-                    {/* Nombre de sessions */}
-                    <ThemedView className={'w-full flex flex-col gap-3'}>
-                        <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
-                            <LucideIcon name={'CirclePlay'}/>
-                            <ThemedText type={'defaultSemiBold'}>Nombre de sessions</ThemedText>
-                        </ThemedView>
+            {/* Temps de travail */}
+            <ThemedView className={'w-full flex flex-col gap-3'}>
+                <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
+                    <LucideIcon name={'Briefcase'}/>
+                    <ThemedText type={'defaultSemiBold'}>Temps de travail</ThemedText>
+                </ThemedView>
 
-                        <ThemedView
-                            className={'w-full flex flex-row justify-center items-center'}
-                        >
-                            <ThemedButton
-                                title={"Test"}
-                                icon={{name: 'Minus'}}
-                                showTitle={false}
-                                fullWidth={true}
-                                fullHeight={true}
-                                className={'flex-1'}
-                                radiusStyle={"left-only"}
-                                onPress={() => setNumberOfSessions((previous) => previous !== 0 ? previous - 1 : 0)}
-                            />
+                <TimerSelect onChange={(time) => setWorkTime(time)}/>
+            </ThemedView>
 
-                            <ThemedTextInput
-                                value={numberOfSessions.toString()}
-                                readOnly={true}
-                                textAlign={"center"}
-                                className={'flex-1 h-full'}
-                                radiusStyle={"none"}
-                                keyboardType={"number-pad"}
-                                maxLength={2}
-                                bigText={true}
-                                onChangeText={(text) => {
-                                    const parsedNumber = parseInt(text, 10);
-                                    setNumberOfSessions(isNaN(parsedNumber) ? 0 : parsedNumber);
-                                }}
-                            />
+            {/* Temps de repos */}
+            <ThemedView className={'w-full flex flex-col gap-3'}>
+                <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
+                    <LucideIcon name={'OctagonPause'}/>
+                    <ThemedText type={'defaultSemiBold'}>Temps de repos</ThemedText>
+                </ThemedView>
 
-                            <ThemedButton
-                                title={"Test"}
-                                icon={{name: 'Plus'}}
-                                showTitle={false}
-                                fullWidth={true}
-                                fullHeight={true}
-                                className={'flex-1'}
-                                radiusStyle={"right-only"}
-                                onPress={() => setNumberOfSessions((previous) => previous >= 10 ? 10 : previous + 1)}
-                            />
-                        </ThemedView>
-                    </ThemedView>
+                <TimerSelect onChange={(time) => setBreakTime(time)}/>
+            </ThemedView>
+
+            {/* Nombre de sessions */}
+            <ThemedView className={'w-full flex flex-col gap-3'}>
+                <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
+                    <LucideIcon name={'CirclePlay'}/>
+                    <ThemedText type={'defaultSemiBold'}>Nombre de sessions</ThemedText>
+                </ThemedView>
+
+                <ThemedView
+                    className={'w-full flex flex-row justify-center items-center'}
+                >
+                    <ThemedButton
+                        title={"Test"}
+                        icon={{name: 'Minus'}}
+                        showTitle={false}
+                        fullWidth={true}
+                        fullHeight={true}
+                        className={'flex-1'}
+                        radiusStyle={"left-only"}
+                        onPress={() => setNumberOfSessions((previous) => previous !== 0 ? previous - 1 : 0)}
+                    />
+
+                    <ThemedTextInput
+                        value={numberOfSessions.toString()}
+                        readOnly={true}
+                        textAlign={"center"}
+                        className={'flex-1 h-full'}
+                        radiusStyle={"none"}
+                        keyboardType={"number-pad"}
+                        maxLength={2}
+                        bigText={true}
+                        onChangeText={(text) => {
+                            const parsedNumber = parseInt(text, 10);
+                            setNumberOfSessions(isNaN(parsedNumber) ? 0 : parsedNumber);
+                        }}
+                    />
+
+                    <ThemedButton
+                        title={"Test"}
+                        icon={{name: 'Plus'}}
+                        showTitle={false}
+                        fullWidth={true}
+                        fullHeight={true}
+                        className={'flex-1'}
+                        radiusStyle={"right-only"}
+                        onPress={() => setNumberOfSessions((previous) => previous >= 10 ? 10 : previous + 1)}
+                    />
+                </ThemedView>
+            </ThemedView>
 
 
-                    {/* Preview
+            {/* Preview
                     <ThemedView className={'w-full flex flex-col'}>
                         <ThemedText>
                             Temps de travail: {workTime.hour}h {workTime.minute}m {workTime.second}s
@@ -133,52 +136,20 @@ export default function Page() {
                     */}
 
 
-                    <ThemedView className={'w-full flex flex-row gap-3'}>
-                        <ThemedButton
-                            title={"Réinitialiser"}
-                            type={"danger"}
-                            className={'flex-1'}
-                            onPress={() => console.log('/timer')}
-                        />
-                        <ThemedButton
-                            title={"Suivant"}
-                            className={'flex-1'}
-                            onPress={() => router.push('/timer/request-exercise-before')}
-                        />
-                    </ThemedView>
-
-                </SafeAreaView>
-            </KeyboardAwareScrollView>
-
-
-            {/* Bottom sheet */}
-            <ThemedBottomSheet
-                isOpen={isBottomSheetOpen}
-                onClose={() => setIsBottomSheetOpen(false)}
-            >
-                <ThemedText type={'title'}>Minuteur par défaut</ThemedText>
-
-                {/* Temps de travail */}
-                <ThemedView className={'w-full flex flex-col gap-3'}>
-                    <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
-                        <LucideIcon name={'Briefcase'}/>
-                        <ThemedText type={'defaultSemiBold'}>Temps de travail</ThemedText>
-                    </ThemedView>
-
-                    <TimerSelect onChange={(time) => setWorkTime(time)}/>
-                </ThemedView>
-
-                {/* Temps de repos */}
-                <ThemedView className={'w-full flex flex-col gap-3'}>
-                    <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
-                        <LucideIcon name={'OctagonPause'}/>
-                        <ThemedText type={'defaultSemiBold'}>Temps de repos</ThemedText>
-                    </ThemedView>
-
-                    <TimerSelect onChange={(time) => setBreakTime(time)}/>
-                </ThemedView>
-            </ThemedBottomSheet>
-        </ThemedView>
+            <ThemedView className={'w-full flex flex-row gap-3'}>
+                <ThemedButton
+                    title={"Réinitialiser"}
+                    type={"danger"}
+                    className={'flex-1'}
+                    onPress={() => console.log('/timer')}
+                />
+                <ThemedButton
+                    title={"Suivant"}
+                    className={'flex-1'}
+                    onPress={() => router.push('/timer/request-exercise-before')}
+                />
+            </ThemedView>
+        </ScreenTemplate>
     );
 }
 

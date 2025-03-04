@@ -5,9 +5,9 @@ import {ThemedButton} from "@/components/base/ThemedButton";
 import {useBottomTabOverflow} from "@/components/base/TabBarBackground";
 import {SafeAreaView, useSafeAreaInsets} from "react-native-safe-area-context";
 import {useNavigation} from "expo-router";
-import {ScrollView} from 'react-native';
 import {HeaderSpacer} from "@/components/HeaderSpacer";
 import {HeaderBtn} from "@/utils/interfaces";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 interface Props {
     children: ReactNode;
@@ -15,18 +15,23 @@ interface Props {
     takeBottomBarIntoAccount?: boolean;
     headerLeftBtn?: "backBtn" | HeaderBtn;
     headerRightBtn?: HeaderBtn;
+    setHeightToScreenSize?: boolean;
+    bottomSheet?: ReactNode;
 }
 
 export default function ScreenTemplate(props: Props) {
+    const navigation = useNavigation();
 
     return (
         <ThemedView className={"w-full h-screen"} fillStyle={"default"}>
-            <ScrollView
+            <KeyboardAwareScrollView
+                enableOnAndroid={true}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
             >
                 <SafeAreaView
-                    className={"w-full h-full flex flex-col gap-14 p-6 pt-0"}
+                    className={`w-full ${props.setHeightToScreenSize ? 'h-screen justify-between' : 'h-full'} flex flex-col gap-14 p-6 pt-0`}
                     style={props.takeBottomBarIntoAccount ? {
                         paddingBottom: useSafeAreaInsets().bottom + useBottomTabOverflow(),
                     } : null}
@@ -39,7 +44,7 @@ export default function ScreenTemplate(props: Props) {
                                 icon={{name: 'ChevronLeft'}}
                                 showTitle={false}
                                 type={"outlined"}
-                                onPress={() => useNavigation().goBack()}
+                                onPress={() => navigation.goBack()}
                             />
                         ) : props.headerLeftBtn !== undefined ? (
                             <ThemedButton
@@ -74,9 +79,12 @@ export default function ScreenTemplate(props: Props) {
 
                     {/* Children */}
                     {props.children}
-                    
+
                 </SafeAreaView>
-            </ScrollView>
+            </KeyboardAwareScrollView>
+
+            {/* Bottom sheet */}
+            {props.bottomSheet ?? null}
         </ThemedView>
     );
 }
