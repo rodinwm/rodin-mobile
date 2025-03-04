@@ -1,0 +1,78 @@
+name: Sonar analysis
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - release-*
+      - dependabot/*
+
+  #pull_request:
+  #types: [opened, synchronize, reopened]
+
+  workflow_dispatch:
+    inputs:
+      set_branch_analysis_parameters:
+        description: "Set branch analysis parameters for current branch?"
+        required: false
+        default: "no"
+        type: choice
+        options:
+          - "yes"
+          - "no"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sonarcloud:
+    name: SonarCloud Scan
+    runs-on: ubuntu-latest
+
+    # Workflow services
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: db_test
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+        options: '--health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3'
+        ports:
+          - 3306:3306
+
+    # Workflow steps
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js 20 environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Node.js dependencies
+        run: npm i
+
+      - name: Set branch analysis parameters
+        if: ${{ github.event.inputs.set_branch_analysis_parameters == 'yes' }}
+        run: |
+          sed -i "s|sonar.branch.name=.*|sonar.branch.name=${{ github.ref_name }}|g" sonar-project.properties
+
+          # The main branch must not have a target
+          if [ "${{ github.ref_name }}" != "main" ]; then
+            sed -i "s|sonar.branch.target=.*|sonar.branch.target=${{ github.ref_name }}|g" sonar-project.properties
+          fi
+
+          cat sonar-project.properties
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
