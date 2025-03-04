@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<Text
+  className="text-lg text-foreground-light dark:text-foreground-dark "
+  ellipsizeMode="tail"
+  style={
+    {
+      "fontFamily": "FunnelDisplay-Light",
+    }
+  }
+>
+  test
+</Text>
+`;

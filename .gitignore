@@ -39,3 +39,6 @@ app-example
 
 # IntelliJ
 /.idea
+
+# Tests
+/__tests__/coverage

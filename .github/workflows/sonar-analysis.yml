@@ -41,6 +41,9 @@ jobs:
 
       - name: Install Node.js dependencies
         run: npm i
+
+      - name: Run tests suite and generate coverage report
+        run: npm test -- --coverage
         
       - name: Set branch analysis parameters
         if: ${{ github.event.inputs.set_branch_analysis_parameters == 'yes' }}
