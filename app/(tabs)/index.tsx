@@ -23,7 +23,7 @@ export default function Page() {
                 showsVerticalScrollIndicator={false}
             >
                 <SafeAreaView
-                    className={"w-full h-screen flex flex-col justify-between gap-4 p-6 pt-0"}
+                    className={"w-full h-full flex flex-col gap-14 p-6 pt-0"}
                     style={{paddingBottom: insets.bottom + bottomOverflow}}
                 >
                     {/* Header */}

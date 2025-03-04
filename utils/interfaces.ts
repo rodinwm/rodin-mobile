@@ -1,4 +1,5 @@
 import {FlatListProps, StyleProp, TextStyle, ViewStyle} from "react-native";
+import {icons} from "lucide-react-native";
 
 export interface DailyTip {
     text: string;
@@ -10,4 +11,9 @@ export interface WheelStyle {
     containerStyle?: ViewStyle;
     selectedIndicatorStyle?: StyleProp<ViewStyle>;
     flatListProps?: Omit<FlatListProps<string | null>, "data" | "renderItem">;
+}
+
+export interface HeaderBtn {
+    icon: keyof typeof icons;
+    onPress: () => void;
 }
