@@ -112,13 +112,8 @@ export default function Page() {
                                 suffixIcon={(
                                     <ThemedView className={'flex flex-row gap-2'}>
                                         <ThemedButton
-                                            title={"Accept"}
-                                            icon={{name: 'Check'}}
-                                            showTitle={false}
-                                        />
-                                        <ThemedButton
                                             title={"Decline"}
-                                            icon={{name: 'X'}}
+                                            icon={{name: 'Ban'}}
                                             showTitle={false}
                                             type={"outlined"}
                                         />
@@ -127,8 +122,6 @@ export default function Page() {
                             />
                         )}
                     />
-
-
                 </ThemedView>
             </PagerView>
 
