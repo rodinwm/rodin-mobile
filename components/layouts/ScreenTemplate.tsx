@@ -21,6 +21,7 @@ interface Props {
 
 export default function ScreenTemplate(props: Props) {
     const navigation = useNavigation();
+    const insets = useSafeAreaInsets();
 
     return (
         <ThemedView className={"w-full h-screen"} fillStyle={"default"}>
@@ -33,7 +34,7 @@ export default function ScreenTemplate(props: Props) {
                 <SafeAreaView
                     className={`w-full ${props.setHeightToScreenSize ? 'h-screen justify-between' : 'h-full'} flex flex-col gap-14 p-6 pt-0`}
                     style={props.takeBottomBarIntoAccount ? {
-                        paddingBottom: useSafeAreaInsets().bottom + useBottomTabOverflow(),
+                        paddingBottom: insets.bottom + useBottomTabOverflow(),
                     } : null}
                 >
                     {/* Header */}
