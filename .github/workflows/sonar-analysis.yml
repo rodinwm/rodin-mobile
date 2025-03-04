@@ -24,8 +24,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: Build
+  sonarscan:
+    name: SonarCloud Scan
     runs-on: ubuntu-latest
 
     steps:
@@ -41,13 +41,7 @@ jobs:
 
       - name: Install Node.js dependencies
         run: npm i
-
-  scan:
-    name: SonarCloud Scan
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
+        
       - name: Set branch analysis parameters
         if: ${{ github.event.inputs.set_branch_analysis_parameters == 'yes' }}
         run: |
