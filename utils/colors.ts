@@ -13,6 +13,10 @@ export const Colors = {
         warning: {
             light: "#ca8a04",
             dark: "#ca8a04",
-        }
+        },
+        toast: {
+            light: "#F9FAFB",
+            dark: "#181C2C",
+        },
     },
 };

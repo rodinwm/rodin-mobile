@@ -46,7 +46,7 @@ export function ThemedButton({
                 'bg-background-dark/10 dark:bg-background-light/10 border-foreground-light/20 dark:border-foreground-dark/20' : type === "danger" ?
                     'bg-red-700 border-red-700' : type === "success" ?
                         'bg-emerald-700 border-emerald-700' : type === "link" ?
-                            'px-0 py-0 opacity-50' : '',
+                            'px-0 py-0 opacity-50 border-transparent' : '',
         className ?? '',
     ];
 

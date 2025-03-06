@@ -5,6 +5,7 @@ import {ThemedText} from '@/components/base/ThemedText';
 import ScreenTemplate from "@/components/layouts/ScreenTemplate";
 import {AppNameTag} from "@/components/AppNameTag";
 import {ThemedTextInput} from "@/components/base/ThemedTextInput";
+import {Toast} from "toastify-react-native";
 
 export default function Page() {
 
@@ -31,7 +32,10 @@ export default function Page() {
                 />
                 <ThemedButton
                     title={"Réinitialiser"}
-                    onPress={() => console.log('/timer')}
+                    onPress={() => {
+                        Toast.success("Promised is resolved")
+                        Toast.info("Je suis ici")
+                    }}
                 />
             </ThemedView>
 
