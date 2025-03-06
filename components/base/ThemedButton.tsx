@@ -15,7 +15,7 @@ export type ThemedButtonProps = ButtonProps & {
     miniText?: boolean;
     className?: string;
     radiusStyle?: "default" | "full" | "left-only" | "right-only" | "none";
-    type?: 'default' | 'outlined' | 'danger' | 'success';
+    type?: 'default' | 'outlined' | 'danger' | 'success' | 'link';
 };
 
 export function ThemedButton({
@@ -32,8 +32,8 @@ export function ThemedButton({
                              }: ThemedButtonProps
 ) {
     const classNames: string[] = [
-        'flex flex-row gap-2 items-center justify-center border',
-        showTitle ? 'px-6 py-3' : 'p-3',
+        'flex flex-row gap-2 items-center justify-center border p-3',
+        showTitle ? 'px-6 py-3' : '',
         fullWidth ? 'w-full' : '',
         fullHeight ? 'h-full' : '',
         radiusStyle === "default" ?
@@ -45,7 +45,8 @@ export function ThemedButton({
             'bg-background-dark dark:bg-background-light border-foreground-light dark:border-foreground-dark' : type === "outlined" ?
                 'bg-background-dark/10 dark:bg-background-light/10 border-foreground-light/20 dark:border-foreground-dark/20' : type === "danger" ?
                     'bg-red-700 border-red-700' : type === "success" ?
-                        'bg-emerald-700 border-emerald-700' : '',
+                        'bg-emerald-700 border-emerald-700' : type === "link" ?
+                            'px-0 py-0 opacity-50' : '',
         className ?? '',
     ];
 
@@ -55,12 +56,20 @@ export function ThemedButton({
             {...otherProps}
         >
             {icon && (
-                <LucideIcon size={icon.size} name={icon.name} inverseColor={type === "default"}/>
+                <LucideIcon
+                    size={icon.size}
+                    name={icon.name}
+                    inverseColor={type === "default"}
+                />
             )}
 
             {showTitle && (
                 <ThemedText
-                    type={miniText ? "miniBold" : "defaultSemiBold"}
+                    type={
+                        miniText ?
+                            "miniBold" : type === "link" ?
+                                'link' : "defaultSemiBold"
+                    }
                     filled={type !== "danger"}
                     className={type === "danger" ? 'text-foreground-dark' : ''}
                     inverseColor={type === "default"}

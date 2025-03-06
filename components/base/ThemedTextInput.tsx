@@ -1,13 +1,18 @@
 import {TextInput, type TextInputProps} from 'react-native';
 import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
+import {ThemedView} from "@/components/base/ThemedView";
+import {ThemedText} from "@/components/base/ThemedText";
+import React from "react";
 
 export type ThemedViewProps = TextInputProps & {
+    label?: string;
     bigText?: boolean;
     radiusStyle?: "default" | "full" | "left-only" | "right-only" | "none";
 };
 
 export function ThemedTextInput({
+                                    label,
                                     bigText,
                                     className,
                                     maxLength,
@@ -27,11 +32,18 @@ export function ThemedTextInput({
     ];
 
     return (
-        <TextInput
-            className={classNames.join(' ')}
-            placeholderClassName={bigText ? 'text-2xl' : 'text-lg'}
-            style={{fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.Medium)}}
-            {...otherProps}
-        />
+        <ThemedView className={'w-full flex flex-col gap-1'}>
+            {label ? (
+                <ThemedText type={"defaultSemiBold"}>
+                    {label}
+                </ThemedText>
+            ) : null}
+            <TextInput
+                className={classNames.join(' ')}
+                placeholderClassName={bigText ? 'text-2xl' : 'text-lg'}
+                style={{fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.Medium)}}
+                {...otherProps}
+            />
+        </ThemedView>
     );
 }

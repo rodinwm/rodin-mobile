@@ -1,5 +1,9 @@
 const Routes: string[] = [
+    "index",
     "(tabs)",
+    // Auth
+    "auth/login",
+    "auth/forgot-password",
     // Timer
     "timer/index",
     "timer/request-exercise-before",
