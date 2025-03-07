@@ -49,7 +49,7 @@ export default function Page() {
                     <>
                         <ThemedButton
                             title={"Commencer l'aventure"}
-                            onPress={() => console.log('/timer')}
+                            onPress={() => router.push('/auth/onboarding')}
                         />
                         <ThemedButton
                             title={"J'ai déjà un compte"}

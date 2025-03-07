@@ -4,6 +4,7 @@ const Routes: string[] = [
     // Auth
     "auth/login",
     "auth/forgot-password",
+    "auth/onboarding/index",
     // Timer
     "timer/index",
     "timer/request-exercise-before",
