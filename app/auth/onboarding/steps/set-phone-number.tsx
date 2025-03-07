@@ -3,12 +3,9 @@ import React from "react";
 import {ThemedButton} from "@/components/base/ThemedButton";
 import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 import OnboardingStepScreenTemplate from "@/components/layouts/OnboardingStepScreenTemplate";
+import {OnboardingStepScreenProps} from "@/utils/interfaces";
 
-interface Props {
-    onNextPress?: () => void;
-}
-
-export default function SetPhoneNumber(props: Props) {
+export default function SetPhoneNumber(props: OnboardingStepScreenProps) {
 
     return (
         <OnboardingStepScreenTemplate

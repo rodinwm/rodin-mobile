@@ -6,7 +6,7 @@ import ScreenTemplate from "@/components/layouts/ScreenTemplate";
 import {AppNameTag} from "@/components/AppNameTag";
 import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 import {useRouter} from "expo-router";
-import ThemedBottomSheet from "@/components/base/ThemedBottomSheet";
+import MessageSheet from "@/components/layouts/MessageSheet";
 
 export default function Page() {
     const router = useRouter();
@@ -17,38 +17,24 @@ export default function Page() {
             headerLeftBtn={"backBtn"}
             setHeightToScreenSize={true}
             bottomSheet={(
-                <ThemedBottomSheet
+                <MessageSheet
+                    title={"Enregistrer vos informations de connexions ?"}
+                    subtitle={"Pour que vous n’ayez pas à les entrer lors de votre prochaine connexion."}
                     isOpen={isBottomSheetOpen}
                     onClose={() => setIsBottomSheetOpen(false)}
-                >
-                    <ThemedText type={'title'}>
-                        Enregistrer vos informations de connexions ?
-                    </ThemedText>
-
-                    <ThemedText type={'defaultSemiBold'} className={"opacity-50"}>
-                        Pour que vous n’ayez pas à les entrer lors de
-                        votre prochaine connexion.
-                    </ThemedText>
-
-                    <ThemedView className={'w-full flex flex-row gap-3 mt-4'}>
-                        <ThemedButton
-                            title={"Oui"}
-                            className={'flex-1'}
-                            onPress={() => {
-                                router.replace('/(tabs)');
-                            }}
-                        />
-                        <ThemedButton
-                            title={"Plus tard"}
-                            className={'flex-1'}
-                            type={"outlined"}
-                            onPress={() => {
-                                router.replace('/(tabs)');
-                            }}
-                        />
-                    </ThemedView>
-
-                </ThemedBottomSheet>
+                    confirm={{
+                        text: "Oui",
+                        onPress: () => {
+                            router.push('/(tabs)')
+                        }
+                    }}
+                    cancel={{
+                        text: "Plus tard",
+                        onPress: () => {
+                            router.push('/(tabs)')
+                        }
+                    }}
+                />
             )}
         >
             {/* Logo section */}
@@ -91,7 +77,9 @@ export default function Page() {
                 <ThemedButton
                     title={"S'inscrire"}
                     type={"outlined"}
-                    onPress={() => console.log('/timer')}
+                    onPress={() => {
+                        router.replace('/auth/onboarding')
+                    }}
                 />
             </ThemedView>
 

@@ -31,6 +31,7 @@ export default function ScreenTemplate(props: Props) {
                 showsVerticalScrollIndicator={false}
                 keyboardShouldPersistTaps="handled"
                 contentContainerClassName={'grow'}
+                nestedScrollEnabled={true}
             >
                 <SafeAreaView
                     className={`w-full ${props.setHeightToScreenSize ? 'h-screen justify-between' : 'h-full'} flex flex-col gap-14 p-6 pt-0`}

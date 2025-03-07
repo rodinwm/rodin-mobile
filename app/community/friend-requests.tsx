@@ -88,8 +88,6 @@ export default function Page() {
                             />
                         )}
                     />
-
-
                 </ThemedView>
 
                 <ThemedView key="2" className={'w-full flex flex-col gap-2'}>

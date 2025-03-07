@@ -8,9 +8,16 @@ interface Props {
     subtitle?: string;
     onNextPress?: () => void;
     children?: ReactNode;
+    addSpaceAtTheBottom?: boolean;
 }
 
-export default function OnboardingStepScreenTemplate(props: Props) {
+export default function OnboardingStepScreenTemplate({
+                                                         title,
+                                                         subtitle,
+                                                         children,
+                                                         addSpaceAtTheBottom = true
+                                                     }: Props
+) {
 
     return (
         <ThemedView
@@ -18,18 +25,18 @@ export default function OnboardingStepScreenTemplate(props: Props) {
         >
             <ThemedView className={'w-full flex flex-col justify-center items-center'}>
                 <ThemedText type={"title"} className={'text-center'}>
-                    {props.title}
+                    {title}
                 </ThemedText>
-                {props.subtitle && (
+                {subtitle && (
                     <ThemedText type={'mini'} className={"text-center opacity-50"}>
-                        {props.subtitle}
+                        {subtitle}
                     </ThemedText>
                 )}
             </ThemedView>
 
-            {props.children}
+            {children}
 
-            <View/>
+            {addSpaceAtTheBottom ? <View/> : null}
         </ThemedView>
     );
 }

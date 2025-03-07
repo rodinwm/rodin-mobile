@@ -17,3 +17,7 @@ export interface HeaderBtn {
     icon: keyof typeof icons;
     onPress: () => void;
 }
+
+export interface OnboardingStepScreenProps {
+    onNextPress?: () => void;
+}
