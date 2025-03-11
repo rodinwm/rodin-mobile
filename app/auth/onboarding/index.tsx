@@ -8,6 +8,11 @@ import SetPassword from "@/app/auth/onboarding/steps/set-password";
 import MessageSheet from "@/components/layouts/MessageSheet";
 import {useRouter} from "expo-router";
 import ReadCGU from "@/app/auth/onboarding/steps/read-cgu";
+import SetDefaultTimer from "@/app/auth/onboarding/steps/set-default-timer";
+import SetExerciseFrequency from "@/app/auth/onboarding/steps/set-exercise-frequency";
+import SetEmergencyCode from "@/app/auth/onboarding/steps/set-emergency-code";
+import SetAgeRange from "@/app/auth/onboarding/steps/set-age-range";
+import SetProfession from "@/app/auth/onboarding/steps/set-profession";
 
 export default function Page() {
     const pagerRef = useRef<PagerView | null>(null);
@@ -35,7 +40,6 @@ export default function Page() {
                     isOpen={isBottomSheetOpen}
                     onClose={() => {
                         setIsBottomSheetOpen(false);
-                        goToNextStep();
                     }}
                     confirm={{
                         text: "Oui",
@@ -85,6 +89,26 @@ export default function Page() {
                 <ReadCGU
                     key={"5"}
                     onNextPress={goToNextStep}
+                />
+                <SetDefaultTimer
+                    key={"6"}
+                    onNextPress={goToNextStep}
+                />
+                <SetExerciseFrequency
+                    key={"7"}
+                    onNextPress={goToNextStep}
+                />
+                <SetEmergencyCode
+                    key={"8"}
+                    onNextPress={goToNextStep}
+                />
+                <SetAgeRange
+                    key={"9"}
+                    onNextPress={goToNextStep}
+                />
+                <SetProfession
+                    key={"10"}
+                    onNextPress={() => router.push('/auth/onboarding/finish')}
                 />
             </PagerView>
 

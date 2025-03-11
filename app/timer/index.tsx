@@ -82,14 +82,12 @@ export default function Page() {
                 </ThemedView>
 
                 <ThemedView
-                    className={'w-full flex flex-row justify-center items-center'}
+                    className={'w-full flex flex-row justify-center'}
                 >
                     <ThemedButton
                         title={"Test"}
                         icon={{name: 'Minus'}}
                         showTitle={false}
-                        fullWidth={true}
-                        fullHeight={true}
                         className={'flex-1'}
                         radiusStyle={"left-only"}
                         onPress={() => setNumberOfSessions((previous) => previous !== 0 ? previous - 1 : 0)}
@@ -99,11 +97,11 @@ export default function Page() {
                         value={numberOfSessions.toString()}
                         readOnly={true}
                         textAlign={"center"}
-                        className={'flex-1 h-full'}
                         radiusStyle={"none"}
                         keyboardType={"number-pad"}
                         maxLength={2}
                         bigText={true}
+                        containerClassName={'flex-1'}
                         onChangeText={(text) => {
                             const parsedNumber = parseInt(text, 10);
                             setNumberOfSessions(isNaN(parsedNumber) ? 0 : parsedNumber);
@@ -114,8 +112,6 @@ export default function Page() {
                         title={"Test"}
                         icon={{name: 'Plus'}}
                         showTitle={false}
-                        fullWidth={true}
-                        fullHeight={true}
                         className={'flex-1'}
                         radiusStyle={"right-only"}
                         onPress={() => setNumberOfSessions((previous) => previous >= 10 ? 10 : previous + 1)}

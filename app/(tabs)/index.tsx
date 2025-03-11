@@ -1,14 +1,19 @@
 import {ThemedText} from '@/components/base/ThemedText';
 import {ThemedView} from '@/components/base/ThemedView';
-import React from "react";
+import React, {useState} from "react";
 import {ThemedButton} from "@/components/base/ThemedButton";
 import LucideIcon from "@/components/base/LucideIcon";
 import {dailyTips} from "@/assets/static/daily-tips";
 import {useRouter} from "expo-router";
 import ScreenTemplate from "@/components/layouts/ScreenTemplate";
+import MessageSheet from "@/components/layouts/MessageSheet";
+import {AlertCard} from "@/components/AlertCard";
+import {DateHelper} from "@/utils/helpers/dateHelper";
 
 export default function Page() {
+    const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
     const router = useRouter();
+    const tipOfTheDay = dailyTips[new Date().getDate() % dailyTips.length].text;
 
     return (
         <ScreenTemplate
@@ -19,6 +24,17 @@ export default function Page() {
                 icon: "Users",
                 onPress: () => router.push('/community')
             }}
+            bottomSheet={(
+                <MessageSheet
+                    title={`Conseil du ${DateHelper.formatDate(new Date())}`}
+                    subtitle={tipOfTheDay}
+                    isOpen={isBottomSheetOpen}
+                    takeBottomBarIntoAccount={true}
+                    onClose={() => {
+                        setIsBottomSheetOpen(false)
+                    }}
+                />
+            )}
         >
             {/* Stats texts */}
             <ThemedView className={'w-full flex flex-col'}>
@@ -46,18 +62,12 @@ export default function Page() {
             </ThemedView>
 
             {/* Conseils */}
-            <ThemedView
-                fillStyle={"opacity-15"}
-                outlined={true}
-                radiusStyle={"default"}
-                paddingStyle={"asymetric"}
-                className={'w-full flex flex-col items-center gap-2'}
-            >
-                <ThemedText type={'subtitle'}>Conseil du jour</ThemedText>
-                <ThemedText type={'mini'} className={'w-full text-center'}>
-                    {dailyTips[0].text}
-                </ThemedText>
-            </ThemedView>
+            <AlertCard
+                icon={"Info"}
+                title={"Conseil du jour"}
+                message={tipOfTheDay}
+                onPress={() => setIsBottomSheetOpen(true)}
+            />
         </ScreenTemplate>
     );
 }

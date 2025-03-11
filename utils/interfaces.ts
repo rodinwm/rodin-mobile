@@ -20,4 +20,5 @@ export interface HeaderBtn {
 
 export interface OnboardingStepScreenProps {
     onNextPress?: () => void;
+    onSkip?: () => void;
 }

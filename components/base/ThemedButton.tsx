@@ -25,6 +25,8 @@ export function ThemedButton({
                                  fullWidth,
                                  fullHeight,
                                  miniText,
+                                 disabled,
+                                 //onPress,
                                  showTitle = true,
                                  radiusStyle = "default",
                                  type = "default",
@@ -47,11 +49,13 @@ export function ThemedButton({
                     'bg-red-700 border-red-700' : type === "success" ?
                         'bg-emerald-700 border-emerald-700' : type === "link" ?
                             'px-0 py-0 opacity-50 border-transparent' : '',
+        disabled ? 'opacity-25' : '',
         className ?? '',
     ];
 
     return (
         <TouchableOpacity
+            disabled={disabled}
             className={classNames.join(' ')}
             {...otherProps}
         >

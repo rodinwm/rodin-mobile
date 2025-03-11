@@ -36,6 +36,8 @@ export default function Page() {
 
             {/* Conseils */}
             <AlertCard
+                icon={"TriangleAlert"}
+                type={"warning"}
                 title={"Attention"}
                 message={"Sois prêt à travailler et supprime les distractions autour de toi."}
             />

@@ -1,7 +1,34 @@
 import {DailyTip} from "@/utils/interfaces";
 
 export const dailyTips: DailyTip[] = [
-    {
-        text: "Ceci est un conseil du jour"
-    }
-]
+    {text: "Travaille dans un endroit calme et bien éclairé."},
+    {text: "Utilise un casque anti-bruit ou des boules Quies pour mieux te concentrer."},
+    {text: "Si tu écoutes de la musique, privilégie les musiques sans paroles (bruit blanc, musique classique, etc.)."},
+    {text: "Accorde une importance particulière au sommeil et à l’hydratation."},
+    {text: "Élimine les distractions autour de toi pour optimiser ta productivité."},
+    {text: "Organise-toi à l'avance et engage-toi à terminer une tâche avant d'en commencer une autre."},
+    {text: "Liste tes tâches dans un ordre de priorité pour mieux gérer ton temps."},
+    {text: "N’oublie pas de faire une activité physique chaque jour pour rester en forme."},
+    {text: "Coupe tes notifications pour éviter les distractions inutiles."},
+    {text: "Range ton coin de travail pour garder un environnement propre et clair."},
+    {text: "Planifie ta journée du lendemain dès la veille pour être plus efficace."},
+    {text: "Utilise la règle des 5 secondes pour stopper la procrastination : compte 1, 2, 3, 4, 5 et lance-toi !"},
+    {text: "N’ouvre pas de fenêtres inutiles sur ton navigateur pour éviter la dispersion."},
+    {text: "Respire profondément pour mieux mémoriser et améliorer ta concentration."},
+    {text: "Prends des pauses régulières pour aérer ton esprit et éviter la fatigue mentale."},
+    {text: "Teste la technique Pomodoro : 25 minutes de travail, puis 5 minutes de pause."},
+    {text: "Fixe des objectifs clairs et mesurables pour chaque session de travail."},
+    {text: "Évite le multitâche : concentre-toi sur une seule tâche à la fois."},
+    {text: "Fais des micro-pauses pour prévenir la fatigue cognitive."},
+    {text: "Note tes idées spontanées dans un bloc-notes pour éviter qu'elles ne te distraient."},
+    {text: "Démarre ta journée avec une tâche simple et rapide pour te motiver."},
+    {text: "Garde ton espace de travail minimaliste pour éviter la surcharge visuelle."},
+    {text: "Pratique des exercices de respiration ou de méditation pour réduire le stress."},
+    {text: "Utilise Rodin pour optimiser ton temps de travail."},
+    {text: "Apprends à dire non aux interruptions et tâches non essentielles."},
+    {text: "Travaille avec des rappels visuels (post-its, tableaux) pour garder tes objectifs en vue."},
+    {text: "Travaille en mode hors ligne pour éviter les distractions d’internet."},
+    {text: "Change régulièrement de posture ou de position pour stimuler ton énergie et ta concentration."},
+    {text: "Garde une alimentation équilibrée et évite les sucres rapides pour maintenir ton énergie."},
+    {text: "Récompense-toi après avoir accompli une tâche pour rester motivé."}
+];

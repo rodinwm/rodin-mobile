@@ -8,15 +8,16 @@ export interface Props {
     title: string;
     subtitle: string;
     isOpen: boolean;
-    confirm: {
+    confirm?: {
         text: string;
         onPress: () => void;
     }
-    cancel: {
+    cancel?: {
         text: string;
         onPress: () => void;
     }
     onClose: () => void;
+    takeBottomBarIntoAccount?: boolean;
 }
 
 export default function MessageSheet(props: Props) {
@@ -25,6 +26,7 @@ export default function MessageSheet(props: Props) {
         <ThemedBottomSheet
             isOpen={props.isOpen}
             onClose={props.onClose}
+            takeBottomBarIntoAccount={props.takeBottomBarIntoAccount}
         >
             <ThemedText type={'title'}>
                 {props.title}
@@ -34,19 +36,26 @@ export default function MessageSheet(props: Props) {
                 {props.subtitle}
             </ThemedText>
 
-            <ThemedView className={'w-full flex flex-row gap-3 mt-4'}>
-                <ThemedButton
-                    title={props.confirm.text}
-                    className={'flex-1'}
-                    onPress={props.confirm.onPress}
-                />
-                <ThemedButton
-                    title={props.cancel.text}
-                    className={'flex-1'}
-                    type={"outlined"}
-                    onPress={props.cancel.onPress}
-                />
-            </ThemedView>
+            {props.confirm || props.cancel ? (
+                <ThemedView className={'w-full flex flex-row gap-3 mt-4'}>
+                    {props.confirm ? (
+                        <ThemedButton
+                            title={props.confirm.text}
+                            className={'flex-1'}
+                            onPress={props.confirm.onPress}
+                        />
+                    ) : null}
+
+                    {props.cancel ? (
+                        <ThemedButton
+                            title={props.cancel.text}
+                            className={'flex-1'}
+                            type={"outlined"}
+                            onPress={props.cancel.onPress}
+                        />
+                    ) : null}
+                </ThemedView>
+            ) : null}
 
         </ThemedBottomSheet>
     );

@@ -9,6 +9,7 @@ export type ThemedViewProps = TextInputProps & {
     label?: string;
     bigText?: boolean;
     radiusStyle?: "default" | "full" | "left-only" | "right-only" | "none";
+    containerClassName?: string;
 };
 
 export function ThemedTextInput({
@@ -16,12 +17,13 @@ export function ThemedTextInput({
                                     bigText,
                                     className,
                                     maxLength,
+                                    containerClassName,
                                     radiusStyle = "default",
                                     ...otherProps
                                 }: ThemedViewProps
 ) {
     const classNames: string[] = [
-        'font-sans px-6 py-4 border border-foreground-light/20 dark:border-foreground-dark/20 text-foreground-light dark:text-foreground-dark bg-foreground-light/15 dark:bg-foreground-dark/15 ',
+        'font-sans px-6 py-4 border border-foreground-light/20 dark:border-foreground-dark/20 text-foreground-light dark:text-foreground-dark bg-foreground-light/15 dark:bg-foreground-dark/15',
         bigText ? 'text-2xl' : 'text-lg',
         radiusStyle === "default" ?
             'rounded-3xl' : radiusStyle === "full" ?
@@ -32,7 +34,7 @@ export function ThemedTextInput({
     ];
 
     return (
-        <ThemedView className={'w-full flex flex-col gap-1'}>
+        <ThemedView className={`flex flex-col gap-1 ${containerClassName}`}>
             {label ? (
                 <ThemedText type={"defaultSemiBold"}>
                     {label}

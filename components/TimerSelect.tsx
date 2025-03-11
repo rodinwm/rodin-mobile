@@ -8,8 +8,14 @@ import {Colors} from "@/utils/colors";
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
 import {ThemedText} from "@/components/base/ThemedText";
 
-const HOURS = Array.from({length: 24}, (_, index) => index.toString());
-const MINUTES = Array.from({length: 60}, (_, index) => index.toString());
+const HOURS = Array.from({length: 24}, (_, index) => {
+    const hour = index.toString();
+    return hour.length === 2 ? hour : '0' + hour;
+});
+const MINUTES = Array.from({length: 60}, (_, index) => {
+    const minute = index.toString();
+    return minute.length === 2 ? minute : '0' + minute;
+});
 
 interface TimerSelectProps {
     onChange?: (time: { hour: number; minute: number; second: number }) => void;

@@ -3,16 +3,20 @@ import React, {ReactNode, useEffect, useRef} from "react";
 import {ThemedView} from "@/components/base/ThemedView";
 import {Pressable} from "react-native";
 import {BlurView} from "expo-blur";
+import {useBottomTabOverflow} from "@/components/base/TabBarBackground";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 export type ThemedBottomSheetProps = {
     isOpen: boolean;
     children?: ReactNode;
     onClose?: () => void;
+    takeBottomBarIntoAccount?: boolean;
 };
 
 export default function ThemedBottomSheet(props: ThemedBottomSheetProps) {
     const margin = 10;
     const ref = useRef<BottomSheet>(null);
+    const insets = useSafeAreaInsets();
 
     useEffect(() => {
         if (props.isOpen) {
@@ -43,7 +47,7 @@ export default function ThemedBottomSheet(props: ThemedBottomSheetProps) {
                 index={-1}
                 detached={true}
                 enablePanDownToClose={true}
-                bottomInset={margin}
+                bottomInset={margin + (props.takeBottomBarIntoAccount ? insets.bottom + useBottomTabOverflow() : 0)}
                 onClose={props.onClose}
                 style={{marginHorizontal: margin}}
                 handleComponent={() => (

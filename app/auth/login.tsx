@@ -21,7 +21,10 @@ export default function Page() {
                     title={"Enregistrer vos informations de connexions ?"}
                     subtitle={"Pour que vous n’ayez pas à les entrer lors de votre prochaine connexion."}
                     isOpen={isBottomSheetOpen}
-                    onClose={() => setIsBottomSheetOpen(false)}
+                    onClose={() => {
+                        setIsBottomSheetOpen(false)
+                        router.push('/(tabs)')
+                    }}
                     confirm={{
                         text: "Oui",
                         onPress: () => {
