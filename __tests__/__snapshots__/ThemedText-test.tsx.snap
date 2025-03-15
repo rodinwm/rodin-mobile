@@ -2,7 +2,7 @@
 
 exports[`renders correctly 1`] = `
 <Text
-  className="text-lg text-foreground-light dark:text-foreground-dark "
+  className="text-lg text-foreground-light dark:text-foreground-dark  "
   ellipsizeMode="tail"
   style={
     {
