@@ -23,7 +23,7 @@ export default function Page() {
                 <ThemedButton
                     title={"Demandes reçues"}
                     miniText={true}
-                    type={page === 0 ? "default" : "outlined"}
+                    type={page === 0 ? "default" : "no-fill"}
                     className={'flex-1'}
                     onPress={() => {
                         setPage(0);
@@ -32,7 +32,7 @@ export default function Page() {
                 />
                 <ThemedButton
                     title={"Demandes Envoyées"}
-                    type={page === 1 ? "default" : "outlined"}
+                    type={page === 1 ? "default" : "no-fill"}
                     miniText={true}
                     className={'flex-1'}
                     onPress={() => {
@@ -59,7 +59,7 @@ export default function Page() {
                         onRefresh={() => console.log('refresh')}
                         data={Friends}
                         ItemSeparatorComponent={() => (
-                            <ThemedView className={"h-2"}/>
+                            <ThemedView className={"h-5"}/>
                         )}
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
@@ -70,18 +70,20 @@ export default function Page() {
                                 icon={'User'}
                                 title={item.getFullName()}
                                 subtitle={item.username}
+                                fillStyle={"none"}
                                 suffixIcon={(
                                     <ThemedView className={'flex flex-row gap-2'}>
                                         <ThemedButton
                                             title={"Accept"}
                                             icon={{name: 'Check'}}
                                             showTitle={false}
+                                            type={"no-fill"}
                                         />
                                         <ThemedButton
                                             title={"Decline"}
                                             icon={{name: 'X'}}
                                             showTitle={false}
-                                            type={"outlined"}
+                                            type={"no-fill"}
                                         />
                                     </ThemedView>
                                 )}
@@ -96,7 +98,7 @@ export default function Page() {
                         onRefresh={() => console.log('refresh')}
                         data={Friends}
                         ItemSeparatorComponent={() => (
-                            <ThemedView className={"h-2"}/>
+                            <ThemedView className={"h-5"}/>
                         )}
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
@@ -105,6 +107,7 @@ export default function Page() {
                             <ThemedListTile
                                 key={item.username}
                                 icon={'User'}
+                                fillStyle={"none"}
                                 title={item.getFullName()}
                                 subtitle={item.username}
                                 suffixIcon={(
@@ -113,7 +116,7 @@ export default function Page() {
                                             title={"Decline"}
                                             icon={{name: 'Ban'}}
                                             showTitle={false}
-                                            type={"outlined"}
+                                            type={"no-fill"}
                                         />
                                     </ThemedView>
                                 )}

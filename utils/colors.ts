@@ -1,21 +1,25 @@
 export const Colors = {
     foreground: {
-        light: "#020617",
-        dark: "#F9FAFB",
+        /*light: "#020617",
+        dark: "#F9FAFB",*/
+        light: "#000000",
+        dark: "#FFFFFF",
         warning: {
             light: "#fefce8",
             dark: "#422006",
         }
     },
     background: {
-        light: "#F9FAFB",
-        dark: "#020617",
+        /*light: "#F9FAFB",
+        dark: "#020617",*/
+        light: "#FFFFFF",
+        dark: "#000000",
         warning: {
             light: "#ca8a04",
             dark: "#ca8a04",
         },
         toast: {
-            light: "#F9FAFB",
+            light: "#FFFFFF",
             dark: "#181C2C",
         },
     },

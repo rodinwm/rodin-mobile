@@ -5,6 +5,7 @@ import {ThemedText} from '@/components/base/ThemedText';
 import LucideIcon from "@/components/base/LucideIcon";
 import {AlertCard} from "@/components/AlertCard";
 import ScreenTemplate from "@/components/layouts/ScreenTemplate";
+import {Toast} from "toastify-react-native";
 
 export default function Page() {
 
@@ -15,8 +16,8 @@ export default function Page() {
         >
             {/* Message */}
             <ThemedView className={'w-full flex flex-col gap-3 justify-center items-center'}>
-                <LucideIcon name={'Dice5'} size={150}/>
-                <ThemedText type={'title'} className={"text-center"}>
+                <LucideIcon name={'Brain'} size={100}/>
+                <ThemedText type={'subtitle'} className={"text-center"}>
                     Souhaites-tu un exercice de concentration avant de commencer ?
                 </ThemedText>
             </ThemedView>
@@ -25,12 +26,16 @@ export default function Page() {
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedButton
                     title={"Oui"}
-                    onPress={() => console.log('/timer')}
+                    onPress={() => {
+                        Toast.success("Promised is resolved")
+                    }}
                 />
                 <ThemedButton
                     title={"Non"}
                     type={"outlined"}
-                    onPress={() => console.log('/timer')}
+                    onPress={() => {
+                        Toast.info("Je suis ici")
+                    }}
                 />
             </ThemedView>
 

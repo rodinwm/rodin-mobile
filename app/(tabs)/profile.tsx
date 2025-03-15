@@ -39,7 +39,7 @@ export default function Page() {
             </ThemedView>
 
             {/* Options */}
-            <ThemedView className={'w-full flex flex-col gap-2'}>
+            <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedListTile
                     icon={'User'}
                     title={'Infos personnelles'}
@@ -68,7 +68,8 @@ export default function Page() {
 
             <ThemedButton
                 title={"Déconnexion"}
-                type={"danger"}
+                type={"no-fill"}
+                icon={{name: 'LogOut'}}
                 onPress={() => console.log("Déconnexion")}
             />
 

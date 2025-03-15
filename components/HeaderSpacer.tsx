@@ -4,7 +4,7 @@ import LucideIcon from "@/components/base/LucideIcon";
 
 export function HeaderSpacer() {
     return (
-        <ThemedView paddingStyle={'mini'} className={'opacity-0'}>
+        <ThemedView paddingStyle={'none'} className={'opacity-0'}>
             <LucideIcon name={"ChevronLeft"}/>
         </ThemedView>
     );

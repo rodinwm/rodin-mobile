@@ -23,7 +23,7 @@ export function ThemedTextInput({
                                 }: ThemedViewProps
 ) {
     const classNames: string[] = [
-        'font-sans px-6 py-4 border border-foreground-light/20 dark:border-foreground-dark/20 text-foreground-light dark:text-foreground-dark bg-foreground-light/15 dark:bg-foreground-dark/15',
+        'font-sans px-6 py-4 border border-foreground-light/10 dark:border-foreground-dark/10 text-foreground-light dark:text-foreground-dark bg-foreground-light/5 dark:bg-foreground-dark/5',
         bigText ? 'text-2xl' : 'text-lg',
         radiusStyle === "default" ?
             'rounded-3xl' : radiusStyle === "full" ?

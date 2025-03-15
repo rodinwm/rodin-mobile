@@ -10,14 +10,16 @@ export type ThemedListTileProps = ButtonProps & {
     icon?: keyof typeof icons;
     suffixIcon?: keyof typeof icons | ReactNode | null;
     fillStyle?: "default" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
+    hasPadding?: boolean;
 };
 
 export default function ThemedListTile({
                                            icon,
                                            title,
                                            subtitle,
+                                           hasPadding,
                                            suffixIcon = 'ChevronRight',
-                                           fillStyle = "opacity-15",
+                                           fillStyle = "none",
                                            ...otherProps
                                        }: ThemedListTileProps
 ) {
@@ -26,25 +28,29 @@ export default function ThemedListTile({
             {...otherProps}
         >
             <ThemedView
-                outlined={true}
+                outlined={false}
                 fillStyle={fillStyle}
                 radiusStyle={"default"}
-                paddingStyle={"mini"}
+                paddingStyle={hasPadding ? "mini" : "none"}
                 className={'w-full flex flex-row justify-between items-center gap-2'}
             >
-                <ThemedView className={'h-fit flex flex-row items-center gap-2 flex-1'}>
-                    {icon !== undefined && icon !== null ? (
-                        <ThemedView
-                            fillStyle={fillStyle !== "inversed" ? "inversed" : 'default'}
-                            radiusStyle={'full'}
-                            className={"p-2"}
-                            outlined={true}
-                        >
-                            <LucideIcon name={icon} inverseColor={fillStyle !== "inversed"}/>
-                        </ThemedView>
-                    ) : null}
+                <ThemedView className={'h-fit flex flex-row justify-center items-center gap-4 flex-1'}>
+                    {icon !== undefined && icon !== null ?
+                        fillStyle === "none" ? (
+                            <LucideIcon name={icon}/>
+                        ) : (
+                            <ThemedView
+                                fillStyle={fillStyle !== "inversed" ? "inversed" : 'default'}
+                                radiusStyle={'full'}
+                                className={"p-2"}
+                                outlined={true}
+                            >
+                                <LucideIcon name={icon} inverseColor={fillStyle !== "inversed"}/>
+                            </ThemedView>
+                        )
+                        : null}
 
-                    <ThemedView className={'flex-1'}>
+                    <ThemedView className={'flex-1 flex flex-col justify-center'}>
                         <ThemedText
                             type={'defaultSemiBold'}
                             numberOfLines={2}
@@ -56,6 +62,7 @@ export default function ThemedListTile({
                             <ThemedText
                                 type={'mini'}
                                 inverseColor={fillStyle === "inversed"}
+                                className={"opacity-50"}
                             >
                                 {subtitle}
                             </ThemedText>

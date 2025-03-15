@@ -19,6 +19,7 @@ export default function Page() {
 
     return (
         <ScreenTemplate
+            title={"Minuteurs"}
             headerLeftBtn={"backBtn"}
             headerRightBtn={{
                 icon: 'Settings',
@@ -33,7 +34,7 @@ export default function Page() {
 
                     {/* Temps de travail */}
                     <ThemedView className={'w-full flex flex-col gap-3'}>
-                        <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
+                        <ThemedView className={'w-full flex flex-row items-center gap-2 opacity-50'}>
                             <LucideIcon name={'Briefcase'}/>
                             <ThemedText type={'defaultSemiBold'}>Temps de travail</ThemedText>
                         </ThemedView>
@@ -43,7 +44,7 @@ export default function Page() {
 
                     {/* Temps de repos */}
                     <ThemedView className={'w-full flex flex-col gap-3'}>
-                        <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
+                        <ThemedView className={'w-full flex flex-row items-center gap-2 opacity-50'}>
                             <LucideIcon name={'OctagonPause'}/>
                             <ThemedText type={'defaultSemiBold'}>Temps de repos</ThemedText>
                         </ThemedView>
@@ -56,7 +57,7 @@ export default function Page() {
 
             {/* Temps de travail */}
             <ThemedView className={'w-full flex flex-col gap-3'}>
-                <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
+                <ThemedView className={'w-full flex flex-row items-center gap-2 opacity-50'}>
                     <LucideIcon name={'Briefcase'}/>
                     <ThemedText type={'defaultSemiBold'}>Temps de travail</ThemedText>
                 </ThemedView>
@@ -66,7 +67,7 @@ export default function Page() {
 
             {/* Temps de repos */}
             <ThemedView className={'w-full flex flex-col gap-3'}>
-                <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
+                <ThemedView className={'w-full flex flex-row items-center gap-2 opacity-50'}>
                     <LucideIcon name={'OctagonPause'}/>
                     <ThemedText type={'defaultSemiBold'}>Temps de repos</ThemedText>
                 </ThemedView>
@@ -76,8 +77,8 @@ export default function Page() {
 
             {/* Nombre de sessions */}
             <ThemedView className={'w-full flex flex-col gap-3'}>
-                <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
-                    <LucideIcon name={'CirclePlay'}/>
+                <ThemedView className={'w-full flex flex-row items-center gap-2 opacity-50'}>
+                    <LucideIcon name={'RotateCcw'}/>
                     <ThemedText type={'defaultSemiBold'}>Nombre de sessions</ThemedText>
                 </ThemedView>
 
@@ -138,11 +139,17 @@ export default function Page() {
                     type={"danger"}
                     className={'flex-1'}
                     onPress={() => console.log('/timer')}
+                    icon={{
+                        name: "TimerReset",
+                    }}
                 />
                 <ThemedButton
                     title={"Suivant"}
                     className={'flex-1'}
                     onPress={() => router.push('/timer/request-exercise-before')}
+                    suffixIcon={{
+                        name: "ChevronRight",
+                    }}
                 />
             </ThemedView>
         </ScreenTemplate>

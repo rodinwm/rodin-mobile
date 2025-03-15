@@ -3,7 +3,7 @@ import {ThemedView} from '@/components/base/ThemedView';
 import React from "react";
 import {ThemedButton} from "@/components/base/ThemedButton";
 import {useRouter} from "expo-router";
-import {Platform} from 'react-native';
+import {FlatList, Platform} from 'react-native';
 import ThemedListTile from "@/components/base/ThemedListTile";
 import {Friends} from "@/assets/static/friends";
 import {ThemedTextInput} from "@/components/base/ThemedTextInput";
@@ -36,6 +36,7 @@ export default function Page() {
                     title={"Invite tes amis sur RODIN"}
                     subtitle={"rodin.al/mvxence"}
                     fillStyle={"inversed"}
+                    hasPadding={true}
                     onPress={async (event) => {
                         if (Platform.OS !== 'web') {
                             event.preventDefault();
@@ -46,19 +47,42 @@ export default function Page() {
             </ThemedView>
 
             {/* Friends */}
-            <ThemedView className={'w-full flex flex-col gap-2'}>
+            <ThemedView className={'w-full flex flex-col gap-4'}>
                 <ThemedText type={"h1"}>
                     Mes amis
                 </ThemedText>
-                {Friends.map((friend) => (
-                    <ThemedListTile
-                        key={friend.username}
-                        icon={'User'}
-                        suffixIcon={null}
-                        title={friend.getFullName()}
-                        subtitle={friend.username}
-                    />
-                ))}
+
+                <FlatList
+                    refreshing={false}
+                    onRefresh={() => console.log('refresh')}
+                    data={Friends}
+                    ItemSeparatorComponent={() => (
+                        <ThemedView className={"h-5"}/>
+                    )}
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
+                    keyExtractor={item => item.username}
+                    renderItem={({item}) => (
+                        <ThemedListTile
+                            key={item.username}
+                            icon={'User'}
+                            fillStyle={"none"}
+                            title={item.getFullName()}
+                            subtitle={item.username}
+                            suffixIcon={(
+                                <ThemedView className={'flex flex-row gap-2'}>
+                                    <ThemedButton
+                                        title={"Remove"}
+                                        icon={{name: 'X'}}
+                                        showTitle={false}
+                                        type={"no-fill"}
+                                    />
+                                </ThemedView>
+                            )}
+                        />
+                    )}
+                />
+
                 {/* See more */}
                 <ThemedView className={'w-full mt-4'}>
                     <ThemedButton

@@ -17,6 +17,7 @@ interface Props {
     headerRightBtn?: HeaderBtn;
     setHeightToScreenSize?: boolean;
     bottomSheet?: ReactNode;
+    gap?: "default" | "mini";
 }
 
 export default function ScreenTemplate(props: Props) {
@@ -46,7 +47,7 @@ export default function ScreenTemplate(props: Props) {
                                 title={"Back"}
                                 icon={{name: 'ChevronLeft'}}
                                 showTitle={false}
-                                type={"outlined"}
+                                type={"no-fill"}
                                 onPress={() => navigation.goBack()}
                             />
                         ) : props.headerLeftBtn !== undefined ? (
@@ -54,7 +55,7 @@ export default function ScreenTemplate(props: Props) {
                                 title={"HeaderLeftBtn"}
                                 icon={{name: props.headerLeftBtn.icon}}
                                 showTitle={false}
-                                type={"outlined"}
+                                type={"no-fill"}
                                 onPress={props.headerLeftBtn.onPress}
                             />
                         ) : (
@@ -72,7 +73,7 @@ export default function ScreenTemplate(props: Props) {
                                 title={"HeaderRightBtn"}
                                 icon={{name: props.headerRightBtn.icon}}
                                 showTitle={false}
-                                type={"outlined"}
+                                type={"no-fill"}
                                 onPress={props.headerRightBtn.onPress}
                             />
                         ) : (

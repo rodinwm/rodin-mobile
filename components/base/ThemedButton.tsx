@@ -9,13 +9,17 @@ export type ThemedButtonProps = ButtonProps & {
         name: keyof typeof icons;
         size?: number;
     };
+    suffixIcon?: {
+        name: keyof typeof icons;
+        size?: number;
+    };
     showTitle?: boolean;
     fullWidth?: boolean;
     fullHeight?: boolean;
     miniText?: boolean;
     className?: string;
     radiusStyle?: "default" | "full" | "left-only" | "right-only" | "none";
-    type?: 'default' | 'outlined' | 'danger' | 'success' | 'link';
+    type?: 'default' | 'outlined' | 'danger' | 'success' | 'link' | "no-fill";
 };
 
 export function ThemedButton({
@@ -26,7 +30,7 @@ export function ThemedButton({
                                  fullHeight,
                                  miniText,
                                  disabled,
-                                 //onPress,
+                                 suffixIcon,
                                  showTitle = true,
                                  radiusStyle = "default",
                                  type = "default",
@@ -45,10 +49,11 @@ export function ThemedButton({
                         'rounded-r-2xl' : '',
         type === "default" ?
             'bg-background-dark dark:bg-background-light border-foreground-light dark:border-foreground-dark' : type === "outlined" ?
-                'bg-background-dark/10 dark:bg-background-light/10 border-foreground-light/20 dark:border-foreground-dark/20' : type === "danger" ?
+                'bg-background-dark/5 dark:bg-background-light/5 border-foreground-light/10 dark:border-foreground-dark/10' : type === "danger" ?
                     'bg-red-700 border-red-700' : type === "success" ?
                         'bg-emerald-700 border-emerald-700' : type === "link" ?
-                            'px-0 py-0 opacity-50 border-transparent' : '',
+                            'px-0 py-0 opacity-50 border-transparent' : type === "no-fill" ?
+                                'px-0 py-0 bg-transparent border-transparent' : '',
         disabled ? 'opacity-25' : '',
         className ?? '',
     ];
@@ -80,6 +85,14 @@ export function ThemedButton({
                 >
                     {title}
                 </ThemedText>
+            )}
+
+            {suffixIcon && (
+                <LucideIcon
+                    size={suffixIcon.size}
+                    name={suffixIcon.name}
+                    inverseColor={type === "default"}
+                />
             )}
         </TouchableOpacity>
     );
