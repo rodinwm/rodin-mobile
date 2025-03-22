@@ -72,12 +72,14 @@ export default function Page() {
                                 subtitle={item.username}
                                 fillStyle={"none"}
                                 suffixIcon={(
-                                    <ThemedView className={'flex flex-row gap-2'}>
+                                    <ThemedView className={'flex flex-row gap-3'}>
                                         <ThemedButton
-                                            title={"Accept"}
-                                            icon={{name: 'Check'}}
-                                            showTitle={false}
-                                            type={"no-fill"}
+                                            title={"Accepter"}
+                                            miniText={true}
+                                            type={"opacity-25"}
+                                            //icon={{name: 'Check'}}
+                                            //showTitle={false}
+                                            //type={"no-fill"}
                                         />
                                         <ThemedButton
                                             title={"Decline"}

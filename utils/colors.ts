@@ -14,6 +14,10 @@ export const Colors = {
         dark: "#020617",*/
         light: "#FFFFFF",
         dark: "#000000",
+        success: {
+            light: "#04ca64",
+            dark: "#04ca64",
+        },
         warning: {
             light: "#ca8a04",
             dark: "#ca8a04",

@@ -38,7 +38,7 @@ export function AlertCard({
                     type === "warning" ?
                         'warning' : 'opacity-5'
                 }
-                outlined={true}
+                //outlined={true}
                 radiusStyle={"default"}
                 paddingStyle={"asymetric"}
                 className={'w-full flex flex-col items-center gap-2'}
@@ -61,7 +61,7 @@ export function AlertCard({
                     </ThemedText>
                 </ThemedView>
                 <ThemedText
-                    type={'mini'}
+                    type={'default'}
                     className={`w-full text-center ${textColor}`}
                     filled={false}
                 >

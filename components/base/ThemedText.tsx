@@ -3,7 +3,7 @@ import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
 
 export type ThemedTextProps = TextProps & {
-    type?: 'mini' | 'miniBold' | 'default' | 'title' | 'h1' | 'defaultSemiBold' | 'subtitle' | 'link' | 'logo';
+    type?: 'mini' | 'miniBold' | 'miniExtraBold' | 'default' | 'title' | 'h1' | 'defaultSemiBold' | 'subtitle' | 'link' | 'logo';
     filled?: boolean;
     inverseColor?: boolean;
     numberOfLines?: number;
@@ -26,6 +26,10 @@ export function ThemedText({
         miniBold: {
             fontSize: "text-xs",
             fontWeight: FontWeightEnum.Bold,
+        },
+        miniExtraBold: {
+            fontSize: "text-xs",
+            fontWeight: FontWeightEnum.ExtraBold,
         },
         default: {
             fontSize: "text-lg",

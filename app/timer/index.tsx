@@ -155,16 +155,13 @@ export default function Page() {
                     type={"danger"}
                     className={'flex-1'}
                     onPress={() => console.log('/timer')}
-                    icon={{
-                        name: "TimerReset",
-                    }}
                 />
                 <ThemedButton
                     title={"Suivant"}
-                    className={'flex-1'}
+                    className={'flex-1 justify-around'}
                     onPress={() => router.push('/timer/request-exercise-before')}
                     suffixIcon={{
-                        name: "CircleArrowRight",
+                        name: "ChevronRight",
                     }}
                 />
             </ThemedView>

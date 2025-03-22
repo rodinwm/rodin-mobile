@@ -8,6 +8,7 @@ export type ThemedButtonProps = ButtonProps & {
     icon?: {
         name: keyof typeof icons;
         size?: number;
+        color?: string;
     };
     suffixIcon?: {
         name: keyof typeof icons;
@@ -19,7 +20,7 @@ export type ThemedButtonProps = ButtonProps & {
     miniText?: boolean;
     className?: string;
     radiusStyle?: "default" | "full" | "left-only" | "right-only" | "none";
-    type?: 'default' | 'outlined' | 'danger' | 'success' | 'link' | "no-fill";
+    type?: 'default' | 'outlined' | 'danger' | 'success' | 'link' | "no-fill" | 'opacity-25';
 };
 
 export function ThemedButton({
@@ -31,6 +32,7 @@ export function ThemedButton({
                                  miniText,
                                  disabled,
                                  suffixIcon,
+                                 color,
                                  showTitle = true,
                                  radiusStyle = "default",
                                  type = "default",
@@ -38,8 +40,9 @@ export function ThemedButton({
                              }: ThemedButtonProps
 ) {
     const classNames: string[] = [
-        'flex flex-row gap-2 items-center justify-center border p-3',
-        showTitle ? 'px-6 py-3' : '',
+        'flex flex-row gap-2 items-center border p-3',
+        (icon || suffixIcon) && showTitle ? 'justify-between' : 'justify-center',
+        showTitle ? 'px-3 py-2' : '',  //'px-6 py-3' : '',
         fullWidth ? 'w-full' : '',
         fullHeight ? 'h-full' : '',
         radiusStyle === "default" ?
@@ -49,11 +52,12 @@ export function ThemedButton({
                         'rounded-r-2xl' : '',
         type === "default" ?
             'bg-background-dark dark:bg-background-light border-foreground-light dark:border-foreground-dark' : type === "outlined" ?
-                'bg-background-dark/5 dark:bg-background-light/5 border-foreground-light/10 dark:border-foreground-dark/10' : type === "danger" ?
-                    'bg-red-700 border-red-700' : type === "success" ?
-                        'bg-emerald-700 border-emerald-700' : type === "link" ?
-                            'px-0 py-0 opacity-50 border-transparent' : type === "no-fill" ?
-                                'px-0 py-0 bg-transparent border-transparent' : '',
+                'bg-background-dark/5 dark:bg-background-light/5 border-foreground-light/10 dark:border-foreground-dark/10' : type === "opacity-25" ?
+                    'bg-background-dark/25 dark:bg-background-light/25 border-foreground-light/10 dark:border-foreground-dark/10' : type === "danger" ?
+                        'bg-red-700 border-red-700' : type === "success" ?
+                            'bg-emerald-700 border-emerald-700' : type === "link" ?
+                                'px-0 py-0 opacity-50 border-transparent' : type === "no-fill" ?
+                                    'px-0 py-0 bg-transparent border-transparent' : '',
         disabled ? 'opacity-25' : '',
         className ?? '',
     ];
@@ -67,6 +71,7 @@ export function ThemedButton({
             {icon && (
                 <LucideIcon
                     size={icon.size}
+                    color={icon.color}
                     name={icon.name}
                     inverseColor={type === "default"}
                 />
@@ -76,7 +81,7 @@ export function ThemedButton({
                 <ThemedText
                     type={
                         miniText ?
-                            "miniBold" : type === "link" ?
+                            "miniExtraBold" : type === "link" ?
                                 'link' : "defaultSemiBold"
                     }
                     filled={type !== "danger"}

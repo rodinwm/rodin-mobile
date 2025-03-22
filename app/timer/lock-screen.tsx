@@ -5,6 +5,7 @@ import {ThemedText} from '@/components/base/ThemedText';
 import LucideIcon from "@/components/base/LucideIcon";
 import {AlertCard} from "@/components/AlertCard";
 import ScreenTemplate from "@/components/layouts/ScreenTemplate";
+import {Colors} from "@/utils/colors";
 
 export default function Page() {
     const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes en secondes
@@ -36,19 +37,19 @@ export default function Page() {
         >
             {/* Message */}
             <ThemedView className={'w-full flex flex-col gap-3 justify-center items-center'}>
-                <LucideIcon name={'LockKeyhole'} size={100}/>
-                <ThemedText type={'title'} className={"text-center"}>
+                <LucideIcon name={'LockKeyhole'} size={50} strokeWidth={1}/>
+                <ThemedText type={'h1'} className={"text-center"}>
                     Téléphone verrouillé
                 </ThemedText>
             </ThemedView>
 
 
-            <ThemedView className={'w-full flex flex-col gap-3 justify-center items-center'}>
+            <ThemedView className={'w-full flex flex-col gap-4 justify-center items-center'}>
                 <ThemedText type={'subtitle'} className={"text-center opacity-50"}>
                     Temps de travail
                 </ThemedText>
                 <ThemedView
-                    outlined={true}
+                    //outlined={true}
                     radiusStyle={"default"}
                     paddingStyle={"default"}
                     fillStyle={"opacity-5"}
@@ -59,29 +60,28 @@ export default function Page() {
                     </ThemedText>
                 </ThemedView>
 
-                <ThemedView className={'w-full flex flex-row gap-3 justify-center items-center'}>
+                <ThemedView className={'w-full flex flex-row gap-14 justify-center items-center'}>
                     <ThemedButton
                         title={"Accueil"}
                         icon={{name: 'House'}}
+                        type={"no-fill"}
                         showTitle={false}
-                        type={"outlined"}
-                        onPress={() => {
-                            setTimeLeft(30 * 60);
-                            setIsRunning(false);
-                        }}
                     />
                     <ThemedButton
                         title={isRunning ? "Pause" : "Play"}
-                        icon={{name: isRunning ? 'Pause' : 'Play'}}
+                        icon={{
+                            name: isRunning ? 'Pause' : 'Play',
+                            color: isRunning ? Colors.background.light : Colors.background.success.light,
+                        }}
                         showTitle={false}
-                        type={"outlined"}
+                        type={"no-fill"}
                         onPress={() => setIsRunning(!isRunning)}
                     />
                     <ThemedButton
                         title={"Réinitialiser"}
                         icon={{name: 'RotateCw'}}
                         showTitle={false}
-                        type={"outlined"}
+                        type={"no-fill"}
                         onPress={() => {
                             setTimeLeft(30 * 60);
                             setIsRunning(false);

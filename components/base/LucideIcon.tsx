@@ -9,6 +9,7 @@ interface ComponentProps {
     size?: number,
     className?: string,
     inverseColor?: boolean;
+    strokeWidth?: number;
     style?: StyleProp<ViewStyle>;
 }
 
@@ -25,6 +26,7 @@ export default function LucideIcon(props: ComponentProps) {
         className={`flex-shrink-0 ${props.className}`}
         size={props.size}
         style={props.style}
+        strokeWidth={props.strokeWidth}
         //strokeWidth={2.5}
     />;
 };
