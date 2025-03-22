@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {ThemedView} from "@/components/base/ThemedView";
-import {WheelStyle} from "@/utils/interfaces";
+import {TimerValue, WheelStyle} from "@/utils/interfaces";
 import WheelPicker from "react-native-wheely";
 import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
@@ -18,21 +18,19 @@ const MINUTES = Array.from({length: 60}, (_, index) => {
 });
 
 interface TimerSelectProps {
-    onChange?: (time: { hour: number; minute: number; second: number }) => void;
+    defaultValue?: TimerValue;
+    onChange?: (time: TimerValue) => void;
 }
 
-export function TimerSelect({onChange}: TimerSelectProps) {
-    const [hour, setHour] = useState(0);
-    const [minute, setMinute] = useState(0);
-    const [second, setSecond] = useState(0);
+export function TimerSelect({defaultValue, onChange}: TimerSelectProps) {
+    const [time, setTime] = useState<TimerValue>(defaultValue ?? {hour: 0, minute: 0, second: 0});
     const colorScheme = useColorScheme() ?? 'light';
 
-    const updateTime = (newHour: number, newMinute: number, newSecond: number) => {
-        setHour(newHour);
-        setMinute(newMinute);
-        setSecond(newSecond);
+    const updateTime = (time: TimerValue) => {
+        setTime(time);
+        console.info("New time select =", time)
         if (onChange) {
-            onChange({hour: newHour, minute: newMinute, second: newSecond});
+            onChange(time);
         }
     };
 
@@ -75,35 +73,35 @@ export function TimerSelect({onChange}: TimerSelectProps) {
             <ThemedView className={'flex flex-row items-center gap-2 px-2'}>
                 <WheelPicker
                     options={HOURS}
-                    selectedIndex={hour}
+                    selectedIndex={time.hour}
                     visibleRest={wheelStyle.visibleRest}
                     itemTextStyle={wheelStyle.itemTextStyle}
                     flatListProps={wheelStyle.flatListProps}
                     containerStyle={wheelStyle.containerStyle}
                     selectedIndicatorStyle={wheelStyle.selectedIndicatorStyle}
-                    onChange={(value) => updateTime(value, minute, second)}
+                    onChange={(hour) => updateTime({...time, hour})}
                 />
 
                 <WheelPicker
                     options={MINUTES}
-                    selectedIndex={minute}
+                    selectedIndex={time.minute}
                     visibleRest={wheelStyle.visibleRest}
                     itemTextStyle={wheelStyle.itemTextStyle}
                     flatListProps={wheelStyle.flatListProps}
                     containerStyle={wheelStyle.containerStyle}
                     selectedIndicatorStyle={wheelStyle.selectedIndicatorStyle}
-                    onChange={(value) => updateTime(hour, value, second)}
+                    onChange={(minute) => updateTime({...time, minute})}
                 />
 
                 <WheelPicker
                     options={MINUTES}
-                    selectedIndex={second}
+                    selectedIndex={time.second}
                     visibleRest={wheelStyle.visibleRest}
                     itemTextStyle={wheelStyle.itemTextStyle}
                     flatListProps={wheelStyle.flatListProps}
                     containerStyle={wheelStyle.containerStyle}
                     selectedIndicatorStyle={wheelStyle.selectedIndicatorStyle}
-                    onChange={(value) => updateTime(hour, minute, value)}
+                    onChange={(second) => updateTime({...time, second})}
                 />
             </ThemedView>
         </ThemedView>

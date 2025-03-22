@@ -8,12 +8,16 @@ import {useRouter} from "expo-router";
 import {TimerSelect} from "@/components/TimerSelect";
 import ThemedBottomSheet from "@/components/base/ThemedBottomSheet";
 import ScreenTemplate from "@/components/layouts/ScreenTemplate";
+import {TimerValue} from "@/utils/interfaces";
+
+const defaultWorkTime: TimerValue = {hour: 0, minute: 30, second: 0};
+const defaultBreakTime: TimerValue = {hour: 0, minute: 10, second: 0};
 
 export default function Page() {
     const router = useRouter();
     const [numberOfSessions, setNumberOfSessions] = useState(0);
-    const [workTime, setWorkTime] = useState({hour: 0, minute: 0, second: 0});
-    const [breakTime, setBreakTime] = useState({hour: 0, minute: 0, second: 0});
+    const [workTime, setWorkTime] = useState<TimerValue>(defaultWorkTime);
+    const [breakTime, setBreakTime] = useState<TimerValue>(defaultBreakTime);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
 
@@ -39,7 +43,10 @@ export default function Page() {
                             <ThemedText type={'defaultSemiBold'}>Temps de travail</ThemedText>
                         </ThemedView>
 
-                        <TimerSelect onChange={(time) => setWorkTime(time)}/>
+                        <TimerSelect
+                            defaultValue={defaultWorkTime}
+                            onChange={(time: TimerValue) => setWorkTime(time)}
+                        />
                     </ThemedView>
 
                     {/* Temps de repos */}
@@ -49,7 +56,10 @@ export default function Page() {
                             <ThemedText type={'defaultSemiBold'}>Temps de repos</ThemedText>
                         </ThemedView>
 
-                        <TimerSelect onChange={(time) => setBreakTime(time)}/>
+                        <TimerSelect
+                            defaultValue={defaultBreakTime}
+                            onChange={(time: TimerValue) => setBreakTime(time)}
+                        />
                     </ThemedView>
                 </ThemedBottomSheet>
             )}
@@ -62,7 +72,10 @@ export default function Page() {
                     <ThemedText type={'defaultSemiBold'}>Temps de travail</ThemedText>
                 </ThemedView>
 
-                <TimerSelect onChange={(time) => setWorkTime(time)}/>
+                <TimerSelect
+                    //defaultValue={defaultWorkTime}
+                    onChange={(time: TimerValue) => setWorkTime(time)}
+                />
             </ThemedView>
 
             {/* Temps de repos */}
@@ -72,7 +85,10 @@ export default function Page() {
                     <ThemedText type={'defaultSemiBold'}>Temps de repos</ThemedText>
                 </ThemedView>
 
-                <TimerSelect onChange={(time) => setBreakTime(time)}/>
+                <TimerSelect
+                    //defaultValue={defaultBreakTime}
+                    onChange={(time: TimerValue) => setBreakTime(time)}
+                />
             </ThemedView>
 
             {/* Nombre de sessions */}
@@ -148,7 +164,7 @@ export default function Page() {
                     className={'flex-1'}
                     onPress={() => router.push('/timer/request-exercise-before')}
                     suffixIcon={{
-                        name: "ChevronRight",
+                        name: "CircleArrowRight",
                     }}
                 />
             </ThemedView>

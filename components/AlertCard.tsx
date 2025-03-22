@@ -35,9 +35,8 @@ export function AlertCard({
         >
             <ThemedView
                 fillStyle={
-                    type === "default" ?
-                        'opacity-15' : type === "warning" ?
-                            "warning" : 'default'
+                    type === "warning" ?
+                        'warning' : 'opacity-5'
                 }
                 outlined={true}
                 radiusStyle={"default"}

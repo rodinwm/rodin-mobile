@@ -22,3 +22,9 @@ export interface OnboardingStepScreenProps {
     onNextPress?: () => void;
     onSkip?: () => void;
 }
+
+export interface TimerValue {
+    hour: number;
+    minute: number;
+    second: number;
+}

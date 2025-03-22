@@ -2,7 +2,7 @@ import {View, type ViewProps} from 'react-native';
 
 export type ThemedViewProps = ViewProps & {
     outlined?: boolean;
-    fillStyle?: "default" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
+    fillStyle?: "default" | "opacity-5" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
     radiusStyle?: "default" | "full" | "big" | "none";
     paddingStyle?: "default" | "asymetric" | "mini" | "none";
 };
@@ -20,9 +20,10 @@ export function ThemedView({
         fillStyle === "default" ?
             'bg-background-light dark:bg-background-dark' : fillStyle === "opacity-50" ?
                 'bg-foreground-light/50 dark:bg-foreground-dark/50 backdrop-blur-md' : fillStyle === "opacity-15" ?
-                    'bg-foreground-light/15 dark:bg-foreground-dark/15 backdrop-blur-md' : fillStyle === "inversed" ?
-                        'bg-background-dark dark:bg-background-light' : fillStyle === "warning" ?
-                            'bg-background-warning-light dark:bg-background-warning-dark' : '',
+                    'bg-foreground-light/15 dark:bg-foreground-dark/15 backdrop-blur-md' : fillStyle === "opacity-5" ?
+                        'bg-foreground-light/5 dark:bg-foreground-dark/5 backdrop-blur-md' : fillStyle === "inversed" ?
+                            'bg-background-dark dark:bg-background-light' : fillStyle === "warning" ?
+                                'bg-background-warning-light dark:bg-background-warning-dark' : '',
         radiusStyle === "default" ?
             'rounded-3xl' : radiusStyle === "full" ?
                 'rounded-full' : radiusStyle === "big" ?

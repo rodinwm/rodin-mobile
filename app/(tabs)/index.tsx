@@ -45,7 +45,7 @@ export default function Page() {
             {/* Stats texts */}
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedView
-                    fillStyle={"opacity-15"}
+                    fillStyle={"opacity-5"}
                     outlined={true}
                     radiusStyle={"default"}
                     paddingStyle={"default"}

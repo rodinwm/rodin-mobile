@@ -5,9 +5,10 @@ import {ThemedText} from '@/components/base/ThemedText';
 import LucideIcon from "@/components/base/LucideIcon";
 import {AlertCard} from "@/components/AlertCard";
 import ScreenTemplate from "@/components/layouts/ScreenTemplate";
-import {Toast} from "toastify-react-native";
+import {useRouter} from "expo-router";
 
 export default function Page() {
+    const router = useRouter();
 
     return (
         <ScreenTemplate
@@ -26,16 +27,12 @@ export default function Page() {
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedButton
                     title={"Oui"}
-                    onPress={() => {
-                        Toast.success("Promised is resolved")
-                    }}
+                    onPress={() => router.push('/timer/lock-screen')}
                 />
                 <ThemedButton
                     title={"Non"}
                     type={"outlined"}
-                    onPress={() => {
-                        Toast.info("Je suis ici")
-                    }}
+                    onPress={() => router.push('/timer/lock-screen')}
                 />
             </ThemedView>
 

@@ -9,6 +9,7 @@ const Routes: string[] = [
     // Timer
     "timer/index",
     "timer/request-exercise-before",
+    "timer/lock-screen",
     // Profile
     "profile/appearance",
     "profile/privacy",
