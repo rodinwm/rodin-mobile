@@ -14,6 +14,7 @@ export default function Page() {
         <ScreenTemplate
             headerLeftBtn={"backBtn"}
             setHeightToScreenSize={true}
+            scrollEnabled={false}
         >
             {/* Message */}
             <ThemedView className={'w-full flex flex-col gap-3 justify-center items-center'}>

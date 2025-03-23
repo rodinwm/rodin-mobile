@@ -1,22 +1,30 @@
-import {View, type ViewProps} from 'react-native';
+import {ImageBackground, ImageSourcePropType, View, type ViewProps} from 'react-native';
+import React from "react";
+import BlurredBackground from "@/components/base/BlurredBackground";
 
 export type ThemedViewProps = ViewProps & {
     outlined?: boolean;
     fillStyle?: "default" | "opacity-5" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
     radiusStyle?: "default" | "full" | "big" | "none";
     paddingStyle?: "default" | "asymetric" | "mini" | "none";
+    backgroundImage?: ImageSourcePropType;
+    isBackgroundBlur?: boolean;
 };
 
 export function ThemedView({
+                               children,
                                className,
+                               backgroundImage,
                                outlined = false,
                                fillStyle = "none",
                                radiusStyle = "none",
                                paddingStyle = "none",
+                               isBackgroundBlur = false,
                                ...otherProps
                            }: ThemedViewProps
 ) {
     const classNames: string[] = [
+        'overflow-hidden',
         fillStyle === "default" ?
             'bg-background-light dark:bg-background-dark' : fillStyle === "opacity-50" ?
                 'bg-foreground-light/50 dark:bg-foreground-dark/50 backdrop-blur-md' : fillStyle === "opacity-15" ?
@@ -36,10 +44,25 @@ export function ThemedView({
         className ?? ''
     ];
 
-    return (
+    return backgroundImage ? (
+        <ImageBackground
+            source={backgroundImage}
+            className={classNames.join(' ')}
+            {...otherProps}
+        >
+            <View
+                className={'bg-background-dark/20'}
+                style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}
+            />
+            {children}
+        </ImageBackground>
+    ) : (
         <View
             className={classNames.join(' ')}
             {...otherProps}
-        />
+        >
+            {isBackgroundBlur && <BlurredBackground/>}
+            {children}
+        </View>
     );
 }

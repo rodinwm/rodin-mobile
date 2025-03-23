@@ -23,6 +23,7 @@ export default function Page() {
 
     return (
         <ScreenTemplate
+            scrollEnabled={false}
             title={"Minuteurs"}
             headerLeftBtn={"backBtn"}
             headerRightBtn={{
@@ -158,7 +159,8 @@ export default function Page() {
                 />
                 <ThemedButton
                     title={"Suivant"}
-                    className={'flex-1 justify-around'}
+                    className={'flex-1'}
+                    justifyItems={"justify-between"}
                     onPress={() => router.push('/timer/request-exercise-before')}
                     suffixIcon={{
                         name: "ChevronRight",

@@ -61,6 +61,14 @@ export default function Page() {
                         ItemSeparatorComponent={() => (
                             <ThemedView className={"h-5"}/>
                         )}
+                        ListFooterComponent={() => (
+                            <ThemedView className={'w-full mt-14'}>
+                                <ThemedButton
+                                    title={"Voir plus"}
+                                    onPress={() => console.log("Voir plus")}
+                                />
+                            </ThemedView>
+                        )}
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
                         keyExtractor={item => item.username}
@@ -76,14 +84,13 @@ export default function Page() {
                                         <ThemedButton
                                             title={"Accepter"}
                                             miniText={true}
+                                            paddingStyle={"mini"}
                                             type={"opacity-25"}
-                                            //icon={{name: 'Check'}}
-                                            //showTitle={false}
-                                            //type={"no-fill"}
                                         />
                                         <ThemedButton
                                             title={"Decline"}
                                             icon={{name: 'X'}}
+                                            paddingStyle={"none"}
                                             showTitle={false}
                                             type={"no-fill"}
                                         />
@@ -102,6 +109,14 @@ export default function Page() {
                         ItemSeparatorComponent={() => (
                             <ThemedView className={"h-5"}/>
                         )}
+                        ListFooterComponent={() => (
+                            <ThemedView className={'w-full mt-14'}>
+                                <ThemedButton
+                                    title={"Voir plus"}
+                                    onPress={() => console.log("Voir plus")}
+                                />
+                            </ThemedView>
+                        )}
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
                         keyExtractor={item => item.username}
@@ -117,6 +132,7 @@ export default function Page() {
                                         <ThemedButton
                                             title={"Decline"}
                                             icon={{name: 'Ban'}}
+                                            paddingStyle={"none"}
                                             showTitle={false}
                                             type={"no-fill"}
                                         />
@@ -127,14 +143,6 @@ export default function Page() {
                     />
                 </ThemedView>
             </PagerView>
-
-            {/* See more */}
-            <ThemedView className={'w-full mt-4'}>
-                <ThemedButton
-                    title={"Voir plus"}
-                    onPress={() => console.log("Voir plus")}
-                />
-            </ThemedView>
         </ScreenTemplate>
     );
 }

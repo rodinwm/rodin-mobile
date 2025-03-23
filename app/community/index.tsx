@@ -18,7 +18,7 @@ export default function Page() {
             title={"Communauté"}
             headerLeftBtn={"backBtn"}
             headerRightBtn={{
-                icon: "BookUser",
+                icon: "UserPlus",
                 onPress: () => router.push('/community/friend-requests'),
             }}
         >
@@ -59,6 +59,14 @@ export default function Page() {
                     ItemSeparatorComponent={() => (
                         <ThemedView className={"h-5"}/>
                     )}
+                    ListFooterComponent={() => (
+                        <ThemedView className={'w-full mt-14'}>
+                            <ThemedButton
+                                title={"Voir plus"}
+                                onPress={() => console.log("Voir plus")}
+                            />
+                        </ThemedView>
+                    )}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     keyExtractor={item => item.username}
@@ -74,6 +82,7 @@ export default function Page() {
                                     <ThemedButton
                                         title={"Remove"}
                                         icon={{name: 'X'}}
+                                        paddingStyle={"none"}
                                         showTitle={false}
                                         type={"no-fill"}
                                     />
@@ -82,14 +91,6 @@ export default function Page() {
                         />
                     )}
                 />
-
-                {/* See more */}
-                <ThemedView className={'w-full mt-4'}>
-                    <ThemedButton
-                        title={"Voir plus"}
-                        onPress={() => console.log("Voir plus")}
-                    />
-                </ThemedView>
             </ThemedView>
         </ScreenTemplate>
     );

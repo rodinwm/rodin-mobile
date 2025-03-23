@@ -3,6 +3,7 @@ import {type ButtonProps, TouchableOpacity} from "react-native";
 import React from "react";
 import {ThemedText} from "@/components/base/ThemedText";
 import {icons} from "lucide-react-native";
+import BlurredBackground from "@/components/base/BlurredBackground";
 
 export type ThemedButtonProps = ButtonProps & {
     icon?: {
@@ -20,7 +21,10 @@ export type ThemedButtonProps = ButtonProps & {
     miniText?: boolean;
     className?: string;
     radiusStyle?: "default" | "full" | "left-only" | "right-only" | "none";
+    paddingStyle?: "default" | "mini" | "uniform" | "none";
     type?: 'default' | 'outlined' | 'danger' | 'success' | 'link' | "no-fill" | 'opacity-25';
+    justifyItems?: 'justify-center' | 'justify-between';
+    isBackgroundBlur?: boolean;
 };
 
 export function ThemedButton({
@@ -33,16 +37,23 @@ export function ThemedButton({
                                  disabled,
                                  suffixIcon,
                                  color,
+                                 isBackgroundBlur = false,
                                  showTitle = true,
                                  radiusStyle = "default",
                                  type = "default",
+                                 paddingStyle = "default",
+                                 justifyItems = "justify-center",
                                  ...otherProps
                              }: ThemedButtonProps
 ) {
     const classNames: string[] = [
-        'flex flex-row gap-2 items-center border p-3',
-        (icon || suffixIcon) && showTitle ? 'justify-between' : 'justify-center',
-        showTitle ? 'px-3 py-2' : '',  //'px-6 py-3' : '',
+        'flex flex-row gap-2 items-center border',
+        justifyItems,
+        paddingStyle !== "none" ? 'overflow-hidden' : '',
+        paddingStyle === "default" ?
+            'px-6 py-3' : paddingStyle === "mini" ?
+                'px-3 py-2' : paddingStyle === "uniform" ?
+                    'p-3' : '',
         fullWidth ? 'w-full' : '',
         fullHeight ? 'h-full' : '',
         radiusStyle === "default" ?
@@ -68,6 +79,8 @@ export function ThemedButton({
             className={classNames.join(' ')}
             {...otherProps}
         >
+            {isBackgroundBlur && <BlurredBackground/>}
+
             {icon && (
                 <LucideIcon
                     size={icon.size}

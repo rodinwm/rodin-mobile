@@ -15,7 +15,7 @@ export default function Page() {
             headerLeftBtn={"backBtn"}
         >
             {/* Options */}
-            <ThemedView className={'w-full flex flex-col gap-2'}>
+            <ThemedView className={'w-full flex flex-col gap-6'}>
                 <ThemedListTile
                     icon={'BookOpenText'}
                     title={'Guide'}

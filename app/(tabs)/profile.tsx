@@ -39,7 +39,7 @@ export default function Page() {
             </ThemedView>
 
             {/* Options */}
-            <ThemedView className={'w-full flex flex-col gap-3'}>
+            <ThemedView className={'w-full flex flex-col gap-6'}>
                 <ThemedListTile
                     icon={'User'}
                     title={'Infos personnelles'}

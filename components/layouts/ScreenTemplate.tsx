@@ -8,6 +8,7 @@ import {useNavigation} from "expo-router";
 import {HeaderSpacer} from "@/components/HeaderSpacer";
 import {HeaderBtn} from "@/utils/interfaces";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import {ImageSourcePropType} from "react-native";
 
 interface Props {
     children: ReactNode;
@@ -16,8 +17,10 @@ interface Props {
     headerLeftBtn?: "backBtn" | HeaderBtn;
     headerRightBtn?: HeaderBtn;
     setHeightToScreenSize?: boolean;
+    scrollEnabled?: boolean;
     bottomSheet?: ReactNode;
     gap?: "default" | "mini";
+    backgroundImage?: ImageSourcePropType;
 }
 
 export default function ScreenTemplate(props: Props) {
@@ -25,7 +28,11 @@ export default function ScreenTemplate(props: Props) {
     const insets = useSafeAreaInsets();
 
     return (
-        <ThemedView className={"w-full h-screen"} fillStyle={"default"}>
+        <ThemedView
+            className={"w-full h-screen"}
+            fillStyle={"default"}
+            backgroundImage={props.backgroundImage}
+        >
             <KeyboardAwareScrollView
                 enableOnAndroid={true}
                 showsHorizontalScrollIndicator={false}
@@ -33,6 +40,7 @@ export default function ScreenTemplate(props: Props) {
                 keyboardShouldPersistTaps="handled"
                 contentContainerClassName={'grow'}
                 nestedScrollEnabled={true}
+                scrollEnabled={props.scrollEnabled}
             >
                 <SafeAreaView
                     className={`w-full ${props.setHeightToScreenSize ? 'h-screen justify-between' : 'h-full'} flex flex-col gap-14 p-6 pt-0`}
@@ -47,6 +55,7 @@ export default function ScreenTemplate(props: Props) {
                                 title={"Back"}
                                 icon={{name: 'ChevronLeft'}}
                                 showTitle={false}
+                                paddingStyle={"none"}
                                 type={"no-fill"}
                                 onPress={() => navigation.goBack()}
                             />
@@ -55,6 +64,7 @@ export default function ScreenTemplate(props: Props) {
                                 title={"HeaderLeftBtn"}
                                 icon={{name: props.headerLeftBtn.icon}}
                                 showTitle={false}
+                                paddingStyle={"none"}
                                 type={"no-fill"}
                                 onPress={props.headerLeftBtn.onPress}
                             />
@@ -73,6 +83,7 @@ export default function ScreenTemplate(props: Props) {
                                 title={"HeaderRightBtn"}
                                 icon={{name: props.headerRightBtn.icon}}
                                 showTitle={false}
+                                paddingStyle={"none"}
                                 type={"no-fill"}
                                 onPress={props.headerRightBtn.onPress}
                             />
