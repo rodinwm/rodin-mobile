@@ -7,10 +7,13 @@ import {AppNameTag} from "@/components/AppNameTag";
 import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 import {useRouter} from "expo-router";
 import MessageSheet from "@/components/layouts/MessageSheet";
+import User from "@rodinwm/rodin-models/User";
 
 export default function Page() {
     const router = useRouter();
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+    // Debug
+    const authUser: User = new User({});
 
     return (
         <ScreenTemplate
