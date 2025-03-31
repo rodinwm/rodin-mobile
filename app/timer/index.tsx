@@ -40,7 +40,7 @@ export default function Page() {
                     {/* Temps de travail */}
                     <ThemedView className={'w-full flex flex-col gap-3'}>
                         <ThemedView className={'w-full flex flex-row items-center gap-2 opacity-50'}>
-                            <LucideIcon name={'Briefcase'}/>
+                            <LucideIcon name={'Brain'}/>
                             <ThemedText type={'defaultSemiBold'}>Temps de travail</ThemedText>
                         </ThemedView>
 

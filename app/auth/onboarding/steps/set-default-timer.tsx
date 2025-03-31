@@ -22,7 +22,7 @@ export default function SetDefaultTimer(props: OnboardingStepScreenProps) {
                 {/* Temps de travail */}
                 <ThemedView className={'w-full flex flex-col gap-3'}>
                     <ThemedView className={'w-full flex flex-row items-center gap-3 opacity-60'}>
-                        <LucideIcon name={'Briefcase'}/>
+                        <LucideIcon name={'Brain'}/>
                         <ThemedText type={'defaultSemiBold'}>Temps de travail</ThemedText>
                     </ThemedView>
 
