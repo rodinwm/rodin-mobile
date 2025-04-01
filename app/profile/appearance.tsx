@@ -39,7 +39,7 @@ export default function Page() {
                 title={'Utiliser le thème du système'}
                 fillStyle={isSelected(ColorTheme.System) ? "inversed" : "opacity-15"}
                 hasPadding={true}
-                subtitle={"Le thème de l'application s'adapte automatiquement à celui de votre téléphone"}
+                subtitle={"Faire correspondre l'apparence aux paramètres d'affichage et de luminosité de ton appareil"}
                 onPress={() => selectTheme(ColorTheme.System)}
                 suffixIcon={isSelected(ColorTheme.System) ? "Check" : null}
             />

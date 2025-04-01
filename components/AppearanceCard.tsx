@@ -24,10 +24,17 @@ export function AppearanceCard({
     return (
         <ThemedView className={'flex flex-col gap-3 justify-center items-center'}>
             <ThemedView
-                className={'w-24 h-40'}
-                fillStyle={selected ? 'inversed' : 'opacity-15'}
+                className={`w-24 h-40 flex justify-center items-center ${type === ColorTheme.Dark ? 'bg-background-dark' : 'bg-background-light'}`}
+                outlined={true}
                 radiusStyle={"default"}
-            />
+            >
+                <ThemedText
+                    type={'title'}
+                    inverseColor={(colorScheme === 'light' && type === ColorTheme.Dark) || (colorScheme === 'dark' && type === ColorTheme.Light)}
+                >
+                    R
+                </ThemedText>
+            </ThemedView>
             <ThemedText type={'defaultSemiBold'}>
                 {type}
             </ThemedText>
