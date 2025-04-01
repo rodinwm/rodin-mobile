@@ -47,19 +47,19 @@ export default function Page() {
                     onPress={() => router.push('/profile/personal-data')}
                 />
                 <ThemedListTile
-                    icon={"Cookie"}
+                    icon={"Lock"}
                     title={'Confidentialité'}
                     subtitle={'Données personnellles, Sécurité, Notifications, Autres services'}
                     onPress={() => router.push('/profile/privacy')}
                 />
                 <ThemedListTile
-                    icon={'Smartphone'}
+                    icon={'Eye'}
                     title={'Apparence'}
                     subtitle={'Thème clair, Thème sombre, Thème automatique'}
                     onPress={() => router.push('/profile/appearance')}
                 />
                 <ThemedListTile
-                    icon={"LifeBuoy"}
+                    icon={"MessageCircleQuestion"}
                     title={'Aide'}
                     subtitle={'Serivce client, Guide, Règles générales'}
                     onPress={() => router.push('/profile/help')}

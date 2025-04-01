@@ -80,7 +80,7 @@ export default function Page() {
                                 subtitle={item.username}
                                 fillStyle={"none"}
                                 suffixIcon={(
-                                    <ThemedView className={'flex flex-row gap-3'}>
+                                    <ThemedView className={'flex flex-row items-center gap-3'}>
                                         <ThemedButton
                                             title={"Accepter"}
                                             miniText={true}

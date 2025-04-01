@@ -56,7 +56,7 @@ export default function Page() {
                     className={"flex flex-row gap-1 items-center justify-center"}
                     fillStyle={"inversed"}
                 >
-                    <LucideIcon name={'Briefcase'} size={14} inverseColor={true}/>
+                    <LucideIcon name={'Brain'} size={14} inverseColor={true}/>
                     <ThemedText type={'miniExtraBold'} className={"text-center"} inverseColor={true}>
                         Temps de travail
                     </ThemedText>
