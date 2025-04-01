@@ -1,9 +1,10 @@
 import {ThemedView} from '@/components/base/ThemedView';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ScreenTemplate from "@/components/layouts/ScreenTemplate";
 import {AppearanceCard} from "@/components/AppearanceCard";
 import {ColorTheme} from "@/utils/enums";
 import ThemedListTile from "@/components/base/ThemedListTile";
+import {StorageHelper} from "@/utils/helpers/storageHelper";
 
 export default function Page() {
     const [theme, setTheme] = useState(ColorTheme.System);
@@ -12,8 +13,12 @@ export default function Page() {
         return relatedTheme === theme;
     }
     const selectTheme = (relatedTheme: ColorTheme) => {
-        setTheme(relatedTheme);
+        StorageHelper.saveSelectedTheme(relatedTheme).then(() => setTheme(relatedTheme));
     }
+
+    useEffect(() => {
+        StorageHelper.loadSavedTheme().then((loadedTheme: ColorTheme) => setTheme(loadedTheme));
+    }, [false]);
 
     return (
         <ScreenTemplate
