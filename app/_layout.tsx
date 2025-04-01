@@ -6,22 +6,25 @@ import {StatusBar} from 'expo-status-bar';
 import {useEffect} from 'react';
 import 'react-native-reanimated';
 import './app.css';
+import {Appearance, Dimensions} from 'react-native';
 
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import Routes from "@/app/routes";
 import ToastManager from "toastify-react-native";
-import {Dimensions} from "react-native";
 import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
 import {Colors} from "@/utils/colors";
+import {AppearanceHelper} from "@/utils/helpers/appearanceHelper";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync().then();
 
 export default function RootLayout() {
     const colorScheme = useColorScheme() ?? 'light';
+    const appearance = Appearance.getColorScheme();
+
     const [fontLoaded] = useFonts({
         "FunnelDisplay-Light": require('@/assets/fonts/FunnelDisplay/FunnelDisplay-Light.ttf'),
         "FunnelDisplay-Regular": require('@/assets/fonts/FunnelDisplay/FunnelDisplay-Regular.ttf'),
@@ -33,9 +36,16 @@ export default function RootLayout() {
     });
 
     useEffect(() => {
+        // Font loading
         if (fontLoaded) {
             SplashScreen.hideAsync().then();
         }
+
+        // Appearance setting up
+        AppearanceHelper.loadSavedTheme().then((loadedTheme) => {
+            AppearanceHelper.applyTheme(loadedTheme);
+        });
+
     }, [fontLoaded]);
 
     if (!fontLoaded) {

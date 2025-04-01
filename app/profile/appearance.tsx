@@ -4,7 +4,7 @@ import ScreenTemplate from "@/components/layouts/ScreenTemplate";
 import {AppearanceCard} from "@/components/AppearanceCard";
 import {ColorTheme} from "@/utils/enums";
 import ThemedListTile from "@/components/base/ThemedListTile";
-import {StorageHelper} from "@/utils/helpers/storageHelper";
+import {AppearanceHelper} from "@/utils/helpers/appearanceHelper";
 
 export default function Page() {
     const [theme, setTheme] = useState(ColorTheme.System);
@@ -13,11 +13,14 @@ export default function Page() {
         return relatedTheme === theme;
     }
     const selectTheme = (relatedTheme: ColorTheme) => {
-        StorageHelper.saveSelectedTheme(relatedTheme).then(() => setTheme(relatedTheme));
+        AppearanceHelper.saveSelectedTheme(relatedTheme).then(() => {
+            setTheme(relatedTheme);
+            AppearanceHelper.applyTheme(relatedTheme);
+        });
     }
 
     useEffect(() => {
-        StorageHelper.loadSavedTheme().then((loadedTheme: ColorTheme) => setTheme(loadedTheme));
+        AppearanceHelper.loadSavedTheme().then((loadedTheme: ColorTheme) => setTheme(loadedTheme));
     }, [false]);
 
     return (

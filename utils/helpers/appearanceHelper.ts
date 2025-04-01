@@ -1,7 +1,8 @@
 import {ColorTheme} from "@/utils/enums";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {Appearance} from "react-native";
 
-export abstract class StorageHelper {
+export abstract class AppearanceHelper {
 
     static async saveSelectedTheme(theme: ColorTheme): Promise<void> {
         try {
@@ -27,5 +28,18 @@ export abstract class StorageHelper {
         }
     }
 
+    static applyTheme(theme: ColorTheme) {
+        switch (theme) {
+            case ColorTheme.Dark:
+                Appearance.setColorScheme("dark");
+                break;
+            case ColorTheme.Light:
+                Appearance.setColorScheme("light");
+                break;
+            default:
+                Appearance.setColorScheme(null);
+                break;
+        }
+    }
 
 }
