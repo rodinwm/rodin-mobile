@@ -53,7 +53,7 @@ export default function Page() {
                     onPress={() => router.push('/profile/privacy')}
                 />
                 <ThemedListTile
-                    icon={'SunMoon'}
+                    icon={'Smartphone'}
                     title={'Apparence'}
                     subtitle={'Thème clair, Thème sombre, Thème automatique'}
                     onPress={() => router.push('/profile/appearance')}

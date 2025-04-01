@@ -32,5 +32,8 @@ export enum Profession {
     Autre = "Autre"
 }
 
-
-
+export enum ColorTheme {
+    Light = 'Clair',
+    Dark = 'Sombre',
+    System = 'Système',
+}

@@ -1,35 +1,48 @@
 import {ThemedView} from '@/components/base/ThemedView';
-import React from "react";
-import {useColorScheme} from "@/utils/hooks/useColorScheme";
+import React, {useState} from "react";
 import ScreenTemplate from "@/components/layouts/ScreenTemplate";
-import {ThemedText} from "@/components/base/ThemedText";
-import BouncyCheckbox from "react-native-bouncy-checkbox";
-import {Colors} from "@/utils/colors";
+import {AppearanceCard} from "@/components/AppearanceCard";
+import {ColorTheme} from "@/utils/enums";
+import ThemedListTile from "@/components/base/ThemedListTile";
 
 export default function Page() {
-    const colorScheme = useColorScheme() ?? 'light';
+    const [theme, setTheme] = useState(ColorTheme.System);
+
+    const isSelected = (relatedTheme: ColorTheme) => {
+        return relatedTheme === theme;
+    }
+    const selectTheme = (relatedTheme: ColorTheme) => {
+        setTheme(relatedTheme);
+    }
 
     return (
         <ScreenTemplate
             title={"Apparence"}
             headerLeftBtn={"backBtn"}
         >
-            {/* Options */}
-            <ThemedView className={'w-full flex flex-row gap-6'}>
-                <ThemedView className={'flex flex-col gap-3 justify-center items-center'}>
-                    <ThemedView
-                        className={'w-24 h-40'}
-                        fillStyle={'opacity-15'}
-                        radiusStyle={"default"}
-                    />
-                    <ThemedText type={'defaultSemiBold'}>Clair</ThemedText>
-                    <BouncyCheckbox
-                        fillColor={Colors.foreground[colorScheme] + 'AA'}
-                        unFillColor={Colors.foreground[colorScheme] + "33"}
-                        onPress={(isChecked: boolean) => {}}
-                    />
-                </ThemedView>
+            {/* Light & Dark options */}
+            <ThemedView className={'w-full flex flex-row justify-around gap-6 px-6'}>
+                <AppearanceCard
+                    selected={isSelected(ColorTheme.Light)}
+                    onSelect={() => selectTheme(ColorTheme.Light)}
+                />
+                <AppearanceCard
+                    type={ColorTheme.Dark}
+                    selected={isSelected(ColorTheme.Dark)}
+                    onSelect={() => selectTheme(ColorTheme.Dark)}
+                />
             </ThemedView>
+
+            {/* System option */}
+            <ThemedListTile
+                icon={'Smartphone'}
+                title={'Utiliser le thème du système'}
+                fillStyle={isSelected(ColorTheme.System) ? "inversed" : "opacity-15"}
+                hasPadding={true}
+                subtitle={"Le thème de l'application s'adapte automatiquement à celui de votre téléphone"}
+                onPress={() => selectTheme(ColorTheme.System)}
+                suffixIcon={isSelected(ColorTheme.System) ? "Check" : null}
+            />
         </ScreenTemplate>
     );
 }
