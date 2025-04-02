@@ -11,9 +11,12 @@ const Routes: string[] = [
     "timer/request-exercise-before",
     "timer/lock-screen",
     // Profile
+    "profile/personal-infos",
     "profile/appearance",
-    "profile/privacy",
-    "profile/personal-data",
+    // Profile > Privacy
+    "profile/privacy/index",
+    "profile/privacy/personal-data",
+    // Profile > Help
     "profile/help/index",
     "profile/help/guide",
     "profile/help/tips",

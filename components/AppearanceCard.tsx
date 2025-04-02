@@ -6,6 +6,7 @@ import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {ColorTheme} from "@/utils/enums";
 import LucideIcon from "@/components/base/LucideIcon";
+import {TouchableOpacity} from "react-native";
 
 interface Props {
     type?: ColorTheme;
@@ -22,7 +23,10 @@ export function AppearanceCard({
     const colorScheme = useColorScheme() ?? 'light';
 
     return (
-        <ThemedView className={'flex flex-col gap-3 justify-center items-center'}>
+        <TouchableOpacity
+            className={'flex flex-col gap-3 justify-center items-center'}
+            onPress={onSelect}
+        >
             <ThemedView
                 className={`w-24 h-40 flex justify-center items-center ${type === ColorTheme.Dark ? 'bg-background-dark' : 'bg-background-light'}`}
                 outlined={true}
@@ -46,13 +50,8 @@ export function AppearanceCard({
                 //unFillColor={Colors.foreground[colorScheme] + "33"}
                 disableText={true}
                 isChecked={selected}
-                disabled={selected}
-                onPress={(isChecked: boolean) => {
-                    if (onSelect) {
-                        onSelect();
-                    }
-                }}
+                disabled={true}
             />
-        </ThemedView>
+        </TouchableOpacity>
     );
 }

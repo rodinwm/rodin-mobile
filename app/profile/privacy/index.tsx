@@ -20,7 +20,7 @@ export default function Page() {
                     icon={'User'}
                     title={'Données personnelles'}
                     subtitle={'Exporter en format PDF, Télécharger le tableau de suivi'}
-                    onPress={() => router.push('/profile/personal-data')}
+                    onPress={() => router.push('/profile/privacy/personal-data')}
                 />
                 <ThemedListTile
                     icon={'KeyRound'}
