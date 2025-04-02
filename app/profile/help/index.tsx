@@ -32,6 +32,12 @@ export default function Page() {
                     title={'F.A.Q'}
                     onPress={() => router.push('/profile/help/faq')}
                 />
+
+                <ThemedListTile
+                    icon={'Flag'}
+                    title={'Signaler un problème'}
+                    onPress={() => router.push('/profile/help/faq')}
+                />
             </ThemedView>
         </ScreenTemplate>
     );

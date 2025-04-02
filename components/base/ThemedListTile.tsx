@@ -30,7 +30,7 @@ export default function ThemedListTile({
             <ThemedView
                 outlined={false}
                 fillStyle={fillStyle}
-                radiusStyle={"default"}
+                radiusStyle={hasPadding ? "default" : "none"}
                 paddingStyle={hasPadding ? "mini" : "none"}
                 className={'w-full flex flex-row justify-between items-center gap-2'}
             >

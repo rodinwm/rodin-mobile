@@ -1,12 +1,10 @@
 import {ThemedView} from "@/components/base/ThemedView";
 import React from "react";
 import {ThemedText} from "@/components/base/ThemedText";
-import BouncyCheckbox from "react-native-bouncy-checkbox";
-import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {ColorTheme} from "@/utils/enums";
-import LucideIcon from "@/components/base/LucideIcon";
 import {TouchableOpacity} from "react-native";
+import ThemedCheckbox from "@/components/base/ThemedCheckbox";
 
 interface Props {
     type?: ColorTheme;
@@ -42,13 +40,7 @@ export function AppearanceCard({
             <ThemedText type={'defaultSemiBold'}>
                 {type}
             </ThemedText>
-            <BouncyCheckbox
-                iconComponent={(
-                    <LucideIcon name={"Check"} size={14} inverseColor={true}/>
-                )}
-                fillColor={Colors.foreground[colorScheme]}
-                //unFillColor={Colors.foreground[colorScheme] + "33"}
-                disableText={true}
+            <ThemedCheckbox
                 isChecked={selected}
                 disabled={true}
             />

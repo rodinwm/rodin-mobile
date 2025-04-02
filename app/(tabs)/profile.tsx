@@ -44,7 +44,13 @@ export default function Page() {
                     icon={'User'}
                     title={'Infos personnelles'}
                     subtitle={'Biographie, ID, Statut, Photo de profil'}
-                    onPress={() => router.push('/profile/personal-data')}
+                    onPress={() => router.push('/profile/personal-infos')}
+                />
+                <ThemedListTile
+                    icon={'Star'}
+                    title={'Abonnement'}
+                    subtitle={'Gérer votre abonnement'}
+                    onPress={() => router.push('/profile/personal-infos')}
                 />
                 <ThemedListTile
                     icon={"Lock"}

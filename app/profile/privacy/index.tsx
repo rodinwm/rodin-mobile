@@ -26,31 +26,31 @@ export default function Page() {
                     icon={'KeyRound'}
                     title={'Sécurité'}
                     subtitle={"Code d'accès, Double authentification"}
-                    onPress={() => router.push('/profile/personal-data')}
+                    onPress={() => router.push('/profile/privacy/security')}
                 />
                 <ThemedListTile
                     icon={'Bell'}
                     title={'Notifications'}
                     subtitle={"Types de notifications, fréquence, intensité"}
-                    onPress={() => router.push('/profile/personal-data')}
+                    onPress={() => router.push('/profile/privacy/notifications')}
                 />
                 <ThemedListTile
                     icon={'Wrench'}
                     title={"Paramètres d'exercices"}
                     subtitle={"Temps de travail, fréquence de travail, configuration"}
-                    onPress={() => router.push('/profile/personal-data')}
+                    onPress={() => router.push('/profile/privacy/exercises-settings')}
                 />
                 <ThemedListTile
                     icon={'Save'}
                     title={"Autres services"}
                     subtitle={"Stockage, langues"}
-                    onPress={() => router.push('/profile/personal-data')}
+                    onPress={() => router.push('/profile/privacy/other-services')}
                 />
                 <ThemedListTile
                     icon={'CircleEllipsis'}
                     title={"Plus d'informations"}
                     subtitle={"Politique de confidentilité, conditions d'utilisation"}
-                    onPress={() => router.push('/profile/personal-data')}
+                    onPress={() => router.push('/profile/privacy/more-infos')}
                 />
             </ThemedView>
         </ScreenTemplate>

@@ -37,3 +37,16 @@ export enum ColorTheme {
     Dark = 'Sombre',
     System = 'Système',
 }
+
+export enum ConcentrationExercise {
+    Pods = 'Pods',
+    Pattern = 'Pattern',
+    Respiration = 'Respiration'
+}
+
+export enum NotificationType {
+    AutoSuggestions = 'autoSuggestions',
+    Message = 'message',
+    Mail = 'mail',
+    Flash = 'flash'
+}
