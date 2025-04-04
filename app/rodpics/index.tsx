@@ -1,13 +1,24 @@
 import {ThemedView} from '@/components/base/ThemedView';
-import React from "react";
+import React, {useState} from "react";
+import {CameraType, CameraView, useCameraPermissions} from "expo-camera";
 import {useRouter} from "expo-router";
 import ScreenTemplate from '@/components/layouts/ScreenTemplate';
 import {ThemedButton} from "@/components/base/ThemedButton";
-import LucideIcon from "@/components/base/LucideIcon";
-import {ThemedText} from "@/components/base/ThemedText";
 
 export default function Page() {
     const router = useRouter();
+    const [facing, setFacing] = useState<CameraType>('back');
+    const [enableTorch, setEnableTorch] = useState(false);
+    const [permission, requestPermission] = useCameraPermissions();
+    const [isFlashOn, setIsFlashOn] = useState(false);
+
+    const toggleTorch = () => {
+        setEnableTorch(prev => !prev);
+    };
+
+    const toggleFacing = () => {
+        setFacing(current => (current === 'back' ? 'front' : 'back'));
+    }
 
     return (
         <ScreenTemplate
@@ -17,24 +28,30 @@ export default function Page() {
             scrollEnabled={false}
         >
             <ThemedView
-                fillStyle={"opacity-5"}
-                outlined={true}
+                className={'w-full h-full flex-1'}
                 radiusStyle={"default"}
-                paddingStyle={"default"}
-                className={'w-full flex-1 flex flex-col justify-center items-center gap-3'}
             >
-                <LucideIcon name={'Camera'} size={150}/>
-                <ThemedText type={'subtitle'}>Caméra</ThemedText>
+                <CameraView
+                    facing={facing}
+                    enableTorch={enableTorch}
+                    className={"rounded-lg"}
+                    style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: 20,
+                    }}
+                />
             </ThemedView>
 
             <ThemedView className={'w-full flex flex-row gap-6 justify-center items-center'}>
                 <ThemedButton
                     title={"Flash"}
-                    icon={{name: 'Zap'}}
+                    icon={{name: enableTorch ? "ZapOff" : 'Zap'}}
                     type={"outlined"}
                     isBackgroundBlur={true}
                     paddingStyle={"uniform"}
                     showTitle={false}
+                    onPress={toggleTorch}
                 />
                 <ThemedButton
                     title={"Shoot"}
@@ -51,9 +68,9 @@ export default function Page() {
                     isBackgroundBlur={true}
                     type={"outlined"}
                     paddingStyle={"uniform"}
+                    onPress={toggleFacing}
                 />
             </ThemedView>
         </ScreenTemplate>
     );
 }
-
