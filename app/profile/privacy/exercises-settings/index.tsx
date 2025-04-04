@@ -38,9 +38,11 @@ export default function Page() {
                 <ThemedText type={'h1'} className={"mb-6"}>Autres</ThemedText>
                 <ThemedListTile
                     title={'Phrase de motivation'}
+                    onPress={() => router.push('/profile/privacy/exercises-settings/motivation-sentence')}
                 />
                 <ThemedListTile
-                    title={"Mot de passe d'urgence"}
+                    title={"Code d'urgence"}
+                    onPress={() => router.push('/profile/privacy/exercises-settings/urgency-code')}
                 />
             </ThemedView>
         </ScreenTemplate>

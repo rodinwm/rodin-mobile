@@ -20,7 +20,9 @@ const Routes: string[] = [
     "profile/privacy/notifications",
     "profile/privacy/other-services",
     "profile/privacy/more-infos",
-    "profile/privacy/exercises-settings",
+    "profile/privacy/exercises-settings/index",
+    "profile/privacy/exercises-settings/motivation-sentence",
+    "profile/privacy/exercises-settings/urgency-code",
     // Profile > Help
     "profile/help/index",
     "profile/help/guide",

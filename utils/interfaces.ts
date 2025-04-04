@@ -5,6 +5,11 @@ export interface DailyTip {
     text: string;
 }
 
+export interface MotivationSentence {
+    id: number;
+    sentence: string;
+}
+
 export interface WheelStyle {
     visibleRest?: number;
     itemTextStyle?: TextStyle;

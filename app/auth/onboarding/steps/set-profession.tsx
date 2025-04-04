@@ -1,14 +1,25 @@
 import {ThemedView} from '@/components/base/ThemedView';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ThemedButton} from "@/components/base/ThemedButton";
 import OnboardingStepScreenTemplate from "@/components/layouts/OnboardingStepScreenTemplate";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 import {Profession} from "@/utils/enums";
+import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 
 const professions = Object.values(Profession);
 
 export default function SetProfession(props: OnboardingStepScreenProps) {
     const [selectedProfession, setSelectedProfession] = useState<Profession | null>(null);
+    const [customProfession, setCustomProfession] = useState("");
+    const [showCustomProfessionInput, setShowCustomProfessionInput] = useState(false);
+
+    useEffect(() => {
+        if (selectedProfession === Profession.Autre) {
+            setShowCustomProfessionInput(true);
+        } else {
+            setShowCustomProfessionInput(false);
+        }
+    }, [selectedProfession]);
 
     return (
         <OnboardingStepScreenTemplate
@@ -24,11 +35,23 @@ export default function SetProfession(props: OnboardingStepScreenProps) {
                         onPress={() => setSelectedProfession(profession)}
                     />
                 ))}
+
+                {showCustomProfessionInput && (
+                    <ThemedView className={'w-full flex flex-col gap-3'}>
+                        <ThemedTextInput
+                            placeholder={"Phrase de motivation"}
+                            value={customProfession}
+                            onChangeText={(text) => {
+                                setCustomProfession(text);
+                            }}
+                        />
+                    </ThemedView>
+                )}
             </ThemedView>
 
             <ThemedButton
                 title={"Suivant"}
-                disabled={selectedProfession === null}
+                disabled={(selectedProfession === null) || (selectedProfession === Profession.Autre && customProfession === "")}
                 onPress={props.onNextPress}
             />
         </OnboardingStepScreenTemplate>
