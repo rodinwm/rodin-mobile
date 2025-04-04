@@ -50,7 +50,7 @@ export default function Page() {
                     icon={'Star'}
                     title={'Abonnement'}
                     subtitle={'Gérer votre abonnement'}
-                    onPress={() => router.push('/profile/personal-infos')}
+                    onPress={() => router.push('/profile/subscription')}
                 />
                 <ThemedListTile
                     icon={"Lock"}

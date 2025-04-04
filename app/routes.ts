@@ -13,6 +13,7 @@ const Routes: string[] = [
     // Profile
     "profile/personal-infos",
     "profile/appearance",
+    "profile/subscription",
     // Profile > Privacy
     "profile/privacy/index",
     "profile/privacy/personal-data",
