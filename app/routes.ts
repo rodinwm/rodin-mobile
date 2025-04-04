@@ -32,6 +32,8 @@ const Routes: string[] = [
     // Community
     "community/index",
     "community/friend-requests",
+    // RodPic's
+    "rodpics/index",
 ];
 
 export default Routes;

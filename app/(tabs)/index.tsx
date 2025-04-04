@@ -11,9 +11,10 @@ import {AlertCard} from "@/components/AlertCard";
 import {DateHelper} from "@/utils/helpers/dateHelper";
 
 export default function Page() {
-    const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
     const router = useRouter();
     const tipOfTheDay = dailyTips[new Date().getDate() % dailyTips.length].text;
+    const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+    const [isRodPicsUnlocked, setIsRodPicsUnlocked] = useState(true);
 
     return (
         <ScreenTemplate
@@ -56,10 +57,22 @@ export default function Page() {
                     <ThemedText type={'subtitle'}>Statistiques</ThemedText>
                 </ThemedView>
 
-                <ThemedButton
-                    title={"Start"}
-                    onPress={() => router.push('/timer')}
-                />
+                <ThemedView className={'w-full flex flex-row gap-3'}>
+                    <ThemedButton
+                        icon={{name: 'Timer'}}
+                        title={"Start"}
+                        className={'flex-1'}
+                        onPress={() => router.push('/timer')}
+                    />
+                    <ThemedButton
+                        icon={{name: !isRodPicsUnlocked ? 'Lock' : 'Camera'}}
+                        title={"RodPic's"}
+                        //type={"outlined"}
+                        className={'flex-1'}
+                        disabled={!isRodPicsUnlocked}
+                        onPress={() => router.push('/rodpics')}
+                    />
+                </ThemedView>
             </ThemedView>
 
             {/* Conseils */}
