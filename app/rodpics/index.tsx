@@ -1,5 +1,5 @@
 import {ThemedView} from '@/components/base/ThemedView';
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {CameraType, CameraView, useCameraPermissions} from "expo-camera";
 import {useRouter} from "expo-router";
 import ScreenTemplate from '@/components/layouts/ScreenTemplate';
@@ -7,6 +7,8 @@ import {ThemedButton} from "@/components/base/ThemedButton";
 
 export default function Page() {
     const router = useRouter();
+    const ref = useRef<CameraView>(null);
+    const [uri, setUri] = useState<string | null>(null);
     const [facing, setFacing] = useState<CameraType>('back');
     const [enableTorch, setEnableTorch] = useState(false);
     const [permission, requestPermission] = useCameraPermissions();
@@ -20,6 +22,12 @@ export default function Page() {
         setFacing(current => (current === 'back' ? 'front' : 'back'));
     }
 
+    const takePicture = async () => {
+        const photo = await ref.current?.takePictureAsync();
+        console.info("RodPic's taked > ", photo?.uri!)
+        setUri(photo?.uri!);
+    };
+
     return (
         <ScreenTemplate
             title={"RodPic's"}
@@ -32,6 +40,9 @@ export default function Page() {
                 radiusStyle={"default"}
             >
                 <CameraView
+                    ref={ref}
+                    mode={"picture"}
+                    mute={true}
                     facing={facing}
                     enableTorch={enableTorch}
                     className={"rounded-lg"}
@@ -60,6 +71,7 @@ export default function Page() {
                     type={"default"}
                     radiusStyle={"full"}
                     paddingStyle={"uniform-big"}
+                    onPress={takePicture}
                 />
                 <ThemedButton
                     title={"Changer de caméra"}
