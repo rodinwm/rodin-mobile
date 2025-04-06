@@ -4,9 +4,12 @@ import {useLocalSearchParams, useRouter} from "expo-router";
 import ScreenTemplate from '@/components/layouts/ScreenTemplate';
 import {ThemedButton} from "@/components/base/ThemedButton";
 import {ThemedText} from "@/components/base/ThemedText";
+import {useColorScheme} from "@/utils/hooks/useColorScheme";
+import LucideIcon from "@/components/base/LucideIcon";
 
 export default function Page() {
     const router = useRouter();
+    const colorScheme = useColorScheme() ?? 'light';
     const {backPicUri} = useLocalSearchParams();
 
 
@@ -31,9 +34,25 @@ export default function Page() {
                     fillStyle={"inversed"}
                     backgroundImage={{uri: backPicUri.toString()}}
                 />
-                <ThemedText type={'h1'} className={"opacity-50"}>
-                    10h30
-                </ThemedText>
+                <ThemedView
+                    className={"w-full items-end"}
+                >
+                    <ThemedView
+                        className={"w-fit flex flex-row gap-2 justify-center items-center"}
+                        radiusStyle={"default"}
+                        paddingStyle={"asymetric"}
+                        isBackgroundBlur={true}
+                    >
+                        <LucideIcon name={'Brain'} size={18}/>
+                        <ThemedText
+                            type={'defaultExtraBold'}
+                            className={"opacity-70"}
+                            inverseColor={colorScheme === 'light'}
+                        >
+                            10h30
+                        </ThemedText>
+                    </ThemedView>
+                </ThemedView>
             </ThemedView>
 
             <ThemedButton

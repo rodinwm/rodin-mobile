@@ -21,7 +21,7 @@ export type ThemedButtonProps = ButtonProps & {
     miniText?: boolean;
     className?: string;
     radiusStyle?: "default" | "full" | "left-only" | "right-only" | "none";
-    paddingStyle?: "default" | "mini" | "uniform" | "uniform-big" | "none";
+    paddingStyle?: "default" | "mini" | "uniform" | "uniform-big" | "uniform-very-big" | "none";
     type?: 'default' | 'outlined' | 'danger' | 'success' | 'link' | "no-fill" | 'opacity-25';
     justifyItems?: 'justify-center' | 'justify-between';
     isBackgroundBlur?: boolean;
@@ -54,7 +54,8 @@ export function ThemedButton({
             'px-6 py-3' : paddingStyle === "mini" ?
                 'px-3 py-2' : paddingStyle === "uniform" ?
                     'p-3' : paddingStyle === "uniform-big" ?
-                        'p-10' : '',
+                        'p-10' : paddingStyle === "uniform-very-big" ?
+                            'p-16' : '',
         fullWidth ? 'w-full' : '',
         fullHeight ? 'h-full' : '',
         radiusStyle === "default" ?

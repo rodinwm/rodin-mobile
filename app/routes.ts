@@ -35,6 +35,10 @@ const Routes: string[] = [
     // RodPic's
     "rodpics/index",
     "rodpics/preview",
+    // Games
+    "games/pods",
+    "games/patterns",
+    "games/respiration",
 ];
 
 export default Routes;

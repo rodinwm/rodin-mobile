@@ -28,7 +28,7 @@ export default function Page() {
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedButton
                     title={"Oui"}
-                    onPress={() => router.push('/timer/lock-screen')}
+                    onPress={() => router.push('/games/pods')}
                 />
                 <ThemedButton
                     title={"Non"}

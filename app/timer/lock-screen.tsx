@@ -7,6 +7,7 @@ import {AlertCard} from "@/components/AlertCard";
 import ScreenTemplate from "@/components/layouts/ScreenTemplate";
 import {Colors} from "@/utils/colors";
 import {useNavigation} from "expo-router";
+import {DateHelper} from "@/utils/helpers/dateHelper";
 
 export default function Page() {
     const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes en secondes
@@ -26,12 +27,6 @@ export default function Page() {
         return () => clearInterval(timer);
     }, [isRunning, timeLeft]);
 
-    // Formater le temps en MM:SS
-    const formatTime = (seconds: number) => {
-        const minutes = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    };
 
     return (
         <ScreenTemplate
@@ -70,7 +65,7 @@ export default function Page() {
                     isBackgroundBlur={true}
                 >
                     <ThemedText type={'logo'} className={"text-center mt-4 "}>
-                        {formatTime(timeLeft)}
+                        {DateHelper.formatTime(timeLeft)}
                     </ThemedText>
                 </ThemedView>
 
