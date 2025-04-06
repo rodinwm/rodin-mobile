@@ -4,11 +4,12 @@ import {CameraType, CameraView, useCameraPermissions} from "expo-camera";
 import {useRouter} from "expo-router";
 import ScreenTemplate from '@/components/layouts/ScreenTemplate';
 import {ThemedButton} from "@/components/base/ThemedButton";
+import {Toast} from "toastify-react-native";
 
 export default function Page() {
     const router = useRouter();
-    const ref = useRef<CameraView>(null);
-    const [uri, setUri] = useState<string | null>(null);
+    //const frontCamRef = useRef<CameraView>(null);
+    const backCamRef = useRef<CameraView>(null);
     const [facing, setFacing] = useState<CameraType>('back');
     const [enableTorch, setEnableTorch] = useState(false);
     const [permission, requestPermission] = useCameraPermissions();
@@ -23,9 +24,24 @@ export default function Page() {
     }
 
     const takePicture = async () => {
-        const photo = await ref.current?.takePictureAsync();
-        console.info("RodPic's taked > ", photo?.uri!)
-        setUri(photo?.uri!);
+        const backPic = await backCamRef.current?.takePictureAsync();
+        //const frontPic = await frontCamRef.current?.takePictureAsync();
+
+        if (backPic) {// && frontPic) {
+            //frontCamRef.current?.pausePreview();
+
+            console.info("RodPic's taked");
+
+            router.push({
+                pathname: '/rodpics/preview',
+                params: {
+                    //frontPicUri: frontPic.uri,
+                    backPicUri: backPic.uri,
+                }
+            });
+        } else {
+            Toast.error("Erreur lors de la prise");
+        }
     };
 
     return (
@@ -33,26 +49,38 @@ export default function Page() {
             title={"RodPic's"}
             headerLeftBtn={"backBtn"}
             setHeightToScreenSize={true}
+            removeBodyPadding={true}
             scrollEnabled={false}
         >
-            <ThemedView
-                className={'w-full h-full flex-1'}
-                radiusStyle={"default"}
+            <CameraView
+                ref={backCamRef}
+                mode={"picture"}
+                mute={true}
+                facing={facing}
+                enableTorch={enableTorch}
+                style={{
+                    flex: 1,
+                    padding: 10,
+                    width: "100%",
+                    height: "100%",
+                }}
             >
-                <CameraView
-                    ref={ref}
-                    mode={"picture"}
-                    mute={true}
-                    facing={facing}
-                    enableTorch={enableTorch}
-                    className={"rounded-lg"}
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                        borderRadius: 20,
-                    }}
-                />
-            </ThemedView>
+                {/*
+                <ThemedView className={'w-1/3 h-1/3'} radiusStyle={"default"}>
+                    <CameraView
+                        ref={frontCamRef}
+                        mode={"picture"}
+                        mute={true}
+                        facing={"front"}
+                        style={{
+                            width: "100%",
+                            height: "100%",
+
+                        }}
+                    />
+                </ThemedView>
+                */}
+            </CameraView>
 
             <ThemedView className={'w-full flex flex-row gap-6 justify-center items-center'}>
                 <ThemedButton

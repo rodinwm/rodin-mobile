@@ -21,6 +21,7 @@ interface Props {
     bottomSheet?: ReactNode;
     gap?: "default" | "mini";
     backgroundImage?: ImageSourcePropType;
+    removeBodyPadding?: boolean;
 }
 
 export default function ScreenTemplate(props: Props) {
@@ -43,13 +44,14 @@ export default function ScreenTemplate(props: Props) {
                 scrollEnabled={props.scrollEnabled}
             >
                 <SafeAreaView
-                    className={`w-full ${props.setHeightToScreenSize ? 'h-screen justify-between' : 'h-full'} flex flex-col gap-14 p-6 pt-0`}
+                    className={`w-full ${props.setHeightToScreenSize ? 'h-screen justify-between' : 'h-full'} flex flex-col gap-14 ${props.removeBodyPadding ? 'p-0 pb-6' : 'p-6 pt-0'}`}
                     style={props.takeBottomBarIntoAccount ? {
                         paddingBottom: insets.bottom + useBottomTabOverflow(),
                     } : null}
                 >
                     {/* Header */}
-                    <ThemedView className={'w-full flex flex-row items-center justify-between'}>
+                    <ThemedView
+                        className={`w-full flex flex-row items-center justify-between ${props.removeBodyPadding ? 'px-6' : ''}`}>
                         {props.headerLeftBtn === "backBtn" ? (
                             <ThemedButton
                                 title={"Back"}

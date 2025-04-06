@@ -34,6 +34,7 @@ const Routes: string[] = [
     "community/friend-requests",
     // RodPic's
     "rodpics/index",
+    "rodpics/preview",
 ];
 
 export default Routes;

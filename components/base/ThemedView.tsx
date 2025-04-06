@@ -7,7 +7,7 @@ export type ThemedViewProps = ViewProps & {
     fillStyle?: "default" | "opacity-5" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
     radiusStyle?: "default" | "full" | "big" | "none";
     paddingStyle?: "default" | "asymetric" | "mini" | "none";
-    backgroundImage?: ImageSourcePropType;
+    backgroundImage?: ImageSourcePropType | { uri: string };
     isBackgroundBlur?: boolean;
 };
 

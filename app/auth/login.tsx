@@ -31,12 +31,14 @@ export default function Page() {
                     confirm={{
                         text: "Oui",
                         onPress: () => {
+                            setIsBottomSheetOpen(false)
                             router.push('/(tabs)')
                         }
                     }}
                     cancel={{
                         text: "Plus tard",
                         onPress: () => {
+                            setIsBottomSheetOpen(false)
                             router.push('/(tabs)')
                         }
                     }}
