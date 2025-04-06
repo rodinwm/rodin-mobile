@@ -55,7 +55,7 @@ export function ThemedButton({
                 'px-3 py-2' : paddingStyle === "uniform" ?
                     'p-3' : paddingStyle === "uniform-big" ?
                         'p-10' : paddingStyle === "uniform-very-big" ?
-                            'p-16' : '',
+                            'p-20' : '',
         fullWidth ? 'w-full' : '',
         fullHeight ? 'h-full' : '',
         radiusStyle === "default" ?

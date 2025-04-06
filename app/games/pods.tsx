@@ -5,6 +5,7 @@ import ScreenTemplate from '@/components/layouts/ScreenTemplate';
 import {ThemedButton} from "@/components/base/ThemedButton";
 import {ThemedText} from "@/components/base/ThemedText";
 import {DateHelper} from "@/utils/helpers/dateHelper";
+import {FlatList} from "react-native";
 
 const pods = [1, 2, 3, 4];
 
@@ -49,25 +50,29 @@ export default function Page() {
                 </ThemedText>
             </ThemedView>
 
-            <ThemedView
-                className={'w-full flex-1 flex flex-row flex-wrap gap-10"é justify-center items-center content-center'}
-            >
-                {pods.map((pod, index) => (
-                    <ThemedView
+            <FlatList
+                data={pods}
+                numColumns={2}
+                keyExtractor={(item, index) => index.toString()}
+                scrollEnabled={false}
+                nestedScrollEnabled={false}
+                contentContainerClassName={"jutify-center items-center"}
+                columnWrapperClassName="gap-10"
+                ItemSeparatorComponent={() => (
+                    <ThemedView paddingStyle={"default"}/>
+                )}
+                renderItem={({item, index}) => (
+                    <ThemedButton
                         key={"pod-" + index}
-                        className={"w-1/3 flex justify-center items-center"}
-                    >
-                        <ThemedButton
-                            title={"Shoot"}
-                            //icon={{name: 'Camera'}}
-                            showTitle={false}
-                            type={"default"}
-                            radiusStyle={"full"}
-                            paddingStyle={"uniform-very-big"}
-                        />
-                    </ThemedView>
-                ))}
-            </ThemedView>
+                        title={"Shoot"}
+                        //icon={{name: 'Camera'}}
+                        showTitle={false}
+                        type={"default"}
+                        radiusStyle={"full"}
+                        paddingStyle={"uniform-very-big"}
+                    />
+                )}
+            />
 
             <ThemedButton
                 title={"Start"}
