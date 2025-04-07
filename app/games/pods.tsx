@@ -12,30 +12,40 @@ import {PodColor} from "@/utils/enums";
 export default function Page() {
     const router = useRouter();
     const totalTime = 90; // 1m30s en secondes
-    const eachStepTime = totalTime / 15; // 1m30s répartie en étapes de 90/15 = 6 secondes
-    const [step, setStep] = useState(GameHelper.generatePodsGameStep());
+    const eachStepTime = totalTime / 30; // 1m30s répartie en étapes de 90/30 = 3 secondes
+    const [step, setStep] = useState(GameHelper.getEmptyPodsGameStep());
     const [timeLeft, setTimeLeft] = useState(totalTime);
     const [isRunning, setIsRunning] = useState(false);
 
-    let timer = setInterval(() => {
-        if (isRunning) {
-            const newTime = timeLeft - 1;
-            setTimeLeft(newTime);
-            if ((0 < newTime && newTime < totalTime) && (newTime % eachStepTime === 0)) {
-                console.info("Action toutes les 6 secondes");
-                setStep(GameHelper.generatePodsGameStep());
-            }
-        }
-    }, 1000);
-
     useEffect(() => {
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-        }
+        if (!isRunning) return;
+
+        const timer = setInterval(() => {
+            setTimeLeft(prevTime => {
+                const newTime = prevTime - 1;
+
+                // Action toutes les 6 secondes (sauf au tout début ou à la fin)
+                if ((0 < newTime && newTime < totalTime) && (newTime % eachStepTime === 0)) {
+                    console.info("🎯 Action toutes les 6 secondes !");
+                    setStep(GameHelper.generatePodsGameStep());
+                }
+
+                // Stopper quand on atteint 0
+                if (newTime <= 0) {
+                    clearInterval(timer);
+                    return 0;
+                }
+
+                return newTime;
+            });
+        }, 1000);
+
         return () => clearInterval(timer);
-    }, [isRunning, timeLeft]);
+    }, [isRunning]);
+
 
     const startGame = () => {
+        setStep(GameHelper.generatePodsGameStep());
         setIsRunning(true);
     }
 
@@ -61,7 +71,7 @@ export default function Page() {
             <FlatList
                 data={step}
                 numColumns={2}
-                keyExtractor={(item, index) => index.toString()}
+                keyExtractor={(item) => item.id}
                 scrollEnabled={false}
                 nestedScrollEnabled={false}
                 contentContainerClassName={"jutify-center items-center"}
@@ -69,18 +79,18 @@ export default function Page() {
                 ItemSeparatorComponent={() => (
                     <ThemedView paddingStyle={"default"}/>
                 )}
-                renderItem={({item, index}) => (
+                renderItem={({item}) => (
                     <ThemedButton
-                        key={"pod-" + index}
+                        key={"pod-" + item.id}
                         title={"Pod"}
                         showTitle={false}
-                        type={
-                            item === PodColor.Blue ?
-                                'blue' : item === PodColor.Red ?
-                                    'danger' : 'default'
-                        }
                         radiusStyle={"full"}
                         paddingStyle={"uniform-very-big"}
+                        type={
+                            item.color === PodColor.Blue ? 'blue' :
+                                item.color === PodColor.Red ? 'danger' :
+                                    'default'
+                        }
                     />
                 )}
             />

@@ -1,5 +1,6 @@
 import {FlatListProps, StyleProp, TextStyle, ViewStyle} from "react-native";
 import {icons} from "lucide-react-native";
+import {PodColor} from "@/utils/enums";
 
 export interface DailyTip {
     text: string;
@@ -32,4 +33,9 @@ export interface TimerValue {
     hour: number;
     minute: number;
     second: number;
+}
+
+export interface Pod {
+    id: string;
+    color: PodColor;
 }
