@@ -12,20 +12,20 @@ export abstract class GameHelper {
     }
 
     static generatePodsGameStep(): Pod[] {
-        const pods: Pod[] = [];
-
-        // 🔴 1 pod rouge obligatoire
-        pods.push({id: faker.string.uuid(), color: PodColor.Red});
+        const pods: Pod[] = [
+            // 🔴 1 pod rouge obligatoire
+            {id: faker.string.uuid(), color: PodColor.Red}
+        ];
 
         // Couleurs optionnelles
-        const optionalColors = [PodColor.Blue, PodColor.Green, PodColor.Orange];
+        const optionalColors = [PodColor.Blue, PodColor.Green, PodColor.Orange, PodColor.Neutral];
 
         // Mélange pour aléatoirement choisir
-        const shuffled = faker.helpers.shuffle(optionalColors);
+        const shuffledColors = faker.helpers.shuffle(optionalColors);
 
         let remainingSlots = 3;
 
-        for (const color of shuffled) {
+        for (const color of shuffledColors) {
             if (remainingSlots <= 0) break;
 
             // Choisir entre 1 et 2 pods de cette couleur sans dépasser le max
@@ -39,7 +39,7 @@ export abstract class GameHelper {
             remainingSlots -= count;
         }
 
-        // 🔀 Mélanger le tout
+        // 🔀 Mélanger et retourner le tout
         return faker.helpers.shuffle(pods, {inplace: true});
     }
 }

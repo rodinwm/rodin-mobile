@@ -8,6 +8,7 @@ import {DateHelper} from "@/utils/helpers/dateHelper";
 import {FlatList} from "react-native";
 import {GameHelper} from "@/utils/helpers/gameHelper";
 import {PodColor} from "@/utils/enums";
+import {Pod} from "@/utils/interfaces";
 
 export default function Page() {
     const router = useRouter();
@@ -49,6 +50,10 @@ export default function Page() {
         setIsRunning(true);
     }
 
+    const onPodTap = (pod: Pod) => {
+        console.info(`Pod ${pod.color} tapped!`);
+    }
+
     return (
         <ScreenTemplate
             title={"Pods"}
@@ -86,6 +91,8 @@ export default function Page() {
                         showTitle={false}
                         radiusStyle={"full"}
                         paddingStyle={"uniform-very-big"}
+                        disabled={!isRunning && timeLeft === 0}
+                        onPress={() => onPodTap(item)}
                         type={
                             item.color === PodColor.Blue ? 'blue' :
                                 item.color === PodColor.Red ? 'danger' :
