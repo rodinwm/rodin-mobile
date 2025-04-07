@@ -13,7 +13,7 @@ import {UIHelper} from "@/utils/helpers/uiHelper";
 
 export default function Page() {
     const router = useRouter();
-    const totalTime = 10; // 1m30s en secondes
+    const totalTime = 90; // 1m30s en secondes
     const eachStepTime = totalTime / 30; // totalTime réparti en étapes de 90/30 = 3 secondes
     const [step, setStep] = useState(GameHelper.getEmptyPodsGameStep());
     const [timeLeft, setTimeLeft] = useState(totalTime);
@@ -123,7 +123,13 @@ export default function Page() {
             <ThemedButton
                 title={isGameOver() ? 'Suivant' : "Start"}
                 disabled={isRunning || (isGameStarted() && !isGameOver())}
-                onPress={startGame}
+                onPress={() => {
+                    if (isGameOver()) {
+                        router.push('/timer/lock-screen');
+                    } else {
+                        startGame();
+                    }
+                }}
             />
         </ScreenTemplate>
     );
