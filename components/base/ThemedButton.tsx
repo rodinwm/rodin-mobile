@@ -22,7 +22,7 @@ export type ThemedButtonProps = ButtonProps & {
     className?: string;
     radiusStyle?: "default" | "full" | "left-only" | "right-only" | "none";
     paddingStyle?: "default" | "mini" | "uniform" | "uniform-big" | "uniform-very-big" | "none";
-    type?: 'default' | 'outlined' | 'blue' | 'danger' | 'success' | 'link' | "no-fill" | 'opacity-25';
+    type?: 'default' | 'outlined' | 'blue' | 'danger' | 'success' | 'warning' | 'link' | "no-fill" | 'opacity-25';
     justifyItems?: 'justify-center' | 'justify-between';
     isBackgroundBlur?: boolean;
 };
@@ -69,9 +69,10 @@ export function ThemedButton({
                     'bg-background-dark/25 dark:bg-background-light/25 border-foreground-light/10 dark:border-foreground-dark/10' : type === "danger" ?
                         'bg-red-700 border-red-700' : type === "blue" ?
                             'bg-blue-700 border-blue-700' : type === "success" ?
-                                'bg-emerald-700 border-emerald-700' : type === "link" ?
-                                    'px-0 py-0 opacity-50 border-transparent' : type === "no-fill" ?
-                                        'px-0 py-0 bg-transparent border-transparent' : '',
+                                'bg-emerald-700 border-emerald-700' : type === "warning" ?
+                                    'bg-background-warning-light border-background-warning-light' : type === "link" ?
+                                        'px-0 py-0 opacity-50 border-transparent' : type === "no-fill" ?
+                                            'px-0 py-0 bg-transparent border-transparent' : '',
         disabled ? 'opacity-25' : '',
         className ?? '',
     ];

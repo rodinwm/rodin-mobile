@@ -55,4 +55,6 @@ export enum PodColor {
     Neutral = "Neutral",
     Red = "Red",
     Blue = "Blue",
+    Green = "Green",
+    Orange = "Orange",
 }

@@ -12,7 +12,7 @@ import {PodColor} from "@/utils/enums";
 export default function Page() {
     const router = useRouter();
     const totalTime = 90; // 1m30s en secondes
-    const eachStepTime = totalTime / 30; // 1m30s répartie en étapes de 90/30 = 3 secondes
+    const eachStepTime = totalTime / 30; // totalTime réparti en étapes de 90/30 = 3 secondes
     const [step, setStep] = useState(GameHelper.getEmptyPodsGameStep());
     const [timeLeft, setTimeLeft] = useState(totalTime);
     const [isRunning, setIsRunning] = useState(false);
@@ -26,7 +26,7 @@ export default function Page() {
 
                 // Action toutes les 6 secondes (sauf au tout début ou à la fin)
                 if ((0 < newTime && newTime < totalTime) && (newTime % eachStepTime === 0)) {
-                    console.info("🎯 Action toutes les 6 secondes !");
+                    console.info("🎯 Action toutes les 3 secondes !");
                     setStep(GameHelper.generatePodsGameStep());
                 }
 
@@ -89,7 +89,9 @@ export default function Page() {
                         type={
                             item.color === PodColor.Blue ? 'blue' :
                                 item.color === PodColor.Red ? 'danger' :
-                                    'default'
+                                    item.color === PodColor.Orange ? 'warning' :
+                                        item.color === PodColor.Green ? 'success' :
+                                            'default'
                         }
                     />
                 )}
