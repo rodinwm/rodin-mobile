@@ -9,10 +9,11 @@ import {FlatList} from "react-native";
 import {GameHelper} from "@/utils/helpers/gameHelper";
 import {PodColor} from "@/utils/enums";
 import {Pod} from "@/utils/interfaces";
+import {UIHelper} from "@/utils/helpers/uiHelper";
 
 export default function Page() {
     const router = useRouter();
-    const totalTime = 90; // 1m30s en secondes
+    const totalTime = 10; // 1m30s en secondes
     const eachStepTime = totalTime / 30; // totalTime réparti en étapes de 90/30 = 3 secondes
     const [step, setStep] = useState(GameHelper.getEmptyPodsGameStep());
     const [timeLeft, setTimeLeft] = useState(totalTime);
@@ -33,6 +34,7 @@ export default function Page() {
 
                 // Stopper quand on atteint 0
                 if (newTime <= 0) {
+                    setIsRunning(false);
                     clearInterval(timer);
                     return 0;
                 }
@@ -50,8 +52,22 @@ export default function Page() {
         setIsRunning(true);
     }
 
+    const isGameStarted = () => {
+        return timeLeft < totalTime;
+    }
+
+    const isGameOver = () => {
+        return !isRunning && timeLeft === 0;
+    }
+
     const onPodTap = (pod: Pod) => {
         console.info(`Pod ${pod.color} tapped!`);
+        if (pod.color === PodColor.Red) {
+            UIHelper.hapticImpact();
+            console.info(`Yessss !`);
+        } else {
+            UIHelper.hapticImpact("error");
+        }
     }
 
     return (
@@ -64,7 +80,7 @@ export default function Page() {
             <ThemedView
                 className={'w-full'}
             >
-                <ThemedText type={'logo'} className={"text-center mt-4 "}>
+                <ThemedText type={'logo'} className={"text-center mt-4"}>
                     {DateHelper.formatTime(timeLeft)}
                 </ThemedText>
 
@@ -91,7 +107,7 @@ export default function Page() {
                         showTitle={false}
                         radiusStyle={"full"}
                         paddingStyle={"uniform-very-big"}
-                        disabled={!isRunning && timeLeft === 0}
+                        disabled={isGameOver()}
                         onPress={() => onPodTap(item)}
                         type={
                             item.color === PodColor.Blue ? 'blue' :
@@ -105,8 +121,8 @@ export default function Page() {
             />
 
             <ThemedButton
-                title={"Start"}
-                disabled={isRunning}
+                title={isGameOver() ? 'Suivant' : "Start"}
+                disabled={isRunning || (isGameStarted() && !isGameOver())}
                 onPress={startGame}
             />
         </ScreenTemplate>
