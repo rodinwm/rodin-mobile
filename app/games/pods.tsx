@@ -6,17 +6,25 @@ import {ThemedButton} from "@/components/base/ThemedButton";
 import {ThemedText} from "@/components/base/ThemedText";
 import {DateHelper} from "@/utils/helpers/dateHelper";
 import {FlatList} from "react-native";
-
-const pods = [1, 2, 3, 4];
+import {GameHelper} from "@/utils/helpers/gameHelper";
+import {PodColor} from "@/utils/enums";
 
 export default function Page() {
     const router = useRouter();
-    const [timeLeft, setTimeLeft] = useState(90); // 1m30s en secondes
+    const totalTime = 90; // 1m30s en secondes
+    const eachStepTime = totalTime / 15; // 1m30s répartie en étapes de 90/15 = 6 secondes
+    const [step, setStep] = useState(GameHelper.generatePodsGameStep());
+    const [timeLeft, setTimeLeft] = useState(totalTime);
     const [isRunning, setIsRunning] = useState(false);
 
     let timer = setInterval(() => {
         if (isRunning) {
-            setTimeLeft(prevTime => prevTime - 1);
+            const newTime = timeLeft - 1;
+            setTimeLeft(newTime);
+            if ((0 < newTime && newTime < totalTime) && (newTime % eachStepTime === 0)) {
+                console.info("Action toutes les 6 secondes");
+                setStep(GameHelper.generatePodsGameStep());
+            }
         }
     }, 1000);
 
@@ -51,7 +59,7 @@ export default function Page() {
             </ThemedView>
 
             <FlatList
-                data={pods}
+                data={step}
                 numColumns={2}
                 keyExtractor={(item, index) => index.toString()}
                 scrollEnabled={false}
@@ -64,10 +72,13 @@ export default function Page() {
                 renderItem={({item, index}) => (
                     <ThemedButton
                         key={"pod-" + index}
-                        title={"Shoot"}
-                        //icon={{name: 'Camera'}}
+                        title={"Pod"}
                         showTitle={false}
-                        type={"default"}
+                        type={
+                            item === PodColor.Blue ?
+                                'blue' : item === PodColor.Red ?
+                                    'danger' : 'default'
+                        }
                         radiusStyle={"full"}
                         paddingStyle={"uniform-very-big"}
                     />

@@ -50,3 +50,9 @@ export enum NotificationType {
     Mail = 'mail',
     Flash = 'flash'
 }
+
+export enum PodColor {
+    Neutral = "Neutral",
+    Red = "Red",
+    Blue = "Blue",
+}
