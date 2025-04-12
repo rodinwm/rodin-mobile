@@ -6,14 +6,15 @@ import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
-import {ThemedText} from "@/components/base/ThemedText";
 
 const HOURS = Array.from({length: 24}, (_, index) => {
     const hour = index.toString();
+    //return hour;
     return hour.length === 2 ? hour : '0' + hour;
 });
 const MINUTES = Array.from({length: 60}, (_, index) => {
     const minute = index.toString();
+    //return minute;
     return minute.length === 2 ? minute : '0' + minute;
 });
 
@@ -46,8 +47,8 @@ export function TimerSelect({defaultValue, onChange}: TimerSelectProps) {
             flex: 1,
         },
         selectedIndicatorStyle: {
-            backgroundColor: Colors.background[colorScheme],
-            borderRadius: 10,
+            backgroundColor: Colors.foreground[colorScheme] + '19',
+            borderRadius: 0,
         },
         flatListProps: {
             nestedScrollEnabled: true,
@@ -56,11 +57,12 @@ export function TimerSelect({defaultValue, onChange}: TimerSelectProps) {
 
     return (
         <ThemedView
-            outlined={true}
-            fillStyle={"opacity-15"}
+            //outlined={true}
+            //fillStyle={"opacity-15"}
             radiusStyle={"default"}
             className={'w-full flex flex-col items-center overflow-hidden'}
         >
+            {/*
             <ThemedView
                 fillStyle={"opacity-15"}
                 className={'w-full flex flex-row items-center border-b'}
@@ -70,7 +72,8 @@ export function TimerSelect({defaultValue, onChange}: TimerSelectProps) {
                 <ThemedText type={"defaultSemiBold"} className={"flex-1 text-center"}>Minutes</ThemedText>
                 <ThemedText type={"defaultSemiBold"} className={"flex-1 text-center"}>Secondes</ThemedText>
             </ThemedView>
-            <ThemedView className={'flex flex-row items-center gap-2 px-2'}>
+            */}
+            <ThemedView className={'flex flex-row items-center px-2'}>
                 <WheelPicker
                     options={HOURS}
                     selectedIndex={time.hour}
@@ -78,7 +81,11 @@ export function TimerSelect({defaultValue, onChange}: TimerSelectProps) {
                     itemTextStyle={wheelStyle.itemTextStyle}
                     flatListProps={wheelStyle.flatListProps}
                     containerStyle={wheelStyle.containerStyle}
-                    selectedIndicatorStyle={wheelStyle.selectedIndicatorStyle}
+                    selectedIndicatorStyle={{
+                        ...wheelStyle.selectedIndicatorStyle,
+                        borderTopLeftRadius: 10,
+                        borderBottomLeftRadius: 10,
+                    }}
                     onChange={(hour) => updateTime({...time, hour})}
                 />
 
@@ -100,7 +107,11 @@ export function TimerSelect({defaultValue, onChange}: TimerSelectProps) {
                     itemTextStyle={wheelStyle.itemTextStyle}
                     flatListProps={wheelStyle.flatListProps}
                     containerStyle={wheelStyle.containerStyle}
-                    selectedIndicatorStyle={wheelStyle.selectedIndicatorStyle}
+                    selectedIndicatorStyle={{
+                        ...wheelStyle.selectedIndicatorStyle,
+                        borderTopRightRadius: 10,
+                        borderBottomRightRadius: 10
+                    }}
                     onChange={(second) => updateTime({...time, second})}
                 />
             </ThemedView>
