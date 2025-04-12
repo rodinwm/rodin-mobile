@@ -10,7 +10,7 @@ import LucideIcon from "@/components/base/LucideIcon";
 export default function Page() {
     const router = useRouter();
     const colorScheme = useColorScheme() ?? 'light';
-    const {backPicUri} = useLocalSearchParams();
+    const {firstPicUri, secondPicUri} = useLocalSearchParams();
 
 
     return (
@@ -26,14 +26,13 @@ export default function Page() {
                 radiusStyle={"default"}
                 paddingStyle={"mini"}
                 fillStyle={"inversed"}
-                backgroundImage={{uri: backPicUri.toString()}}
+                backgroundImage={{uri: firstPicUri.toString()}}
             >
                 <ThemedView
                     className={'h-1/3 aspect-[9/16] shadow-lg'}
-                    outlined={true}
                     radiusStyle={"default"}
                     fillStyle={"inversed"}
-                    backgroundImage={{uri: backPicUri.toString()}}
+                    backgroundImage={{uri: secondPicUri.toString()}}
                 />
                 <ThemedView
                     className={"w-full items-end"}
