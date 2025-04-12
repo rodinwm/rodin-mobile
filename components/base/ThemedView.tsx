@@ -1,6 +1,7 @@
-import {Image, ImageSourcePropType, View, type ViewProps} from 'react-native';
+import {ImageBackground, ImageSourcePropType, View, type ViewProps} from 'react-native';
 import React from "react";
 import BlurredBackground from "@/components/base/BlurredBackground";
+import {ThemedClassName} from "@/utils/interfaces";
 
 export type ThemedViewProps = ViewProps & {
     outlined?: boolean;
@@ -8,6 +9,7 @@ export type ThemedViewProps = ViewProps & {
     radiusStyle?: "default" | "full" | "big" | "mini" | "none";
     paddingStyle?: "default" | "asymetric" | "mini" | "none";
     backgroundImage?: ImageSourcePropType | { uri: string };
+    showBlackOverlay?: boolean;
     isBackgroundBlur?: boolean;
 };
 
@@ -20,49 +22,48 @@ export function ThemedView({
                                radiusStyle = "none",
                                paddingStyle = "none",
                                isBackgroundBlur = false,
+                               showBlackOverlay = false,
                                ...otherProps
                            }: ThemedViewProps
 ) {
-    const classNames: string[] = [
-        'relative overflow-hidden',
-        fillStyle === "default" ?
+    const classNames: ThemedClassName = {
+        base: 'overflow-hidden',
+        fillStyle: fillStyle === "default" ?
             'bg-background-light dark:bg-background-dark' : fillStyle === "opacity-50" ?
                 'bg-foreground-light/50 dark:bg-foreground-dark/50 backdrop-blur-md' : fillStyle === "opacity-15" ?
                     'bg-foreground-light/15 dark:bg-foreground-dark/15 backdrop-blur-md' : fillStyle === "opacity-5" ?
                         'bg-foreground-light/5 dark:bg-foreground-dark/5 backdrop-blur-md' : fillStyle === "inversed" ?
                             'bg-background-dark dark:bg-background-light' : fillStyle === "warning" ?
                                 'bg-background-warning-light dark:bg-background-warning-dark' : '',
-        radiusStyle === "default" ?
+        radiusStyle: radiusStyle === "default" ?
             'rounded-3xl' : radiusStyle === "full" ?
                 'rounded-full' : radiusStyle === "big" ?
                     'rounded-6xl' : radiusStyle === "mini" ?
                         'rounded-lg' : '',
-        outlined ? 'border border-foreground-light/20 dark:border-foreground-dark/20' : '',
-        paddingStyle === "default" ?
+        outlined: outlined ? 'border border-foreground-light/20 dark:border-foreground-dark/20' : '',
+        paddingStyle: paddingStyle === "default" ?
             'p-6' : paddingStyle === "asymetric" ?
                 'px-6 py-3' : paddingStyle === "mini" ?
                     'p-3' : '',
-        className ?? ''
-    ];
+        customClassName: className ?? ''
+    };
 
     return backgroundImage ? (
-        <View
-            className={classNames.join(' ')}
+        <ImageBackground
+            source={backgroundImage}
+            className={Object.values(classNames).filter(Boolean).join(' ')}
+            imageClassName={classNames.radiusStyle}
             {...otherProps}
         >
-            {backgroundImage && (
-                <Image
-                    source={backgroundImage}
-                    resizeMode="cover"
-                    className={'absolute inset-0 w-full h-full rounded-3xl'}
-                />
+            {showBlackOverlay && (
+                <View className={'absolute inset-0 bg-background-dark/20'}/>
             )}
-            {isBackgroundBlur && <BlurredBackground/>}
+
             {children}
-        </View>
+        </ImageBackground>
     ) : (
         <View
-            className={classNames.join(' ')}
+            className={Object.values(classNames).filter(Boolean).join(' ')}
             {...otherProps}
         >
             {isBackgroundBlur && <BlurredBackground/>}

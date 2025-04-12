@@ -33,6 +33,7 @@ export default function ScreenTemplate(props: Props) {
             className={"w-full h-screen"}
             fillStyle={"default"}
             backgroundImage={props.backgroundImage}
+            showBlackOverlay={props.backgroundImage !== undefined}
         >
             <KeyboardAwareScrollView
                 enableOnAndroid={true}

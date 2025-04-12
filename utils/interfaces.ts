@@ -49,3 +49,12 @@ export interface Subscription {
     };
     content: string[];
 }
+
+export interface ThemedClassName {
+    base?: string;
+    fillStyle?: string;
+    radiusStyle?: string;
+    paddingStyle?: string;
+    outlined?: string;
+    customClassName?: string;
+}
