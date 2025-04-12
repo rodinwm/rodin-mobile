@@ -1,16 +1,18 @@
 import {ThemedView} from '@/components/base/ThemedView';
-import React from "react";
+import React, {useState} from "react";
 import {useLocalSearchParams, useRouter} from "expo-router";
 import ScreenTemplate from '@/components/layouts/ScreenTemplate';
 import {ThemedButton} from "@/components/base/ThemedButton";
 import {ThemedText} from "@/components/base/ThemedText";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import LucideIcon from "@/components/base/LucideIcon";
+import {TouchableOpacity} from "react-native";
 
 export default function Page() {
     const router = useRouter();
     const colorScheme = useColorScheme() ?? 'light';
     const {firstPicUri, secondPicUri} = useLocalSearchParams();
+    const [isSwapped, setIsSwapped] = useState(false);
 
 
     return (
@@ -26,14 +28,19 @@ export default function Page() {
                 radiusStyle={"default"}
                 paddingStyle={"mini"}
                 fillStyle={"inversed"}
-                backgroundImage={{uri: firstPicUri.toString()}}
+                backgroundImage={{uri: (isSwapped ? secondPicUri : firstPicUri).toString()}}
             >
-                <ThemedView
-                    className={'h-1/3 aspect-[9/16] shadow-lg'}
-                    radiusStyle={"default"}
-                    fillStyle={"inversed"}
-                    backgroundImage={{uri: secondPicUri.toString()}}
-                />
+                <TouchableOpacity
+                    className={'h-2/5 aspect-[9/16] shadow-lg'}
+                    onPress={() => setIsSwapped(prev => !prev)}
+                >
+                    <ThemedView
+                        className={'w-full h-full'}
+                        radiusStyle={"default"}
+                        fillStyle={"inversed"}
+                        backgroundImage={{uri: (isSwapped ? firstPicUri : secondPicUri).toString()}}
+                    />
+                </TouchableOpacity>
                 <ThemedView
                     className={"w-full items-end"}
                 >
