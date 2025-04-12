@@ -13,7 +13,7 @@ export default function Page() {
     const [facing, setFacing] = useState<CameraType>('back');
     const [flashMode, setFlashMode] = useState<'on' | 'off'>('off');
     const [permission, requestPermission] = useCameraPermissions();
-    const defaultCountdown = 3; // 3 secondes entre chaque prise de photo
+    const defaultCountdown = 5; // 5 secondes entre chaque prise de photo
     const [countdown, setCountdown] = useState(0);
     const [isCapturing, setIsCapturing] = useState(false);
 
@@ -79,7 +79,7 @@ export default function Page() {
                     flash={flashMode}
                     mirror={facing === 'front'}
                     style={{width: "100%", height: "100%"}}
-                >
+                >c
                     {countdown !== 0 && (
                         <ThemedView
                             className={"w-full h-full flex flex-col justify-center items-center bg-black/40"}>

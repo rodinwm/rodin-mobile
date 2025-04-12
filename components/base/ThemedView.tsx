@@ -1,4 +1,4 @@
-import {ImageBackground, ImageSourcePropType, View, type ViewProps} from 'react-native';
+import {Image, ImageSourcePropType, View, type ViewProps} from 'react-native';
 import React from "react";
 import BlurredBackground from "@/components/base/BlurredBackground";
 
@@ -24,7 +24,7 @@ export function ThemedView({
                            }: ThemedViewProps
 ) {
     const classNames: string[] = [
-        'overflow-hidden',
+        'relative overflow-hidden',
         fillStyle === "default" ?
             'bg-background-light dark:bg-background-dark' : fillStyle === "opacity-50" ?
                 'bg-foreground-light/50 dark:bg-foreground-dark/50 backdrop-blur-md' : fillStyle === "opacity-15" ?
@@ -46,17 +46,20 @@ export function ThemedView({
     ];
 
     return backgroundImage ? (
-        <ImageBackground
-            source={backgroundImage}
+        <View
             className={classNames.join(' ')}
             {...otherProps}
         >
-            <View
-                className={'bg-background-dark/20'}
-                style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}
-            />
+            {backgroundImage && (
+                <Image
+                    source={backgroundImage}
+                    resizeMode="cover"
+                    className={'absolute inset-0 w-full h-full rounded-3xl'}
+                />
+            )}
+            {isBackgroundBlur && <BlurredBackground/>}
             {children}
-        </ImageBackground>
+        </View>
     ) : (
         <View
             className={classNames.join(' ')}

@@ -24,7 +24,7 @@ export default function Page() {
             scrollEnabled={false}
         >
             <ThemedView
-                className={'w-full h-full flex-1 justify-between'}
+                className={'w-full h-full flex-1 flex flex-col justify-between'}
                 radiusStyle={"default"}
                 paddingStyle={"mini"}
                 fillStyle={"inversed"}
@@ -38,6 +38,7 @@ export default function Page() {
                         className={'w-full h-full'}
                         radiusStyle={"default"}
                         fillStyle={"inversed"}
+                        outlined={true}
                         backgroundImage={{uri: (isSwapped ? firstPicUri : secondPicUri).toString()}}
                     />
                 </TouchableOpacity>
