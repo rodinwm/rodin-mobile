@@ -1,6 +1,6 @@
 import {FlatListProps, StyleProp, TextStyle, ViewStyle} from "react-native";
 import {icons} from "lucide-react-native";
-import {PodColor} from "@/utils/enums";
+import {PodColor, SubscriptionRecurrence} from "@/utils/enums";
 
 export interface DailyTip {
     text: string;
@@ -38,4 +38,14 @@ export interface TimerValue {
 export interface Pod {
     id: string;
     color: PodColor;
+}
+
+export interface Subscription {
+    title: string;
+    description: string;
+    price: {
+        [SubscriptionRecurrence.Yearly]: number;
+        [SubscriptionRecurrence.Monthly]: number;
+    };
+    content: string[];
 }

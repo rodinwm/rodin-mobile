@@ -73,7 +73,7 @@ export function TimerSelect({defaultValue, onChange}: TimerSelectProps) {
                 <ThemedText type={"defaultSemiBold"} className={"flex-1 text-center"}>Secondes</ThemedText>
             </ThemedView>
             */}
-            <ThemedView className={'flex flex-row items-center px-2'}>
+            <ThemedView className={'flex flex-row items-center'}>
                 <WheelPicker
                     options={HOURS}
                     selectedIndex={time.hour}
@@ -82,7 +82,7 @@ export function TimerSelect({defaultValue, onChange}: TimerSelectProps) {
                     flatListProps={wheelStyle.flatListProps}
                     containerStyle={wheelStyle.containerStyle}
                     selectedIndicatorStyle={{
-                        ...wheelStyle.selectedIndicatorStyle,
+                        ...(wheelStyle.selectedIndicatorStyle as object),
                         borderTopLeftRadius: 10,
                         borderBottomLeftRadius: 10,
                     }}
@@ -108,7 +108,7 @@ export function TimerSelect({defaultValue, onChange}: TimerSelectProps) {
                     flatListProps={wheelStyle.flatListProps}
                     containerStyle={wheelStyle.containerStyle}
                     selectedIndicatorStyle={{
-                        ...wheelStyle.selectedIndicatorStyle,
+                        ...(wheelStyle.selectedIndicatorStyle as object),
                         borderTopRightRadius: 10,
                         borderBottomRightRadius: 10
                     }}

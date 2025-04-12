@@ -58,3 +58,8 @@ export enum PodColor {
     Green = "Green",
     Orange = "Orange",
 }
+
+export enum SubscriptionRecurrence {
+    Yearly = "Annuel",
+    Monthly = "Mensuel",
+}

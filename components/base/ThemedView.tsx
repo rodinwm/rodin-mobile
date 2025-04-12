@@ -5,7 +5,7 @@ import BlurredBackground from "@/components/base/BlurredBackground";
 export type ThemedViewProps = ViewProps & {
     outlined?: boolean;
     fillStyle?: "default" | "opacity-5" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
-    radiusStyle?: "default" | "full" | "big" | "none";
+    radiusStyle?: "default" | "full" | "big" | "mini" | "none";
     paddingStyle?: "default" | "asymetric" | "mini" | "none";
     backgroundImage?: ImageSourcePropType | { uri: string };
     isBackgroundBlur?: boolean;
@@ -35,7 +35,8 @@ export function ThemedView({
         radiusStyle === "default" ?
             'rounded-3xl' : radiusStyle === "full" ?
                 'rounded-full' : radiusStyle === "big" ?
-                    'rounded-6xl' : '',
+                    'rounded-6xl' : radiusStyle === "mini" ?
+                        'rounded-lg' : '',
         outlined ? 'border border-foreground-light/20 dark:border-foreground-dark/20' : '',
         paddingStyle === "default" ?
             'p-6' : paddingStyle === "asymetric" ?
