@@ -11,13 +11,19 @@ export default function Page() {
     const router = useRouter();
     const camRef = useRef<CameraView>(null);
     const [facing, setFacing] = useState<CameraType>('back');
-    const [enableTorch, setEnableTorch] = useState(false);
+    const [flashMode, setFlashMode] = useState<'on' | 'off'>('off');
     const [permission, requestPermission] = useCameraPermissions();
     const defaultCountdown = 3; // 3 secondes entre chaque prise de photo
     const [countdown, setCountdown] = useState(0);
     const [isCapturing, setIsCapturing] = useState(false);
 
-    const toggleTorch = () => setEnableTorch(prev => !prev);
+    const toggleFlashMode = () => {
+        setFlashMode((prevState) => {
+            const newState = prevState === 'on' ? 'off' : 'on';
+            Toast.info(newState === 'on' ? "Flash activé" : "Flash désactivé");
+            return newState;
+        });
+    }
     const toggleFacing = () => setFacing(current => (current === 'back' ? 'front' : 'back'));
 
     const takePicture = async () => {
@@ -70,7 +76,7 @@ export default function Page() {
                     mode={"picture"}
                     mute={true}
                     facing={facing}
-                    enableTorch={enableTorch}
+                    flash={flashMode}
                     mirror={facing === 'front'}
                     style={{width: "100%", height: "100%"}}
                 >
@@ -91,12 +97,12 @@ export default function Page() {
             <ThemedView className={'w-full flex flex-row gap-14 justify-center items-center'}>
                 <ThemedButton
                     title={"Flash"}
-                    icon={{name: enableTorch ? "ZapOff" : 'Zap'}}
+                    icon={{name: flashMode === 'on' ? "ZapOff" : 'Zap'}}
                     type={"no-fill"}
                     isBackgroundBlur={true}
                     paddingStyle={"uniform"}
                     showTitle={false}
-                    onPress={toggleTorch}
+                    onPress={toggleFlashMode}
                     disabled={isCapturing}
                 />
                 <ThemedButton
