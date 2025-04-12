@@ -71,6 +71,7 @@ export default function Page() {
                     mute={true}
                     facing={facing}
                     enableTorch={enableTorch}
+                    mirror={facing === 'front'}
                     style={{width: "100%", height: "100%"}}
                 >
                     {countdown !== 0 && (
