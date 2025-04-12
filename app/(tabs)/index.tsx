@@ -61,13 +61,14 @@ export default function Page() {
                     <ThemedButton
                         icon={{name: 'Timer'}}
                         title={"Start"}
+                        type={'opacity-15'}
                         className={'flex-1'}
                         onPress={() => router.push('/timer')}
                     />
                     <ThemedButton
                         icon={{name: !isRodPicsUnlocked ? 'Lock' : 'Camera'}}
-                        title={"RodPic's"}
-                        //type={"outlined"}
+                        title={"RodPics"}
+                        type={'opacity-15'}
                         className={'flex-1'}
                         disabled={!isRodPicsUnlocked}
                         onPress={() => router.push('/rodpics')}

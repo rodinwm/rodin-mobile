@@ -39,7 +39,7 @@ export default function SetProfession(props: OnboardingStepScreenProps) {
                 {showCustomProfessionInput && (
                     <ThemedView className={'w-full flex flex-col gap-3'}>
                         <ThemedTextInput
-                            placeholder={"Phrase de motivation"}
+                            placeholder={"Profession"}
                             value={customProfession}
                             onChangeText={(text) => {
                                 setCustomProfession(text);

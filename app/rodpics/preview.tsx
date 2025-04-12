@@ -15,9 +15,10 @@ export default function Page() {
 
     return (
         <ScreenTemplate
-            title={"RodPic's"}
+            title={"RodPics"}
             headerLeftBtn={"backBtn"}
             setHeightToScreenSize={true}
+            removeBodyPadding={true}
             scrollEnabled={false}
         >
             <ThemedView
@@ -29,7 +30,7 @@ export default function Page() {
             >
                 <ThemedView
                     className={'h-1/3 aspect-[9/16] shadow-lg'}
-                    //outlined={true}
+                    outlined={true}
                     radiusStyle={"default"}
                     fillStyle={"inversed"}
                     backgroundImage={{uri: backPicUri.toString()}}
@@ -57,6 +58,7 @@ export default function Page() {
 
             <ThemedButton
                 suffixIcon={{name: 'SendHorizontal'}}
+                type={"no-fill"}
                 title={"Envoyer"}
                 onPress={() => {
                 }}

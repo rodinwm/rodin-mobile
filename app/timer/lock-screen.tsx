@@ -11,7 +11,7 @@ import {DateHelper} from "@/utils/helpers/dateHelper";
 
 export default function Page() {
     const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes en secondes
-    const [isRunning, setIsRunning] = useState(true);
+    const [isRunning, setIsRunning] = useState(false);
     const navigation = useNavigation();
 
     let timer = setInterval(() => {

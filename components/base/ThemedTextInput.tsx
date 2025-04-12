@@ -8,6 +8,7 @@ import React from "react";
 export type ThemedViewProps = TextInputProps & {
     label?: string;
     bigText?: boolean;
+    outlined?: boolean;
     radiusStyle?: "default" | "full" | "left-only" | "right-only" | "none";
     containerClassName?: string;
 };
@@ -17,14 +18,16 @@ export function ThemedTextInput({
                                     bigText,
                                     className,
                                     maxLength,
+                                    outlined = true,
                                     containerClassName,
                                     radiusStyle = "default",
                                     ...otherProps
                                 }: ThemedViewProps
 ) {
     const classNames: string[] = [
-        'font-sans px-6 py-4 border border-foreground-light/10 dark:border-foreground-dark/10 text-foreground-light dark:text-foreground-dark bg-foreground-light/5 dark:bg-foreground-dark/5',
+        'font-sans px-6 py-4 text-foreground-light dark:text-foreground-dark bg-foreground-light/5 dark:bg-foreground-dark/5',
         bigText ? 'text-2xl' : 'text-lg',
+        outlined ? 'border border-foreground-light/10 dark:border-foreground-dark/10' : '',
         radiusStyle === "default" ?
             'rounded-3xl' : radiusStyle === "full" ?
                 'rounded-full' : radiusStyle === "left-only" ?

@@ -108,6 +108,7 @@ export default function Page() {
                         showTitle={false}
                         className={'flex-1'}
                         radiusStyle={"left-only"}
+                        type={"opacity-15"}
                         onPress={() => setNumberOfSessions((previous) => previous !== 0 ? previous - 1 : 0)}
                     />
 
@@ -119,6 +120,7 @@ export default function Page() {
                         keyboardType={"number-pad"}
                         maxLength={2}
                         bigText={true}
+                        //outlined={false}
                         containerClassName={'flex-1'}
                         onChangeText={(text) => {
                             const parsedNumber = parseInt(text, 10);
@@ -132,6 +134,7 @@ export default function Page() {
                         showTitle={false}
                         className={'flex-1'}
                         radiusStyle={"right-only"}
+                        type={"opacity-15"}
                         onPress={() => setNumberOfSessions((previous) => previous >= 10 ? 10 : previous + 1)}
                     />
                 </ThemedView>

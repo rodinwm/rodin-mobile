@@ -46,26 +46,26 @@ export default function Page() {
 
     return (
         <ScreenTemplate
-            title={"RodPic's"}
+            title={"RodPics"}
             headerLeftBtn={"backBtn"}
             setHeightToScreenSize={true}
             removeBodyPadding={true}
             scrollEnabled={false}
         >
-            <CameraView
-                ref={backCamRef}
-                mode={"picture"}
-                mute={true}
-                facing={facing}
-                enableTorch={enableTorch}
-                style={{
-                    flex: 1,
-                    padding: 10,
-                    width: "100%",
-                    height: "100%",
-                }}
-            >
-                {/*
+            <ThemedView className={'w-full h-full flex-1'} radiusStyle={"default"}>
+                <CameraView
+                    ref={backCamRef}
+                    mode={"picture"}
+                    mute={true}
+                    facing={facing}
+                    enableTorch={enableTorch}
+                    style={{
+                        padding: 10,
+                        width: "100%",
+                        height: "100%",
+                    }}
+                >
+                    {/*
                 <ThemedView className={'w-1/3 h-1/3'} radiusStyle={"default"}>
                     <CameraView
                         ref={frontCamRef}
@@ -80,13 +80,14 @@ export default function Page() {
                     />
                 </ThemedView>
                 */}
-            </CameraView>
+                </CameraView>
+            </ThemedView>
 
-            <ThemedView className={'w-full flex flex-row gap-6 justify-center items-center'}>
+            <ThemedView className={'w-full flex flex-row gap-14 justify-center items-center'}>
                 <ThemedButton
                     title={"Flash"}
                     icon={{name: enableTorch ? "ZapOff" : 'Zap'}}
-                    type={"outlined"}
+                    type={"no-fill"}
                     isBackgroundBlur={true}
                     paddingStyle={"uniform"}
                     showTitle={false}
@@ -103,10 +104,10 @@ export default function Page() {
                 />
                 <ThemedButton
                     title={"Changer de caméra"}
-                    icon={{name: 'RefreshCcwDot'}}
+                    icon={{name: 'RefreshCcw'}}
                     showTitle={false}
                     isBackgroundBlur={true}
-                    type={"outlined"}
+                    type={"no-fill"}
                     paddingStyle={"uniform"}
                     onPress={toggleFacing}
                 />

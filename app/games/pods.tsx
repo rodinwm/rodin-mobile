@@ -14,7 +14,7 @@ import {UIHelper} from "@/utils/helpers/uiHelper";
 export default function Page() {
     const router = useRouter();
     const totalTime = 90; // 1m30s en secondes
-    const eachStepTime = totalTime / 30; // totalTime réparti en étapes de 90/30 = 3 secondes
+    const eachStepTime = 1;//totalTime / 30; // totalTime réparti en étapes de 90/30 = 3 secondes
     const [step, setStep] = useState(GameHelper.getEmptyPodsGameStep());
     const [timeLeft, setTimeLeft] = useState(totalTime);
     const [isRunning, setIsRunning] = useState(false);
@@ -64,6 +64,7 @@ export default function Page() {
         console.info(`Pod ${pod.color} tapped!`);
         if (pod.color === PodColor.Red) {
             UIHelper.hapticImpact();
+            setStep(GameHelper.generatePodsGameStep());
             console.info(`Yessss !`);
         } else {
             UIHelper.hapticImpact("error");
@@ -78,15 +79,31 @@ export default function Page() {
             scrollEnabled={false}
         >
             <ThemedView
-                className={'w-full'}
+                className={'w-full flex flex-col justify-center items-center'}
             >
                 <ThemedText type={'logo'} className={"text-center mt-4"}>
                     {DateHelper.formatTime(timeLeft)}
                 </ThemedText>
 
                 <ThemedText type={'subtitle'} className={"text-center"}>
-                    Clic rapidement sur les lumières rouges et évite les lumières bleues.
+                    Clic sur les pods rouges et évite les autres
                 </ThemedText>
+
+                {/* TODO: Continuer plus tard
+                <ThemedView
+                    className={"mt-4 w-fit flex flex-row gap-2 justify-center items-center"}
+                    radiusStyle={"default"}
+                    paddingStyle={"asymetric"}
+                    fillStyle={'inversed'}
+                >
+                    <ThemedText
+                        type={'defaultExtraBold'}
+                        inverseColor={true}
+                    >
+                        Score : 40
+                    </ThemedText>
+                </ThemedView>
+                */}
             </ThemedView>
 
             <FlatList
