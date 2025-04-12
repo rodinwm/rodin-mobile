@@ -24,7 +24,7 @@ export abstract class GameHelper {
         // Mélange pour aléatoirement choisir
         const shuffledColors = faker.helpers.shuffle(optionalColors);
 
-        let remainingSlots = 3;
+        let remainingSlots = 4 - pods.length;
 
         for (const color of shuffledColors) {
             if (remainingSlots <= 0) break;

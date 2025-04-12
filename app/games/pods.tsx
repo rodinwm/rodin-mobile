@@ -18,6 +18,8 @@ export default function Page() {
     const [step, setStep] = useState(GameHelper.getEmptyPodsGameStep());
     const [timeLeft, setTimeLeft] = useState(totalTime);
     const [isRunning, setIsRunning] = useState(false);
+    const [score, setScore] = useState(0);
+    const [errorCount, setErrorCount] = useState(0);
 
     useEffect(() => {
         if (!isRunning) return;
@@ -28,7 +30,7 @@ export default function Page() {
 
                 // Action toutes les 6 secondes (sauf au tout début ou à la fin)
                 if ((0 < newTime && newTime < totalTime) && (newTime % eachStepTime === 0)) {
-                    console.info("🎯 Action toutes les 3 secondes !");
+                    console.info("🎯 Action toutes les secondes !");
                     setStep(GameHelper.generatePodsGameStep());
                 }
 
@@ -64,10 +66,13 @@ export default function Page() {
         console.info(`Pod ${pod.color} tapped!`);
         if (pod.color === PodColor.Red) {
             UIHelper.hapticImpact();
+            setScore(prevState => prevState + 1);
             setStep(GameHelper.generatePodsGameStep());
             console.info(`Yessss !`);
         } else {
             UIHelper.hapticImpact("error");
+            setErrorCount(prevState => prevState + 1);
+            setStep(GameHelper.generatePodsGameStep());
         }
     }
 
@@ -81,7 +86,7 @@ export default function Page() {
             <ThemedView
                 className={'w-full flex flex-col justify-center items-center'}
             >
-                <ThemedText type={'logo'} className={"text-center mt-4"}>
+                <ThemedText type={'logo'} className={"text-center"}>
                     {DateHelper.formatTime(timeLeft)}
                 </ThemedText>
 
@@ -89,21 +94,16 @@ export default function Page() {
                     Clic sur les pods rouges et évite les autres
                 </ThemedText>
 
-                {/* TODO: Continuer plus tard
                 <ThemedView
                     className={"mt-4 w-fit flex flex-row gap-2 justify-center items-center"}
                     radiusStyle={"default"}
-                    paddingStyle={"asymetric"}
+                    paddingStyle={"mini"}
                     fillStyle={'inversed'}
                 >
-                    <ThemedText
-                        type={'defaultExtraBold'}
-                        inverseColor={true}
-                    >
-                        Score : 40
+                    <ThemedText type={'miniExtraBold'} inverseColor={true}>
+                        Score : {score} / Erreurs : {errorCount}
                     </ThemedText>
                 </ThemedView>
-                */}
             </ThemedView>
 
             <FlatList
