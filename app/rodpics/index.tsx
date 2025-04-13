@@ -79,7 +79,7 @@ export default function Page() {
                     flash={flashMode}
                     mirror={facing === 'front'}
                     style={{width: "100%", height: "100%"}}
-                >c
+                >
                     {countdown !== 0 && (
                         <ThemedView
                             className={"w-full h-full flex flex-col justify-center items-center bg-black/40"}>
