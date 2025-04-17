@@ -1,5 +1,5 @@
 import {ThemedView} from '@/components/base/ThemedView';
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useRouter} from "expo-router";
 import ScreenTemplate from '@/components/layouts/ScreenTemplate';
 import {ThemedButton} from "@/components/base/ThemedButton";
@@ -13,29 +13,26 @@ import {UIHelper} from "@/utils/helpers/uiHelper";
 
 export default function Page() {
     const router = useRouter();
-    const totalTime = 90; // 1m30s en secondes
-    const eachStepTime = 1;//totalTime / 30; // totalTime réparti en étapes de 90/30 = 3 secondes
-    const [step, setStep] = useState(GameHelper.getEmptyPodsGameStep());
-    const [timeLeft, setTimeLeft] = useState(totalTime);
+    // Game setup
     const [isRunning, setIsRunning] = useState(false);
-    const [bestScore, setBestScore] = useState(0);
+    const [step, setStep] = useState(GameHelper.getEmptyPodsGameStep());
+    // Timer setup
+    const totalTime = 90; // 1m30s en secondes
+    const stepTimerRef = useRef<NodeJS.Timeout | null>(null);
+    const [timeLeft, setTimeLeft] = useState(totalTime);
+    const [stepTimer, setStepTimer] = useState(1000); // Timer en millisecondes
+    // Score & errors setup
     const [score, setScore] = useState(0);
+    const [bestScore, setBestScore] = useState(0);
     const [errorCount, setErrorCount] = useState(0);
 
+    // Gestion du temps global
     useEffect(() => {
         if (!isRunning) return;
 
         const timer = setInterval(() => {
             setTimeLeft(prevTime => {
                 const newTime = prevTime - 1;
-
-                // Action toutes les 6 secondes (sauf au tout début ou à la fin)
-                if ((0 < newTime && newTime < totalTime) && (newTime % eachStepTime === 0)) {
-                    console.info("🎯 Action toutes les secondes !");
-                    setStep(GameHelper.generatePodsGameStep());
-                }
-
-                // Stopper quand on atteint 0
                 if (newTime <= 0) {
                     setIsRunning(false);
                     clearInterval(timer);
@@ -48,6 +45,32 @@ export default function Page() {
 
         return () => clearInterval(timer);
     }, [isRunning]);
+
+    const startStepTimer = () => {
+        if (stepTimerRef.current) {
+            clearTimeout(stepTimerRef.current);
+        }
+        stepTimerRef.current = setTimeout(generateNewPods, stepTimer);
+    };
+
+    const generateNewPods = () => {
+        setStep(GameHelper.generatePodsGameStep());
+        startStepTimer();
+    };
+
+    // Nouvel useEffect pour gérer le timer des pods
+    useEffect(() => {
+        if (!isRunning) return;
+
+        // Démarrer le timer initial
+        startStepTimer();
+
+        return () => {
+            if (stepTimerRef.current) {
+                clearTimeout(stepTimerRef.current);
+            }
+        };
+    }, [isRunning, stepTimer]);
 
 
     const startGame = () => {
@@ -64,17 +87,19 @@ export default function Page() {
     }
 
     const onPodTap = (pod: Pod) => {
+        if (!isGameStarted() || isGameOver()) return;
+        
         console.info(`Pod ${pod.color} tapped!`);
         if (pod.color === PodColor.Red) {
             UIHelper.hapticImpact();
             setScore(prevState => prevState + 1);
-            setStep(GameHelper.generatePodsGameStep());
-            console.info(`Yessss !`);
         } else {
             UIHelper.hapticImpact("error");
             setErrorCount(prevState => prevState + 1);
             setStep(GameHelper.generatePodsGameStep());
         }
+        // Générer de nouveaux pods
+        generateNewPods();
     }
 
     return (

@@ -15,7 +15,6 @@ export abstract class GameHelper {
         const pods: Pod[] = [
             // 🔴 1 pod rouge obligatoire
             {id: faker.string.uuid(), color: PodColor.Red},
-            {id: faker.string.uuid(), color: PodColor.Red}
         ];
 
         // Couleurs optionnelles
