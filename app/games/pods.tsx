@@ -10,6 +10,7 @@ import {GameHelper} from "@/utils/helpers/gameHelper";
 import {ConcentrationExercise, PodColor} from "@/utils/enums";
 import {Pod} from "@/utils/interfaces";
 import {UIHelper} from "@/utils/helpers/uiHelper";
+import {Toast} from "toastify-react-native";
 
 export default function Page() {
     const router = useRouter();
@@ -17,7 +18,7 @@ export default function Page() {
     const [isRunning, setIsRunning] = useState(false);
     const [step, setStep] = useState(GameHelper.getEmptyPodsGameStep());
     // Timer setup
-    const totalTime = 10; // 1m30s en secondes
+    const totalTime = 20; // 1m30s en secondes
     const stepTimerRef = useRef<NodeJS.Timeout | null>(null);
     const [timeLeft, setTimeLeft] = useState(totalTime);
     const [stepTimer, setStepTimer] = useState(1000); // Timer en millisecondes
@@ -40,10 +41,6 @@ export default function Page() {
             setTimeLeft(prevTime => {
                 const newTime = prevTime - 1;
                 if (newTime <= 0) {
-                    if (score > bestScore) { // FIXME: The bestScore is not saved to AsyncStorage when the game is over
-                        setBestScore(score);
-                        GameHelper.saveBestScore(ConcentrationExercise.Pods, score).then();
-                    }
                     setIsRunning(false);
                     clearInterval(timer);
                     return 0;
@@ -81,6 +78,20 @@ export default function Page() {
             }
         };
     }, [isRunning, stepTimer]);
+
+    // Sauvegarde du meilleur score
+    useEffect(() => {
+        if (isRunning) return;
+
+        if (score > bestScore) {
+            setBestScore(score);
+            GameHelper.saveBestScore(ConcentrationExercise.Pods, score).then();
+            UIHelper.hapticImpact('success');
+            Toast.success("Nouveau meilleur score !");
+        }
+
+        return;
+    }, [isRunning, timeLeft, score, bestScore]);
 
 
     const startGame = () => {
