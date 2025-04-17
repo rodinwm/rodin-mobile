@@ -7,7 +7,7 @@ import {ThemedText} from "@/components/base/ThemedText";
 import {DateHelper} from "@/utils/helpers/dateHelper";
 import {FlatList} from "react-native";
 import {GameHelper} from "@/utils/helpers/gameHelper";
-import {PodColor} from "@/utils/enums";
+import {ConcentrationExercise, PodColor} from "@/utils/enums";
 import {Pod} from "@/utils/interfaces";
 import {UIHelper} from "@/utils/helpers/uiHelper";
 
@@ -17,7 +17,7 @@ export default function Page() {
     const [isRunning, setIsRunning] = useState(false);
     const [step, setStep] = useState(GameHelper.getEmptyPodsGameStep());
     // Timer setup
-    const totalTime = 90; // 1m30s en secondes
+    const totalTime = 10; // 1m30s en secondes
     const stepTimerRef = useRef<NodeJS.Timeout | null>(null);
     const [timeLeft, setTimeLeft] = useState(totalTime);
     const [stepTimer, setStepTimer] = useState(1000); // Timer en millisecondes
@@ -25,6 +25,12 @@ export default function Page() {
     const [score, setScore] = useState(0);
     const [bestScore, setBestScore] = useState(0);
     const [errorCount, setErrorCount] = useState(0);
+
+    // Chargement du meilleur score
+    useEffect(() => {
+        GameHelper.loadBestScore(ConcentrationExercise.Pods)
+            .then((loadedBestScore: number) => setBestScore(loadedBestScore));
+    }, []);
 
     // Gestion du temps global
     useEffect(() => {
@@ -34,6 +40,10 @@ export default function Page() {
             setTimeLeft(prevTime => {
                 const newTime = prevTime - 1;
                 if (newTime <= 0) {
+                    if (score > bestScore) { // FIXME: The bestScore is not saved to AsyncStorage when the game is over
+                        setBestScore(score);
+                        GameHelper.saveBestScore(ConcentrationExercise.Pods, score).then();
+                    }
                     setIsRunning(false);
                     clearInterval(timer);
                     return 0;
@@ -87,8 +97,8 @@ export default function Page() {
     }
 
     const onPodTap = (pod: Pod) => {
-        if (!isGameStarted() || isGameOver()) return;
-        
+        if (!isRunning) return;
+
         console.info(`Pod ${pod.color} tapped!`);
         if (pod.color === PodColor.Red) {
             UIHelper.hapticImpact();

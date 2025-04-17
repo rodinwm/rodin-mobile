@@ -1,6 +1,7 @@
-import {PodColor} from "@/utils/enums";
+import {ConcentrationExercise, PodColor} from "@/utils/enums";
 import {faker} from "@faker-js/faker";
 import {Pod} from "@/utils/interfaces";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export abstract class GameHelper {
 
@@ -41,5 +42,29 @@ export abstract class GameHelper {
 
         // 🔀 Mélanger et retourner le tout
         return faker.helpers.shuffle(pods, {inplace: true});
+    }
+
+    static async saveBestScore(game: ConcentrationExercise, score: number): Promise<void> {
+        try {
+            await AsyncStorage.setItem(`${game}.bestScore`, score.toString());
+            console.info(`New best score saved for game [${game}] !`);
+        } catch (error) {
+            console.error(`Erreur lors de la sauvegarde du meilleur score du jeu [${game}] :`, error);
+        }
+    }
+
+    static async loadBestScore(game: ConcentrationExercise): Promise<number> {
+        try {
+            const bestScore = await AsyncStorage.getItem(`${game}.bestScore`);
+            if (bestScore) {
+                console.info(`Best score for game [${game}] loaded !`);
+                return parseInt(bestScore);
+            }
+            console.info(`No saved best score for game [${game}]`);
+            return 0;
+        } catch (error) {
+            console.error(`Erreur lors du chargement du meilleur score du jeu [${game}] :`, error);
+            return 0;
+        }
     }
 }
