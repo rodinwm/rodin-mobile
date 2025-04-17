@@ -18,6 +18,7 @@ export default function Page() {
     const [step, setStep] = useState(GameHelper.getEmptyPodsGameStep());
     const [timeLeft, setTimeLeft] = useState(totalTime);
     const [isRunning, setIsRunning] = useState(false);
+    const [bestScore, setBestScore] = useState(0);
     const [score, setScore] = useState(0);
     const [errorCount, setErrorCount] = useState(0);
 
@@ -95,14 +96,38 @@ export default function Page() {
                 </ThemedText>
 
                 <ThemedView
-                    className={"mt-4 w-fit flex flex-row gap-2 justify-center items-center"}
-                    radiusStyle={"default"}
-                    paddingStyle={"mini"}
-                    fillStyle={'inversed'}
+                    className={'w-full flex flex-row gap-2 justify-center items-center'}
                 >
-                    <ThemedText type={'miniExtraBold'} inverseColor={true}>
-                        Score : {score} / Erreurs : {errorCount}
-                    </ThemedText>
+                    <ThemedView
+                        className={"mt-4 w-fit flex flex-row gap-2 justify-center items-center"}
+                        radiusStyle={"default"}
+                        paddingStyle={"mini"}
+                        fillStyle={'opacity-15'}
+                    >
+                        <ThemedText type={'miniExtraBold'}>
+                            Meilleur score : {bestScore}
+                        </ThemedText>
+                    </ThemedView>
+                    <ThemedView
+                        className={"mt-4 w-fit flex flex-row gap-2 justify-center items-center"}
+                        radiusStyle={"default"}
+                        paddingStyle={"mini"}
+                        fillStyle={'opacity-15'}
+                    >
+                        <ThemedText type={'miniExtraBold'}>
+                            Score : {score}
+                        </ThemedText>
+                    </ThemedView>
+                    <ThemedView
+                        className={"mt-4 w-fit flex flex-row gap-2 justify-center items-center"}
+                        radiusStyle={"default"}
+                        paddingStyle={"mini"}
+                        fillStyle={'opacity-15'}
+                    >
+                        <ThemedText type={'miniExtraBold'}>
+                            Erreurs : {errorCount}
+                        </ThemedText>
+                    </ThemedView>
                 </ThemedView>
             </ThemedView>
 
@@ -112,7 +137,7 @@ export default function Page() {
                 keyExtractor={(item) => item.id}
                 scrollEnabled={false}
                 nestedScrollEnabled={false}
-                contentContainerClassName={"jutify-center items-center"}
+                contentContainerClassName={"justify-center items-center"}
                 columnWrapperClassName="gap-10"
                 ItemSeparatorComponent={() => (
                     <ThemedView paddingStyle={"default"}/>
