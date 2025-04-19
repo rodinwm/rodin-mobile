@@ -39,7 +39,7 @@ export default function Page() {
                         className={'w-full h-full'}
                         radiusStyle={"default"}
                         fillStyle={"inversed"}
-                        //borderWidth={2}
+                        borderWidth={2}
                         borderStyle={"inversed"}
                         backgroundImage={{uri: (isSwapped ? firstPicUri : secondPicUri).toString()}}
                     />
