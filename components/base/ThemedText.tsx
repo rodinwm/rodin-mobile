@@ -31,6 +31,10 @@ export function ThemedText({
             fontSize: "text-xs",
             fontWeight: FontWeightEnum.ExtraBold,
         },
+        link: {
+            fontSize: "text-lg text-blue-500",
+            fontWeight: FontWeightEnum.Medium,
+        },
         default: {
             fontSize: "text-lg",
             fontWeight: FontWeightEnum.Light,
@@ -43,6 +47,14 @@ export function ThemedText({
             fontSize: "text-lg",
             fontWeight: FontWeightEnum.ExtraBold,
         },
+        subtitle: {
+            fontSize: "text-xl",
+            fontWeight: FontWeightEnum.Bold,
+        },
+        h1: {
+            fontSize: "text-2xl",
+            fontWeight: FontWeightEnum.SemiBold,
+        },
         title: {
             fontSize: "text-3xl",
             fontWeight: FontWeightEnum.ExtraBold,
@@ -50,18 +62,6 @@ export function ThemedText({
         logo: {
             fontSize: "text-8xl",
             fontWeight: FontWeightEnum.ExtraBold,
-        },
-        h1: {
-            fontSize: "text-2xl",
-            fontWeight: FontWeightEnum.SemiBold,
-        },
-        subtitle: {
-            fontSize: "text-xl",
-            fontWeight: FontWeightEnum.Bold,
-        },
-        link: {
-            fontSize: "text-lg text-blue-500",
-            fontWeight: FontWeightEnum.Medium,
         },
     };
 

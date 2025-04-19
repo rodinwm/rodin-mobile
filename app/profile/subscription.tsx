@@ -31,7 +31,7 @@ export default function Page() {
                 <ThemedView className={'w-full flex flex-row gap-2 items-center'}>
                     <ThemedButton
                         title={"Annuel"}
-                        miniText={true}
+                        textSize={"miniExtraBold"}
                         type={subscriptionRecurrence === SubscriptionRecurrence.Yearly ? "default" : "no-fill"}
                         className={'flex-1'}
                         onPress={() => {
@@ -40,7 +40,7 @@ export default function Page() {
                     />
                     <ThemedButton
                         title={"Mensuel"}
-                        miniText={true}
+                        textSize={"miniExtraBold"}
                         type={subscriptionRecurrence === SubscriptionRecurrence.Monthly ? "default" : "no-fill"}
                         className={'flex-1'}
                         onPress={() => {

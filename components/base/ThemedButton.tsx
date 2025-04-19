@@ -18,7 +18,7 @@ export type ThemedButtonProps = ButtonProps & {
     showTitle?: boolean;
     fullWidth?: boolean;
     fullHeight?: boolean;
-    miniText?: boolean;
+    textSize?: "defaultSemiBold" | "miniExtraBold" | "link" | "title";
     className?: string;
     radiusStyle?: "default" | "full" | "left-only" | "right-only" | "none";
     paddingStyle?: "default" | "mini" | "uniform" | "uniform-big" | "uniform-very-big" | "none";
@@ -33,12 +33,12 @@ export function ThemedButton({
                                  className,
                                  fullWidth,
                                  fullHeight,
-                                 miniText,
                                  disabled,
                                  suffixIcon,
                                  color,
                                  isBackgroundBlur = false,
                                  showTitle = true,
+                                 textSize = "defaultSemiBold",
                                  radiusStyle = "default",
                                  type = "default",
                                  paddingStyle = "default",
@@ -97,11 +97,7 @@ export function ThemedButton({
 
             {showTitle && (
                 <ThemedText
-                    type={
-                        miniText ?
-                            "miniExtraBold" : type === "link" ?
-                                'link' : "defaultSemiBold"
-                    }
+                    type={textSize}
                     filled={type !== "danger"}
                     className={type === "danger" ? 'text-foreground-dark' : ''}
                     inverseColor={type === "default"}

@@ -7,7 +7,7 @@ import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {icons} from "lucide-react-native";
 import {TouchableOpacity} from "react-native";
 
-interface ComponentProps {
+interface Props {
     icon?: keyof typeof icons;
     type?: "default" | "warning";
     title: string;
@@ -21,7 +21,7 @@ export function AlertCard({
                               title,
                               message,
                               onPress
-                          }: ComponentProps
+                          }: Props
 ) {
     const colorScheme = useColorScheme() ?? 'light';
     const iconColor = type === "warning" ?

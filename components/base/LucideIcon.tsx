@@ -3,7 +3,7 @@ import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {StyleProp, ViewStyle} from "react-native";
 
-interface ComponentProps {
+interface Props {
     name: keyof typeof icons,
     color?: string,
     size?: number,
@@ -13,7 +13,7 @@ interface ComponentProps {
     style?: StyleProp<ViewStyle>;
 }
 
-export default function LucideIcon(props: ComponentProps) {
+export default function LucideIcon(props: Props) {
     const LucideIcon = icons[props.name];
 
     let colorScheme = useColorScheme();

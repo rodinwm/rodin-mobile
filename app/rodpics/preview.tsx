@@ -30,6 +30,7 @@ export default function Page() {
                 fillStyle={"inversed"}
                 backgroundImage={{uri: (isSwapped ? secondPicUri : firstPicUri).toString()}}
             >
+                {/* Little preview */}
                 <TouchableOpacity
                     className={'h-2/5 aspect-[9/16] shadow-lg'}
                     onPress={() => setIsSwapped(prev => !prev)}
@@ -63,13 +64,23 @@ export default function Page() {
                 </ThemedView>
             </ThemedView>
 
-            <ThemedButton
-                suffixIcon={{name: 'SendHorizontal'}}
-                type={"no-fill"}
-                title={"Envoyer"}
-                onPress={() => {
-                }}
-            />
+            <ThemedView
+                className={"w-full flex flex-row justify-center items-center gap-3"}
+                paddingStyle={"default"}
+            >
+                <ThemedButton
+                    suffixIcon={{
+                        name: 'SendHorizontal',
+                        size: 30,
+                    }}
+                    type={"no-fill"}
+                    textSize={"title"}
+                    title={"Envoyer"}
+                    className={"flex-1"}
+                    onPress={() => {
+                    }}
+                />
+            </ThemedView>
         </ScreenTemplate>
     );
 }

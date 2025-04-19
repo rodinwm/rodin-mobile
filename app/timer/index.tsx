@@ -6,12 +6,10 @@ import {ThemedButton} from "@/components/base/ThemedButton";
 import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 import {useRouter} from "expo-router";
 import {TimerSelect} from "@/components/TimerSelect";
-import ThemedBottomSheet from "@/components/base/ThemedBottomSheet";
 import ScreenTemplate from "@/components/layouts/ScreenTemplate";
 import {TimerValue} from "@/utils/interfaces";
-
-const defaultWorkTime: TimerValue = {hour: 0, minute: 30, second: 0};
-const defaultBreakTime: TimerValue = {hour: 0, minute: 10, second: 0};
+import {DefaultTimerSheet} from "@/components/sheets/DefaultTimerSheet";
+import {defaultBreakTime, defaultWorkTime} from '@/utils/constants';
 
 export default function Page() {
     const router = useRouter();
@@ -31,38 +29,10 @@ export default function Page() {
                 onPress: () => setIsBottomSheetOpen(true),
             }}
             bottomSheet={(
-                <ThemedBottomSheet
+                <DefaultTimerSheet
                     isOpen={isBottomSheetOpen}
                     onClose={() => setIsBottomSheetOpen(false)}
-                >
-                    <ThemedText type={'title'}>Minuteur par défaut</ThemedText>
-
-                    {/* Temps de travail */}
-                    <ThemedView className={'w-full flex flex-col gap-3'}>
-                        <ThemedView className={'w-full flex flex-row items-center gap-2 opacity-50'}>
-                            <LucideIcon name={'Brain'}/>
-                            <ThemedText type={'defaultSemiBold'}>Temps de travail</ThemedText>
-                        </ThemedView>
-
-                        <TimerSelect
-                            defaultValue={defaultWorkTime}
-                            onChange={(time: TimerValue) => setWorkTime(time)}
-                        />
-                    </ThemedView>
-
-                    {/* Temps de repos */}
-                    <ThemedView className={'w-full flex flex-col gap-3'}>
-                        <ThemedView className={'w-full flex flex-row items-center gap-2 opacity-50'}>
-                            <LucideIcon name={'OctagonPause'}/>
-                            <ThemedText type={'defaultSemiBold'}>Temps de repos</ThemedText>
-                        </ThemedView>
-
-                        <TimerSelect
-                            defaultValue={defaultBreakTime}
-                            onChange={(time: TimerValue) => setBreakTime(time)}
-                        />
-                    </ThemedView>
-                </ThemedBottomSheet>
+                />
             )}
         >
 

@@ -22,7 +22,7 @@ export default function Page() {
             >
                 <ThemedButton
                     title={"Demandes reçues"}
-                    miniText={true}
+                    textSize={"miniExtraBold"}
                     type={page === 0 ? "default" : "no-fill"}
                     className={'flex-1'}
                     onPress={() => {
@@ -33,7 +33,7 @@ export default function Page() {
                 <ThemedButton
                     title={"Demandes Envoyées"}
                     type={page === 1 ? "default" : "no-fill"}
-                    miniText={true}
+                    textSize={"miniExtraBold"}
                     className={'flex-1'}
                     onPress={() => {
                         setPage(1);
@@ -83,7 +83,7 @@ export default function Page() {
                                     <ThemedView className={'flex flex-row items-center gap-3'}>
                                         <ThemedButton
                                             title={"Accepter"}
-                                            miniText={true}
+                                            textSize={"miniExtraBold"}
                                             paddingStyle={"mini"}
                                             type={"opacity-25"}
                                         />
