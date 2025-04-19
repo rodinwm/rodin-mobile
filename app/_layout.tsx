@@ -26,6 +26,7 @@ export default function RootLayout() {
     const appearance = Appearance.getColorScheme();
 
     const [fontLoaded] = useFonts({
+        // Base
         "FunnelDisplay-Light": require('@/assets/fonts/FunnelDisplay/FunnelDisplay-Light.ttf'),
         "FunnelDisplay-Regular": require('@/assets/fonts/FunnelDisplay/FunnelDisplay-Regular.ttf'),
         "FunnelDisplay-Medium": require('@/assets/fonts/FunnelDisplay/FunnelDisplay-Medium.ttf'),
@@ -33,6 +34,8 @@ export default function RootLayout() {
         "FunnelDisplay-Bold": require('@/assets/fonts/FunnelDisplay/FunnelDisplay-Bold.ttf'),
         "FunnelDisplay-ExtraBold": require('@/assets/fonts/FunnelDisplay/FunnelDisplay-ExtraBold.ttf'),
         "FunnelDisplay-VariableFontWeight": require('@/assets/fonts/FunnelDisplay/FunnelDisplay-VariableFontWeight.ttf'),
+        // Poppins
+        "Poppins-Black": require('@/assets/fonts/Poppins/Poppins-Black.ttf'),
     });
 
     useEffect(() => {

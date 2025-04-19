@@ -14,11 +14,12 @@ export type ThemedButtonProps = ButtonProps & {
     suffixIcon?: {
         name: keyof typeof icons;
         size?: number;
+        strokeWidth?: number;
     };
     showTitle?: boolean;
     fullWidth?: boolean;
     fullHeight?: boolean;
-    textSize?: "defaultSemiBold" | "miniExtraBold" | "link" | "title";
+    textSize?: "defaultSemiBold" | "miniExtraBold" | "link" | "bigTitle";
     className?: string;
     radiusStyle?: "default" | "full" | "left-only" | "right-only" | "none";
     paddingStyle?: "default" | "mini" | "uniform" | "uniform-big" | "uniform-very-big" | "none";
@@ -47,8 +48,9 @@ export function ThemedButton({
                              }: ThemedButtonProps
 ) {
     const classNames: string[] = [
-        'flex flex-row gap-2 items-center border',
+        'flex flex-row gap-3 border',
         justifyItems,
+        textSize === "bigTitle" ? 'items-start' : 'items-center',
         paddingStyle !== "none" ? 'overflow-hidden' : '',
         paddingStyle === "default" ?
             'px-6 py-3' : paddingStyle === "mini" ?
@@ -99,7 +101,7 @@ export function ThemedButton({
                 <ThemedText
                     type={textSize}
                     filled={type !== "danger"}
-                    className={type === "danger" ? 'text-foreground-dark' : ''}
+                    className={` ${type === "danger" ? 'text-foreground-dark' : ''}`}
                     inverseColor={type === "default"}
                 >
                     {title}
@@ -110,6 +112,7 @@ export function ThemedButton({
                 <LucideIcon
                     size={suffixIcon.size}
                     name={suffixIcon.name}
+                    strokeWidth={suffixIcon.strokeWidth}
                     inverseColor={type === "default"}
                 />
             )}

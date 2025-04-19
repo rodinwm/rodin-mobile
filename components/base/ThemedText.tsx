@@ -3,7 +3,7 @@ import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
 
 export type ThemedTextProps = TextProps & {
-    type?: 'mini' | 'miniBold' | 'miniExtraBold' | 'default' | 'title' | 'h1' | 'defaultSemiBold' | 'defaultExtraBold' | 'subtitle' | 'link' | 'logo';
+    type?: 'mini' | 'miniBold' | 'miniExtraBold' | 'default' | 'bigTitle' | 'title' | 'h1' | 'defaultSemiBold' | 'defaultExtraBold' | 'subtitle' | 'link' | 'logo';
     filled?: boolean;
     inverseColor?: boolean;
     numberOfLines?: number;
@@ -59,6 +59,10 @@ export function ThemedText({
             fontSize: "text-3xl",
             fontWeight: FontWeightEnum.ExtraBold,
         },
+        bigTitle: {
+            fontSize: "text-5xl",
+            fontWeight: FontWeightEnum.ExtraBold,
+        },
         logo: {
             fontSize: "text-8xl",
             fontWeight: FontWeightEnum.ExtraBold,
@@ -80,7 +84,8 @@ export function ThemedText({
         <Text
             className={classNames.join(' ')}
             style={{
-                fontFamily: FontHelper.getMainFontStatic(style[type].fontWeight)
+                fontFamily: type === 'bigTitle' ?
+                    FontHelper.getBigTitleFontStatic() : FontHelper.getMainFontStatic(style[type].fontWeight)
             }}
             numberOfLines={numberOfLines}
             ellipsizeMode="tail"

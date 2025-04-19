@@ -6,6 +6,8 @@ import ScreenTemplate from '@/components/layouts/ScreenTemplate';
 import {ThemedButton} from "@/components/base/ThemedButton";
 import {Toast} from "toastify-react-native";
 import {ThemedText} from "@/components/base/ThemedText";
+import {TouchableOpacity} from "react-native";
+import {UIHelper} from "@/utils/helpers/uiHelper";
 
 export default function Page() {
     const router = useRouter();
@@ -13,9 +15,19 @@ export default function Page() {
     const [facing, setFacing] = useState<CameraType>('back');
     const [flashMode, setFlashMode] = useState<'on' | 'off'>('off');
     const [permission, requestPermission] = useCameraPermissions();
-    const defaultCountdown = 5; // 5 secondes entre chaque prise de photo
+    const defaultCountdown = 3; // 3 secondes entre chaque prise de photo
     const [countdown, setCountdown] = useState(0);
     const [isCapturing, setIsCapturing] = useState(false);
+    const [lastTap, setLastTap] = useState<number>(0);
+    const DOUBLE_PRESS_DELAY = 300;
+
+    const handleDoubleTap = () => {
+        const now = Date.now();
+        if (now - lastTap < DOUBLE_PRESS_DELAY) {
+            toggleFacing();
+        }
+        setLastTap(now);
+    };
 
     const toggleFlashMode = () => {
         setFlashMode((prevState) => {
@@ -24,7 +36,10 @@ export default function Page() {
             return newState;
         });
     }
-    const toggleFacing = () => setFacing(current => (current === 'back' ? 'front' : 'back'));
+    const toggleFacing = () => {
+        UIHelper.hapticImpact('feedback');
+        setFacing(current => (current === 'back' ? 'front' : 'back'));
+    }
 
     const takePicture = async () => {
         if (!camRef.current) return;
@@ -80,17 +95,22 @@ export default function Page() {
                     mirror={facing === 'front'}
                     style={{width: "100%", height: "100%"}}
                 >
-                    {countdown !== 0 && (
-                        <ThemedView
-                            className={"w-full h-full flex flex-col justify-center items-center bg-black/40"}>
-                            <ThemedText type={"logo"}>
-                                {countdown}
-                            </ThemedText>
-                            <ThemedText type={"subtitle"} className={"opacity-75"}>
-                                Capture ton travail
-                            </ThemedText>
-                        </ThemedView>
-                    )}
+                    <TouchableOpacity
+                        className={'w-full h-full'}
+                        onPress={handleDoubleTap}
+                    >
+                        {countdown !== 0 && (
+                            <ThemedView
+                                className={"w-full h-full flex flex-col justify-center items-center bg-black/40"}>
+                                <ThemedText type={"logo"}>
+                                    {countdown}
+                                </ThemedText>
+                                <ThemedText type={"subtitle"} className={"opacity-75"}>
+                                    Capture ton travail
+                                </ThemedText>
+                            </ThemedView>
+                        )}
+                    </TouchableOpacity>
                 </CameraView>
             </ThemedView>
 

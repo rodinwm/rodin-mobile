@@ -39,7 +39,7 @@ export default function Page() {
                         className={'w-full h-full'}
                         radiusStyle={"default"}
                         fillStyle={"inversed"}
-                        borderWidth={2}
+                        borderWidth={1}
                         borderStyle={"inversed"}
                         backgroundImage={{uri: (isSwapped ? firstPicUri : secondPicUri).toString()}}
                     />
@@ -73,10 +73,11 @@ export default function Page() {
                     suffixIcon={{
                         name: 'SendHorizontal',
                         size: 30,
+                        strokeWidth: 3.5,
                     }}
                     type={"no-fill"}
-                    textSize={"title"}
-                    title={"Envoyer"}
+                    textSize={"bigTitle"}
+                    title={"ENVOYER"}
                     className={"flex-1"}
                     onPress={() => {
                     }}
