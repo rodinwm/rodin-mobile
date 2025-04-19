@@ -4,7 +4,8 @@ import BlurredBackground from "@/components/base/BlurredBackground";
 import {ThemedClassName} from "@/utils/interfaces";
 
 export type ThemedViewProps = ViewProps & {
-    outlined?: boolean;
+    borderWidth?: number;
+    borderStyle?: "default" | "inversed" | "none";
     fillStyle?: "default" | "opacity-5" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
     radiusStyle?: "default" | "full" | "big" | "mini" | "none";
     paddingStyle?: "default" | "asymetric" | "mini" | "none";
@@ -17,7 +18,8 @@ export function ThemedView({
                                children,
                                className,
                                backgroundImage,
-                               outlined = false,
+                               borderWidth = 1,
+                               borderStyle = "none",
                                fillStyle = "none",
                                radiusStyle = "none",
                                paddingStyle = "none",
@@ -40,7 +42,12 @@ export function ThemedView({
                 'rounded-full' : radiusStyle === "big" ?
                     'rounded-6xl' : radiusStyle === "mini" ?
                         'rounded-lg' : '',
-        outlined: outlined ? 'border border-foreground-light/20 dark:border-foreground-dark/20' : '',
+        borderWidth: borderStyle !== "none" ?
+            borderWidth === 1 ? 'border' : `border-${borderWidth}`
+            : '',
+        borderStyle: borderStyle === "default" ?
+            `border-foreground-light/20 dark:border-foreground-dark/20` : borderStyle === "inversed" ?
+                `border-foreground-dark dark:border-foreground-light` : '',
         paddingStyle: paddingStyle === "default" ?
             'p-6' : paddingStyle === "asymetric" ?
                 'px-6 py-3' : paddingStyle === "mini" ?

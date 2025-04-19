@@ -90,7 +90,7 @@ export default function Page() {
                         keyboardType={"number-pad"}
                         maxLength={2}
                         bigText={true}
-                        //outlined={false}
+                        //borderStyle={"default"}
                         containerClassName={'flex-1'}
                         onChangeText={(text) => {
                             const parsedNumber = parseInt(text, 10);

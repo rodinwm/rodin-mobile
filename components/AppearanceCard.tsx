@@ -27,7 +27,7 @@ export function AppearanceCard({
         >
             <ThemedView
                 className={`w-24 h-40 flex justify-center items-center ${type === ColorTheme.Dark ? 'bg-background-dark' : 'bg-background-light'}`}
-                outlined={true}
+                borderStyle={"default"}
                 radiusStyle={"default"}
             >
                 <ThemedText

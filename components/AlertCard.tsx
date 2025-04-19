@@ -37,7 +37,7 @@ export function AlertCard({
                 fillStyle={
                     type === "warning" ? 'warning' : 'opacity-5'
                 }
-                outlined={true}
+                borderStyle={"default"}
                 isBackgroundBlur={type === "default"}
                 radiusStyle={"default"}
                 paddingStyle={"asymetric"}

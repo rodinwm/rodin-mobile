@@ -48,7 +48,7 @@ export default function Page() {
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedView
                     fillStyle={"opacity-5"}
-                    outlined={true}
+                    borderStyle={"default"}
                     radiusStyle={"default"}
                     paddingStyle={"default"}
                     className={'w-full flex flex-col items-center gap-3'}

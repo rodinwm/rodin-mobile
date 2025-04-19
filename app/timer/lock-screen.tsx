@@ -45,7 +45,7 @@ export default function Page() {
 
             <ThemedView className={'w-full flex flex-col gap-4 justify-center items-center'}>
                 <ThemedView
-                    outlined={true}
+                    borderStyle={"default"}
                     radiusStyle={"default"}
                     paddingStyle={"mini"}
                     className={"flex flex-row gap-1 items-center justify-center"}
@@ -58,7 +58,7 @@ export default function Page() {
                 </ThemedView>
 
                 <ThemedView
-                    outlined={true}
+                    borderStyle={"default"}
                     radiusStyle={"default"}
                     paddingStyle={"default"}
                     className={'w-full'}

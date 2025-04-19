@@ -28,7 +28,6 @@ export default function ThemedListTile({
             {...otherProps}
         >
             <ThemedView
-                outlined={false}
                 fillStyle={fillStyle}
                 radiusStyle={hasPadding ? "default" : "none"}
                 paddingStyle={hasPadding ? "mini" : "none"}
@@ -43,7 +42,7 @@ export default function ThemedListTile({
                                 fillStyle={fillStyle !== "inversed" ? "inversed" : 'default'}
                                 radiusStyle={'full'}
                                 className={"p-2"}
-                                outlined={true}
+                                borderStyle={"default"}
                             >
                                 <LucideIcon name={icon} inverseColor={fillStyle !== "inversed"}/>
                             </ThemedView>

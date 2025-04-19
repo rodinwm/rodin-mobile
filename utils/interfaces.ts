@@ -55,6 +55,7 @@ export interface ThemedClassName {
     fillStyle?: string;
     radiusStyle?: string;
     paddingStyle?: string;
-    outlined?: string;
+    borderWidth?: string;
+    borderStyle?: string;
     customClassName?: string;
 }

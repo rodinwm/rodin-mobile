@@ -67,7 +67,7 @@ export default function ThemedBottomSheet(props: ThemedBottomSheetProps) {
                         style={[style, {borderRadius: 40}]}
                         fillStyle={"default"}
                         radiusStyle={"big"}
-                        outlined={true}
+                        borderStyle={"default"}
                         className={'shadow-xl'}
                     />
                 )}

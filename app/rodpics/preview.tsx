@@ -39,7 +39,8 @@ export default function Page() {
                         className={'w-full h-full'}
                         radiusStyle={"default"}
                         fillStyle={"inversed"}
-                        outlined={true}
+                        //borderWidth={2}
+                        borderStyle={"inversed"}
                         backgroundImage={{uri: (isSwapped ? firstPicUri : secondPicUri).toString()}}
                     />
                 </TouchableOpacity>

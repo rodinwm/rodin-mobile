@@ -57,7 +57,7 @@ export function TimerSelect({defaultValue, onChange}: TimerSelectProps) {
 
     return (
         <ThemedView
-            //outlined={true}
+            //borderStyle={"default"}
             //fillStyle={"opacity-15"}
             radiusStyle={"default"}
             className={'w-full flex flex-col items-center overflow-hidden'}
