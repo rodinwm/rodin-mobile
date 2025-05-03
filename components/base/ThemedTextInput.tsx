@@ -25,8 +25,8 @@ export function ThemedTextInput({
                                 }: ThemedViewProps
 ) {
     const classNames: string[] = [
-        'font-sans px-6 py-4 text-foreground-light dark:text-foreground-dark bg-foreground-light/5 dark:bg-foreground-dark/5',
-        bigText ? 'text-2xl' : 'text-lg',
+        'flex flex-row items-center font-sans px-6 py-4 text-foreground-light dark:text-foreground-dark bg-foreground-light/5 dark:bg-foreground-dark/5',
+        bigText ? 'text-2xl' : 'text-md',
         outlined ? 'border border-foreground-light/10 dark:border-foreground-dark/10' : '',
         radiusStyle === "default" ?
             'rounded-3xl' : radiusStyle === "full" ?

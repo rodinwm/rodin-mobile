@@ -48,7 +48,7 @@ export function ThemedButton({
                              }: ThemedButtonProps
 ) {
     const classNames: string[] = [
-        'flex flex-row gap-3 border',
+        'flex flex-row gap-2 border',
         justifyItems,
         textSize === "bigTitle" ? 'items-start' : 'items-center',
         paddingStyle !== "none" ? 'overflow-hidden' : '',

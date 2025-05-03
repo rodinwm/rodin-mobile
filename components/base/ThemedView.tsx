@@ -6,7 +6,7 @@ import {ThemedClassName} from "@/utils/interfaces";
 export type ThemedViewProps = ViewProps & {
     borderWidth?: number;
     borderStyle?: "default" | "inversed" | "none";
-    fillStyle?: "default" | "opacity-5" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
+    fillStyle?: "default" | "opacity-5" | "opacity-10" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
     radiusStyle?: "default" | "full" | "big" | "mini" | "none";
     paddingStyle?: "default" | "asymetric" | "mini" | "none";
     backgroundImage?: ImageSourcePropType | { uri: string };
@@ -33,10 +33,11 @@ export function ThemedView({
         fillStyle: fillStyle === "default" ?
             'bg-background-light dark:bg-background-dark' : fillStyle === "opacity-50" ?
                 'bg-foreground-light/50 dark:bg-foreground-dark/50 backdrop-blur-md' : fillStyle === "opacity-15" ?
-                    'bg-foreground-light/15 dark:bg-foreground-dark/15 backdrop-blur-md' : fillStyle === "opacity-5" ?
-                        'bg-foreground-light/5 dark:bg-foreground-dark/5 backdrop-blur-md' : fillStyle === "inversed" ?
-                            'bg-background-dark dark:bg-background-light' : fillStyle === "warning" ?
-                                'bg-background-warning-light dark:bg-background-warning-dark' : '',
+                    'bg-foreground-light/15 dark:bg-foreground-dark/15 backdrop-blur-md' : fillStyle === "opacity-10" ?
+                        'bg-foreground-light/10 dark:bg-foreground-dark/10 backdrop-blur-md' : fillStyle === "opacity-5" ?
+                            'bg-foreground-light/5 dark:bg-foreground-dark/5 backdrop-blur-md' : fillStyle === "inversed" ?
+                                'bg-background-dark dark:bg-background-light' : fillStyle === "warning" ?
+                                    'bg-background-warning-light dark:bg-background-warning-dark' : '',
         radiusStyle: radiusStyle === "default" ?
             'rounded-3xl' : radiusStyle === "full" ?
                 'rounded-full' : radiusStyle === "big" ?

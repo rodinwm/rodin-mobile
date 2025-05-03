@@ -8,6 +8,7 @@ import {Audio} from "expo-av"; // for audio feedback (click sound as you scroll)
 import * as Haptics from "expo-haptics";
 import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
+import {ThemedView} from "@/components/base/ThemedView";
 
 interface Props {
     defaultValue?: TimerValue;
@@ -27,39 +28,51 @@ export function TimerSelect({defaultValue, onChange}: Props) {
     };
 
     return (
-        <TimerPicker
-            padHoursWithZero={true}
-            padWithNItems={1}
-            hourLabel="hrs"
-            minuteLabel="min"
-            secondLabel="sec"
-            clickSoundAsset={require("@/assets/sounds/click.mp3")}
-            Audio={Audio}
-            LinearGradient={LinearGradient}
-            Haptics={Haptics}
-            MaskedView={MaskedView}
-            initialValue={defaultValue}
-            onDurationChange={updateTime}
-            styles={{
-                theme: colorScheme,
-                backgroundColor: "transparent",
-                text: {
-                    fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.Bold),
-                },
-                pickerLabel: {
-                    fontSize: 14,
-                },
-                pickerContainer: {
-                    width: '100%',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    //justifyContent: 'center',
-                    justifyContent: 'space-between',
-                    padding: 0,
-                    gap: 14,
-                },
-            }}
-        />
+        <ThemedView>
+            <TimerPicker
+                padHoursWithZero={true}
+                padWithNItems={1}
+                hourLabel="hrs"
+                minuteLabel="min"
+                secondLabel="sec"
+                clickSoundAsset={require("@/assets/sounds/click.mp3")}
+                Audio={Audio}
+                LinearGradient={LinearGradient}
+                Haptics={Haptics}
+                MaskedView={MaskedView}
+                initialValue={defaultValue}
+                onDurationChange={updateTime}
+                disableInfiniteScroll={true}
+                styles={{
+                    theme: colorScheme,
+                    backgroundColor: "transparent",
+                    text: {
+                        fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.Bold),
+                    },
+                    pickerItem: {
+                        fontSize: 24,
+                    },
+                    pickerLabel: {
+                        fontSize: 14,
+                    },
+                    pickerContainer: {
+                        width: '100%',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        //justifyContent: 'center',
+                        justifyContent: 'space-between',
+                        padding: 0,
+                        gap: 14,
+                    },
+                }}
+            />
+            <ThemedView
+                className={"absolute w-full top-[50%] -translate-y-1/2"}
+                fillStyle={"opacity-10"}
+                paddingStyle={'default'}
+                radiusStyle={"mini"}
+            />
+        </ThemedView>
     );
 }
