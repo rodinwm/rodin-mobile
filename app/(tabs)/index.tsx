@@ -21,10 +21,8 @@ export default function Page() {
 
     return (
         <ScreenTemplate
-            scrollEnabled={false}
             title={"Rodin"}
             takeBottomBarIntoAccount={true}
-            setHeightToScreenSize={true}
             headerRightBtn={{
                 icon: "Users",
                 onPress: () => router.push('/community')
