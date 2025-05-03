@@ -1,12 +1,26 @@
 import {ThemedView} from '@/components/base/ThemedView';
-import React from "react";
+import React, {useState} from "react";
 import ThemedListTile from "@/components/base/ThemedListTile";
 import ScreenTemplate from '@/components/layouts/ScreenTemplate';
 import LucideIcon from "@/components/base/LucideIcon";
 import {ThemedText} from "@/components/base/ThemedText";
 import {HeaderSpacer} from "@/components/HeaderSpacer";
+import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 
 export default function Page() {
+    const [pseudo, setPseudo] = useState({
+        value: "Wsibi9",
+        editMode: false,
+    });
+    const [email, setEmail] = useState({
+        value: "ws35@gmail.com",
+        editMode: false,
+    });
+    const [phoneNumber, setPhoneNumber] = useState({
+        value: "0738047523",
+        editMode: false,
+    })
+
     return (
         <ScreenTemplate
             title={"Infos personnelles"}
@@ -28,39 +42,84 @@ export default function Page() {
             <ThemedView className={'w-full flex flex-col gap-6'}>
                 <ThemedListTile
                     title={'Pseudo'}
-                    suffixIcon={(
-                        <ThemedView className={'flex flex-row items-center gap-3'}>
-                            <ThemedText type={"defaultSemiBold"}>Wsibi9</ThemedText>
-                            <LucideIcon
-                                size={20}
-                                name={"ChevronRight"}
+                    onPress={() => {
+                        setEmail({...email, editMode: false});
+                        setPhoneNumber({...phoneNumber, editMode: false});
+                        setPseudo({...pseudo, editMode: !pseudo.editMode});
+                    }}
+                    suffixIcon={
+                        pseudo.editMode ? (
+                            <ThemedTextInput
+                                value={pseudo.value}
+                                autoFocus={true}
+                                placeholder={"Ex: myPseudo"}
+                                onChange={(event) => {
+                                    setPseudo({...pseudo, value: event.nativeEvent.text});
+                                }}
                             />
-                        </ThemedView>
-                    )}
+                        ) : (
+                            <ThemedView className={'flex flex-row items-center gap-3'}>
+                                <ThemedText type={"defaultSemiBold"}>{pseudo.value}</ThemedText>
+                                <LucideIcon
+                                    size={20}
+                                    name={"ChevronRight"}
+                                />
+                            </ThemedView>
+                        )}
                 />
                 <ThemedListTile
                     title={'Adresse mail'}
-                    suffixIcon={(
-                        <ThemedView className={'flex flex-row items-center gap-3'}>
-                            <ThemedText type={"defaultSemiBold"}>ws35@gmail.com</ThemedText>
-                            <LucideIcon
-                                size={20}
-                                name={"ChevronRight"}
+                    onPress={() => {
+                        setPseudo({...pseudo, editMode: false});
+                        setPhoneNumber({...phoneNumber, editMode: false});
+                        setEmail({...email, editMode: !email.editMode});
+                    }}
+                    suffixIcon={
+                        email.editMode ? (
+                            <ThemedTextInput
+                                value={email.value}
+                                autoFocus={true}
+                                placeholder={"Ex: user@email.com"}
+                                onChange={(event) => {
+                                    setEmail({...email, value: event.nativeEvent.text});
+                                }}
                             />
-                        </ThemedView>
-                    )}
+                        ) : (
+                            <ThemedView className={'flex flex-row items-center gap-3'}>
+                                <ThemedText type={"defaultSemiBold"}>{email.value}</ThemedText>
+                                <LucideIcon
+                                    size={20}
+                                    name={"ChevronRight"}
+                                />
+                            </ThemedView>
+                        )}
                 />
                 <ThemedListTile
                     title={'Téléphone'}
-                    suffixIcon={(
-                        <ThemedView className={'flex flex-row items-center gap-3'}>
-                            <ThemedText type={"defaultSemiBold"}>0738047523</ThemedText>
-                            <LucideIcon
-                                size={20}
-                                name={"ChevronRight"}
+                    onPress={() => {
+                        setPseudo({...pseudo, editMode: false});
+                        setEmail({...email, editMode: false});
+                        setPhoneNumber({...phoneNumber, editMode: !phoneNumber.editMode});
+                    }}
+                    suffixIcon={
+                        phoneNumber.editMode ? (
+                            <ThemedTextInput
+                                value={phoneNumber.value}
+                                autoFocus={true}
+                                placeholder={"Ex: user@email.com"}
+                                onChange={(event) => {
+                                    setPhoneNumber({...phoneNumber, value: event.nativeEvent.text});
+                                }}
                             />
-                        </ThemedView>
-                    )}
+                        ) : (
+                            <ThemedView className={'flex flex-row items-center gap-3'}>
+                                <ThemedText type={"defaultSemiBold"}>{phoneNumber.value}</ThemedText>
+                                <LucideIcon
+                                    size={20}
+                                    name={"ChevronRight"}
+                                />
+                            </ThemedView>
+                        )}
                 />
 
                 <HeaderSpacer/>
