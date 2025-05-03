@@ -38,8 +38,8 @@ export default function Page() {
                     <ThemedView
                         className={'w-full h-full'}
                         radiusStyle={"default"}
-                        fillStyle={"inversed"}
-                        borderWidth={1}
+                        //fillStyle={"default"}
+                        borderWidth={2}
                         borderStyle={"inversed"}
                         backgroundImage={{uri: (isSwapped ? firstPicUri : secondPicUri).toString()}}
                     />

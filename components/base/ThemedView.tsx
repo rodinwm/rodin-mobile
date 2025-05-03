@@ -59,7 +59,10 @@ export function ThemedView({
         <ImageBackground
             source={backgroundImage}
             className={Object.values(classNames).filter(Boolean).join(' ')}
-            imageClassName={classNames.radiusStyle}
+            //imageClassName={classNames.radiusStyle}
+            style={{
+                borderWidth: borderStyle === "none" ? 0 : borderWidth
+            }}
             {...otherProps}
         >
             {showBlackOverlay && (
