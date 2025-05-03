@@ -5,11 +5,11 @@ import LucideIcon from "@/components/base/LucideIcon";
 import {ThemedButton} from "@/components/base/ThemedButton";
 import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 import {useRouter} from "expo-router";
-import {TimerSelect} from "@/components/TimerSelect";
 import ScreenTemplate from "@/components/layouts/ScreenTemplate";
 import {TimerValue} from "@/utils/interfaces";
 import {DefaultTimerSheet} from "@/components/sheets/DefaultTimerSheet";
 import {defaultBreakTime, defaultWorkTime} from '@/utils/constants';
+import {TimerSelect} from "@/components/TimerSelect";
 
 export default function Page() {
     const router = useRouter();
@@ -44,7 +44,7 @@ export default function Page() {
                 </ThemedView>
 
                 <TimerSelect
-                    //defaultValue={defaultWorkTime}
+                    defaultValue={defaultWorkTime}
                     onChange={(time: TimerValue) => setWorkTime(time)}
                 />
             </ThemedView>
@@ -56,8 +56,14 @@ export default function Page() {
                     <ThemedText type={'defaultSemiBold'}>Temps de repos</ThemedText>
                 </ThemedView>
 
+                {/*
                 <TimerSelect
                     //defaultValue={defaultBreakTime}
+                    onChange={(time: TimerValue) => setBreakTime(time)}
+                />
+                */}
+                <TimerSelect
+                    defaultValue={defaultBreakTime}
                     onChange={(time: TimerValue) => setBreakTime(time)}
                 />
             </ThemedView>

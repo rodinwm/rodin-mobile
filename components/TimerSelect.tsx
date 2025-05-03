@@ -1,19 +1,13 @@
 import {useState} from "react";
-import {ThemedView} from "@/components/base/ThemedView";
 import {TimerValue} from "@/utils/interfaces";
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
-import {RodinWheelPicker} from "@/components/RodinWheelPicker";
-
-const HOURS = Array.from({length: 24}, (_, index) => {
-    const hour = index.toString();
-    //return hour;
-    return hour.length === 2 ? hour : '0' + hour;
-});
-const MINUTES = Array.from({length: 60}, (_, index) => {
-    const minute = index.toString();
-    //return minute;
-    return minute.length === 2 ? minute : '0' + minute;
-});
+import {TimerPicker} from "react-native-timer-picker";
+import MaskedView from "@react-native-masked-view/masked-view"; // for transparent fade-out
+import {LinearGradient} from "expo-linear-gradient"; // or `import LinearGradient from "react-native-linear-gradient"`
+import {Audio} from "expo-av"; // for audio feedback (click sound as you scroll)
+import * as Haptics from "expo-haptics";
+import {FontHelper} from "@/utils/helpers/fontHelper";
+import {FontWeightEnum} from "@/utils/enums";
 
 interface Props {
     defaultValue?: TimerValue;
@@ -21,7 +15,7 @@ interface Props {
 }
 
 export function TimerSelect({defaultValue, onChange}: Props) {
-    const [time, setTime] = useState<TimerValue>(defaultValue ?? {hour: 0, minute: 0, second: 0});
+    const [time, setTime] = useState<TimerValue>(defaultValue ?? {hours: 0, minutes: 0, seconds: 0});
     const colorScheme = useColorScheme() ?? 'light';
 
     const updateTime = (time: TimerValue) => {
@@ -33,44 +27,39 @@ export function TimerSelect({defaultValue, onChange}: Props) {
     };
 
     return (
-        <ThemedView
-            //borderStyle={"default"}
-            //fillStyle={"opacity-15"}
-            radiusStyle={"default"}
-            className={'w-full flex flex-col items-center overflow-hidden'}
-        >
-            {/*
-            <ThemedView
-                fillStyle={"opacity-15"}
-                className={'w-full flex flex-row items-center border-b'}
-                style={{borderColor: Colors.foreground[colorScheme] + '33'}}
-            >
-                <ThemedText type={"defaultSemiBold"} className={"flex-1 text-center"}>Heures</ThemedText>
-                <ThemedText type={"defaultSemiBold"} className={"flex-1 text-center"}>Minutes</ThemedText>
-                <ThemedText type={"defaultSemiBold"} className={"flex-1 text-center"}>Secondes</ThemedText>
-            </ThemedView>
-            */}
-            <ThemedView className={'flex flex-row items-center'}>
-                <RodinWheelPicker
-                    options={HOURS}
-                    selectedIndex={time.hour}
-                    isLeftCornerRounded={true}
-                    onChange={(hour) => updateTime({...time, hour})}
-                />
-
-                <RodinWheelPicker
-                    options={MINUTES}
-                    selectedIndex={time.minute}
-                    onChange={(minute) => updateTime({...time, minute})}
-                />
-
-                <RodinWheelPicker
-                    options={MINUTES}
-                    selectedIndex={time.second}
-                    isRightCornerRounded={true}
-                    onChange={(second) => updateTime({...time, second})}
-                />
-            </ThemedView>
-        </ThemedView>
+        <TimerPicker
+            padHoursWithZero={true}
+            padWithNItems={1}
+            hourLabel="hrs"
+            minuteLabel="min"
+            secondLabel="sec"
+            clickSoundAsset={require("@/assets/sounds/click.mp3")}
+            Audio={Audio}
+            LinearGradient={LinearGradient}
+            Haptics={Haptics}
+            MaskedView={MaskedView}
+            initialValue={defaultValue}
+            onDurationChange={updateTime}
+            styles={{
+                theme: colorScheme,
+                backgroundColor: "transparent",
+                text: {
+                    fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.Bold),
+                },
+                pickerLabel: {
+                    fontSize: 14,
+                },
+                pickerContainer: {
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    //justifyContent: 'center',
+                    justifyContent: 'space-between',
+                    padding: 0,
+                    gap: 14,
+                },
+            }}
+        />
     );
 }

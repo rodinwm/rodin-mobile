@@ -1,4 +1,4 @@
 import {TimerValue} from "@/utils/interfaces";
 
-export const defaultWorkTime: TimerValue = {hour: 0, minute: 30, second: 0};
-export const defaultBreakTime: TimerValue = {hour: 0, minute: 10, second: 0};
+export const defaultWorkTime: TimerValue = {hours: 0, minutes: 30, seconds: 0};
+export const defaultBreakTime: TimerValue = {hours: 0, minutes: 10, seconds: 0};

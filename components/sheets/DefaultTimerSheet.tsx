@@ -2,10 +2,10 @@ import {ThemedText} from '@/components/base/ThemedText';
 import {ThemedView} from "@/components/base/ThemedView";
 import React, {useState} from "react";
 import LucideIcon from "@/components/base/LucideIcon";
-import {TimerSelect} from "@/components/TimerSelect";
 import {TimerValue} from "@/utils/interfaces";
 import ThemedBottomSheet from "@/components/base/ThemedBottomSheet";
 import {defaultBreakTime, defaultWorkTime} from '@/utils/constants';
+import {TimerSelect} from "@/components/TimerSelect";
 
 interface Props {
     isOpen: boolean;

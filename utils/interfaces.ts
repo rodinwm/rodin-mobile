@@ -30,9 +30,9 @@ export interface OnboardingStepScreenProps {
 }
 
 export interface TimerValue {
-    hour: number;
-    minute: number;
-    second: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
 }
 
 export interface Pod {
