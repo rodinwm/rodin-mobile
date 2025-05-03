@@ -85,7 +85,8 @@ export function ThemedText({
             className={classNames.join(' ')}
             style={{
                 fontFamily: type === 'bigTitle' ?
-                    FontHelper.getBigTitleFontStatic() : FontHelper.getMainFontStatic(style[type].fontWeight)
+                    FontHelper.getBigTitleFontStatic() : FontHelper.getMainFontStatic(style[type].fontWeight),
+                lineHeight: 0,
             }}
             numberOfLines={numberOfLines}
             ellipsizeMode="tail"

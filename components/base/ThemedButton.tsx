@@ -101,7 +101,7 @@ export function ThemedButton({
                 <ThemedText
                     type={textSize}
                     filled={type !== "danger"}
-                    className={` ${type === "danger" ? 'text-foreground-dark' : ''}`}
+                    className={`${type === "danger" ? 'text-foreground-dark' : ''}`}
                     inverseColor={type === "default"}
                 >
                     {title}

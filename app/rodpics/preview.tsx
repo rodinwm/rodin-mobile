@@ -78,7 +78,7 @@ export default function Page() {
                     type={"no-fill"}
                     textSize={"bigTitle"}
                     title={"ENVOYER"}
-                    className={"flex-1"}
+                    className={"flex-1 items-center"}
                     onPress={() => {
                     }}
                 />
