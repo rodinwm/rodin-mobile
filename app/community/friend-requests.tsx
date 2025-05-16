@@ -84,7 +84,7 @@ export default function Page() {
                                         <ThemedButton
                                             title={"Accepter"}
                                             textSize={"miniExtraBold"}
-                                            paddingStyle={"mini"}
+                                            paddingStyle={"small"}
                                             type={"opacity-25"}
                                         />
                                         <ThemedButton

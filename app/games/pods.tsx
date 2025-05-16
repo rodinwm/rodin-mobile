@@ -147,7 +147,7 @@ export default function Page() {
                     <ThemedView
                         className={"mt-4 w-fit flex flex-row gap-2 justify-center items-center"}
                         radiusStyle={"default"}
-                        paddingStyle={"mini"}
+                        paddingStyle={"small"}
                         fillStyle={'opacity-15'}
                     >
                         <ThemedText type={'miniExtraBold'}>
@@ -157,7 +157,7 @@ export default function Page() {
                     <ThemedView
                         className={"mt-4 w-fit flex flex-row gap-2 justify-center items-center"}
                         radiusStyle={"default"}
-                        paddingStyle={"mini"}
+                        paddingStyle={"small"}
                         fillStyle={'opacity-15'}
                     >
                         <ThemedText type={'miniExtraBold'}>
@@ -167,7 +167,7 @@ export default function Page() {
                     <ThemedView
                         className={"mt-4 w-fit flex flex-row gap-2 justify-center items-center"}
                         radiusStyle={"default"}
-                        paddingStyle={"mini"}
+                        paddingStyle={"small"}
                         fillStyle={'opacity-15'}
                     >
                         <ThemedText type={'miniExtraBold'}>

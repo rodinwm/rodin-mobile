@@ -70,14 +70,14 @@ export default function Page() {
                             {subscriptionRecurrence === SubscriptionRecurrence.Monthly && (
                                 <ThemedView
                                     //fillStyle={"opacity-5"}
-                                    paddingStyle={"mini"}
-                                    radiusStyle={"mini"}
+                                    paddingStyle={"small"}
+                                    radiusStyle={"small"}
                                     className={'w-full flex flex-row items-center gap-2 bg-background-success-light/10 dark:bg-background-success-dark/10'}
                                 >
                                     <LucideIcon name={'Info'} size={18} color={Colors.foreground.success[colorScheme]}/>
                                     <ThemedText
                                         className={"flex-1 text-foreground-success-light dark:text-foreground-success-dark"}
-                                        type={"mini"} filled={false}>
+                                        type={"small"} filled={false}>
                                         Economisez <ThemedText filled={false}
                                                                className={'text-foreground-success-light dark:text-foreground-success-dark'}
                                                                type={"miniExtraBold"}>{CurrencyHelper.computeDifferenceInPercent(sub.price[SubscriptionRecurrence.Yearly], sub.price[SubscriptionRecurrence.Monthly])}%</ThemedText> grâce

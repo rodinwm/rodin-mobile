@@ -52,7 +52,7 @@ export default function ThemedBottomSheet(props: ThemedBottomSheetProps) {
                 style={{marginHorizontal: margin}}
                 handleComponent={() => (
                     <ThemedView
-                        paddingStyle={"mini"}
+                        paddingStyle={"small"}
                         className={'w-full flex items-center justify-center'}
                     >
                         <ThemedView

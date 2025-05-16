@@ -19,7 +19,7 @@ interface Props {
     setHeightToScreenSize?: boolean;
     scrollEnabled?: boolean;
     bottomSheet?: ReactNode;
-    gap?: "default" | "mini";
+    gap?: "default" | "small";
     backgroundImage?: ImageSourcePropType;
     removeBodyPadding?: boolean;
 }

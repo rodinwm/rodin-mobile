@@ -26,7 +26,7 @@ export default function Page() {
                             <ThemedView
                                 className={'flex items-center'}
                                 fillStyle={"opacity-15"}
-                                paddingStyle={"mini"}
+                                paddingStyle={"small"}
                                 radiusStyle={"full"}
                             >
                                 <ThemedText type={"miniBold"}>
@@ -45,7 +45,7 @@ export default function Page() {
                             <ThemedView
                                 className={'flex items-center'}
                                 fillStyle={"opacity-15"}
-                                paddingStyle={"mini"}
+                                paddingStyle={"small"}
                                 radiusStyle={"full"}
                             >
                                 <ThemedText type={"miniBold"}>

@@ -7,8 +7,8 @@ export type ThemedViewProps = ViewProps & {
     borderWidth?: number;
     borderStyle?: "default" | "inversed" | "none";
     fillStyle?: "default" | "opacity-5" | "opacity-10" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
-    radiusStyle?: "default" | "full" | "big" | "mini" | "none";
-    paddingStyle?: "default" | "asymetric" | "mini" | "none";
+    radiusStyle?: "default" | "full" | "big" | "small" | "none";
+    paddingStyle?: "default" | "asymetric" | "small" | "extraSmall" | "none";
     backgroundImage?: ImageSourcePropType | { uri: string };
     showBlackOverlay?: boolean;
     isBackgroundBlur?: boolean;
@@ -41,7 +41,7 @@ export function ThemedView({
         radiusStyle: radiusStyle === "default" ?
             'rounded-3xl' : radiusStyle === "full" ?
                 'rounded-full' : radiusStyle === "big" ?
-                    'rounded-6xl' : radiusStyle === "mini" ?
+                    'rounded-6xl' : radiusStyle === "small" ?
                         'rounded-lg' : '',
         borderWidth: borderStyle !== "none" ?
             borderWidth === 1 ? 'border' : `border-${borderWidth}`
@@ -51,8 +51,9 @@ export function ThemedView({
                 `border-foreground-dark dark:border-foreground-light` : '',
         paddingStyle: paddingStyle === "default" ?
             'p-6' : paddingStyle === "asymetric" ?
-                'px-6 py-3' : paddingStyle === "mini" ?
-                    'p-3' : '',
+                'px-6 py-3' : paddingStyle === "small" ?
+                    'p-3' : paddingStyle === "extraSmall" ?
+                        'p-px' : '',
         customClassName: className ?? ''
     };
 

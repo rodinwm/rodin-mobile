@@ -28,7 +28,7 @@ export default function OnboardingStepScreenTemplate({
                     {title}
                 </ThemedText>
                 {subtitle && (
-                    <ThemedText type={'mini'} className={"text-center opacity-50"}>
+                    <ThemedText type={'small'} className={"text-center opacity-50"}>
                         {subtitle}
                     </ThemedText>
                 )}

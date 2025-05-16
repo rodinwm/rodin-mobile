@@ -19,7 +19,7 @@ export default function Page() {
                 <ThemedText type={"title"}>
                     Bienvenue parmis nous !
                 </ThemedText>
-                <ThemedText type={'mini'} className={"text-center opacity-50"}>
+                <ThemedText type={'small'} className={"text-center opacity-50"}>
                     Vous avez terminé le processus d'onboarding. Vous pouvez maintenant profiter d'une application de
                     concentration optimale dans vos différentes tâches.
                 </ThemedText>

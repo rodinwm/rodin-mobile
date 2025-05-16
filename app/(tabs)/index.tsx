@@ -10,14 +10,25 @@ import MessageSheet from "@/components/layouts/MessageSheet";
 import {AlertCard} from "@/components/AlertCard";
 import {DateHelper} from "@/utils/helpers/dateHelper";
 import PagerView from "react-native-pager-view";
+import {ChartPeriod, ChartType} from '@/utils/enums';
+
+const chartTypes = Object.values(ChartType);
+const chartPeriods = Object.values(ChartPeriod);
 
 export default function Page() {
     const router = useRouter();
     const tipOfTheDay = dailyTips[new Date().getDate() % dailyTips.length].text;
+    const pagerRef = useRef<PagerView | null>(null);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
     const [isRodPicsUnlocked, setIsRodPicsUnlocked] = useState(true);
-    const [page, setPage] = useState(0);
-    const pagerRef = useRef<PagerView | null>(null);
+    const [chartConfig, setChartConfig] = useState({
+        type: ChartType.Line,
+        period: ChartPeriod.Day,
+    });
+
+    const handleChartConfigChange = (config: 'type' | 'period', value: ChartType | ChartPeriod) => {
+        setChartConfig(prevState => ({...prevState, [config]: value}));
+    };
 
     return (
         <ScreenTemplate
@@ -54,20 +65,20 @@ export default function Page() {
                     <ThemedButton
                         title={"Graphique"}
                         textSize={"miniExtraBold"}
-                        type={page === 0 ? "default" : "no-fill"}
+                        type={chartConfig.type === ChartType.Line ? "default" : "no-fill"}
                         showTitle={false}
                         icon={{
                             name: "ChartLine",
                             size: 14,
                         }}
                         onPress={() => {
-                            setPage(0);
+                            handleChartConfigChange('type', ChartType.Line);
                             pagerRef.current?.setPage(0);
                         }}
                     />
                     <ThemedButton
                         title={"Diagramme"}
-                        type={page === 1 ? "default" : "no-fill"}
+                        type={chartConfig.type === ChartType.Bar ? "default" : "no-fill"}
                         textSize={"miniExtraBold"}
                         showTitle={false}
                         icon={{
@@ -75,13 +86,13 @@ export default function Page() {
                             size: 14,
                         }}
                         onPress={() => {
-                            setPage(1);
+                            handleChartConfigChange('type', ChartType.Bar);
                             pagerRef.current?.setPage(1);
                         }}
                     />
                     <ThemedButton
                         title={"Répartition"}
-                        type={page === 2 ? "default" : "no-fill"}
+                        type={chartConfig.type === ChartType.Pie ? "default" : "no-fill"}
                         textSize={"miniExtraBold"}
                         showTitle={false}
                         icon={{
@@ -89,7 +100,7 @@ export default function Page() {
                             size: 14,
                         }}
                         onPress={() => {
-                            setPage(2);
+                            handleChartConfigChange('type', ChartType.Pie);
                             pagerRef.current?.setPage(2);
                         }}
                     />
@@ -97,61 +108,23 @@ export default function Page() {
 
                 {/* Tabs */}
                 <ThemedView
-                    className={'w-full flex flex-row gap-2 items-center'}
+                    className={'w-full flex flex-row gap-1 items-center'}
                     fillStyle={"opacity-10"}
-                    paddingStyle={"mini"}
+                    paddingStyle={"extraSmall"}
                     radiusStyle={"default"}
                 >
-                    <ThemedButton
-                        title={"24h"}
-                        textSize={"miniExtraBold"}
-                        className={'flex-1'}
-                        type={page === 0 ? "default" : "no-fill"}
-                        onPress={() => {
-                            setPage(0);
-                            pagerRef.current?.setPage(0);
-                        }}
-                    />
-                    <ThemedButton
-                        title={"7j"}
-                        textSize={"miniExtraBold"}
-                        className={'flex-1'}
-                        type={page === 1 ? "default" : "no-fill"}
-                        onPress={() => {
-                            setPage(1);
-                            pagerRef.current?.setPage(1);
-                        }}
-                    />
-                    <ThemedButton
-                        title={"30j"}
-                        textSize={"miniExtraBold"}
-                        className={'flex-1'}
-                        type={page === 1 ? "default" : "no-fill"}
-                        onPress={() => {
-                            setPage(1);
-                            pagerRef.current?.setPage(1);
-                        }}
-                    />
-                    <ThemedButton
-                        title={"90j"}
-                        textSize={"miniExtraBold"}
-                        type={page === 1 ? "default" : "no-fill"}
-                        className={'flex-1'}
-                        onPress={() => {
-                            setPage(1);
-                            pagerRef.current?.setPage(1);
-                        }}
-                    />
-                    <ThemedButton
-                        title={"Tout"}
-                        textSize={"miniExtraBold"}
-                        type={page === 1 ? "default" : "no-fill"}
-                        className={'flex-1'}
-                        onPress={() => {
-                            setPage(1);
-                            pagerRef.current?.setPage(1);
-                        }}
-                    />
+                    {chartPeriods.map((period, index) => (
+                        <ThemedButton
+                            key={`chart-period-button-${index}`}
+                            title={period}
+                            textSize={"miniExtraBold"}
+                            className={'flex-1'}
+                            type={chartConfig.period === period ? "default" : "no-fill"}
+                            onPress={() => {
+                                handleChartConfigChange('period', period);
+                            }}
+                        />
+                    ))}
                 </ThemedView>
 
                 <ThemedView

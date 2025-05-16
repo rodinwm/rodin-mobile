@@ -3,7 +3,7 @@ import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
 
 export type ThemedTextProps = TextProps & {
-    type?: 'mini' | 'miniBold' | 'miniExtraBold' | 'default' | 'bigTitle' | 'title' | 'h1' | 'defaultSemiBold' | 'defaultExtraBold' | 'subtitle' | 'link' | 'logo';
+    type?: 'small' | 'miniBold' | 'miniExtraBold' | 'default' | 'bigTitle' | 'title' | 'h1' | 'defaultSemiBold' | 'defaultExtraBold' | 'subtitle' | 'link' | 'logo';
     filled?: boolean;
     inverseColor?: boolean;
     numberOfLines?: number;
@@ -19,7 +19,7 @@ export function ThemedText({
                            }: ThemedTextProps
 ) {
     const style = {
-        mini: {
+        small: {
             fontSize: "text-xs",
             fontWeight: FontWeightEnum.Light,
         },
