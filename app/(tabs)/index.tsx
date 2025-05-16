@@ -2,7 +2,6 @@ import {ThemedText} from '@/components/base/ThemedText';
 import {ThemedView} from '@/components/base/ThemedView';
 import React, {useRef, useState} from "react";
 import {ThemedButton} from "@/components/base/ThemedButton";
-import LucideIcon from "@/components/base/LucideIcon";
 import {dailyTips} from "@/assets/static/daily-tips";
 import {useRouter} from "expo-router";
 import ScreenTemplate from "@/components/layouts/ScreenTemplate";
@@ -11,6 +10,9 @@ import {AlertCard} from "@/components/AlertCard";
 import {DateHelper} from "@/utils/helpers/dateHelper";
 import PagerView from "react-native-pager-view";
 import {ChartPeriod, ChartType} from '@/utils/enums';
+import {FocusTimeBarChart} from "@/components/domain/FocusTimeBarChart";
+import {FocusTimeLineChart} from "@/components/domain/FocusTimeLineChart";
+import {FocusTimePieChart} from "@/components/domain/FocusTimePieChart";
 
 const chartTypes = Object.values(ChartType);
 const chartPeriods = Object.values(ChartPeriod);
@@ -66,7 +68,9 @@ export default function Page() {
                         title={"Graphique"}
                         textSize={"miniExtraBold"}
                         type={chartConfig.type === ChartType.Line ? "default" : "no-fill"}
-                        showTitle={false}
+                        paddingStyle={"small"}
+                        radiusStyle={'full'}
+                        //showTitle={false}
                         icon={{
                             name: "ChartLine",
                             size: 14,
@@ -80,7 +84,9 @@ export default function Page() {
                         title={"Diagramme"}
                         type={chartConfig.type === ChartType.Bar ? "default" : "no-fill"}
                         textSize={"miniExtraBold"}
-                        showTitle={false}
+                        paddingStyle={"small"}
+                        radiusStyle={'full'}
+                        //showTitle={false}
                         icon={{
                             name: "ChartColumn",
                             size: 14,
@@ -94,7 +100,9 @@ export default function Page() {
                         title={"Répartition"}
                         type={chartConfig.type === ChartType.Pie ? "default" : "no-fill"}
                         textSize={"miniExtraBold"}
-                        showTitle={false}
+                        paddingStyle={"small"}
+                        radiusStyle={'full'}
+                        //showTitle={false}
                         icon={{
                             name: "ChartPie",
                             size: 14,
@@ -108,10 +116,10 @@ export default function Page() {
 
                 {/* Tabs */}
                 <ThemedView
-                    className={'w-full flex flex-row gap-1 items-center'}
+                    className={'flex flex-row items-center'}
                     fillStyle={"opacity-10"}
                     paddingStyle={"extraSmall"}
-                    radiusStyle={"default"}
+                    radiusStyle={"full"}
                 >
                     {chartPeriods.map((period, index) => (
                         <ThemedButton
@@ -119,6 +127,8 @@ export default function Page() {
                             title={period}
                             textSize={"miniExtraBold"}
                             className={'flex-1'}
+                            radiusStyle={'full'}
+                            paddingStyle={"small"}
                             type={chartConfig.period === period ? "default" : "no-fill"}
                             onPress={() => {
                                 handleChartConfigChange('period', period);
@@ -127,16 +137,13 @@ export default function Page() {
                     ))}
                 </ThemedView>
 
-                <ThemedView
-                    fillStyle={"opacity-5"}
-                    borderStyle={"default"}
-                    radiusStyle={"default"}
-                    paddingStyle={"default"}
-                    className={'w-full flex flex-col items-center gap-3'}
-                >
-                    <LucideIcon name={'ChartPie'} size={150}/>
-                    <ThemedText type={'subtitle'}>Statistiques</ThemedText>
-                </ThemedView>
+                {chartConfig.type === ChartType.Line ? (
+                    <FocusTimeLineChart/>
+                ) : chartConfig.type === ChartType.Bar ? (
+                    <FocusTimeBarChart/>
+                ) : (
+                    <FocusTimePieChart/>
+                )}
 
                 <ThemedView className={'w-full flex flex-row gap-3'}>
                     <ThemedButton

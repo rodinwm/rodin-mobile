@@ -3,7 +3,7 @@ import React, {ReactNode} from "react";
 import {ThemedText} from '@/components/base/ThemedText';
 import {View} from "react-native";
 
-interface Props {
+type Props = {
     title: string;
     subtitle?: string;
     onNextPress?: () => void;

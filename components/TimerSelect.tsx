@@ -10,7 +10,7 @@ import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
 import {ThemedView} from "@/components/base/ThemedView";
 
-interface Props {
+type Props = {
     defaultValue?: TimerValue;
     onChange?: (time: TimerValue) => void;
 }

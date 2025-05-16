@@ -10,7 +10,7 @@ import {HeaderBtn} from "@/utils/interfaces";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {ImageSourcePropType} from "react-native";
 
-interface Props {
+type Props = {
     children: ReactNode;
     title?: string;
     takeBottomBarIntoAccount?: boolean;

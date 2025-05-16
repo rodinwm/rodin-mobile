@@ -53,7 +53,7 @@ export function ThemedView({
             'p-6' : paddingStyle === "asymetric" ?
                 'px-6 py-3' : paddingStyle === "small" ?
                     'p-3' : paddingStyle === "extraSmall" ?
-                        'p-px' : '',
+                        'p-1.5' : '',
         customClassName: className ?? ''
     };
 

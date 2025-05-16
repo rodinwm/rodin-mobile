@@ -7,7 +7,7 @@ import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {icons} from "lucide-react-native";
 import {TouchableOpacity} from "react-native";
 
-interface Props {
+type Props = {
     icon?: keyof typeof icons;
     type?: "default" | "warning";
     title: string;

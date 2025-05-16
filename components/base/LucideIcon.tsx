@@ -3,7 +3,7 @@ import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {StyleProp, ViewStyle} from "react-native";
 
-interface Props {
+type Props = {
     name: keyof typeof icons,
     color?: string,
     size?: number,

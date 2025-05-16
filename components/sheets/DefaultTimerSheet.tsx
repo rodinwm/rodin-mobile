@@ -7,7 +7,7 @@ import ThemedBottomSheet from "@/components/base/ThemedBottomSheet";
 import {defaultBreakTime, defaultWorkTime} from '@/utils/constants';
 import {TimerSelect} from "@/components/TimerSelect";
 
-interface Props {
+type Props = {
     isOpen: boolean;
     onClose: () => void;
 }
