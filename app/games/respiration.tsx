@@ -18,10 +18,10 @@ export default function Page() {
             <ThemedView
                 className={'w-full h-full flex-1 justify-between'}
                 radiusStyle={"default"}
-                paddingStyle={"mini"}
+                paddingStyle={"small"}
                 fillStyle={"inversed"}
             >
-                
+
             </ThemedView>
 
             <ThemedButton

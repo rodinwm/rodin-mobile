@@ -10,7 +10,7 @@ import {HeaderBtn} from "@/utils/interfaces";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {ImageSourcePropType} from "react-native";
 
-interface Props {
+type Props = {
     children: ReactNode;
     title?: string;
     takeBottomBarIntoAccount?: boolean;
@@ -19,7 +19,7 @@ interface Props {
     setHeightToScreenSize?: boolean;
     scrollEnabled?: boolean;
     bottomSheet?: ReactNode;
-    gap?: "default" | "mini";
+    gap?: "default" | "small";
     backgroundImage?: ImageSourcePropType;
     removeBodyPadding?: boolean;
 }
@@ -45,7 +45,7 @@ export default function ScreenTemplate(props: Props) {
                 scrollEnabled={props.scrollEnabled}
             >
                 <SafeAreaView
-                    className={`w-full ${props.setHeightToScreenSize ? 'h-screen justify-between' : 'h-full'} flex flex-col gap-14 ${props.removeBodyPadding ? 'p-0 pb-6' : 'p-6 pt-0'}`}
+                    className={`w-full ${props.setHeightToScreenSize ? 'h-screen justify-between' : 'h-full'} flex flex-col gap-6 ${props.removeBodyPadding ? 'p-0 pb-6' : 'p-6 pt-0'}`}
                     style={props.takeBottomBarIntoAccount ? {
                         paddingBottom: insets.bottom + useBottomTabOverflow(),
                     } : null}

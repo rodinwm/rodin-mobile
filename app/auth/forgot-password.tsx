@@ -19,7 +19,7 @@ export default function Page() {
                 <ThemedText type={"title"}>
                     Mot de passe oublié
                 </ThemedText>
-                <ThemedText type={'mini'} className={"text-center opacity-50"}>
+                <ThemedText type={'small'} className={"text-center opacity-50"}>
                     Pas de panique, il vous suffit d'entrer votre adresse mail ou votre nom d'utilisateur pour
                     réinitialiser votre mot de passe.
                 </ThemedText>

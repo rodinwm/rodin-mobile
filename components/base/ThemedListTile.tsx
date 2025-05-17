@@ -30,7 +30,7 @@ export default function ThemedListTile({
             <ThemedView
                 fillStyle={fillStyle}
                 radiusStyle={hasPadding ? "default" : "none"}
-                paddingStyle={hasPadding ? "mini" : "none"}
+                paddingStyle={hasPadding ? "small" : "none"}
                 className={'w-full flex flex-row justify-between items-center gap-2'}
             >
                 <ThemedView className={'h-fit flex flex-row justify-center items-center gap-4 flex-1'}>
@@ -59,7 +59,7 @@ export default function ThemedListTile({
                         </ThemedText>
                         {subtitle && (
                             <ThemedText
-                                type={'mini'}
+                                type={'small'}
                                 inverseColor={fillStyle === "inversed"}
                                 className={"opacity-50"}
                             >

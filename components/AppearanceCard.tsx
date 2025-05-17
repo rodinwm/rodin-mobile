@@ -6,7 +6,7 @@ import {ColorTheme} from "@/utils/enums";
 import {TouchableOpacity} from "react-native";
 import ThemedCheckbox from "@/components/base/ThemedCheckbox";
 
-interface Props {
+type Props = {
     type?: ColorTheme;
     selected?: boolean
     onSelect?: () => void;

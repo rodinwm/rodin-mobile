@@ -30,7 +30,6 @@ const Routes: string[] = [
     "profile/help/tips",
     "profile/help/faq",
     // Community
-    "community/index",
     "community/friend-requests",
     // RodPic's
     "rodpics/index",

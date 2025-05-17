@@ -50,7 +50,7 @@ export default function Page() {
                 <ThemedText type={"title"}>
                     Connexion
                 </ThemedText>
-                <ThemedText type={'mini'} className={"text-center opacity-50"}>
+                <ThemedText type={'small'} className={"text-center opacity-50"}>
                     Ravi de vous revoir parmis nous ! Entrez vos informations de connexion pour revenir là où vous vous
                     êtes arrêté.
                 </ThemedText>

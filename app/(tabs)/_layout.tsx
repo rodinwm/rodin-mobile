@@ -40,6 +40,13 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
+                name="community"
+                options={{
+                    title: 'Community',
+                    tabBarIcon: ({color}) => <LucideIcon size={28} name="Users" color={color}/>,
+                }}
+            />
+            <Tabs.Screen
                 name="profile"
                 options={{
                     title: 'Profil',

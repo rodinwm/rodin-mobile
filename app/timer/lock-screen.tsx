@@ -47,7 +47,7 @@ export default function Page() {
                 <ThemedView
                     borderStyle={"default"}
                     radiusStyle={"default"}
-                    paddingStyle={"mini"}
+                    paddingStyle={"small"}
                     className={"flex flex-row gap-1 items-center justify-center"}
                     fillStyle={"inversed"}
                 >

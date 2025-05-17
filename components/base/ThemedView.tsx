@@ -1,4 +1,4 @@
-import {ImageBackground, ImageSourcePropType, View, type ViewProps} from 'react-native';
+import {ImageBackground, ImageSourcePropType, StyleSheet, View, type ViewProps} from 'react-native';
 import React from "react";
 import BlurredBackground from "@/components/base/BlurredBackground";
 import {ThemedClassName} from "@/utils/interfaces";
@@ -7,8 +7,8 @@ export type ThemedViewProps = ViewProps & {
     borderWidth?: number;
     borderStyle?: "default" | "inversed" | "none";
     fillStyle?: "default" | "opacity-5" | "opacity-10" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
-    radiusStyle?: "default" | "full" | "big" | "mini" | "none";
-    paddingStyle?: "default" | "asymetric" | "mini" | "none";
+    radiusStyle?: "default" | "full" | "big" | "small" | "none";
+    paddingStyle?: "default" | "asymetric" | "small" | "extraSmall" | "none";
     backgroundImage?: ImageSourcePropType | { uri: string };
     showBlackOverlay?: boolean;
     isBackgroundBlur?: boolean;
@@ -25,9 +25,11 @@ export function ThemedView({
                                paddingStyle = "none",
                                isBackgroundBlur = false,
                                showBlackOverlay = false,
+                               style,
                                ...otherProps
                            }: ThemedViewProps
 ) {
+    const flattenedStyle = StyleSheet.flatten(style) || {};
     const classNames: ThemedClassName = {
         base: 'overflow-hidden',
         fillStyle: fillStyle === "default" ?
@@ -41,18 +43,16 @@ export function ThemedView({
         radiusStyle: radiusStyle === "default" ?
             'rounded-3xl' : radiusStyle === "full" ?
                 'rounded-full' : radiusStyle === "big" ?
-                    'rounded-6xl' : radiusStyle === "mini" ?
+                    'rounded-6xl' : radiusStyle === "small" ?
                         'rounded-lg' : '',
-        borderWidth: borderStyle !== "none" ?
-            borderWidth === 1 ? 'border' : `border-${borderWidth}`
-            : '',
         borderStyle: borderStyle === "default" ?
-            `border-foreground-light/20 dark:border-foreground-dark/20` : borderStyle === "inversed" ?
-                `border-foreground-dark dark:border-foreground-light` : '',
+            `border border-foreground-light/20 dark:border-foreground-dark/20` : borderStyle === "inversed" ?
+                `border  border-foreground-dark dark:border-foreground-light` : '',
         paddingStyle: paddingStyle === "default" ?
             'p-6' : paddingStyle === "asymetric" ?
-                'px-6 py-3' : paddingStyle === "mini" ?
-                    'p-3' : '',
+                'px-6 py-3' : paddingStyle === "small" ?
+                    'p-3' : paddingStyle === "extraSmall" ?
+                        'p-1.5' : '',
         customClassName: className ?? ''
     };
 
@@ -60,9 +60,9 @@ export function ThemedView({
         <ImageBackground
             source={backgroundImage}
             className={Object.values(classNames).filter(Boolean).join(' ')}
-            //imageClassName={classNames.radiusStyle}
             style={{
-                borderWidth: borderStyle === "none" ? 0 : borderWidth
+                ...flattenedStyle,
+                borderWidth: borderStyle === "none" ? 0 : borderWidth,
             }}
             {...otherProps}
         >
@@ -75,6 +75,10 @@ export function ThemedView({
     ) : (
         <View
             className={Object.values(classNames).filter(Boolean).join(' ')}
+            style={{
+                ...flattenedStyle,
+                borderWidth: borderStyle === "none" ? 0 : borderWidth,
+            }}
             {...otherProps}
         >
             {isBackgroundBlur && <BlurredBackground/>}

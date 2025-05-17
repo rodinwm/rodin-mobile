@@ -4,7 +4,7 @@ import {ThemedButton} from "@/components/base/ThemedButton";
 import {ThemedText} from "@/components/base/ThemedText";
 import ThemedBottomSheet from "@/components/base/ThemedBottomSheet";
 
-export interface Props {
+export type Props = {
     title: string;
     subtitle: string;
     isOpen: boolean;

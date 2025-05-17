@@ -16,7 +16,6 @@ export default function Page() {
     return (
         <ScreenTemplate
             title={"Communauté"}
-            headerLeftBtn={"backBtn"}
             headerRightBtn={{
                 icon: "UserPlus",
                 onPress: () => router.push('/community/friend-requests'),

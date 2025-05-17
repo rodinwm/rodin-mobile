@@ -21,7 +21,7 @@ export default function Page() {
                 <ThemedText type={"logo"}>
                     Rodin
                 </ThemedText>
-                <ThemedText type={'mini'} className={"text-center opacity-50"}>
+                <ThemedText type={'small'} className={"text-center opacity-50"}>
                     Votre appli de concentration ultime sdf sgsgssd fsdf sdfgsfssd fsdf sdfdfsdfsdfs dfsd fsdf sdfsdf
                     sdfsd fsdf
                 </ThemedText>

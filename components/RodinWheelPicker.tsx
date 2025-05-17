@@ -6,7 +6,7 @@ import {Colors} from "@/utils/colors";
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
 import {UIHelper} from "@/utils/helpers/uiHelper";
 
-interface Props {
+type Props = {
     options: string[];
     selectedIndex?: number;
     onChange?: (index: number) => void;

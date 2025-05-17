@@ -10,7 +10,7 @@ import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
 import {ThemedView} from "@/components/base/ThemedView";
 
-interface Props {
+type Props = {
     defaultValue?: TimerValue;
     onChange?: (time: TimerValue) => void;
 }
@@ -71,7 +71,7 @@ export function TimerSelect({defaultValue, onChange}: Props) {
                 className={"absolute w-full top-[50%] -translate-y-1/2"}
                 fillStyle={"opacity-10"}
                 paddingStyle={'default'}
-                radiusStyle={"mini"}
+                radiusStyle={"small"}
             />
         </ThemedView>
     );

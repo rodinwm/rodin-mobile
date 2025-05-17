@@ -125,16 +125,30 @@ export default function Page() {
                     onPress={toggleFlashMode}
                     disabled={isCapturing}
                 />
-                <ThemedButton
-                    title={"Shoot"}
-                    icon={{name: 'Camera'}}
-                    showTitle={false}
-                    type={"default"}
-                    radiusStyle={"full"}
-                    paddingStyle={"uniform-big"}
-                    onPress={takePicture}
-                    disabled={isCapturing}
-                />
+                <ThemedView
+                    className={'flex flex-row justify-center items-center'}
+                    fillStyle={'inversed'}
+                    radiusStyle={'full'}
+                    paddingStyle={'extraSmall'}
+                >
+                    <ThemedView
+                        className={'flex flex-row justify-center items-center'}
+                        fillStyle={'default'}
+                        radiusStyle={'full'}
+                        borderStyle={'default'}
+                        borderWidth={2}
+                    >
+                        <ThemedButton
+                            title={"Shoot"}
+                            showTitle={false}
+                            type={"default"}
+                            radiusStyle={"full"}
+                            paddingStyle={"uniform-big"}
+                            onPress={takePicture}
+                            disabled={isCapturing}
+                        />
+                    </ThemedView>
+                </ThemedView>
                 <ThemedButton
                     title={"Changer de caméra"}
                     icon={{name: 'RefreshCcw'}}
