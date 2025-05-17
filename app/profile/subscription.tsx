@@ -10,6 +10,7 @@ import {CurrencyHelper} from "@/utils/helpers/currencyHelper";
 import LucideIcon from "@/components/base/LucideIcon";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
+import {SubscriptionAdvantageTable} from "@/components/domain/SubscriptionAdvantageTable";
 
 
 const notificationTypes = Object.values(NotificationType).filter((type) => type !== NotificationType.AutoSuggestions);
@@ -115,7 +116,7 @@ export default function Page() {
 
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedText type={'h1'} className={"mb-6"}>Avantages</ThemedText>
-                <ThemedText>Avantages</ThemedText>
+                <SubscriptionAdvantageTable/>
             </ThemedView>
         </ScreenTemplate>
     );

@@ -32,3 +32,10 @@ export const mockedLineData: lineDataItem[] = [
     {value: 74, dataPointText: '74'},
     {value: 98, dataPointText: '98'},
 ];
+
+export const subscriptionAdvantages = [
+    ['1', '2', '3', '4'],
+    ['a', 'b', 'c', 'd'],
+    ['1', '2', '3', '456\n789'],
+    ['a', 'b', 'c', 'd']
+];
