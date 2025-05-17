@@ -13,6 +13,7 @@ import {ChartPeriod, ChartType} from '@/utils/enums';
 import {FocusTimeBarChart} from "@/components/domain/FocusTimeBarChart";
 import {FocusTimeLineChart} from "@/components/domain/FocusTimeLineChart";
 import {FocusTimePieChart} from "@/components/domain/FocusTimePieChart";
+import {ChartHelper} from "@/utils/helpers/chartHelper";
 
 const chartTypes = Object.values(ChartType);
 const chartPeriods = Object.values(ChartPeriod);
@@ -137,13 +138,27 @@ export default function Page() {
                     ))}
                 </ThemedView>
 
-                {chartConfig.type === ChartType.Line ? (
-                    <FocusTimeLineChart/>
-                ) : chartConfig.type === ChartType.Bar ? (
-                    <FocusTimeBarChart/>
-                ) : (
-                    <FocusTimePieChart/>
-                )}
+                <ThemedView
+                    fillStyle={"opacity-5"}
+                    borderStyle={"default"}
+                    radiusStyle={"default"}
+                    paddingStyle={"small"}
+                    className={'w-full flex flex-col items-center gap-3'}
+                >
+                    {chartConfig.type === ChartType.Line ? (
+                        <FocusTimeLineChart
+                            data={ChartHelper.generateLineChartData(chartConfig.period)}
+                        />
+                    ) : chartConfig.type === ChartType.Bar ? (
+                        <FocusTimeBarChart
+                            data={ChartHelper.generateBarChartData(chartConfig.period)}
+                        />
+                    ) : (
+                        <FocusTimePieChart
+                            data={ChartHelper.generatePieChartData(chartConfig.period)}
+                        />
+                    )}
+                </ThemedView>
 
                 <ThemedView className={'w-full flex flex-row gap-3'}>
                     <ThemedButton
