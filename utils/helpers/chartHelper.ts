@@ -18,11 +18,10 @@ export abstract class ChartHelper {
     }
 
     static generatePieChartData(period: ChartPeriod): pieDataItem[] {
-        const labels = ['Travail', 'Repos', 'Autre'];
+        const labels = ['Travail', 'Repos'];
         const colors = [
             Colors.background.work.light,
             Colors.background.rest.light,
-            Colors.background.other.light,
         ];
 
         const values: number[] = [];
@@ -64,7 +63,7 @@ export abstract class ChartHelper {
             return {
                 value: faker.number.int({min: 50, max: 800}),
                 label: date,
-                //frontColor: faker.color.rgb(), // Couleurs aléatoires
+                frontColor: faker.color.rgb(), // Couleurs aléatoires
             };
         });
     }

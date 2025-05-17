@@ -1,4 +1,4 @@
-import {ImageBackground, ImageSourcePropType, View, type ViewProps} from 'react-native';
+import {ImageBackground, ImageSourcePropType, StyleSheet, View, type ViewProps} from 'react-native';
 import React from "react";
 import BlurredBackground from "@/components/base/BlurredBackground";
 import {ThemedClassName} from "@/utils/interfaces";
@@ -25,9 +25,11 @@ export function ThemedView({
                                paddingStyle = "none",
                                isBackgroundBlur = false,
                                showBlackOverlay = false,
+                               style,
                                ...otherProps
                            }: ThemedViewProps
 ) {
+    const flattenedStyle = StyleSheet.flatten(style) || {};
     const classNames: ThemedClassName = {
         base: 'overflow-hidden',
         fillStyle: fillStyle === "default" ?
@@ -43,12 +45,9 @@ export function ThemedView({
                 'rounded-full' : radiusStyle === "big" ?
                     'rounded-6xl' : radiusStyle === "small" ?
                         'rounded-lg' : '',
-        borderWidth: borderStyle !== "none" ?
-            borderWidth === 1 ? 'border' : `border-${borderWidth}`
-            : '',
         borderStyle: borderStyle === "default" ?
-            `border-foreground-light/20 dark:border-foreground-dark/20` : borderStyle === "inversed" ?
-                `border-foreground-dark dark:border-foreground-light` : '',
+            `border border-foreground-light/20 dark:border-foreground-dark/20` : borderStyle === "inversed" ?
+                `border  border-foreground-dark dark:border-foreground-light` : '',
         paddingStyle: paddingStyle === "default" ?
             'p-6' : paddingStyle === "asymetric" ?
                 'px-6 py-3' : paddingStyle === "small" ?
@@ -61,9 +60,9 @@ export function ThemedView({
         <ImageBackground
             source={backgroundImage}
             className={Object.values(classNames).filter(Boolean).join(' ')}
-            //imageClassName={classNames.radiusStyle}
             style={{
-                borderWidth: borderStyle === "none" ? 0 : borderWidth
+                ...flattenedStyle,
+                borderWidth: borderStyle === "none" ? 0 : borderWidth,
             }}
             {...otherProps}
         >
@@ -76,6 +75,10 @@ export function ThemedView({
     ) : (
         <View
             className={Object.values(classNames).filter(Boolean).join(' ')}
+            style={{
+                ...flattenedStyle,
+                borderWidth: borderStyle === "none" ? 0 : borderWidth,
+            }}
             {...otherProps}
         >
             {isBackgroundBlur && <BlurredBackground/>}

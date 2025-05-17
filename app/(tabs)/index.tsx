@@ -37,10 +37,7 @@ export default function Page() {
         <ScreenTemplate
             title={"Rodin"}
             takeBottomBarIntoAccount={true}
-            headerRightBtn={{
-                icon: "Users",
-                onPress: () => router.push('/community')
-            }}
+            setHeightToScreenSize={true}
             bottomSheet={(
                 <MessageSheet
                     title={`Conseil du ${DateHelper.formatDate(new Date())}`}
@@ -54,7 +51,7 @@ export default function Page() {
             )}
         >
             {/* Stats texts */}
-            <ThemedView className={'w-full flex flex-col'}>
+            <ThemedView className={'w-full flex flex-col mt-6'}>
                 <ThemedText type={'default'}>Statistiques du jour</ThemedText>
                 <ThemedText type={'subtitle'}>4,5 heures travaillées - 7 sessions </ThemedText>
             </ThemedView>
@@ -164,14 +161,14 @@ export default function Page() {
                     <ThemedButton
                         icon={{name: 'Timer'}}
                         title={"Start"}
-                        type={'opacity-15'}
+                        //type={'opacity-15'}
                         className={'flex-1'}
                         onPress={() => router.push('/timer')}
                     />
                     <ThemedButton
                         icon={{name: !isRodPicsUnlocked ? 'Lock' : 'Camera'}}
                         title={"RodPics"}
-                        type={'opacity-15'}
+                        //type={'opacity-15'}
                         className={'flex-1'}
                         disabled={!isRodPicsUnlocked}
                         onPress={() => router.push('/rodpics')}

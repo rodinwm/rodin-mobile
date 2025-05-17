@@ -2,9 +2,10 @@ import React from "react";
 import {ThemedText} from "@/components/base/ThemedText";
 import {ThemedView} from "@/components/base/ThemedView";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
+import {Colors} from "@/utils/colors";
 
 type Props = {
-    type: 'work' | 'rest' | 'other';
+    type: 'work' | 'rest';
 };
 
 export function PieChartLegendItem({type}: Props) {
@@ -16,8 +17,11 @@ export function PieChartLegendItem({type}: Props) {
             <ThemedView
                 radiusStyle={'full'}
                 paddingStyle={"extraSmall"}
-                fillStyle={"none"}
-                className={`bg-background-${type}-${colorScheme}`}
+                borderStyle={"default"}
+                //className={`bg-foreground-${type}-${colorScheme}`}
+                style={{
+                    backgroundColor: Colors.background[type][colorScheme],
+                }}
             />
 
             <ThemedText type={"default"}>

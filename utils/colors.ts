@@ -20,10 +20,6 @@ export const Colors = {
             light: "#ca8a04",
             dark: "#ca8a04",
         },
-        other: {
-            light: "#FFFFFF",
-            dark: "#FFFFFF",
-        }
     },
     background: {
         /*light: "#F9FAFB",
@@ -50,9 +46,5 @@ export const Colors = {
             light: "#ca8a04",
             dark: "#ca8a04",
         },
-        other: {
-            light: "#FFFFFF",
-            dark: "#FFFFFF",
-        }
     },
 };

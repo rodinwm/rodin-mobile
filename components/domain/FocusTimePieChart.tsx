@@ -46,7 +46,7 @@ export function FocusTimePieChart({data}: Props) {
                 focusOnPress
                 onPress={handlePress}
                 centerLabelComponent={() => {
-                    if (focusedIndex) {
+                    if (focusedIndex !== undefined) {
                         return (
                             <ThemedView
                                 className={'flex flex-col justify-center items-center'}>
@@ -65,7 +65,6 @@ export function FocusTimePieChart({data}: Props) {
                 className={'flex flex-row gap-6 justify-between items-center'}>
                 <PieChartLegendItem type={'work'}/>
                 <PieChartLegendItem type={'rest'}/>
-                <PieChartLegendItem type={'other'}/>
             </ThemedView>
         </>
     );

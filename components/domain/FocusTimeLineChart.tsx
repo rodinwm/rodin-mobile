@@ -41,8 +41,8 @@ export function FocusTimeLineChart({data}: Props) {
             showDataPointLabelOnFocus
             showDataPointOnFocus
             disableScroll
-            showScrollIndicator
-
+            isAnimated
+            
             // Focus Styling
             stripColor={chartStyle.stripColor}
             stripOverDataPoints={true}
