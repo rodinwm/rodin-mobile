@@ -1,6 +1,7 @@
 import {ChartPeriod} from "@/utils/enums";
 import {faker} from "@faker-js/faker";
 import {barDataItem, lineDataItem, pieDataItem} from "react-native-gifted-charts";
+import dayjs from "dayjs";
 
 export abstract class ChartHelper {
 
@@ -40,14 +41,14 @@ export abstract class ChartHelper {
 
     static generateBarChartData(period: ChartPeriod): barDataItem[] {
         const count = this.getCountFromPeriod(period);
-        const labels = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+        const today = dayjs();
 
         return Array.from({length: count}, (_, index) => {
-            const value = faker.number.int({min: 50, max: 800});
+            const date = today.subtract(count - 1 - index, 'day').format('DD/MM');
             return {
-                value,
-                label: labels[index % 7],
-                frontColor: faker.color.rgb()
+                value: faker.number.int({min: 50, max: 800}),
+                label: date,
+                frontColor: faker.color.rgb(),
             };
         });
     }

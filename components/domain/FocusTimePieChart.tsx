@@ -9,7 +9,8 @@ type Props = {
 
 export function FocusTimePieChart({data}: Props) {
     const colorScheme = useColorScheme() ?? 'light';
-
+    const textColor = Colors.foreground[colorScheme];
+    const gridColor = Colors.foreground[colorScheme] + '33';
 
     return (
         <PieChart
