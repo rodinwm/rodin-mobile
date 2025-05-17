@@ -2,6 +2,7 @@ import {ChartPeriod} from "@/utils/enums";
 import {faker} from "@faker-js/faker";
 import {barDataItem, lineDataItem, pieDataItem} from "react-native-gifted-charts";
 import dayjs from "dayjs";
+import {Colors} from "@/utils/colors";
 
 export abstract class ChartHelper {
 
@@ -17,27 +18,42 @@ export abstract class ChartHelper {
     }
 
     static generatePieChartData(period: ChartPeriod): pieDataItem[] {
-        const sections = faker.number.int({min: 3, max: 6});
-        const pieData: pieDataItem[] = [];
+        const labels = ['Travail', 'Repos', 'Autre'];
+        const colors = [
+            Colors.background.work.light,
+            Colors.background.rest.light,
+            Colors.background.other.light,
+        ];
+
+        const values: number[] = [];
         let remaining = 100;
 
-        for (let i = 0; i < sections; i++) {
-            const value = i === sections - 1 ? remaining : faker.number.int({
-                min: 5,
-                max: Math.min(remaining - (sections - i - 1) * 5, 40)
-            });
+        // Génération des valeurs
+        for (let i = 0; i < labels.length; i++) {
+            const value = i === labels.length - 1
+                ? remaining
+                : faker.number.int({
+                    min: 5,
+                    max: Math.min(remaining - (labels.length - i - 1) * 5, 40)
+                });
+            values.push(value);
             remaining -= value;
+        }
 
+        // Création directe des items complets
+        const pieData: pieDataItem[] = [];
+        for (let i = 0; i < labels.length; i++) {
             pieData.push({
-                value,
-                color: faker.color.rgb(),
-                gradientCenterColor: faker.color.rgb(),
-                focused: i === 0
+                value: values[i],
+                color: colors[i],
+                gradientCenterColor: colors[i] + '33',
+                text: labels[i],
             });
         }
 
         return pieData;
     }
+
 
     static generateBarChartData(period: ChartPeriod): barDataItem[] {
         const count = this.getCountFromPeriod(period);
@@ -48,7 +64,7 @@ export abstract class ChartHelper {
             return {
                 value: faker.number.int({min: 50, max: 800}),
                 label: date,
-                frontColor: faker.color.rgb(),
+                //frontColor: faker.color.rgb(), // Couleurs aléatoires
             };
         });
     }

@@ -11,21 +11,25 @@ type Props = {
 export function FocusTimeBarChart({data}: Props) {
     const colorScheme = useColorScheme() ?? 'light';
     const {width} = useWindowDimensions();
+    const foreground = Colors.foreground[colorScheme];
     const chartStyle = {
         textStyle: {
-            color: Colors.foreground[colorScheme],
+            color: foreground,
             fontSize: 10,
         },
-        rulesColor: Colors.foreground[colorScheme] + '33'
+        rulesColor: foreground + '33'
     };
 
     return (
         <BarChart
             barWidth={20}
             barBorderRadius={5}
-            frontColor="lightgray"
+            frontColor={Colors.foreground[colorScheme]}
             data={data}
-            width={width}
+            width={width * 0.75}
+            endSpacing={5}
+            initialSpacing={5}
+            showGradient
 
             // Style adapté au thème
             rulesColor={chartStyle.rulesColor}

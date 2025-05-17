@@ -11,6 +11,18 @@ export const Colors = {
         warning: {
             light: "#fefce8",
             dark: "#422006",
+        },
+        work: {
+            light: "#04ca64",
+            dark: "#04ca64",
+        },
+        rest: {
+            light: "#ca8a04",
+            dark: "#ca8a04",
+        },
+        other: {
+            light: "#FFFFFF",
+            dark: "#FFFFFF",
         }
     },
     background: {
@@ -30,5 +42,17 @@ export const Colors = {
             light: "#FFFFFF",
             dark: "#181C2C",
         },
+        work: {
+            light: "#04ca64",
+            dark: "#04ca64",
+        },
+        rest: {
+            light: "#ca8a04",
+            dark: "#ca8a04",
+        },
+        other: {
+            light: "#FFFFFF",
+            dark: "#FFFFFF",
+        }
     },
 };

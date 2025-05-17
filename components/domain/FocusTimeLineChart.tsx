@@ -28,7 +28,7 @@ export function FocusTimeLineChart({data}: Props) {
             data={data}
             width={width * 0.75}
             adjustToWidth={true}
-            spacing={undefined} // ❌ laisser GIFTED gérer l'espacement
+            spacing={undefined}
             endSpacing={0}
             initialSpacing={0}
 
@@ -42,8 +42,6 @@ export function FocusTimeLineChart({data}: Props) {
             showDataPointOnFocus
             disableScroll
             showScrollIndicator
-            overScrollMode={"auto"}
-            indicatorColor={"white"}
 
             // Focus Styling
             stripColor={chartStyle.stripColor}
