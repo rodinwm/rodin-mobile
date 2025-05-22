@@ -6,7 +6,7 @@ import {ThemedButton} from "@/components/base/ThemedButton";
 import {ThemedText} from "@/components/base/ThemedText";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import LucideIcon from "@/components/base/LucideIcon";
-import {TouchableOpacity} from "react-native";
+import {LayoutRectangle, TouchableOpacity} from "react-native";
 import Animated from 'react-native-reanimated';
 import {GestureDetector} from 'react-native-gesture-handler';
 import {useDraggableGesture} from "@/utils/hooks/useDraggableGesture";
@@ -15,11 +15,12 @@ export default function Page() {
     const colorScheme = useColorScheme() ?? 'light';
     const {firstPicUri, secondPicUri} = useLocalSearchParams();
     const [isSwapped, setIsSwapped] = useState(false);
-    const [elementLayout, setElementLayout] = useState({width: 0, height: 0});
-    const [parentLayout, setParentLayout] = useState({width: 0, height: 0});
+    const [elementLayout, setElementLayout] = useState<LayoutRectangle>({width: 0, height: 0, x: 0, y: 0});
+    const [parentLayout, setParentLayout] = useState<LayoutRectangle>({width: 0, height: 0, x: 0, y: 0});
     const {gesture, animatedStyle} = useDraggableGesture({
         elementLayout: elementLayout,
         parentLayout: parentLayout,
+        padding: 15
     });
 
 
@@ -34,22 +35,20 @@ export default function Page() {
             <ThemedView
                 className={'w-full h-full flex-1 flex flex-col justify-between'}
                 radiusStyle={"default"}
-                paddingStyle={"small"}
                 fillStyle={"inversed"}
                 backgroundImage={{uri: (isSwapped ? secondPicUri : firstPicUri).toString()}}
-                onLayout={(e) => {
-                    const {width, height} = e.nativeEvent.layout;
-                    setParentLayout({width, height});
-                }}
+                onLayout={(e) => setParentLayout(e.nativeEvent.layout)}
             >
                 {/* Little preview */}
                 <GestureDetector gesture={gesture}>
                     <Animated.View
-                        style={[animatedStyle, {height: '40%', aspectRatio: 9 / 16}]}
-                        onLayout={(e) => {
-                            const {width, height} = e.nativeEvent.layout;
-                            setElementLayout({width, height});
-                        }}
+                        style={[animatedStyle, {
+                            height: '40%',
+                            aspectRatio: 9 / 16,
+                            position: 'absolute',
+                            zIndex: 1
+                        }]}
+                        onLayout={(e) => setElementLayout(e.nativeEvent.layout)}
                     >
                         <TouchableOpacity
                             className={'flex-1 shadow-lg'}
@@ -58,7 +57,6 @@ export default function Page() {
                             <ThemedView
                                 className={'w-full h-full'}
                                 radiusStyle={"default"}
-                                //fillStyle={"default"}
                                 borderWidth={2}
                                 borderStyle={"inversed"}
                                 backgroundImage={{uri: (isSwapped ? firstPicUri : secondPicUri).toString()}}
@@ -68,22 +66,34 @@ export default function Page() {
                 </GestureDetector>
 
                 <ThemedView
-                    className={"w-full items-end"}
+                    className={"w-full h-full flex flex-row justify-end items-end"}
+                    paddingStyle={"default"}
                 >
                     <ThemedView
-                        className={"w-fit flex flex-row gap-2 justify-center items-center"}
-                        radiusStyle={"default"}
-                        paddingStyle={"asymetric"}
-                        isBackgroundBlur={true}
+                        className={"w-full flex flex-row justify-between items-end"}
                     >
-                        <LucideIcon name={'Brain'} size={18}/>
                         <ThemedText
                             type={'defaultExtraBold'}
-                            className={"opacity-70"}
                             inverseColor={colorScheme === 'light'}
                         >
-                            10h30
+                            @mvxence
                         </ThemedText>
+
+                        <ThemedView
+                            className={"w-fit flex flex-row gap-2 justify-center items-center"}
+                            radiusStyle={"default"}
+                            paddingStyle={"asymetric"}
+                            isBackgroundBlur={true}
+                        >
+                            <LucideIcon name={'Brain'} size={18}/>
+                            <ThemedText
+                                type={'defaultExtraBold'}
+                                className={"opacity-70"}
+                                inverseColor={colorScheme === 'light'}
+                            >
+                                10h30
+                            </ThemedText>
+                        </ThemedView>
                     </ThemedView>
                 </ThemedView>
             </ThemedView>
