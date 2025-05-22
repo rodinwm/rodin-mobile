@@ -85,7 +85,7 @@ export default function Page() {
             removeBodyPadding={true}
             scrollEnabled={false}
         >
-            <ThemedView className={'w-full h-full flex-1'} radiusStyle={"default"}>
+            <ThemedView className={'relative w-full h-full flex-1'} radiusStyle={"default"}>
                 <CameraView
                     ref={camRef}
                     mode={"picture"}
@@ -94,24 +94,23 @@ export default function Page() {
                     flash={flashMode}
                     mirror={facing === 'front'}
                     style={{width: "100%", height: "100%"}}
+                />
+                <TouchableOpacity
+                    className={'absolute inset-0 w-full h-full'}
+                    onPress={handleDoubleTap}
                 >
-                    <TouchableOpacity
-                        className={'w-full h-full'}
-                        onPress={handleDoubleTap}
-                    >
-                        {countdown !== 0 && (
-                            <ThemedView
-                                className={"w-full h-full flex flex-col justify-center items-center bg-black/40"}>
-                                <ThemedText type={"logo"}>
-                                    {countdown}
-                                </ThemedText>
-                                <ThemedText type={"subtitle"} className={"opacity-75"}>
-                                    Capture ton travail
-                                </ThemedText>
-                            </ThemedView>
-                        )}
-                    </TouchableOpacity>
-                </CameraView>
+                    {countdown !== 0 && (
+                        <ThemedView
+                            className={"w-full h-full flex flex-col justify-center items-center bg-black/40"}>
+                            <ThemedText type={"logo"}>
+                                {countdown}
+                            </ThemedText>
+                            <ThemedText type={"subtitle"} className={"opacity-75"}>
+                                Capture ton travail
+                            </ThemedText>
+                        </ThemedView>
+                    )}
+                </TouchableOpacity>
             </ThemedView>
 
             <ThemedView className={'w-full flex flex-row gap-14 justify-center items-center'}>
