@@ -43,7 +43,7 @@ export interface Pod {
 export interface Subscription {
     title: string;
     description: string;
-    price: {
+    price?: {
         [SubscriptionRecurrence.Yearly]: number;
         [SubscriptionRecurrence.Monthly]: number;
     };

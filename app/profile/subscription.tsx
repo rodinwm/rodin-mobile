@@ -60,17 +60,17 @@ export default function Page() {
                     >
                         <ThemedText type={'h1'}>{sub.title}</ThemedText>
 
-
                         <ThemedView className={'w-full flex flex-col gap-1'}>
-                            <ThemedText>
-                                <ThemedText type={'title'}>
-                                    {CurrencyHelper.format(sub.price[subscriptionRecurrence])}
-                                </ThemedText> / {subscriptionRecurrence === SubscriptionRecurrence.Yearly ? "an" : "mois"}
-                            </ThemedText>
+                            {sub.price && (
+                                <ThemedText>
+                                    <ThemedText type={'title'}>
+                                        {CurrencyHelper.format(sub.price[subscriptionRecurrence])}
+                                    </ThemedText> / {subscriptionRecurrence === SubscriptionRecurrence.Yearly ? "an" : "mois"}
+                                </ThemedText>
+                            )}
 
-                            {subscriptionRecurrence === SubscriptionRecurrence.Monthly && (
+                            {sub.price && subscriptionRecurrence === SubscriptionRecurrence.Monthly && (
                                 <ThemedView
-                                    //fillStyle={"opacity-5"}
                                     paddingStyle={"small"}
                                     radiusStyle={"small"}
                                     className={'w-full flex flex-row items-center gap-2 bg-background-success-light/10 dark:bg-background-success-dark/10'}
@@ -90,7 +90,7 @@ export default function Page() {
 
                         <ThemedText>{sub.description}</ThemedText>
 
-                        <ThemedView className={'w-full flex flex-col'}>
+                        <ThemedView className={'w-full flex flex-col gap-2'}>
                             {sub.content.map((content, index) => (
                                 <ThemedView
                                     key={`subscription-card-content-line-${index}`}
@@ -102,14 +102,16 @@ export default function Page() {
                             ))}
                         </ThemedView>
 
-                        <ThemedView className={'w-full flex flex-col mt-4'}>
-                            <ThemedButton
-                                title={"S'abonner"}
-                                onPress={() => {
+                        {sub.price && (
+                            <ThemedView className={'w-full flex flex-col mt-4'}>
+                                <ThemedButton
+                                    title={"S'abonner"}
+                                    onPress={() => {
 
-                                }}
-                            />
-                        </ThemedView>
+                                    }}
+                                />
+                            </ThemedView>
+                        )}
                     </ThemedView>
                 ))}
             </ThemedView>
