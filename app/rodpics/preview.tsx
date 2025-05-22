@@ -7,12 +7,16 @@ import {ThemedText} from "@/components/base/ThemedText";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import LucideIcon from "@/components/base/LucideIcon";
 import {TouchableOpacity} from "react-native";
+import Animated from 'react-native-reanimated';
+import {PanGestureHandler} from 'react-native-gesture-handler';
+import {useDraggable} from "@/utils/hooks/useDraggable";
 
 export default function Page() {
     const router = useRouter();
     const colorScheme = useColorScheme() ?? 'light';
     const {firstPicUri, secondPicUri} = useLocalSearchParams();
     const [isSwapped, setIsSwapped] = useState(false);
+    const {gestureHandler, animatedStyle} = useDraggable();
 
 
     return (
@@ -31,19 +35,26 @@ export default function Page() {
                 backgroundImage={{uri: (isSwapped ? secondPicUri : firstPicUri).toString()}}
             >
                 {/* Little preview */}
-                <TouchableOpacity
-                    className={'h-2/5 aspect-[9/16] shadow-lg'}
-                    onPress={() => setIsSwapped(prev => !prev)}
-                >
-                    <ThemedView
-                        className={'w-full h-full'}
-                        radiusStyle={"default"}
-                        //fillStyle={"default"}
-                        borderWidth={2}
-                        borderStyle={"inversed"}
-                        backgroundImage={{uri: (isSwapped ? firstPicUri : secondPicUri).toString()}}
-                    />
-                </TouchableOpacity>
+                <PanGestureHandler onGestureEvent={gestureHandler}>
+                    <Animated.View
+                        style={[animatedStyle, {height: '40%', aspectRatio: 9 / 16}]}
+                    >
+                        <TouchableOpacity
+                            className={'flex-1 shadow-lg'}
+                            onPress={() => setIsSwapped(prev => !prev)}
+                        >
+                            <ThemedView
+                                className={'w-full h-full'}
+                                radiusStyle={"default"}
+                                //fillStyle={"default"}
+                                borderWidth={2}
+                                borderStyle={"inversed"}
+                                backgroundImage={{uri: (isSwapped ? firstPicUri : secondPicUri).toString()}}
+                            />
+                        </TouchableOpacity>
+                    </Animated.View>
+                </PanGestureHandler>
+
                 <ThemedView
                     className={"w-full items-end"}
                 >
