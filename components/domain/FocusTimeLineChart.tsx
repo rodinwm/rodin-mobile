@@ -9,6 +9,7 @@ type Props = {
 };
 
 export function FocusTimeLineChart({data}: Props) {
+    const [focusedIndex, setFocusedIndex] = React.useState<number | undefined>(undefined);
     const colorScheme = useColorScheme() ?? 'light';
     const {width} = useWindowDimensions();
     const foreground = Colors.foreground[colorScheme];
@@ -31,22 +32,26 @@ export function FocusTimeLineChart({data}: Props) {
             initialSpacing={0}
 
             // Données et interactivité
-            hideDataPoints={true}
             lineGradient={true}
-            focusEnabled={true}
-            showStripOnFocus={true}
-            showTextOnFocus={true}
-            showDataPointLabelOnFocus={true}
-            showDataPointOnFocus={true}
             disableScroll={true}
             isAnimated={true}
+            delayBeforeUnFocus={5000}
+            animateOnDataChange={true}
+            scrollAnimation={true}
+            focusedDataPointRadius={5}
+            focusEnabled={true}
+            showStripOnFocus={true}
+            showDataPointOnFocus={true}
+            showDataPointLabelOnFocus={true}
+            renderDataPointsAfterAnimationEnds={true}
+            showTextOnFocus={true}
 
             // Focus Styling
             stripColor={chartStyle.stripColor}
-            stripOverDataPoints={true}
             stripHeight={500}
             textColor={chartStyle.textStyle.color}
             dataPointsColor={chartStyle.dataPointsColor}
+
 
             // Style adapté au thème
             rulesColor={chartStyle.rulesColor}
