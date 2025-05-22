@@ -1,7 +1,9 @@
-import {useAnimatedStyle, useSharedValue} from 'react-native-reanimated';
+import {useWindowDimensions} from 'react-native';
+import {useAnimatedStyle, useSharedValue, withSpring,} from 'react-native-reanimated';
 import {Gesture} from 'react-native-gesture-handler';
 
 export function useDraggableGesture() {
+    const {width, height} = useWindowDimensions();
     const translateX = useSharedValue(0);
     const translateY = useSharedValue(0);
 
@@ -10,10 +12,17 @@ export function useDraggableGesture() {
             translateX.value = event.translationX;
             translateY.value = event.translationY;
         })
-        .onEnd(() => {
-            // Optionnel : revenir à l'origine après le drag
-            // translateX.value = 0;
-            // translateY.value = 0;
+        .onEnd((event) => {
+            const endX = event.translationX;
+            const endY = event.translationY;
+
+            // Snap X vers gauche ou droite selon la moitié de l'écran
+            const targetX = endX < width / 2 ? -width / 2 + 60 : width / 2 - 60;
+            // Snap Y vers haut ou bas selon la moitié de l'écran
+            const targetY = endY < height / 2 ? -height / 2 + 60 : height / 2 - 60;
+
+            translateX.value = withSpring(targetX, {damping: 20});
+            translateY.value = withSpring(targetY, {damping: 20});
         });
 
     const animatedStyle = useAnimatedStyle(() => ({

@@ -56,7 +56,7 @@ export default function RootLayout() {
     }
 
     return (
-        <GestureHandlerRootView>
+        <GestureHandlerRootView style={{flex: 1}}>
             <SafeAreaProvider>
                 <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
                     <Stack>
