@@ -11,15 +11,14 @@ export function useDraggableGesture() {
         .onUpdate((event) => {
             translateX.value = event.translationX;
             translateY.value = event.translationY;
-        })
-        .onEnd((event) => {
+        }).onEnd((event) => {
             const endX = event.translationX;
             const endY = event.translationY;
 
             // Snap X vers gauche ou droite selon la moitié de l'écran
-            const targetX = endX < width / 2 ? -width / 2 + 60 : width / 2 - 60;
+            const targetX = endX < width / 2 ? 10 : width - 100;
             // Snap Y vers haut ou bas selon la moitié de l'écran
-            const targetY = endY < height / 2 ? -height / 2 + 60 : height / 2 - 60;
+            const targetY = endY < height / 2 ? 10 : height - 100;
 
             translateX.value = withSpring(targetX, {damping: 20});
             translateY.value = withSpring(targetY, {damping: 20});

@@ -1,6 +1,6 @@
 import {ThemedView} from '@/components/base/ThemedView';
 import React, {useState} from "react";
-import {useLocalSearchParams, useRouter} from "expo-router";
+import {useLocalSearchParams} from "expo-router";
 import ScreenTemplate from '@/components/layouts/ScreenTemplate';
 import {ThemedButton} from "@/components/base/ThemedButton";
 import {ThemedText} from "@/components/base/ThemedText";
@@ -12,7 +12,6 @@ import {GestureDetector} from 'react-native-gesture-handler';
 import {useDraggableGesture} from "@/utils/hooks/useDraggableGesture";
 
 export default function Page() {
-    const router = useRouter();
     const colorScheme = useColorScheme() ?? 'light';
     const {firstPicUri, secondPicUri} = useLocalSearchParams();
     const [isSwapped, setIsSwapped] = useState(false);
