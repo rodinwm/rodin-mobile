@@ -15,10 +15,9 @@ export function PieChartLegendItem({type}: Props) {
         <ThemedView
             className={'w-fit flex flex-row gap-2 justify-center items-center'}>
             <ThemedView
-                radiusStyle={'full'}
+                radiusStyle={'small'}
                 paddingStyle={"extraSmall"}
                 borderStyle={"default"}
-                //className={`bg-foreground-${type}-${colorScheme}`}
                 style={{
                     backgroundColor: Colors.background[type][colorScheme],
                 }}

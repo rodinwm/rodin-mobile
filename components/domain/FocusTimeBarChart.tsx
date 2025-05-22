@@ -1,11 +1,13 @@
 import React from "react";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
-import {BarChart, barDataItem} from "react-native-gifted-charts";
+import {BarChart, stackDataItem} from "react-native-gifted-charts";
 import {useWindowDimensions} from "react-native";
 import {Colors} from "@/utils/colors";
+import {PieChartLegendItem} from "@/components/domain/PieChartLegendItem";
+import {ThemedView} from "@/components/base/ThemedView";
 
 type Props = {
-    data: barDataItem[],
+    data: stackDataItem[],
 }
 
 export function FocusTimeBarChart({data}: Props) {
@@ -21,24 +23,32 @@ export function FocusTimeBarChart({data}: Props) {
     };
 
     return (
-        <BarChart
-            barWidth={20}
-            barBorderRadius={5}
-            frontColor={Colors.foreground[colorScheme]}
-            data={data}
-            width={width * 0.77}
-            endSpacing={5}
-            initialSpacing={5}
-            showGradient={true}
-
-            // Style adapté au thème
-            rulesColor={chartStyle.rulesColor}
-            yAxisTextStyle={chartStyle.textStyle}
-            xAxisLabelTextStyle={chartStyle.textStyle}
-            yAxisColor="transparent"
-            xAxisColor="transparent"
-            yAxisThickness={0}
-            xAxisThickness={0}
-        />
+        <>
+            <BarChart
+                barWidth={20}
+                stackBorderRadius={5}
+                stackData={data}
+                width={width * 0.77}
+                endSpacing={5}
+                initialSpacing={5}
+                backgroundColor={'transparent'}
+                animationDuration={1000}
+                yAxisLabelSuffix={'h'}
+                autoShiftLabels={true}
+                // Style adapté au thème
+                rulesColor={chartStyle.rulesColor}
+                yAxisTextStyle={chartStyle.textStyle}
+                xAxisLabelTextStyle={chartStyle.textStyle}
+                yAxisColor="transparent"
+                xAxisColor="transparent"
+                yAxisThickness={0}
+                xAxisThickness={0}
+            />
+            <ThemedView
+                className={'flex flex-row gap-6 justify-between items-center'}>
+                <PieChartLegendItem type={'work'}/>
+                <PieChartLegendItem type={'rest'}/>
+            </ThemedView>
+        </>
     );
 }

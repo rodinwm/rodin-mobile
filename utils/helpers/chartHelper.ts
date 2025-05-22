@@ -1,6 +1,6 @@
 import {ChartPeriod} from "@/utils/enums";
 import {faker} from "@faker-js/faker";
-import {barDataItem, lineDataItem, pieDataItem} from "react-native-gifted-charts";
+import {barDataItem, lineDataItem, pieDataItem, stackDataItem} from "react-native-gifted-charts";
 import dayjs from "dayjs";
 import {Colors} from "@/utils/colors";
 import {ReactNode} from "react";
@@ -58,14 +58,36 @@ export abstract class ChartHelper {
 
     static generateBarChartData(period: ChartPeriod): barDataItem[] {
         const count = this.getCountFromPeriod(period);
-        const today = dayjs();
 
         return Array.from({length: count}, (_, index) => {
-            const date = today.subtract(count - 1 - index, 'day').format('DD/MM');
             return {
                 value: faker.number.int({min: 50, max: 800}),
-                label: date,
+                label: dayjs().subtract(count - 1 - index, 'day').format('DD/MM'),
                 frontColor: faker.color.rgb(), // Couleurs aléatoires
+            };
+        });
+    }
+
+    static generateStackBarChartData(period: ChartPeriod): stackDataItem[] {
+        const count = this.getCountFromPeriod(period);
+
+        return Array.from({length: count}, (_, index) => {
+            // Valeurs aléatoires : travail (60 à 480 min), repos (15 à 180 min)
+            const workTime = faker.number.int({min: 60, max: 480});
+            const restTime = faker.number.int({min: 15, max: 180});
+
+            return {
+                label: dayjs().subtract(count - 1 - index, 'day').format('DD/MM'),
+                stacks: [
+                    {
+                        value: workTime,
+                        color: Colors.background['work'].light,
+                    },
+                    {
+                        value: restTime,
+                        color: Colors.background['rest'].light,
+                    },
+                ]
             };
         });
     }

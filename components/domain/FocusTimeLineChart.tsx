@@ -1,16 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {LineChart, lineDataItem} from "react-native-gifted-charts";
-import {Text, useWindowDimensions, View} from "react-native";
+import {LayoutRectangle, useWindowDimensions} from "react-native";
 import {Colors} from "@/utils/colors";
 import {ThemedText} from "@/components/base/ThemedText";
+import {ThemedView} from "@/components/base/ThemedView";
 
 type Props = {
     data: lineDataItem[],
 };
 
 export function FocusTimeLineChart({data}: Props) {
-    const [focusedIndex, setFocusedIndex] = React.useState<number | undefined>(undefined);
+    const [tooltipLayout, setTooltipLayout] = useState<LayoutRectangle>({width: 0, height: 0, x: 0, y: 0});
     const colorScheme = useColorScheme() ?? 'light';
     const {width} = useWindowDimensions();
     const foreground = Colors.foreground[colorScheme];
@@ -71,6 +72,7 @@ export function FocusTimeLineChart({data}: Props) {
             yAxisThickness={0}
             xAxisThickness={0}
             rotateLabel={false}
+            yAxisLabelSuffix={'h'}
             animationDuration={1000}
             onDataChangeAnimationDuration={300}
             dataPointLabelComponent={(point: lineDataItem) => (
@@ -82,28 +84,36 @@ export function FocusTimeLineChart({data}: Props) {
             // TODO: https://gifted-charts.web.app/areachart/#pointerConfig
             pointerConfig={{
                 pointerStripUptoDataPoint: true,
-                pointerStripColor: 'lightgray',
+                pointerStripColor: foreground + 'AA',
                 pointerStripWidth: 1,
                 strokeDashArray: [4, 4],
-                pointerColor: 'lightgray',
-                radius: 4,
+                pointerColor: foreground + '33',
                 pointerLabelWidth: 100,
-                //pointerLabelHeight: 120,
                 pointerLabelComponent: (points: lineDataItem[]) => {
-                    console.log(points);
                     return (
-                        <View
-                            style={{
-                                //height: 120,
-                                width: 'auto',
-                                backgroundColor: '#282C3E',
-                                borderRadius: 4,
-                                justifyContent: 'center',
-                                paddingLeft: 16,
-                            }}>
-                            <Text style={{color: 'lightgray', fontSize: 12}}>Temps</Text>
-                            <Text style={{color: 'white', fontWeight: 'bold'}}>{points[0].value}h</Text>
-                        </View>
+                        <ThemedView
+                            className={'w-full flex flex-row gap-2 justify-between items-center'}
+                            fillStyle={'default'}
+                            borderStyle={'default'}
+                            paddingStyle={'small'}
+                            radiusStyle={'small'}
+                            onLayout={(event) => {
+                                setTooltipLayout(event.nativeEvent.layout);
+                            }}
+                        >
+                            <ThemedView
+                                className={'flex flex-col'}
+                            >
+                                <ThemedText type={'small'}>Travail</ThemedText>
+                                <ThemedText type={'miniBold'}>{points[0].value}h</ThemedText>
+                            </ThemedView>
+                            <ThemedView
+                                className={'flex flex-col'}
+                            >
+                                <ThemedText type={'small'}>Repos</ThemedText>
+                                <ThemedText type={'miniBold'}>{points[0].value}h</ThemedText>
+                            </ThemedView>
+                        </ThemedView>
                     );
                 },
             }}
