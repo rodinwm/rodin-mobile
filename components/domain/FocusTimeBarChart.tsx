@@ -29,7 +29,7 @@ export function FocusTimeBarChart({data}: Props) {
             width={width * 0.75}
             endSpacing={5}
             initialSpacing={5}
-            showGradient
+            showGradient={true}
 
             // Style adapté au thème
             rulesColor={chartStyle.rulesColor}

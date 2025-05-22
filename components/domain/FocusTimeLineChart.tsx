@@ -28,21 +28,19 @@ export function FocusTimeLineChart({data}: Props) {
             data={data}
             width={width * 0.75}
             adjustToWidth={true}
-            spacing={undefined}
-            endSpacing={0}
             initialSpacing={0}
 
             // Données et interactivité
-            hideDataPoints
-            lineGradient
-            focusEnabled
-            showStripOnFocus
-            showTextOnFocus
-            showDataPointLabelOnFocus
-            showDataPointOnFocus
-            disableScroll
-            isAnimated
-            
+            hideDataPoints={true}
+            lineGradient={true}
+            focusEnabled={true}
+            showStripOnFocus={true}
+            showTextOnFocus={true}
+            showDataPointLabelOnFocus={true}
+            showDataPointOnFocus={true}
+            disableScroll={true}
+            isAnimated={true}
+
             // Focus Styling
             stripColor={chartStyle.stripColor}
             stripOverDataPoints={true}

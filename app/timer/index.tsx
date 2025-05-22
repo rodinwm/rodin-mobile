@@ -22,6 +22,7 @@ export default function Page() {
     return (
         <ScreenTemplate
             scrollEnabled={false}
+            setHeightToScreenSize={true}
             title={"Minuteurs"}
             headerLeftBtn={"backBtn"}
             headerRightBtn={{
@@ -56,12 +57,6 @@ export default function Page() {
                     <ThemedText type={'defaultSemiBold'}>Temps de repos</ThemedText>
                 </ThemedView>
 
-                {/*
-                <TimerSelect
-                    //defaultValue={defaultBreakTime}
-                    onChange={(time: TimerValue) => setBreakTime(time)}
-                />
-                */}
                 <TimerSelect
                     defaultValue={defaultBreakTime}
                     onChange={(time: TimerValue) => setBreakTime(time)}
