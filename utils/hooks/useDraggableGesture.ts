@@ -1,4 +1,3 @@
-import {useWindowDimensions} from 'react-native';
 import {useAnimatedStyle, useSharedValue, withSpring,} from 'react-native-reanimated';
 import {Gesture} from 'react-native-gesture-handler';
 
@@ -14,7 +13,6 @@ type Props = {
 }
 
 export function useDraggableGesture(props: Props) {
-    const {width, height} = useWindowDimensions();
     const translateX = useSharedValue(0);
     const translateY = useSharedValue(0);
 
