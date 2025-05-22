@@ -41,10 +41,9 @@ export function FocusTimePieChart({data}: Props) {
                 textColor={background}
                 tooltipBackgroundColor={foreground}
                 textSize={16}
-                //showExternalLabels
-                //showTooltip
                 focusOnPress
                 onPress={handlePress}
+                backgroundColor={'transparent'}
                 centerLabelComponent={() => {
                     if (focusedIndex !== undefined) {
                         return (

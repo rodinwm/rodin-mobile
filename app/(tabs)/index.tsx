@@ -137,11 +137,11 @@ export default function Page() {
                 </ThemedView>
 
                 <ThemedView
-                    fillStyle={"opacity-5"}
+                    //fillStyle={"opacity-5"}
                     borderStyle={"default"}
                     radiusStyle={"default"}
-                    paddingStyle={"small"}
-                    className={'w-full flex flex-col items-center gap-3'}
+                    paddingStyle={"extraSmall"}
+                    className={'w-full h-fit flex flex-col items-center gap-3'}
                 >
                     {chartConfig.type === ChartType.Line ? (
                         <FocusTimeLineChart

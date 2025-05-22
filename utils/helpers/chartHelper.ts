@@ -3,16 +3,18 @@ import {faker} from "@faker-js/faker";
 import {barDataItem, lineDataItem, pieDataItem} from "react-native-gifted-charts";
 import dayjs from "dayjs";
 import {Colors} from "@/utils/colors";
+import {ReactNode} from "react";
 
 export abstract class ChartHelper {
 
-    static generateLineChartData(period: ChartPeriod): lineDataItem[] {
+    static generateLineChartData(period: ChartPeriod, labelComponent?: ReactNode): lineDataItem[] {
         const count = this.getCountFromPeriod(period);
         return Array.from({length: count}, (_, index) => {
             const value = faker.number.int({min: 0, max: 100});
             return {
                 value,
-                dataPointText: value.toString()
+                dataPointText: value.toString(),
+                label: dayjs().subtract(count - 1 - index, 'day').format('DD/MM'),
             };
         });
     }
