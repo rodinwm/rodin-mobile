@@ -52,6 +52,7 @@ export interface Subscription {
 
 export interface ThemedClassName {
     base?: string;
+    overflow?: string;
     fillStyle?: string;
     radiusStyle?: string;
     paddingStyle?: string;

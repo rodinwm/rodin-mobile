@@ -9,6 +9,7 @@ export type ThemedViewProps = ViewProps & {
     fillStyle?: "default" | "opacity-5" | "opacity-10" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
     radiusStyle?: "default" | "full" | "big" | "small" | "none";
     paddingStyle?: "default" | "asymetric" | "small" | "extraSmall" | "none";
+    overflow?: "hidden" | "visible";
     backgroundImage?: ImageSourcePropType | { uri: string };
     showBlackOverlay?: boolean;
     isBackgroundBlur?: boolean;
@@ -23,6 +24,7 @@ export function ThemedView({
                                fillStyle = "none",
                                radiusStyle = "none",
                                paddingStyle = "none",
+                               overflow = "hidden",
                                isBackgroundBlur = false,
                                showBlackOverlay = false,
                                style,
@@ -31,7 +33,8 @@ export function ThemedView({
 ) {
     const flattenedStyle = StyleSheet.flatten(style) || {};
     const classNames: ThemedClassName = {
-        base: 'overflow-hidden',
+        base: '',
+        overflow: `overflow-${overflow}`,
         fillStyle: fillStyle === "default" ?
             'bg-background-light dark:bg-background-dark' : fillStyle === "opacity-50" ?
                 'bg-foreground-light/50 dark:bg-foreground-dark/50 backdrop-blur-md' : fillStyle === "opacity-15" ?

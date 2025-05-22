@@ -136,7 +136,7 @@ export default function Page() {
                 </ThemedView>
 
                 <ThemedView
-                    //fillStyle={"opacity-5"}
+                    overflow={"visible"}
                     borderStyle={"default"}
                     radiusStyle={"default"}
                     paddingStyle={"extraSmall"}
@@ -145,6 +145,7 @@ export default function Page() {
                     {chartConfig.type === ChartType.Line ? (
                         <FocusTimeLineChart
                             data={ChartHelper.generateLineChartData(chartConfig.period)}
+                            data2={ChartHelper.generateLineChartData(chartConfig.period)}
                         />
                     ) : chartConfig.type === ChartType.Bar ? (
                         <FocusTimeBarChart
