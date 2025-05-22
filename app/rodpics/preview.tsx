@@ -8,15 +8,15 @@ import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import LucideIcon from "@/components/base/LucideIcon";
 import {TouchableOpacity} from "react-native";
 import Animated from 'react-native-reanimated';
-import {PanGestureHandler} from 'react-native-gesture-handler';
-import {useDraggable} from "@/utils/hooks/useDraggable";
+import {GestureDetector} from 'react-native-gesture-handler';
+import {useDraggableGesture} from "@/utils/hooks/useDraggableGesture";
 
 export default function Page() {
     const router = useRouter();
     const colorScheme = useColorScheme() ?? 'light';
     const {firstPicUri, secondPicUri} = useLocalSearchParams();
     const [isSwapped, setIsSwapped] = useState(false);
-    const {gestureHandler, animatedStyle} = useDraggable();
+    const {gesture, animatedStyle} = useDraggableGesture();
 
 
     return (
@@ -35,7 +35,7 @@ export default function Page() {
                 backgroundImage={{uri: (isSwapped ? secondPicUri : firstPicUri).toString()}}
             >
                 {/* Little preview */}
-                <PanGestureHandler onGestureEvent={gestureHandler}>
+                <GestureDetector gesture={gesture}>
                     <Animated.View
                         style={[animatedStyle, {height: '40%', aspectRatio: 9 / 16}]}
                     >
@@ -53,7 +53,7 @@ export default function Page() {
                             />
                         </TouchableOpacity>
                     </Animated.View>
-                </PanGestureHandler>
+                </GestureDetector>
 
                 <ThemedView
                     className={"w-full items-end"}
