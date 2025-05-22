@@ -8,10 +8,13 @@ import {Toast} from "toastify-react-native";
 import {ThemedText} from "@/components/base/ThemedText";
 import {TouchableOpacity} from "react-native";
 import {UIHelper} from "@/utils/helpers/uiHelper";
+import {useIsFocused} from "@react-navigation/native";
 
 export default function Page() {
     const router = useRouter();
     const camRef = useRef<CameraView>(null);
+    const isFocused = useIsFocused();
+
     const [facing, setFacing] = useState<CameraType>('back');
     const [flashMode, setFlashMode] = useState<'on' | 'off'>('off');
     const [permission, requestPermission] = useCameraPermissions();
@@ -86,15 +89,17 @@ export default function Page() {
             scrollEnabled={false}
         >
             <ThemedView className={'relative w-full h-full flex-1'} radiusStyle={"default"}>
-                <CameraView
-                    ref={camRef}
-                    mode={"picture"}
-                    mute={true}
-                    facing={facing}
-                    flash={flashMode}
-                    mirror={facing === 'front'}
-                    style={{width: "100%", height: "100%"}}
-                />
+                {isFocused && (
+                    <CameraView
+                        ref={camRef}
+                        mode={"picture"}
+                        mute={true}
+                        facing={facing}
+                        flash={flashMode}
+                        mirror={facing === 'front'}
+                        style={{width: "100%", height: "100%"}}
+                    />
+                )}
                 <TouchableOpacity
                     className={'absolute inset-0 w-full h-full'}
                     onPress={handleDoubleTap}
