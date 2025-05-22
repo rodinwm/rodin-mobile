@@ -70,7 +70,7 @@ export function FocusTimeLineChart({data}: Props) {
             xAxisColor="transparent"
             yAxisThickness={0}
             xAxisThickness={0}
-            rotateLabel={true}
+            rotateLabel={false}
             animationDuration={1000}
             onDataChangeAnimationDuration={300}
             dataPointLabelComponent={(point: lineDataItem) => (
@@ -88,22 +88,21 @@ export function FocusTimeLineChart({data}: Props) {
                 pointerColor: 'lightgray',
                 radius: 4,
                 pointerLabelWidth: 100,
-                pointerLabelHeight: 120,
-                pointerLabelComponent: () => {
+                //pointerLabelHeight: 120,
+                pointerLabelComponent: (points: lineDataItem[]) => {
+                    console.log(points);
                     return (
                         <View
                             style={{
-                                height: 120,
-                                width: 100,
+                                //height: 120,
+                                width: 'auto',
                                 backgroundColor: '#282C3E',
                                 borderRadius: 4,
                                 justifyContent: 'center',
                                 paddingLeft: 16,
                             }}>
-                            <Text style={{color: 'lightgray', fontSize: 12}}>{2018}</Text>
-                            <Text style={{color: 'white', fontWeight: 'bold'}}>{53}</Text>
-                            <Text style={{color: 'lightgray', fontSize: 12, marginTop: 12}}>{2019}</Text>
-                            <Text style={{color: 'white', fontWeight: 'bold'}}>{52}</Text>
+                            <Text style={{color: 'lightgray', fontSize: 12}}>Temps</Text>
+                            <Text style={{color: 'white', fontWeight: 'bold'}}>{points[0].value}h</Text>
                         </View>
                     );
                 },

@@ -26,7 +26,7 @@ export function FocusTimeBarChart({data}: Props) {
             barBorderRadius={5}
             frontColor={Colors.foreground[colorScheme]}
             data={data}
-            width={width * 0.75}
+            width={width * 0.77}
             endSpacing={5}
             initialSpacing={5}
             showGradient={true}
