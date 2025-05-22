@@ -5,6 +5,7 @@ import {useWindowDimensions} from "react-native";
 import {Colors} from "@/utils/colors";
 import {PieChartLegendItem} from "@/components/domain/PieChartLegendItem";
 import {ThemedView} from "@/components/base/ThemedView";
+import {FontHelper} from "@/utils/helpers/fontHelper";
 
 type Props = {
     data: stackDataItem[],
@@ -43,6 +44,9 @@ export function FocusTimeBarChart({data}: Props) {
                 xAxisColor="transparent"
                 yAxisThickness={0}
                 xAxisThickness={0}
+                yAxisLabelContainerStyle={{
+                    fontFamily: FontHelper.getMainFontVariable(),
+                }}
             />
             <ThemedView
                 className={'flex flex-row gap-6 justify-between items-center'}>

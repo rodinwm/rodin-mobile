@@ -33,8 +33,9 @@ export function FocusTimePieChart({data}: Props) {
         <>
             <PieChart
                 data={chartData}
-                donut
-                showGradient
+                donut={true}
+                showGradient={true}
+                isAnimated={true}
                 radius={100}
                 innerRadius={60}
                 innerCircleColor={background}
@@ -50,10 +51,10 @@ export function FocusTimePieChart({data}: Props) {
                             <ThemedView
                                 className={'flex flex-col justify-center items-center'}>
                                 <ThemedText type={"title"}>
-                                    {chartData[focusedIndex!].value}%
+                                    {chartData[focusedIndex].value}%
                                 </ThemedText>
                                 <ThemedText type={"default"}>
-                                    {chartData[focusedIndex!].text}
+                                    {chartData[focusedIndex].text}
                                 </ThemedText>
                             </ThemedView>
                         );

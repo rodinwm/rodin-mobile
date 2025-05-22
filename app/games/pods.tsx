@@ -9,7 +9,7 @@ import {FlatList} from "react-native";
 import {GameHelper} from "@/utils/helpers/gameHelper";
 import {ConcentrationExercise, PodColor} from "@/utils/enums";
 import {Pod} from "@/utils/interfaces";
-import {UIHelper} from "@/utils/helpers/uiHelper";
+import {UIHelper} from "@/utils/helpers/UIHelper";
 import {Toast} from "toastify-react-native";
 
 export default function Page() {

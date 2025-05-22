@@ -7,7 +7,7 @@ import {ThemedButton} from "@/components/base/ThemedButton";
 import {Toast} from "toastify-react-native";
 import {ThemedText} from "@/components/base/ThemedText";
 import {TouchableOpacity} from "react-native";
-import {UIHelper} from "@/utils/helpers/uiHelper";
+import {UIHelper} from "@/utils/helpers/UIHelper";
 import {useIsFocused} from "@react-navigation/native";
 
 export default function Page() {

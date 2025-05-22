@@ -4,6 +4,7 @@ import React from "react";
 import {ThemedText} from "@/components/base/ThemedText";
 import {icons} from "lucide-react-native";
 import BlurredBackground from "@/components/base/BlurredBackground";
+import {UIHelper} from "@/utils/helpers/UIHelper";
 
 export type ThemedButtonProps = ButtonProps & {
     icon?: {
@@ -26,6 +27,7 @@ export type ThemedButtonProps = ButtonProps & {
     type?: 'default' | 'outlined' | 'blue' | 'danger' | 'success' | 'warning' | 'link' | "no-fill" | 'opacity-25' | 'opacity-15';
     justifyItems?: 'justify-center' | 'justify-between';
     isBackgroundBlur?: boolean;
+    hapticOnPress?: boolean;
 };
 
 export function ThemedButton({
@@ -39,11 +41,13 @@ export function ThemedButton({
                                  color,
                                  isBackgroundBlur = false,
                                  showTitle = true,
+                                 hapticOnPress = true,
                                  textSize = "defaultSemiBold",
                                  radiusStyle = "default",
                                  type = "default",
                                  paddingStyle = "default",
                                  justifyItems = "justify-center",
+                                 onPress,
                                  ...otherProps
                              }: ThemedButtonProps
 ) {
@@ -84,6 +88,10 @@ export function ThemedButton({
         <TouchableOpacity
             disabled={disabled}
             className={classNames.join(' ')}
+            onPress={onPress !== undefined ? (event) => {
+                if (hapticOnPress) UIHelper.hapticImpact()
+                onPress(event);
+            } : undefined}
             {...otherProps}
         >
             {isBackgroundBlur && <BlurredBackground/>}
