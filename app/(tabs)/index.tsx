@@ -164,7 +164,6 @@ export default function Page() {
                         title={"Start"}
                         //type={'opacity-15'}
                         className={'flex-1'}
-                        radiusStyle={'full'}
                         onPress={() => router.push('/timer')}
                     />
                     <ThemedButton
@@ -172,7 +171,6 @@ export default function Page() {
                         title={"RodPics"}
                         //type={'opacity-15'}
                         className={'flex-1'}
-                        radiusStyle={'full'}
                         disabled={!isRodPicsUnlocked}
                         onPress={() => router.push('/rodpics')}
                     />

@@ -15,7 +15,12 @@ export default function Page() {
     const colorScheme = useColorScheme() ?? 'light';
     const {firstPicUri, secondPicUri} = useLocalSearchParams();
     const [isSwapped, setIsSwapped] = useState(false);
-    const {gesture, animatedStyle} = useDraggableGesture();
+    const [elementLayout, setElementLayout] = useState({width: 0, height: 0});
+    const [parentLayout, setParentLayout] = useState({width: 0, height: 0});
+    const {gesture, animatedStyle} = useDraggableGesture({
+        elementLayout: elementLayout,
+        parentLayout: parentLayout,
+    });
 
 
     return (
@@ -32,11 +37,19 @@ export default function Page() {
                 paddingStyle={"small"}
                 fillStyle={"inversed"}
                 backgroundImage={{uri: (isSwapped ? secondPicUri : firstPicUri).toString()}}
+                onLayout={(e) => {
+                    const {width, height} = e.nativeEvent.layout;
+                    setParentLayout({width, height});
+                }}
             >
                 {/* Little preview */}
                 <GestureDetector gesture={gesture}>
                     <Animated.View
                         style={[animatedStyle, {height: '40%', aspectRatio: 9 / 16}]}
+                        onLayout={(e) => {
+                            const {width, height} = e.nativeEvent.layout;
+                            setElementLayout({width, height});
+                        }}
                     >
                         <TouchableOpacity
                             className={'flex-1 shadow-lg'}
