@@ -3,7 +3,7 @@ import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {BarChart, stackDataItem} from "react-native-gifted-charts";
 import {useWindowDimensions} from "react-native";
 import {Colors} from "@/utils/colors";
-import {ChartLegendItem, ThemedView} from "@/components/domain/ChartLegendItem";
+import {ChartLegendItem, ThemedView} from "@/components";
 import {FontHelper} from "@/utils/helpers/fontHelper";
 import {UIHelper} from "@/utils/helpers/UIHelper";
 

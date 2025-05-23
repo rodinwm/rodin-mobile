@@ -59,7 +59,7 @@ export default function Page() {
                     className={'w-full'}
                     isBackgroundBlur={true}
                 >
-                    <ThemedText type={'logo'} className={"text-center mt-4 "}>
+                    <ThemedText type={'logo'} className={"text-center"}>
                         {DateHelper.formatTime(timeLeft)}
                     </ThemedText>
                 </ThemedView>

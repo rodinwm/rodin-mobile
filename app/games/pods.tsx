@@ -40,6 +40,7 @@ export default function Page() {
                 if (newTime <= 0) {
                     setIsRunning(false);
                     clearInterval(timer);
+                    UIHelper.hapticImpact('error');
                     return 0;
                 }
 
