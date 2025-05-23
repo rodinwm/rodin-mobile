@@ -1,4 +1,5 @@
-import {ThemedText, ThemedView} from '@/components';
+import {ThemedText} from '@/components/base/ThemedText';
+import {ThemedView} from '@/components/base/ThemedView';
 import React, {ReactNode} from "react";
 import {View} from "react-native";
 

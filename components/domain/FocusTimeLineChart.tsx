@@ -3,7 +3,9 @@ import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {LineChart, lineDataItem} from "react-native-gifted-charts";
 import {useWindowDimensions} from "react-native";
 import {Colors} from "@/utils/colors";
-import {ChartLegendItem, ThemedText, ThemedView} from "@/components";
+import {ChartLegendItem} from "@/components/domain/ChartLegendItem";
+import {ThemedView} from "@/components/base/ThemedView";
+import {ThemedText} from "@/components/base/ThemedText";
 import {FontHelper} from "@/utils/helpers/fontHelper";
 import {UIHelper} from "@/utils/helpers/UIHelper";
 

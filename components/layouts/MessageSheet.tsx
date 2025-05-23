@@ -1,5 +1,8 @@
 import React from "react";
-import {ThemedBottomSheet, ThemedButton, ThemedText, ThemedView} from "@/components";
+import {ThemedView} from '@/components/base/ThemedView';
+import {ThemedText} from '@/components/base/ThemedText';
+import {ThemedButton} from '@/components/base/ThemedButton';
+import {ThemedBottomSheet} from '@/components/base/ThemedBottomSheet';
 
 export type Props = {
     title: string;

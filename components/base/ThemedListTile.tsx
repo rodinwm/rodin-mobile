@@ -1,4 +1,6 @@
-import {LucideIcon, ThemedText, ThemedView} from "@/components";
+import {LucideIcon} from "@/components/base/LucideIcon";
+import {ThemedText} from "@/components/base/ThemedText";
+import {ThemedView} from "@/components/base/ThemedView";
 import {type ButtonProps, TouchableOpacity} from "react-native";
 import {icons} from "lucide-react-native";
 import {isValidElement, ReactNode} from "react";

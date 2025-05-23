@@ -1,7 +1,9 @@
 import {PropsWithChildren, useState} from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 
-import {LucideIcon, ThemedText, ThemedView} from '@/components';
+import {ThemedView} from '@/components/base/ThemedView';
+import {ThemedText} from '@/components/base/ThemedText';
+import {LucideIcon} from '@/components/base/LucideIcon';
 import {Colors} from '@/utils/colors';
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
 

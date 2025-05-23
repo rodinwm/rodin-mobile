@@ -1,4 +1,6 @@
-import {BlurredBackground, LucideIcon, ThemedText} from "@/components";
+import {BlurredBackground} from "@/components/base/BlurredBackground";
+import {LucideIcon} from "@/components/base/LucideIcon";
+import {ThemedText} from "@/components/base/ThemedText";
 import {type ButtonProps, TouchableOpacity} from "react-native";
 import React from "react";
 import {icons} from "lucide-react-native";

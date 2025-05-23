@@ -1,4 +1,7 @@
-import {HeaderSpacer, ThemedButton, ThemedText, ThemedView} from '@/components';
+import {ThemedText} from '@/components/base/ThemedText';
+import {ThemedView} from '@/components/base/ThemedView';
+import {ThemedButton} from '@/components/base/ThemedButton';
+import {HeaderSpacer} from '@/components/domain/HeaderSpacer';
 import React, {ReactNode} from "react";
 import {useBottomTabOverflow} from "@/components/base/TabBarBackground";
 import {SafeAreaView, useSafeAreaInsets} from "react-native-safe-area-context";

@@ -1,4 +1,5 @@
-import {LucideIcon, ThemedView} from "@/components";
+import {ThemedView} from "@/components/base/ThemedView";
+import {LucideIcon} from "@/components/base/LucideIcon";
 import React from "react";
 
 export function HeaderSpacer() {

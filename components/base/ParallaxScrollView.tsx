@@ -2,7 +2,7 @@ import type {PropsWithChildren, ReactElement} from 'react';
 import {StyleSheet} from 'react-native';
 import Animated, {interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewOffset} from 'react-native-reanimated';
 
-import {ThemedView} from '@/components';
+import {ThemedView} from '@/components/base/ThemedView';
 import {useBottomTabOverflow} from '@/components/base/TabBarBackground';
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
 

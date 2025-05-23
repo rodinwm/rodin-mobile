@@ -1,5 +1,6 @@
 import React from "react";
-import {ThemedText, ThemedView} from "@/components";
+import {ThemedText} from "@/components/base/ThemedText";
+import {ThemedView} from "@/components/base/ThemedView";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {Colors} from "@/utils/colors";
 

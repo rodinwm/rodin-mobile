@@ -62,7 +62,7 @@ export default function Page() {
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 {/* Tabs */}
                 <ThemedView
-                    className={'w-full flex flex-row gap-2 items-center'}
+                    className={'w-full flex flex-row gap-2 justify-between items-center'}
                 >
                     <ThemedButton
                         title={"Graphique"}

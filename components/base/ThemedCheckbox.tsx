@@ -1,6 +1,6 @@
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
-import {LucideIcon} from "@/components";
+import {LucideIcon} from "@/components/base/LucideIcon";
 import BouncyCheckbox, {BouncyCheckboxProps} from "react-native-bouncy-checkbox";
 import React from "react";
 

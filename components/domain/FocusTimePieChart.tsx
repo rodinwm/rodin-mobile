@@ -2,7 +2,9 @@ import React, {useEffect, useState} from "react";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {PieChart, pieDataItem} from "react-native-gifted-charts";
 import {Colors} from "@/utils/colors";
-import {ChartLegendItem, ThemedText, ThemedView} from "@/components";
+import {ChartLegendItem} from "@/components/domain/ChartLegendItem";
+import {ThemedView} from "@/components/base/ThemedView";
+import {ThemedText} from "@/components/base/ThemedText";
 
 type Props = {
     data: pieDataItem[],

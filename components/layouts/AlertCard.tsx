@@ -1,4 +1,6 @@
-import {LucideIcon, ThemedText, ThemedView} from '@/components';
+import {ThemedView} from '@/components/base/ThemedView';
+import {ThemedText} from '@/components/base/ThemedText';
+import {LucideIcon} from '@/components/base/LucideIcon';
 import React from "react";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";

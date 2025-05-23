@@ -1,6 +1,6 @@
 import BottomSheet, {BottomSheetView} from "@gorhom/bottom-sheet";
 import React, {ReactNode, useEffect, useRef} from "react";
-import {ThemedView} from "@/components";
+import {ThemedView} from "@/components/base/ThemedView";
 import {Pressable} from "react-native";
 import {BlurView} from "expo-blur";
 import {useBottomTabOverflow} from "@/components/base/TabBarBackground";

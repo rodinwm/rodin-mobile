@@ -1,4 +1,6 @@
-import {ThemedCheckbox, ThemedText, ThemedView} from "@/components";
+import {ThemedView} from '@/components/base/ThemedView';
+import {ThemedText} from '@/components/base/ThemedText';
+import {ThemedCheckbox} from '@/components/base/ThemedCheckbox';
 import React from "react";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {ColorTheme} from "@/utils/enums";

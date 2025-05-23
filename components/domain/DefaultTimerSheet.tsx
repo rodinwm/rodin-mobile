@@ -1,4 +1,8 @@
-import {LucideIcon, ThemedBottomSheet, ThemedText, ThemedView, TimerSelect} from '@/components';
+import {ThemedBottomSheet} from '@/components/base/ThemedBottomSheet';
+import {TimerSelect} from "@/components/domain/TimerSelect";
+import {LucideIcon} from "@/components/base/LucideIcon";
+import {ThemedText} from "@/components/base/ThemedText";
+import {ThemedView} from "@/components/base/ThemedView";
 import React, {useState} from "react";
 import {TimerValue} from "@/utils/interfaces";
 import {defaultBreakTime, defaultWorkTime} from '@/utils/constants';

@@ -8,7 +8,7 @@ import {Audio} from "expo-av"; // for audio feedback (click sound as you scroll)
 import * as Haptics from "expo-haptics";
 import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
-import {ThemedView} from "@/components";
+import {ThemedView} from "@/components/base/ThemedView";
 
 type Props = {
     defaultValue?: TimerValue;
