@@ -1,6 +1,6 @@
 import {ThemedView} from "@/components/base/ThemedView";
+import {LucideIcon} from "@/components/base/LucideIcon";
 import React from "react";
-import LucideIcon from "@/components/base/LucideIcon";
 
 export function HeaderSpacer() {
     return (

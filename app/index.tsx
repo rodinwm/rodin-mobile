@@ -1,10 +1,5 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {AppNameTag, ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React, {useState} from "react";
-import {ThemedButton} from "@/components/base/ThemedButton";
-import {ThemedText} from '@/components/base/ThemedText';
-import ScreenTemplate from "@/components/layouts/ScreenTemplate";
-import {AppNameTag} from "@/components/AppNameTag";
-import ThemedListTile from "@/components/base/ThemedListTile";
 import {useRouter} from "expo-router";
 
 export default function Page() {

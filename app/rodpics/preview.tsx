@@ -1,15 +1,12 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {LucideIcon, ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React, {useState} from "react";
 import {useLocalSearchParams} from "expo-router";
-import ScreenTemplate from '@/components/layouts/ScreenTemplate';
-import {ThemedButton} from "@/components/base/ThemedButton";
-import {ThemedText} from "@/components/base/ThemedText";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
-import LucideIcon from "@/components/base/LucideIcon";
 import {Alert, LayoutRectangle, TouchableOpacity} from "react-native";
 import Animated from 'react-native-reanimated';
 import {GestureDetector} from 'react-native-gesture-handler';
 import {useDraggableGesture} from "@/utils/hooks/useDraggableGesture";
+import {UIHelper} from "@/utils/helpers/UIHelper";
 
 export default function Page() {
     const colorScheme = useColorScheme() ?? 'light';
@@ -52,7 +49,10 @@ export default function Page() {
                     >
                         <TouchableOpacity
                             className={'flex-1 shadow-lg'}
-                            onPress={() => setIsSwapped(prev => !prev)}
+                            onPress={() => {
+                                UIHelper.hapticImpact();
+                                setIsSwapped(prev => !prev);
+                            }}
                         >
                             <ThemedView
                                 className={'w-full h-full'}

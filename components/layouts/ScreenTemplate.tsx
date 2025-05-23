@@ -1,11 +1,11 @@
 import {ThemedText} from '@/components/base/ThemedText';
 import {ThemedView} from '@/components/base/ThemedView';
+import {ThemedButton} from '@/components/base/ThemedButton';
+import {HeaderSpacer} from '@/components/domain/HeaderSpacer';
 import React, {ReactNode} from "react";
-import {ThemedButton} from "@/components/base/ThemedButton";
 import {useBottomTabOverflow} from "@/components/base/TabBarBackground";
 import {SafeAreaView, useSafeAreaInsets} from "react-native-safe-area-context";
 import {useNavigation} from "expo-router";
-import {HeaderSpacer} from "@/components/HeaderSpacer";
 import {HeaderBtn} from "@/utils/interfaces";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {ImageSourcePropType} from "react-native";
@@ -24,7 +24,7 @@ type Props = {
     removeBodyPadding?: boolean;
 }
 
-export default function ScreenTemplate(props: Props) {
+export function ScreenTemplate(props: Props) {
     const navigation = useNavigation();
     const insets = useSafeAreaInsets();
 
@@ -45,7 +45,7 @@ export default function ScreenTemplate(props: Props) {
                 scrollEnabled={props.scrollEnabled}
             >
                 <SafeAreaView
-                    className={`w-full ${props.setHeightToScreenSize ? 'h-screen justify-between' : 'h-full'} flex flex-col gap-6 ${props.removeBodyPadding ? 'p-0 pb-6' : 'p-6 pt-0'}`}
+                    className={`w-full flex flex-col gap-6 ${props.setHeightToScreenSize ? 'h-screen justify-between' : 'h-full'} ${props.removeBodyPadding ? 'p-0 pb-6' : 'p-6 pt-0'}`}
                     style={props.takeBottomBarIntoAccount ? {
                         paddingBottom: insets.bottom + useBottomTabOverflow(),
                     } : null}

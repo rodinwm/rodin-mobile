@@ -1,12 +1,7 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {ScreenTemplate, ThemedButton, ThemedText, ThemedTextInput, ThemedView} from '@/components';
 import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
-import ScreenTemplate from '@/components/layouts/ScreenTemplate';
-import {ThemedText} from "@/components/base/ThemedText";
 import {motivationSentences} from "@/assets/static/motivation-sentences";
-import {ThemedTextInput} from "@/components/base/ThemedTextInput";
-import {ThemedButton} from "@/components/base/ThemedButton";
-
 
 export default function Page() {
     const router = useRouter();

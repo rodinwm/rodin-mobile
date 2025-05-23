@@ -1,10 +1,5 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {AlertCard, LucideIcon, ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React, {useEffect, useState} from "react";
-import {ThemedButton} from "@/components/base/ThemedButton";
-import {ThemedText} from '@/components/base/ThemedText';
-import LucideIcon from "@/components/base/LucideIcon";
-import {AlertCard} from "@/components/AlertCard";
-import ScreenTemplate from "@/components/layouts/ScreenTemplate";
 import {Colors} from "@/utils/colors";
 import {useNavigation} from "expo-router";
 import {DateHelper} from "@/utils/helpers/dateHelper";
@@ -64,7 +59,7 @@ export default function Page() {
                     className={'w-full'}
                     isBackgroundBlur={true}
                 >
-                    <ThemedText type={'logo'} className={"text-center mt-4 "}>
+                    <ThemedText type={'logo'} className={"text-center"}>
                         {DateHelper.formatTime(timeLeft)}
                     </ThemedText>
                 </ThemedView>

@@ -3,10 +3,11 @@ import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {LineChart, lineDataItem} from "react-native-gifted-charts";
 import {useWindowDimensions} from "react-native";
 import {Colors} from "@/utils/colors";
-import {ThemedText} from "@/components/base/ThemedText";
+import {ChartLegendItem} from "@/components/domain/ChartLegendItem";
 import {ThemedView} from "@/components/base/ThemedView";
-import {PieChartLegendItem} from "@/components/domain/PieChartLegendItem";
+import {ThemedText} from "@/components/base/ThemedText";
 import {FontHelper} from "@/utils/helpers/fontHelper";
+import {UIHelper} from "@/utils/helpers/UIHelper";
 
 type Props = {
     data: lineDataItem[],
@@ -22,6 +23,7 @@ export function FocusTimeLineChart({data, data2}: Props) {
         textStyle: {
             color: foreground,
             fontSize: 10,
+            fontFamily: FontHelper.getMainFontVariable(),
         },
         rulesColor: foreground + '33',
         stripColor: foreground,
@@ -31,18 +33,19 @@ export function FocusTimeLineChart({data, data2}: Props) {
     return (
         <>
             <LineChart
-                //areaChart={true}
+                areaChart={true}
                 startFillColor={Colors.foreground.work[colorScheme]}
-                startOpacity={0.3}
-                endFillColor={Colors.foreground.rest[colorScheme]}
-                endOpacity={0.1}
+                endFillColor={Colors.foreground.work[colorScheme]}
+                startOpacity={0.5}
+                endOpacity={0}
                 data={data}
                 data2={data2}
                 width={width * 0.77}
                 backgroundColor={'transparent'}
                 adjustToWidth={true}
                 spacing={undefined}
-                initialSpacing={15}
+                //initialSpacing={15}
+                initialSpacing={1}
                 indicatorColor={"black"}
 
                 // Données et interactivité
@@ -51,15 +54,17 @@ export function FocusTimeLineChart({data, data2}: Props) {
                 color2={Colors.foreground.rest[colorScheme]}
                 disableScroll={true}
                 isAnimated={true}
-                delayBeforeUnFocus={5000}
-                //animateOnDataChange={true}
+                animateOnDataChange={true}
                 scrollAnimation={true}
                 focusedDataPointRadius={5}
                 focusEnabled={false}
                 showStripOnFocus={true}
                 showDataPointOnFocus={true}
-                renderDataPointsAfterAnimationEnds={true}
-                showTextOnFocus={true}
+                verticalLinesUptoDataPoint={true}
+                verticalLinesColor={chartStyle.stripColor + '33'}
+                verticalLinesStrokeDashArray={[4, 4]}
+                //showVerticalLines={true}
+
 
                 // Focus Styling
                 stripColor={chartStyle.stripColor}
@@ -71,10 +76,12 @@ export function FocusTimeLineChart({data, data2}: Props) {
                 rulesColor={chartStyle.rulesColor}
                 yAxisTextStyle={chartStyle.textStyle}
                 xAxisLabelTextStyle={chartStyle.textStyle}
-                yAxisColor="transparent"
-                xAxisColor="transparent"
+                xAxisLabelsHeight={0}
+                yAxisColor='transparent'
+                xAxisColor={chartStyle.textStyle.color + '33'}
+                xAxisType={'dashed'}
                 yAxisThickness={0}
-                xAxisThickness={0}
+                xAxisThickness={1}
                 rotateLabel={false}
                 yAxisLabelSuffix={'h'}
                 yAxisLabelContainerStyle={{
@@ -95,12 +102,12 @@ export function FocusTimeLineChart({data, data2}: Props) {
                     pointerStripWidth: 1,
                     strokeDashArray: [4, 4],
                     pointerColor: foreground + '33',
-                    pointerLabelWidth: 100,
+                    pointerLabelWidth: data2 ? 100 : 60,
                     pointerLabelComponent: (points: lineDataItem[]) => {
-                        console.log(points);
+                        UIHelper.hapticImpact();
                         return (
                             <ThemedView
-                                className={'w-full flex flex-row gap-2 justify-between items-center'}
+                                className={`w-full flex flex-row gap-2 ${data2 ? 'justify-between' : 'justify-center'} items-center`}
                                 fillStyle={'default'}
                                 borderStyle={'default'}
                                 paddingStyle={'small'}
@@ -109,39 +116,27 @@ export function FocusTimeLineChart({data, data2}: Props) {
                                 <ThemedView
                                     className={'flex flex-col'}
                                 >
+                                    <ThemedText type={'small'}>{points[0].label}</ThemedText>
                                     <ThemedText type={'small'}>Travail</ThemedText>
                                     <ThemedText type={'miniBold'}>{points[0].value}h</ThemedText>
                                 </ThemedView>
-                                <ThemedView
-                                    className={'flex flex-col'}
-                                >
-                                    <ThemedText type={'small'}>Repos</ThemedText>
-                                    <ThemedText type={'miniBold'}>{points[1].value}h</ThemedText>
-                                </ThemedView>
+                                {points.length > 1 && (
+                                    <ThemedView
+                                        className={'flex flex-col'}
+                                    >
+                                        <ThemedText type={'small'}>Repos</ThemedText>
+                                        <ThemedText type={'miniBold'}>{points[1].value}h</ThemedText>
+                                    </ThemedView>
+                                )}
                             </ThemedView>
                         );
                     },
                 }}
-
-                dataPointLabelShiftY={-15}
-                dataPointLabelShiftX={8}
-                /*
-                dataPointLabelComponent={({focused, value}: { focused: boolean, value: any }) => {
-                    return (
-                        <ThemedView
-                            paddingStyle={'small'}
-                            fillStyle={'opacity-15'}
-                        >
-                            <ThemedText type={'small'}>{value}</ThemedText>
-                        </ThemedView>
-                    );
-                }}
-                 */
             />
             <ThemedView
                 className={'flex flex-row gap-6 justify-between items-center'}>
-                <PieChartLegendItem type={'work'}/>
-                <PieChartLegendItem type={'rest'}/>
+                <ChartLegendItem type={'work'}/>
+                {data2 && (<ChartLegendItem type={'rest'}/>)}
             </ThemedView>
         </>
     );

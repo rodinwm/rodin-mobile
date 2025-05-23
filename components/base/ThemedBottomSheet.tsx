@@ -13,7 +13,7 @@ export type ThemedBottomSheetProps = {
     takeBottomBarIntoAccount?: boolean;
 };
 
-export default function ThemedBottomSheet(props: ThemedBottomSheetProps) {
+export function ThemedBottomSheet(props: ThemedBottomSheetProps) {
     const margin = 10;
     const ref = useRef<BottomSheet>(null);
     const insets = useSafeAreaInsets();

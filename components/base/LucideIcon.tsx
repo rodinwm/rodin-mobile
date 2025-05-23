@@ -13,7 +13,7 @@ type Props = {
     style?: StyleProp<ViewStyle>;
 }
 
-export default function LucideIcon(props: Props) {
+export function LucideIcon(props: Props) {
     const LucideIcon = icons[props.name];
 
     let colorScheme = useColorScheme();

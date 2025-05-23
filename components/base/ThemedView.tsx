@@ -1,6 +1,6 @@
 import {ImageBackground, ImageSourcePropType, StyleSheet, View, type ViewProps} from 'react-native';
 import React from "react";
-import BlurredBackground from "@/components/base/BlurredBackground";
+import {BlurredBackground} from "@/components/base/BlurredBackground";
 import {ThemedClassName} from "@/utils/interfaces";
 
 export type ThemedViewProps = ViewProps & {

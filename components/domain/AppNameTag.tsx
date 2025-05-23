@@ -1,4 +1,4 @@
-import {ThemedText} from '@/components/base/ThemedText';
+import {ThemedText} from "@/components/base/ThemedText";
 import {ThemedView} from "@/components/base/ThemedView";
 import React from "react";
 import Constants from "expo-constants";

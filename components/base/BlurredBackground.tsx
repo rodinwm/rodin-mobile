@@ -1,7 +1,7 @@
 import {BlurView} from "expo-blur";
 import React from "react";
 
-export default function BlurredBackground() {
+export function BlurredBackground() {
     return (
         <BlurView
             tint="dark"

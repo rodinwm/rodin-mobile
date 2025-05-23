@@ -1,14 +1,15 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {
+    ScreenTemplate,
+    ThemedButton,
+    ThemedCheckbox,
+    ThemedListTile,
+    ThemedText,
+    ThemedTextInput,
+    ThemedView
+} from '@/components';
 import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
-import ThemedListTile from "@/components/base/ThemedListTile";
-import ScreenTemplate from '@/components/layouts/ScreenTemplate';
-import {ThemedText} from "@/components/base/ThemedText";
-import ThemedCheckbox from "@/components/base/ThemedCheckbox";
 import {motivationSentences} from "@/assets/static/motivation-sentences";
-import {ThemedTextInput} from "@/components/base/ThemedTextInput";
-import {ThemedButton} from "@/components/base/ThemedButton";
-
 
 export default function Page() {
     const router = useRouter();

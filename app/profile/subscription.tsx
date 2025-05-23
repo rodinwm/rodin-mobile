@@ -1,18 +1,19 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {
+    LucideIcon,
+    ScreenTemplate,
+    SubscriptionAdvantageTable,
+    ThemedButton,
+    ThemedText,
+    ThemedView
+} from '@/components';
 import React, {useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
-import ScreenTemplate from '@/components/layouts/ScreenTemplate';
-import {ThemedText} from "@/components/base/ThemedText";
 import {NotificationType, SubscriptionRecurrence} from "@/utils/enums";
-import {ThemedButton} from "@/components/base/ThemedButton";
 import {subscriptions} from "@/assets/static/subscriptions";
 import {CurrencyHelper} from "@/utils/helpers/currencyHelper";
-import LucideIcon from "@/components/base/LucideIcon";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
-import {SubscriptionAdvantageTable} from "@/components/domain/SubscriptionAdvantageTable";
 import {Alert} from "react-native";
-
 
 const notificationTypes = Object.values(NotificationType).filter((type) => type !== NotificationType.AutoSuggestions);
 
@@ -21,7 +22,6 @@ export default function Page() {
     const router = useRouter();
     const navigation = useNavigation();
     const [subscriptionRecurrence, setSubscriptionRecurrence] = useState(SubscriptionRecurrence.Yearly);
-
 
     return (
         <ScreenTemplate

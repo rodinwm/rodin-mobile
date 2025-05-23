@@ -1,11 +1,10 @@
 import React, {useRef, useState} from "react";
-import ScreenTemplate from "@/components/layouts/ScreenTemplate";
+import {MessageSheet, ScreenTemplate} from "@/components";
 import PagerView from "react-native-pager-view";
 import ChoosePseudo from "@/app/auth/onboarding/steps/choose-pseudo";
 import SetPhoneNumber from "@/app/auth/onboarding/steps/set-phone-number";
 import SetEmailAddress from "@/app/auth/onboarding/steps/set-email-address";
 import SetPassword from "@/app/auth/onboarding/steps/set-password";
-import MessageSheet from "@/components/layouts/MessageSheet";
 import {useRouter} from "expo-router";
 import ReadCGU from "@/app/auth/onboarding/steps/read-cgu";
 import SetDefaultTimer from "@/app/auth/onboarding/steps/set-default-timer";
@@ -33,6 +32,8 @@ export default function Page() {
                 icon: 'ChevronLeft',
                 onPress: goToPreviousStep
             }}
+            setHeightToScreenSize={true}
+            scrollEnabled={false}
             bottomSheet={(
                 <MessageSheet
                     title={"Enregistrer vos informations de connexions ?"}

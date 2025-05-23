@@ -1,10 +1,10 @@
-import {ThemedView} from "@/components/base/ThemedView";
+import {ThemedView} from '@/components/base/ThemedView';
+import {ThemedText} from '@/components/base/ThemedText';
+import {ThemedCheckbox} from '@/components/base/ThemedCheckbox';
 import React from "react";
-import {ThemedText} from "@/components/base/ThemedText";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {ColorTheme} from "@/utils/enums";
 import {TouchableOpacity} from "react-native";
-import ThemedCheckbox from "@/components/base/ThemedCheckbox";
 
 type Props = {
     type?: ColorTheme;

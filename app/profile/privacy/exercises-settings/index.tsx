@@ -1,13 +1,7 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {DefaultTimerSheet, ScreenTemplate, ThemedCheckbox, ThemedListTile, ThemedText, ThemedView} from '@/components';
 import React, {useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
-import ThemedListTile from "@/components/base/ThemedListTile";
-import ScreenTemplate from '@/components/layouts/ScreenTemplate';
-import {ThemedText} from "@/components/base/ThemedText";
-import ThemedCheckbox from "@/components/base/ThemedCheckbox";
 import {ConcentrationExercise} from "@/utils/enums";
-import {DefaultTimerSheet} from "@/components/sheets/DefaultTimerSheet";
-
 
 const exercises = Object.values(ConcentrationExercise);
 

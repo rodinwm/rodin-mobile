@@ -8,7 +8,7 @@ type Props = {
     type: 'work' | 'rest';
 };
 
-export function PieChartLegendItem({type}: Props) {
+export function ChartLegendItem({type}: Props) {
     const colorScheme = useColorScheme() ?? 'light';
 
     return (

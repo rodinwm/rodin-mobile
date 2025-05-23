@@ -1,15 +1,17 @@
-import {ThemedText} from '@/components/base/ThemedText';
-import {ThemedView} from '@/components/base/ThemedView';
 import React, {useState} from "react";
-import LucideIcon from "@/components/base/LucideIcon";
-import {ThemedButton} from "@/components/base/ThemedButton";
-import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 import {useRouter} from "expo-router";
-import ScreenTemplate from "@/components/layouts/ScreenTemplate";
 import {TimerValue} from "@/utils/interfaces";
-import {DefaultTimerSheet} from "@/components/sheets/DefaultTimerSheet";
+import {
+    DefaultTimerSheet,
+    LucideIcon,
+    ScreenTemplate,
+    ThemedButton,
+    ThemedText,
+    ThemedTextInput,
+    ThemedView,
+    TimerSelect
+} from "@/components";
 import {defaultBreakTime, defaultWorkTime} from '@/utils/constants';
-import {TimerSelect} from "@/components/TimerSelect";
 
 export default function Page() {
     const router = useRouter();
