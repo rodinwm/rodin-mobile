@@ -4,7 +4,7 @@ import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
-import {UIHelper} from "@/utils/helpers/uiHelper";
+import {UIHelper} from "@/utils/helpers/UIHelper";
 
 type Props = {
     options: string[];

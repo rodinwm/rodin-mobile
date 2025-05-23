@@ -60,7 +60,6 @@ export function TimerSelect({defaultValue, onChange}: Props) {
                         display: 'flex',
                         flexDirection: 'row',
                         alignItems: 'center',
-                        //justifyContent: 'center',
                         justifyContent: 'space-between',
                         padding: 0,
                         gap: 14,

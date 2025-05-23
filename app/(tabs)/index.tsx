@@ -15,7 +15,6 @@ import {FocusTimeLineChart} from "@/components/domain/FocusTimeLineChart";
 import {FocusTimePieChart} from "@/components/domain/FocusTimePieChart";
 import {ChartHelper} from "@/utils/helpers/chartHelper";
 
-const chartTypes = Object.values(ChartType);
 const chartPeriods = Object.values(ChartPeriod);
 
 export default function Page() {
@@ -26,7 +25,7 @@ export default function Page() {
     const [isRodPicsUnlocked, setIsRodPicsUnlocked] = useState(true);
     const [chartConfig, setChartConfig] = useState({
         type: ChartType.Line,
-        period: ChartPeriod.Day,
+        period: ChartPeriod.Week,
     });
 
     const handleChartConfigChange = (config: 'type' | 'period', value: ChartType | ChartPeriod) => {
@@ -38,6 +37,7 @@ export default function Page() {
             title={"Rodin"}
             takeBottomBarIntoAccount={true}
             setHeightToScreenSize={true}
+            scrollEnabled={false}
             bottomSheet={(
                 <MessageSheet
                     title={`Conseil du ${DateHelper.formatDate(new Date())}`}
@@ -136,11 +136,11 @@ export default function Page() {
                 </ThemedView>
 
                 <ThemedView
-                    fillStyle={"opacity-5"}
+                    //fillStyle={"opacity-5"}
                     borderStyle={"default"}
                     radiusStyle={"default"}
-                    paddingStyle={"small"}
-                    className={'w-full flex flex-col items-center gap-3'}
+                    paddingStyle={"extraSmall"}
+                    className={'w-full h-fit flex flex-col items-center gap-3'}
                 >
                     {chartConfig.type === ChartType.Line ? (
                         <FocusTimeLineChart
@@ -148,7 +148,7 @@ export default function Page() {
                         />
                     ) : chartConfig.type === ChartType.Bar ? (
                         <FocusTimeBarChart
-                            data={ChartHelper.generateBarChartData(chartConfig.period)}
+                            data={ChartHelper.generateStackBarChartData(chartConfig.period)}
                         />
                     ) : (
                         <FocusTimePieChart

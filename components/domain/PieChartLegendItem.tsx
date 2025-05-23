@@ -15,16 +15,15 @@ export function PieChartLegendItem({type}: Props) {
         <ThemedView
             className={'w-fit flex flex-row gap-2 justify-center items-center'}>
             <ThemedView
-                radiusStyle={'full'}
-                paddingStyle={"extraSmall"}
+                className={'w-3 h-3'}
+                radiusStyle={'small'}
                 borderStyle={"default"}
-                //className={`bg-foreground-${type}-${colorScheme}`}
                 style={{
                     backgroundColor: Colors.background[type][colorScheme],
                 }}
             />
 
-            <ThemedText type={"default"}>
+            <ThemedText type={"small"}>
                 {
                     type === 'work' ?
                         'Travail' : type === 'rest' ?

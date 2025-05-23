@@ -7,11 +7,14 @@ import {ThemedButton} from "@/components/base/ThemedButton";
 import {Toast} from "toastify-react-native";
 import {ThemedText} from "@/components/base/ThemedText";
 import {TouchableOpacity} from "react-native";
-import {UIHelper} from "@/utils/helpers/uiHelper";
+import {UIHelper} from "@/utils/helpers/UIHelper";
+import {useIsFocused} from "@react-navigation/native";
 
 export default function Page() {
     const router = useRouter();
     const camRef = useRef<CameraView>(null);
+    const isFocused = useIsFocused();
+
     const [facing, setFacing] = useState<CameraType>('back');
     const [flashMode, setFlashMode] = useState<'on' | 'off'>('off');
     const [permission, requestPermission] = useCameraPermissions();
@@ -85,33 +88,34 @@ export default function Page() {
             removeBodyPadding={true}
             scrollEnabled={false}
         >
-            <ThemedView className={'w-full h-full flex-1'} radiusStyle={"default"}>
-                <CameraView
-                    ref={camRef}
-                    mode={"picture"}
-                    mute={true}
-                    facing={facing}
-                    flash={flashMode}
-                    mirror={facing === 'front'}
-                    style={{width: "100%", height: "100%"}}
+            <ThemedView className={'relative w-full h-full flex-1'} radiusStyle={"default"}>
+                {isFocused && (
+                    <CameraView
+                        ref={camRef}
+                        mode={"picture"}
+                        mute={true}
+                        facing={facing}
+                        flash={flashMode}
+                        mirror={facing === 'front'}
+                        style={{width: "100%", height: "100%"}}
+                    />
+                )}
+                <TouchableOpacity
+                    className={'absolute inset-0 w-full h-full'}
+                    onPress={handleDoubleTap}
                 >
-                    <TouchableOpacity
-                        className={'w-full h-full'}
-                        onPress={handleDoubleTap}
-                    >
-                        {countdown !== 0 && (
-                            <ThemedView
-                                className={"w-full h-full flex flex-col justify-center items-center bg-black/40"}>
-                                <ThemedText type={"logo"}>
-                                    {countdown}
-                                </ThemedText>
-                                <ThemedText type={"subtitle"} className={"opacity-75"}>
-                                    Capture ton travail
-                                </ThemedText>
-                            </ThemedView>
-                        )}
-                    </TouchableOpacity>
-                </CameraView>
+                    {countdown !== 0 && (
+                        <ThemedView
+                            className={"w-full h-full flex flex-col justify-center items-center bg-black/40"}>
+                            <ThemedText type={"logo"}>
+                                {countdown}
+                            </ThemedText>
+                            <ThemedText type={"subtitle"} className={"opacity-75"}>
+                                Capture ton travail
+                            </ThemedText>
+                        </ThemedView>
+                    )}
+                </TouchableOpacity>
             </ThemedView>
 
             <ThemedView className={'w-full flex flex-row gap-14 justify-center items-center'}>

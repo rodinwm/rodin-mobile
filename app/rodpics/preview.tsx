@@ -1,18 +1,27 @@
 import {ThemedView} from '@/components/base/ThemedView';
 import React, {useState} from "react";
-import {useLocalSearchParams, useRouter} from "expo-router";
+import {useLocalSearchParams} from "expo-router";
 import ScreenTemplate from '@/components/layouts/ScreenTemplate';
 import {ThemedButton} from "@/components/base/ThemedButton";
 import {ThemedText} from "@/components/base/ThemedText";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import LucideIcon from "@/components/base/LucideIcon";
-import {TouchableOpacity} from "react-native";
+import {LayoutRectangle, TouchableOpacity} from "react-native";
+import Animated from 'react-native-reanimated';
+import {GestureDetector} from 'react-native-gesture-handler';
+import {useDraggableGesture} from "@/utils/hooks/useDraggableGesture";
 
 export default function Page() {
-    const router = useRouter();
     const colorScheme = useColorScheme() ?? 'light';
     const {firstPicUri, secondPicUri} = useLocalSearchParams();
     const [isSwapped, setIsSwapped] = useState(false);
+    const [elementLayout, setElementLayout] = useState<LayoutRectangle>({width: 0, height: 0, x: 0, y: 0});
+    const [parentLayout, setParentLayout] = useState<LayoutRectangle>({width: 0, height: 0, x: 0, y: 0});
+    const {gesture, animatedStyle} = useDraggableGesture({
+        elementLayout: elementLayout,
+        parentLayout: parentLayout,
+        padding: 15
+    });
 
 
     return (
@@ -26,41 +35,65 @@ export default function Page() {
             <ThemedView
                 className={'w-full h-full flex-1 flex flex-col justify-between'}
                 radiusStyle={"default"}
-                paddingStyle={"small"}
                 fillStyle={"inversed"}
                 backgroundImage={{uri: (isSwapped ? secondPicUri : firstPicUri).toString()}}
+                onLayout={(e) => setParentLayout(e.nativeEvent.layout)}
             >
                 {/* Little preview */}
-                <TouchableOpacity
-                    className={'h-2/5 aspect-[9/16] shadow-lg'}
-                    onPress={() => setIsSwapped(prev => !prev)}
-                >
-                    <ThemedView
-                        className={'w-full h-full'}
-                        radiusStyle={"default"}
-                        //fillStyle={"default"}
-                        borderWidth={2}
-                        borderStyle={"inversed"}
-                        backgroundImage={{uri: (isSwapped ? firstPicUri : secondPicUri).toString()}}
-                    />
-                </TouchableOpacity>
-                <ThemedView
-                    className={"w-full items-end"}
-                >
-                    <ThemedView
-                        className={"w-fit flex flex-row gap-2 justify-center items-center"}
-                        radiusStyle={"default"}
-                        paddingStyle={"asymetric"}
-                        isBackgroundBlur={true}
+                <GestureDetector gesture={gesture}>
+                    <Animated.View
+                        style={[animatedStyle, {
+                            height: '40%',
+                            aspectRatio: 9 / 16,
+                            position: 'absolute',
+                            zIndex: 1
+                        }]}
+                        onLayout={(e) => setElementLayout(e.nativeEvent.layout)}
                     >
-                        <LucideIcon name={'Brain'} size={18}/>
+                        <TouchableOpacity
+                            className={'flex-1 shadow-lg'}
+                            onPress={() => setIsSwapped(prev => !prev)}
+                        >
+                            <ThemedView
+                                className={'w-full h-full'}
+                                radiusStyle={"default"}
+                                borderWidth={2}
+                                borderStyle={"inversed"}
+                                backgroundImage={{uri: (isSwapped ? firstPicUri : secondPicUri).toString()}}
+                            />
+                        </TouchableOpacity>
+                    </Animated.View>
+                </GestureDetector>
+
+                <ThemedView
+                    className={"w-full h-full flex flex-row justify-end items-end"}
+                    paddingStyle={"default"}
+                >
+                    <ThemedView
+                        className={"w-full flex flex-row justify-between items-end"}
+                    >
                         <ThemedText
                             type={'defaultExtraBold'}
-                            className={"opacity-70"}
                             inverseColor={colorScheme === 'light'}
                         >
-                            10h30
+                            @mvxence
                         </ThemedText>
+
+                        <ThemedView
+                            className={"w-fit flex flex-row gap-2 justify-center items-center"}
+                            radiusStyle={"default"}
+                            paddingStyle={"asymetric"}
+                            isBackgroundBlur={true}
+                        >
+                            <LucideIcon name={'Brain'} size={18}/>
+                            <ThemedText
+                                type={'defaultExtraBold'}
+                                className={"opacity-70"}
+                                inverseColor={colorScheme === 'light'}
+                            >
+                                10h30
+                            </ThemedText>
+                        </ThemedView>
                     </ThemedView>
                 </ThemedView>
             </ThemedView>
