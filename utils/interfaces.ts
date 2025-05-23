@@ -43,7 +43,7 @@ export interface Pod {
 export interface Subscription {
     title: string;
     description: string;
-    price: {
+    price?: {
         [SubscriptionRecurrence.Yearly]: number;
         [SubscriptionRecurrence.Monthly]: number;
     };
@@ -52,6 +52,7 @@ export interface Subscription {
 
 export interface ThemedClassName {
     base?: string;
+    overflow?: string;
     fillStyle?: string;
     radiusStyle?: string;
     paddingStyle?: string;

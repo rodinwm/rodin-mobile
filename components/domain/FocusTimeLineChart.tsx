@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {LineChart, lineDataItem} from "react-native-gifted-charts";
-import {LayoutRectangle, useWindowDimensions} from "react-native";
+import {useWindowDimensions} from "react-native";
 import {Colors} from "@/utils/colors";
 import {ThemedText} from "@/components/base/ThemedText";
 import {ThemedView} from "@/components/base/ThemedView";
@@ -10,10 +10,10 @@ import {FontHelper} from "@/utils/helpers/fontHelper";
 
 type Props = {
     data: lineDataItem[],
+    data2?: lineDataItem[],
 };
 
-export function FocusTimeLineChart({data}: Props) {
-    const [tooltipLayout, setTooltipLayout] = useState<LayoutRectangle>({width: 0, height: 0, x: 0, y: 0});
+export function FocusTimeLineChart({data, data2}: Props) {
     const colorScheme = useColorScheme() ?? 'light';
     const {width} = useWindowDimensions();
     const foreground = Colors.foreground[colorScheme];
@@ -31,13 +31,13 @@ export function FocusTimeLineChart({data}: Props) {
     return (
         <>
             <LineChart
-                areaChart={false}
-                curved={false}
-                startFillColor={Colors.foreground[colorScheme] + '33'}
-                startOpacity={0.8}
-                endFillColor={Colors.background[colorScheme]}
-                endOpacity={0.3}
+                //areaChart={true}
+                startFillColor={Colors.foreground.work[colorScheme]}
+                startOpacity={0.3}
+                endFillColor={Colors.foreground.rest[colorScheme]}
+                endOpacity={0.1}
                 data={data}
+                data2={data2}
                 width={width * 0.77}
                 backgroundColor={'transparent'}
                 adjustToWidth={true}
@@ -46,11 +46,13 @@ export function FocusTimeLineChart({data}: Props) {
                 indicatorColor={"black"}
 
                 // Données et interactivité
-                lineGradient={true}
+                //lineGradient={true}
+                color={Colors.foreground.work[colorScheme]}
+                color2={Colors.foreground.rest[colorScheme]}
                 disableScroll={true}
                 isAnimated={true}
                 delayBeforeUnFocus={5000}
-                animateOnDataChange={true}
+                //animateOnDataChange={true}
                 scrollAnimation={true}
                 focusedDataPointRadius={5}
                 focusEnabled={false}
@@ -64,7 +66,6 @@ export function FocusTimeLineChart({data}: Props) {
                 stripHeight={500}
                 textColor={chartStyle.textStyle.color}
                 dataPointsColor={chartStyle.dataPointsColor}
-
 
                 // Style adapté au thème
                 rulesColor={chartStyle.rulesColor}
@@ -96,6 +97,7 @@ export function FocusTimeLineChart({data}: Props) {
                     pointerColor: foreground + '33',
                     pointerLabelWidth: 100,
                     pointerLabelComponent: (points: lineDataItem[]) => {
+                        console.log(points);
                         return (
                             <ThemedView
                                 className={'w-full flex flex-row gap-2 justify-between items-center'}
@@ -103,9 +105,6 @@ export function FocusTimeLineChart({data}: Props) {
                                 borderStyle={'default'}
                                 paddingStyle={'small'}
                                 radiusStyle={'small'}
-                                onLayout={(event) => {
-                                    setTooltipLayout(event.nativeEvent.layout);
-                                }}
                             >
                                 <ThemedView
                                     className={'flex flex-col'}
@@ -117,7 +116,7 @@ export function FocusTimeLineChart({data}: Props) {
                                     className={'flex flex-col'}
                                 >
                                     <ThemedText type={'small'}>Repos</ThemedText>
-                                    <ThemedText type={'miniBold'}>{points[0].value}h</ThemedText>
+                                    <ThemedText type={'miniBold'}>{points[1].value}h</ThemedText>
                                 </ThemedView>
                             </ThemedView>
                         );

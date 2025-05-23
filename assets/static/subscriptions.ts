@@ -3,28 +3,31 @@ import {SubscriptionRecurrence} from "@/utils/enums";
 
 export const subscriptions: Subscription[] = [
     {
-        title: "Premium",
-        description: "Travaille dans un endroit calme et bien éclairé",
-        price: {
-            [SubscriptionRecurrence.Yearly]: 0.99,
-            [SubscriptionRecurrence.Monthly]: 1.99
-        },
+        title: "Gratuit",
+        description: "Profite des fonctionnalités de base de Rodin avec des pubs",
         content: [
-            "Lorem ipsum dolor sit ame",
-            "Lorem ipsum dolor sit ame sfdf sdfd fdsdf sdf sdfsd",
-            "Lorem ipsum dolor sit ame"
+            "Exercices de concentration ou respiration: 1 fois/jour",
+            "Fonds d'écran pendant les sessions: Accès restreint",
+            "Réglage libre du temps des sessions",
+            "Accès aux Rodpics + Social",
         ]
     },
     {
-        title: "Premium +",
+        title: "Premium",
         description: "Travaille dans un endroit calme et bien éclairé",
         price: {
             [SubscriptionRecurrence.Yearly]: 1.99,
             [SubscriptionRecurrence.Monthly]: 2.99
         },
         content: [
-            "Lorem ipsum dolor sit ame",
-            "Lorem ipsum dolor sit ame"
+            "Tracker de temps de travail",
+            "Exercices de concentration ou respiration: Illimité",
+            "Bloqueur d'application pendant les sessions",
+            "Aucune pubs",
+            "Fonds d'écran pendant les sessions: Accès à la gallerie en plus",
+            "Réglage libre du temps des sessions",
+            "Accès aux Rodpics + Social",
+            "Phrases de motivation personnalisables"
         ]
     },
 ];
