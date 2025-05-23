@@ -11,6 +11,7 @@ import LucideIcon from "@/components/base/LucideIcon";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {SubscriptionAdvantageTable} from "@/components/domain/SubscriptionAdvantageTable";
+import {Alert} from "react-native";
 
 
 const notificationTypes = Object.values(NotificationType).filter((type) => type !== NotificationType.AutoSuggestions);
@@ -107,7 +108,7 @@ export default function Page() {
                                 <ThemedButton
                                     title={"S'abonner"}
                                     onPress={() => {
-
+                                        Alert.alert(`Abonnement au plan ${sub.title}`);
                                     }}
                                 />
                             </ThemedView>
@@ -116,8 +117,8 @@ export default function Page() {
                 ))}
             </ThemedView>
 
-            <ThemedView className={'w-full flex flex-col gap-3'}>
-                <ThemedText type={'h1'} className={"mb-6"}>Avantages</ThemedText>
+            <ThemedView className={'w-full flex flex-col gap-3 mt-6'}>
+                <ThemedText type={'h1'}>Avantages détaillés</ThemedText>
                 <SubscriptionAdvantageTable/>
             </ThemedView>
         </ScreenTemplate>

@@ -6,7 +6,7 @@ import {ThemedButton} from "@/components/base/ThemedButton";
 import {ThemedText} from "@/components/base/ThemedText";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import LucideIcon from "@/components/base/LucideIcon";
-import {LayoutRectangle, TouchableOpacity} from "react-native";
+import {Alert, LayoutRectangle, TouchableOpacity} from "react-native";
 import Animated from 'react-native-reanimated';
 import {GestureDetector} from 'react-native-gesture-handler';
 import {useDraggableGesture} from "@/utils/hooks/useDraggableGesture";
@@ -113,6 +113,7 @@ export default function Page() {
                     title={"ENVOYER"}
                     className={"flex-1 items-center"}
                     onPress={() => {
+                        Alert.alert(`Envoi de la Rodpic réussi !`);
                     }}
                 />
             </ThemedView>
