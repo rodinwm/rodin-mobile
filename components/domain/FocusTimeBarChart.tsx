@@ -6,6 +6,7 @@ import {Colors} from "@/utils/colors";
 import {PieChartLegendItem} from "@/components/domain/PieChartLegendItem";
 import {ThemedView} from "@/components/base/ThemedView";
 import {FontHelper} from "@/utils/helpers/fontHelper";
+import {UIHelper} from "@/utils/helpers/UIHelper";
 
 type Props = {
     data: stackDataItem[],
@@ -19,6 +20,7 @@ export function FocusTimeBarChart({data}: Props) {
         textStyle: {
             color: foreground,
             fontSize: 10,
+            fontFamily: FontHelper.getMainFontVariable(),
         },
         rulesColor: foreground + '33'
     };
@@ -41,11 +43,17 @@ export function FocusTimeBarChart({data}: Props) {
                 yAxisTextStyle={chartStyle.textStyle}
                 xAxisLabelTextStyle={chartStyle.textStyle}
                 yAxisColor="transparent"
-                xAxisColor="transparent"
+                xAxisColor={chartStyle.textStyle.color + '33'}
+                xAxisType={'dashed'}
                 yAxisThickness={0}
-                xAxisThickness={0}
+                xAxisThickness={1}
                 yAxisLabelContainerStyle={{
                     fontFamily: FontHelper.getMainFontVariable(),
+                }}
+                focusBarOnPress={true}
+                onLongPress={(point: stackDataItem, index: number) => {
+                    UIHelper.hapticImpact();
+                    console.info("Long press on bar", index);
                 }}
             />
             <ThemedView

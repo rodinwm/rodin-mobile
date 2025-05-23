@@ -13,12 +13,8 @@ export default function Page() {
 
     return (
         <ScreenTemplate
-            title={"Rodin"}
+            title={"Profil"}
             takeBottomBarIntoAccount={true}
-            headerRightBtn={{
-                icon: "Users",
-                onPress: () => router.push('/community')
-            }}
         >
             {/* Name */}
             <ThemedView className={'w-full flex flex-col'}>

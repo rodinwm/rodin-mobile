@@ -145,7 +145,7 @@ export default function Page() {
                     {chartConfig.type === ChartType.Line ? (
                         <FocusTimeLineChart
                             data={ChartHelper.generateLineChartData(chartConfig.period)}
-                            data2={ChartHelper.generateLineChartData(chartConfig.period)}
+                            //data2={ChartHelper.generateLineChartData(chartConfig.period)}
                         />
                     ) : chartConfig.type === ChartType.Bar ? (
                         <FocusTimeBarChart
