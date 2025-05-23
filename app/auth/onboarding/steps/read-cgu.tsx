@@ -1,9 +1,6 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {OnboardingStepScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React, {useState} from "react";
-import {ThemedButton} from "@/components/base/ThemedButton";
-import OnboardingStepScreenTemplate from "@/components/layouts/OnboardingStepScreenTemplate";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
-import {ThemedText} from "@/components/base/ThemedText";
 import {CGU} from "@/assets/static/cgu";
 import {NativeScrollEvent, NativeSyntheticEvent, ScrollView} from "react-native";
 
@@ -20,6 +17,7 @@ export default function ReadCGU(props: OnboardingStepScreenProps) {
                 <ScrollView
                     nestedScrollEnabled={true}
                     scrollEventThrottle={16}
+                    fadingEdgeLength={100}
                     onScroll={(event: NativeSyntheticEvent<NativeScrollEvent>) => {
                         const {layoutMeasurement, contentOffset, contentSize} = event.nativeEvent;
                         const isAtBottom = layoutMeasurement.height + contentOffset.y >= contentSize.height - 20; // Petite marge de 20 pixels
@@ -27,7 +25,7 @@ export default function ReadCGU(props: OnboardingStepScreenProps) {
                     }}
                 >
                     {CGU.map((item, index) => (
-                        <ThemedView key={"cgu-title-" + index} className={'w-full flex flex-col gap-3'}>
+                        <ThemedView key={"cgu-title-" + index} className={'w-full flex flex-col gap-3 mb-6'}>
                             <ThemedText type={"h1"}>
                                 {item.title}
                             </ThemedText>

@@ -1,11 +1,13 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {
+    HeaderSpacer,
+    LucideIcon,
+    ScreenTemplate,
+    ThemedListTile,
+    ThemedText,
+    ThemedTextInput,
+    ThemedView
+} from '@/components';
 import React, {useState} from "react";
-import ThemedListTile from "@/components/base/ThemedListTile";
-import ScreenTemplate from '@/components/layouts/ScreenTemplate';
-import LucideIcon from "@/components/base/LucideIcon";
-import {ThemedText} from "@/components/base/ThemedText";
-import {HeaderSpacer} from "@/components/HeaderSpacer";
-import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 
 export default function Page() {
     const [pseudo, setPseudo] = useState({

@@ -1,7 +1,5 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {OnboardingStepScreenTemplate, ThemedButton, ThemedView} from '@/components';
 import React, {useState} from "react";
-import {ThemedButton} from "@/components/base/ThemedButton";
-import OnboardingStepScreenTemplate from "@/components/layouts/OnboardingStepScreenTemplate";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 import {AgeRange} from "@/utils/enums";
 

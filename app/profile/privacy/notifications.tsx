@@ -1,12 +1,7 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {ScreenTemplate, ThemedCheckbox, ThemedListTile, ThemedText, ThemedView} from '@/components';
 import React, {useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
-import ThemedListTile from "@/components/base/ThemedListTile";
-import ScreenTemplate from '@/components/layouts/ScreenTemplate';
-import {ThemedText} from "@/components/base/ThemedText";
-import ThemedCheckbox from "@/components/base/ThemedCheckbox";
 import {NotificationType} from "@/utils/enums";
-
 
 const notificationTypes = Object.values(NotificationType).filter((type) => type !== NotificationType.AutoSuggestions);
 

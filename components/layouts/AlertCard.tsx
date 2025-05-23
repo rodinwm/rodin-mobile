@@ -1,7 +1,5 @@
-import {ThemedText} from '@/components/base/ThemedText';
-import {ThemedView} from "@/components/base/ThemedView";
+import {LucideIcon, ThemedText, ThemedView} from '@/components';
 import React from "react";
-import LucideIcon from "@/components/base/LucideIcon";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {icons} from "lucide-react-native";

@@ -1,10 +1,5 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {AppNameTag, ScreenTemplate, ThemedButton, ThemedText, ThemedTextInput, ThemedView} from '@/components';
 import React from "react";
-import {ThemedButton} from "@/components/base/ThemedButton";
-import {ThemedText} from '@/components/base/ThemedText';
-import ScreenTemplate from "@/components/layouts/ScreenTemplate";
-import {AppNameTag} from "@/components/AppNameTag";
-import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 import {Toast} from "toastify-react-native";
 
 export default function Page() {

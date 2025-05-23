@@ -1,6 +1,6 @@
 import BottomSheet, {BottomSheetView} from "@gorhom/bottom-sheet";
 import React, {ReactNode, useEffect, useRef} from "react";
-import {ThemedView} from "@/components/base/ThemedView";
+import {ThemedView} from "@/components";
 import {Pressable} from "react-native";
 import {BlurView} from "expo-blur";
 import {useBottomTabOverflow} from "@/components/base/TabBarBackground";
@@ -13,7 +13,7 @@ export type ThemedBottomSheetProps = {
     takeBottomBarIntoAccount?: boolean;
 };
 
-export default function ThemedBottomSheet(props: ThemedBottomSheetProps) {
+export function ThemedBottomSheet(props: ThemedBottomSheetProps) {
     const margin = 10;
     const ref = useRef<BottomSheet>(null);
     const insets = useSafeAreaInsets();

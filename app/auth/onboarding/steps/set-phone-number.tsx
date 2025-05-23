@@ -1,8 +1,5 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView} from '@/components';
 import React from "react";
-import {ThemedButton} from "@/components/base/ThemedButton";
-import {ThemedTextInput} from "@/components/base/ThemedTextInput";
-import OnboardingStepScreenTemplate from "@/components/layouts/OnboardingStepScreenTemplate";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 
 export default function SetPhoneNumber(props: OnboardingStepScreenProps) {

@@ -1,11 +1,8 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React, {useRef, useState} from "react";
 import {CameraType, CameraView, useCameraPermissions} from "expo-camera";
 import {useRouter} from "expo-router";
-import ScreenTemplate from '@/components/layouts/ScreenTemplate';
-import {ThemedButton} from "@/components/base/ThemedButton";
 import {Toast} from "toastify-react-native";
-import {ThemedText} from "@/components/base/ThemedText";
 import {TouchableOpacity} from "react-native";
 import {UIHelper} from "@/utils/helpers/UIHelper";
 import {useIsFocused} from "@react-navigation/native";

@@ -3,9 +3,7 @@ import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {LineChart, lineDataItem} from "react-native-gifted-charts";
 import {useWindowDimensions} from "react-native";
 import {Colors} from "@/utils/colors";
-import {ThemedText} from "@/components/base/ThemedText";
-import {ThemedView} from "@/components/base/ThemedView";
-import {PieChartLegendItem} from "@/components/domain/PieChartLegendItem";
+import {ChartLegendItem, ThemedText, ThemedView} from "@/components";
 import {FontHelper} from "@/utils/helpers/fontHelper";
 import {UIHelper} from "@/utils/helpers/UIHelper";
 
@@ -135,8 +133,8 @@ export function FocusTimeLineChart({data, data2}: Props) {
             />
             <ThemedView
                 className={'flex flex-row gap-6 justify-between items-center'}>
-                <PieChartLegendItem type={'work'}/>
-                {data2 && (<PieChartLegendItem type={'rest'}/>)}
+                <ChartLegendItem type={'work'}/>
+                {data2 && (<ChartLegendItem type={'rest'}/>)}
             </ThemedView>
         </>
     );

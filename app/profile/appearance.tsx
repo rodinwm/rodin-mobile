@@ -1,9 +1,6 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {AppearanceCard, ScreenTemplate, ThemedListTile, ThemedView} from '@/components';
 import React, {useEffect, useState} from "react";
-import ScreenTemplate from "@/components/layouts/ScreenTemplate";
-import {AppearanceCard} from "@/components/AppearanceCard";
 import {ColorTheme} from "@/utils/enums";
-import ThemedListTile from "@/components/base/ThemedListTile";
 import {AppearanceHelper} from "@/utils/helpers/appearanceHelper";
 
 export default function Page() {

@@ -1,11 +1,8 @@
-import {ThemedText} from '@/components/base/ThemedText';
-import {ThemedView} from '@/components/base/ThemedView';
+import {HeaderSpacer, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React, {ReactNode} from "react";
-import {ThemedButton} from "@/components/base/ThemedButton";
 import {useBottomTabOverflow} from "@/components/base/TabBarBackground";
 import {SafeAreaView, useSafeAreaInsets} from "react-native-safe-area-context";
 import {useNavigation} from "expo-router";
-import {HeaderSpacer} from "@/components/HeaderSpacer";
 import {HeaderBtn} from "@/utils/interfaces";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {ImageSourcePropType} from "react-native";
@@ -24,7 +21,7 @@ type Props = {
     removeBodyPadding?: boolean;
 }
 
-export default function ScreenTemplate(props: Props) {
+export function ScreenTemplate(props: Props) {
     const navigation = useNavigation();
     const insets = useSafeAreaInsets();
 

@@ -1,9 +1,8 @@
-import {ThemedView} from "@/components/base/ThemedView";
-import LucideIcon from "@/components/base/LucideIcon";
-import {ThemedText} from "@/components/base/ThemedText";
+import {LucideIcon, ThemedText, ThemedView} from "@/components";
 import {type ButtonProps, TouchableOpacity} from "react-native";
 import {icons} from "lucide-react-native";
 import {isValidElement, ReactNode} from "react";
+import {UIHelper} from "@/utils/helpers/UIHelper";
 
 export type ThemedListTileProps = ButtonProps & {
     subtitle?: string;
@@ -13,18 +12,23 @@ export type ThemedListTileProps = ButtonProps & {
     hasPadding?: boolean;
 };
 
-export default function ThemedListTile({
-                                           icon,
-                                           title,
-                                           subtitle,
-                                           hasPadding,
-                                           suffixIcon = 'ChevronRight',
-                                           fillStyle = "none",
-                                           ...otherProps
-                                       }: ThemedListTileProps
+export function ThemedListTile({
+                                   icon,
+                                   title,
+                                   subtitle,
+                                   hasPadding,
+                                   suffixIcon = 'ChevronRight',
+                                   fillStyle = "none",
+                                   onPress,
+                                   ...otherProps
+                               }: ThemedListTileProps
 ) {
     return (
         <TouchableOpacity
+            onPress={onPress !== undefined ? (event) => {
+                if (hapticOnPress) UIHelper.hapticImpact()
+                onPress(event);
+            } : undefined}
             {...otherProps}
         >
             <ThemedView

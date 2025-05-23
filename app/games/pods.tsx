@@ -1,9 +1,6 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React, {useEffect, useRef, useState} from "react";
 import {useRouter} from "expo-router";
-import ScreenTemplate from '@/components/layouts/ScreenTemplate';
-import {ThemedButton} from "@/components/base/ThemedButton";
-import {ThemedText} from "@/components/base/ThemedText";
 import {DateHelper} from "@/utils/helpers/dateHelper";
 import {FlatList} from "react-native";
 import {GameHelper} from "@/utils/helpers/gameHelper";

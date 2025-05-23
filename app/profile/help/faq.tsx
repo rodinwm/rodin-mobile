@@ -1,13 +1,10 @@
-import {ThemedText} from '@/components/base/ThemedText';
-import {ThemedView} from '@/components/base/ThemedView';
+import {ScreenTemplate, ThemedText, ThemedView} from '@/components';
 import React from "react";
 import {useNavigation, useRouter} from "expo-router";
-import ScreenTemplate from "@/components/layouts/ScreenTemplate";
 
 export default function Page() {
     const router = useRouter();
     const navigation = useNavigation();
-
 
     return (
         <ScreenTemplate

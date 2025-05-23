@@ -1,10 +1,7 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView} from '@/components';
 import React, {useEffect, useState} from "react";
-import {ThemedButton} from "@/components/base/ThemedButton";
-import OnboardingStepScreenTemplate from "@/components/layouts/OnboardingStepScreenTemplate";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 import {Profession} from "@/utils/enums";
-import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 
 const professions = Object.values(Profession);
 

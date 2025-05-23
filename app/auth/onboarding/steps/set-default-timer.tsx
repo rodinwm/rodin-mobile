@@ -1,11 +1,13 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {
+    LucideIcon,
+    OnboardingStepScreenTemplate,
+    ThemedButton,
+    ThemedText,
+    ThemedView,
+    TimerSelect
+} from '@/components';
 import React, {useState} from "react";
-import {ThemedButton} from "@/components/base/ThemedButton";
-import OnboardingStepScreenTemplate from "@/components/layouts/OnboardingStepScreenTemplate";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
-import LucideIcon from "@/components/base/LucideIcon";
-import {ThemedText} from "@/components/base/ThemedText";
-import {TimerSelect} from "@/components/TimerSelect";
 
 export default function SetDefaultTimer(props: OnboardingStepScreenProps) {
     const [workTime, setWorkTime] = useState({hour: 0, minute: 0, second: 0});

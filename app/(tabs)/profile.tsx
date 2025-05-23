@@ -1,12 +1,14 @@
-import {ThemedText} from '@/components/base/ThemedText';
-import {ThemedView} from '@/components/base/ThemedView';
+import {
+    AppNameTag,
+    LucideIcon,
+    ScreenTemplate,
+    ThemedButton,
+    ThemedListTile,
+    ThemedText,
+    ThemedView
+} from '@/components';
 import React from "react";
-import ThemedListTile from "@/components/base/ThemedListTile";
-import {ThemedButton} from "@/components/base/ThemedButton";
-import LucideIcon from "@/components/base/LucideIcon";
 import {useRouter} from "expo-router";
-import {AppNameTag} from "@/components/AppNameTag";
-import ScreenTemplate from '@/components/layouts/ScreenTemplate';
 
 export default function Page() {
     const router = useRouter();

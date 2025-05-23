@@ -2,10 +2,8 @@ import {Tabs} from 'expo-router';
 import React from 'react';
 import {Platform} from 'react-native';
 
-import {HapticTab} from '@/components/HapticTab';
-import TabBarBackground from '@/components/base/TabBarBackground';
+import {HapticTab, LucideIcon, TabBarBackground} from '@/components';
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
-import LucideIcon from "@/components/base/LucideIcon";
 import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
 import {Colors} from "@/utils/colors";

@@ -1,6 +1,5 @@
 import {Link, Stack} from 'expo-router';
-import {ThemedText} from '@/components/base/ThemedText';
-import {ThemedView} from '@/components/base/ThemedView';
+import {ThemedText, ThemedView} from '@/components';
 
 export default function NotFoundScreen() {
     return (

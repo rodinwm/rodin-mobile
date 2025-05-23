@@ -1,10 +1,7 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {ScreenTemplate, ThemedButton, ThemedListTile, ThemedView} from '@/components';
 import React, {useRef, useState} from "react";
-import {ThemedButton} from "@/components/base/ThemedButton";
-import ThemedListTile from "@/components/base/ThemedListTile";
 import {Friends} from "@/assets/static/friends";
 import PagerView from "react-native-pager-view";
-import ScreenTemplate from '@/components/layouts/ScreenTemplate';
 import {FlatList} from "react-native";
 
 export default function Page() {

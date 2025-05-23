@@ -1,8 +1,5 @@
-import {ThemedView} from '@/components/base/ThemedView';
 import React from "react";
-import {ThemedButton} from "@/components/base/ThemedButton";
-import {ThemedText} from "@/components/base/ThemedText";
-import ThemedBottomSheet from "@/components/base/ThemedBottomSheet";
+import {ThemedBottomSheet, ThemedButton, ThemedText, ThemedView} from "@/components";
 
 export type Props = {
     title: string;
@@ -20,7 +17,7 @@ export type Props = {
     takeBottomBarIntoAccount?: boolean;
 }
 
-export default function MessageSheet(props: Props) {
+export function MessageSheet(props: Props) {
 
     return (
         <ThemedBottomSheet

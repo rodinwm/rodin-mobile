@@ -1,12 +1,14 @@
-import {ThemedView} from '@/components/base/ThemedView';
+import {
+    AppNameTag,
+    MessageSheet,
+    ScreenTemplate,
+    ThemedButton,
+    ThemedText,
+    ThemedTextInput,
+    ThemedView
+} from '@/components';
 import React, {useState} from "react";
-import {ThemedButton} from "@/components/base/ThemedButton";
-import {ThemedText} from '@/components/base/ThemedText';
-import ScreenTemplate from "@/components/layouts/ScreenTemplate";
-import {AppNameTag} from "@/components/AppNameTag";
-import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 import {useRouter} from "expo-router";
-import MessageSheet from "@/components/layouts/MessageSheet";
 import User from "@rodinwm/rodin-models/User";
 
 export default function Page() {

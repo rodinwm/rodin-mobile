@@ -1,8 +1,7 @@
 import {TextInput, type TextInputProps} from 'react-native';
 import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
-import {ThemedView} from "@/components/base/ThemedView";
-import {ThemedText} from "@/components/base/ThemedText";
+import {ThemedText, ThemedView} from "@/components";
 import React from "react";
 
 export type ThemedViewProps = TextInputProps & {

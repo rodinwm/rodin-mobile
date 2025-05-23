@@ -1,18 +1,20 @@
-import {ThemedText} from '@/components/base/ThemedText';
-import {ThemedView} from '@/components/base/ThemedView';
+import {
+    AlertCard,
+    FocusTimeBarChart,
+    FocusTimeLineChart,
+    FocusTimePieChart,
+    MessageSheet,
+    ScreenTemplate,
+    ThemedButton,
+    ThemedText,
+    ThemedView
+} from '@/components';
 import React, {useRef, useState} from "react";
-import {ThemedButton} from "@/components/base/ThemedButton";
 import {dailyTips} from "@/assets/static/daily-tips";
 import {useRouter} from "expo-router";
-import ScreenTemplate from "@/components/layouts/ScreenTemplate";
-import MessageSheet from "@/components/layouts/MessageSheet";
-import {AlertCard} from "@/components/AlertCard";
 import {DateHelper} from "@/utils/helpers/dateHelper";
 import PagerView from "react-native-pager-view";
 import {ChartPeriod, ChartType} from '@/utils/enums';
-import {FocusTimeBarChart} from "@/components/domain/FocusTimeBarChart";
-import {FocusTimeLineChart} from "@/components/domain/FocusTimeLineChart";
-import {FocusTimePieChart} from "@/components/domain/FocusTimePieChart";
 import {ChartHelper} from "@/utils/helpers/chartHelper";
 
 const chartPeriods = Object.values(ChartPeriod);

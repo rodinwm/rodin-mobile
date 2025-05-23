@@ -3,8 +3,7 @@ import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {BarChart, stackDataItem} from "react-native-gifted-charts";
 import {useWindowDimensions} from "react-native";
 import {Colors} from "@/utils/colors";
-import {PieChartLegendItem} from "@/components/domain/PieChartLegendItem";
-import {ThemedView} from "@/components/base/ThemedView";
+import {ChartLegendItem, ThemedView} from "@/components/domain/ChartLegendItem";
 import {FontHelper} from "@/utils/helpers/fontHelper";
 import {UIHelper} from "@/utils/helpers/UIHelper";
 
@@ -58,8 +57,8 @@ export function FocusTimeBarChart({data}: Props) {
             />
             <ThemedView
                 className={'flex flex-row gap-6 justify-between items-center'}>
-                <PieChartLegendItem type={'work'}/>
-                <PieChartLegendItem type={'rest'}/>
+                <ChartLegendItem type={'work'}/>
+                <ChartLegendItem type={'rest'}/>
             </ThemedView>
         </>
     );

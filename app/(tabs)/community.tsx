@@ -1,14 +1,9 @@
-import {ThemedText} from '@/components/base/ThemedText';
-import {ThemedView} from '@/components/base/ThemedView';
+import {ScreenTemplate, ThemedButton, ThemedListTile, ThemedText, ThemedTextInput, ThemedView} from '@/components';
 import React from "react";
-import {ThemedButton} from "@/components/base/ThemedButton";
 import {useRouter} from "expo-router";
 import {FlatList, Platform} from 'react-native';
-import ThemedListTile from "@/components/base/ThemedListTile";
 import {Friends} from "@/assets/static/friends";
-import {ThemedTextInput} from "@/components/base/ThemedTextInput";
 import {openBrowserAsync} from "expo-web-browser";
-import ScreenTemplate from '@/components/layouts/ScreenTemplate';
 
 export default function Page() {
     const router = useRouter();

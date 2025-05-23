@@ -1,6 +1,5 @@
 import React from "react";
-import {ThemedText} from "@/components/base/ThemedText";
-import {ThemedView} from "@/components/base/ThemedView";
+import {ThemedText, ThemedView} from "@/components";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {Colors} from "@/utils/colors";
 
@@ -8,7 +7,7 @@ type Props = {
     type: 'work' | 'rest';
 };
 
-export function PieChartLegendItem({type}: Props) {
+export function ChartLegendItem({type}: Props) {
     const colorScheme = useColorScheme() ?? 'light';
 
     return (
