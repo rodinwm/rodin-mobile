@@ -4,7 +4,6 @@ export {ExternalLink} from '@/components/base/ExternalLink';
 export {HapticTab} from '@/components/base/HapticTab';
 export {LucideIcon} from '@/components/base/LucideIcon';
 export {ParallaxScrollView} from '@/components/base/ParallaxScrollView';
-export {BlurTabBarBackground} from '@/components/base/TabBarBackground.ios';
 export {TabBarBackground} from '@/components/base/TabBarBackground';
 export {ThemedBottomSheet} from '@/components/base/ThemedBottomSheet';
 export {ThemedButton} from '@/components/base/ThemedButton';

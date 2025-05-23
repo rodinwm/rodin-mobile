@@ -18,7 +18,7 @@ export function ThemedCheckbox({
                 <LucideIcon name={"Check"} size={14} inverseColor={true}/>
             )}
             fillColor={Colors.foreground[colorScheme]}
-            unFillColor={Colors.foreground[colorScheme] + "33"} // FIXME: find how to hide checkkk icon when checkbox is not checked
+            //unFillColor={Colors.foreground[colorScheme] + "33"} // FIXME: find how to hide checkkk icon when checkbox is not checked
             disableText={true}
             {...otherProps}
         />

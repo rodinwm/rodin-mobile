@@ -10,6 +10,7 @@ export type ThemedListTileProps = ButtonProps & {
     suffixIcon?: keyof typeof icons | ReactNode | null;
     fillStyle?: "default" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
     hasPadding?: boolean;
+    hapticOnPress?: boolean;
 };
 
 export function ThemedListTile({
@@ -19,6 +20,7 @@ export function ThemedListTile({
                                    hasPadding,
                                    suffixIcon = 'ChevronRight',
                                    fillStyle = "none",
+                                   hapticOnPress = true,
                                    onPress,
                                    ...otherProps
                                }: ThemedListTileProps

@@ -11,6 +11,7 @@ export default function Page() {
     return (
         <ScreenTemplate
             title={"Communauté"}
+            takeBottomBarIntoAccount={true}
             headerRightBtn={{
                 icon: "UserPlus",
                 onPress: () => router.push('/community/friend-requests'),

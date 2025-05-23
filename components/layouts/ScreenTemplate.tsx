@@ -42,7 +42,7 @@ export function ScreenTemplate(props: Props) {
                 scrollEnabled={props.scrollEnabled}
             >
                 <SafeAreaView
-                    className={`w-full ${props.setHeightToScreenSize ? 'h-screen justify-between' : 'h-full'} flex flex-col gap-6 ${props.removeBodyPadding ? 'p-0 pb-6' : 'p-6 pt-0'}`}
+                    className={`w-full flex flex-col gap-6 ${props.setHeightToScreenSize ? 'h-screen justify-between' : 'h-full'} ${props.removeBodyPadding ? 'p-0 pb-6' : 'p-6 pt-0'}`}
                     style={props.takeBottomBarIntoAccount ? {
                         paddingBottom: insets.bottom + useBottomTabOverflow(),
                     } : null}
