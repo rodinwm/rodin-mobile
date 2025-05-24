@@ -23,7 +23,7 @@ export default function Page() {
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedButton
                     title={"Oui"}
-                    onPress={() => router.push('/games/pods')}
+                    onPress={() => router.push('/games/respiration')}
                 />
                 <ThemedButton
                     title={"Non"}
