@@ -7,7 +7,6 @@ import {
     ScreenTemplate,
     ThemedButton,
     ThemedText,
-    ThemedTextInput,
     ThemedView,
     TimerSelect
 } from "@/components";
@@ -66,12 +65,24 @@ export default function Page() {
             </ThemedView>
 
             {/* Nombre de sessions */}
-            <ThemedView className={'w-full flex flex-col gap-3'}>
-                <ThemedView className={'w-full flex flex-row items-center gap-2 opacity-50'}>
+            <ThemedView className={'w-full flex flex-row justify-between gap-3'}>
+                <ThemedView className={'flex flex-row items-center gap-2 opacity-50'}>
                     <LucideIcon name={'RotateCcw'}/>
                     <ThemedText type={'defaultSemiBold'}>Nombre de sessions</ThemedText>
                 </ThemedView>
 
+
+                <ThemedView style={{width: 105}}>
+                    <TimerSelect
+                        hideHours={true}
+                        hideMinutes={true}
+                        maximumSeconds={99}
+                        secondLabel={''}
+                        onChange={(time: TimerValue) => setNumberOfSessions(time.seconds)}
+                    />
+                </ThemedView>
+
+                {/*
                 <ThemedView
                     className={'w-full flex flex-row justify-center'}
                 >
@@ -111,6 +122,7 @@ export default function Page() {
                         onPress={() => setNumberOfSessions((previous) => previous >= 10 ? 10 : previous + 1)}
                     />
                 </ThemedView>
+                */}
             </ThemedView>
 
 

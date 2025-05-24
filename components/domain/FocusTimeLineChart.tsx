@@ -104,7 +104,7 @@ export function FocusTimeLineChart({data, data2}: Props) {
                     pointerColor: foreground + '33',
                     pointerLabelWidth: data2 ? 100 : 60,
                     pointerLabelComponent: (points: lineDataItem[]) => {
-                        UIHelper.hapticImpact();
+                        UIHelper.hapticImpact('selection');
                         return (
                             <ThemedView
                                 className={`w-full flex flex-row gap-2 ${data2 ? 'justify-between' : 'justify-center'} items-center`}
@@ -118,7 +118,13 @@ export function FocusTimeLineChart({data, data2}: Props) {
                                 >
                                     <ThemedText type={'small'}>{points[0].label}</ThemedText>
                                     <ThemedText type={'small'}>Travail</ThemedText>
-                                    <ThemedText type={'miniBold'}>{points[0].value}h</ThemedText>
+                                    <ThemedText
+                                        type={'miniBold'}
+                                        filled={false}
+                                        className={'text-foreground-work-light'}
+                                    >
+                                        {points[0].value}h
+                                    </ThemedText>
                                 </ThemedView>
                                 {points.length > 1 && (
                                     <ThemedView

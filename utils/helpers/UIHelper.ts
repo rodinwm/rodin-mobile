@@ -1,7 +1,7 @@
 import * as Haptics from "expo-haptics";
 
 export abstract class UIHelper {
-    static hapticImpact(impactType?: 'error' | 'success' | 'feedback') {
+    static hapticImpact(impactType?: 'error' | 'success' | 'feedback' | 'selection') {
         if (process.env.EXPO_OS === 'ios') {
             switch (impactType) {
                 case "error":
@@ -12,6 +12,9 @@ export abstract class UIHelper {
                     break;
                 case "feedback":
                     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).then();
+                    break;
+                case "selection":
+                    Haptics.selectionAsync().then();
                     break;
                 default:
                     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).then();
