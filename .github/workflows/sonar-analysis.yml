@@ -40,11 +40,11 @@ jobs:
           node-version: 20
 
       - name: Install Node.js dependencies
-        run: npm i
+        run: npm i --force
 
       - name: Run tests suite and generate coverage report
         run: npm test
-        
+
       - name: Set branch analysis parameters
         if: ${{ github.event.inputs.set_branch_analysis_parameters == 'yes' }}
         run: |
