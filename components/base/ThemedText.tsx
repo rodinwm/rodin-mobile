@@ -15,10 +15,11 @@ export function ThemedText({
                                type = 'default',
                                filled = true,
                                inverseColor = false,
+                               style,
                                ...otherProps
                            }: ThemedTextProps
 ) {
-    const style = {
+    const styles = {
         small: {
             fontSize: "text-xs",
             fontWeight: FontWeightEnum.Light,
@@ -70,7 +71,7 @@ export function ThemedText({
     };
 
     const classNames: string[] = [
-        style[type].fontSize,
+        styles[type].fontSize,
         filled ?
             !inverseColor ?
                 'text-foreground-light dark:text-foreground-dark'
@@ -85,8 +86,9 @@ export function ThemedText({
             className={classNames.join(' ')}
             style={{
                 fontFamily: type === 'bigTitle' ?
-                    FontHelper.getBigTitleFontStatic() : FontHelper.getMainFontStatic(style[type].fontWeight),
+                    FontHelper.getBigTitleFontStatic() : FontHelper.getMainFontStatic(styles[type].fontWeight),
                 lineHeight: 0,
+                ...(style as object || {})
             }}
             numberOfLines={numberOfLines}
             ellipsizeMode="tail"

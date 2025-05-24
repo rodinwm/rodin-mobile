@@ -1,7 +1,7 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {TimerValue} from "@/utils/interfaces";
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
-import {TimerPicker} from "react-native-timer-picker";
+import {TimerPicker, TimerPickerProps} from "react-native-timer-picker";
 import MaskedView from "@react-native-masked-view/masked-view"; // for transparent fade-out
 import {LinearGradient} from "expo-linear-gradient"; // or `import LinearGradient from "react-native-linear-gradient"`
 import {FontHelper} from "@/utils/helpers/fontHelper";
@@ -11,12 +11,18 @@ import {clickAudioSource} from "@/utils/constants";
 import {useAudioPlayer} from 'expo-audio';
 import {UIHelper} from "@/utils/helpers/UIHelper";
 
-type Props = {
+type Props = TimerPickerProps & {
     defaultValue?: TimerValue;
     onChange?: (time: TimerValue) => void;
 }
 
-export function TimerSelect({defaultValue, onChange}: Props) {
+export function TimerSelect({
+                                defaultValue,
+                                onChange,
+                                ...otherProps
+                            }: Props
+) {
+    const [isMounted, setIsMounted] = useState(false);
     const [time, setTime] = useState<TimerValue>(defaultValue ?? {hours: 0, minutes: 0, seconds: 0});
     const colorScheme = useColorScheme() ?? 'light';
     const audioPlayer = useAudioPlayer(clickAudioSource); // TODO: Find how to use this to play sound at each change
@@ -29,7 +35,11 @@ export function TimerSelect({defaultValue, onChange}: Props) {
         }
     };
 
-    return (
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    return isMounted ? (
         <ThemedView>
             <TimerPicker
                 padHoursWithZero={true}
@@ -37,6 +47,9 @@ export function TimerSelect({defaultValue, onChange}: Props) {
                 hourLabel="hrs"
                 minuteLabel="min"
                 secondLabel="sec"
+                maximumHours={23}
+                maximumMinutes={59}
+                maximumSeconds={59}
                 LinearGradient={LinearGradient}
                 MaskedView={MaskedView}
                 initialValue={defaultValue}
@@ -53,12 +66,19 @@ export function TimerSelect({defaultValue, onChange}: Props) {
                     },
                     pickerItem: {
                         fontSize: 24,
+                        width: 'auto',
+                    },
+                    pickerItemContainer: {
+                        width: 105,
                     },
                     pickerLabel: {
                         fontSize: 14,
                     },
+                    pickerLabelContainer: {
+                        width: 30,
+                    },
                     pickerContainer: {
-                        width: '100%',
+                        width: '97.5%',
                         display: 'flex',
                         flexDirection: 'row',
                         alignItems: 'center',
@@ -67,6 +87,7 @@ export function TimerSelect({defaultValue, onChange}: Props) {
                         gap: 14,
                     },
                 }}
+                {...otherProps}
             />
             <ThemedView
                 className={"absolute w-full top-[50%] -translate-y-1/2"}
@@ -75,5 +96,7 @@ export function TimerSelect({defaultValue, onChange}: Props) {
                 radiusStyle={"small"}
             />
         </ThemedView>
+    ) : (
+        <ThemedView/>
     );
 }
