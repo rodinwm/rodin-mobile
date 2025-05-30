@@ -61,22 +61,11 @@ export function TimerSelect({
                 styles={{
                     theme: colorScheme,
                     backgroundColor: "transparent",
-                    text: {
-                        fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.Bold),
-                    },
-                    pickerItem: {
-                        fontSize: 24,
-                        width: 'auto',
-                    },
-                    pickerItemContainer: {
-                        width: 105,
-                    },
-                    pickerLabel: {
-                        fontSize: 14,
-                    },
-                    pickerLabelContainer: {
-                        width: 30,
-                    },
+                    text: {fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.Bold)},
+                    pickerItem: {fontSize: 24, width: 'auto'},
+                    pickerItemContainer: {width: 105},
+                    pickerLabel: {fontSize: 14},
+                    pickerLabelContainer: {width: 30},
                     pickerContainer: {
                         width: '97.5%',
                         display: 'flex',

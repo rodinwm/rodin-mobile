@@ -48,9 +48,11 @@ export default function Page() {
                 </ThemedText>
 
                 <FlatList
+                    data={Friends}
                     refreshing={false}
                     onRefresh={() => console.log('refresh')}
-                    data={Friends}
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
                     ItemSeparatorComponent={() => (
                         <ThemedView className={"h-5"}/>
                     )}
@@ -62,8 +64,6 @@ export default function Page() {
                             />
                         </ThemedView>
                     )}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
                     keyExtractor={item => item.username}
                     renderItem={({item}) => (
                         <ThemedListTile
