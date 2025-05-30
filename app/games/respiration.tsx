@@ -119,16 +119,14 @@ export default function Page() {
                         borderRadius: 9999,
                     }, animatedStyle]}
                     className={'bg-foreground-light/10 dark:bg-foreground-dark/10 border border-foreground-light/20 dark:border-foreground-dark/20'}
-                >
-                    {/* Petit cercle blanc au centre */}
-                    <ThemedView
-                        className={'flex justify-center items-center'}
-                        fillStyle={'inversed'}
-                        radiusStyle={'full'}
-                        paddingStyle={"default"}
-                    />
-                </Animated.View>
-
+                />
+                {/* Petit cercle blanc au centre */}
+                <ThemedView
+                    className={'absolute flex justify-center items-center'}
+                    fillStyle={'inversed'}
+                    radiusStyle={'full'}
+                    paddingStyle={"default"}
+                />
             </ThemedView>
 
 

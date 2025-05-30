@@ -57,6 +57,7 @@ export default function Page() {
                         fillStyle={"opacity-15"}
                         radiusStyle={"default"}
                         paddingStyle={"default"}
+                        borderStyle={"default"}
                         className={'w-full flex flex-col gap-4'}
                     >
                         <ThemedText type={'h1'}>{sub.title}</ThemedText>
@@ -83,17 +84,17 @@ export default function Page() {
                                 <ThemedView
                                     paddingStyle={"small"}
                                     radiusStyle={"small"}
-                                    className={'w-full flex flex-row items-center gap-2 bg-background-success-light/10 dark:bg-background-success-dark/10'}
+                                    className={'w-fit flex flex-row items-center gap-2 bg-background-success-light/10 dark:bg-background-success-dark/10'}
                                 >
                                     <LucideIcon name={'Info'} size={18} color={Colors.foreground.success[colorScheme]}/>
                                     <ThemedText
-                                        className={"flex-1 text-foreground-success-light dark:text-foreground-success-dark"}
+                                        className={"text-foreground-success-light dark:text-foreground-success-dark"}
                                         type={"small"} filled={false}>
                                         {subscriptionRecurrence === SubscriptionRecurrence.Yearly ? (
                                             <>
-                                                Vous économisez <ThemedText filled={false}
-                                                                            className={'text-foreground-success-light dark:text-foreground-success-dark'}
-                                                                            type={"miniExtraBold"}>{CurrencyHelper.computeDifferenceInPercent(sub.price[SubscriptionRecurrence.Yearly] / 12, sub.price[SubscriptionRecurrence.Monthly])}%</ThemedText>
+                                                Economisez <ThemedText filled={false}
+                                                                       className={'text-foreground-success-light dark:text-foreground-success-dark'}
+                                                                       type={"miniExtraBold"}>{CurrencyHelper.computeDifferenceInPercent(sub.price[SubscriptionRecurrence.Yearly] / 12, sub.price[SubscriptionRecurrence.Monthly])}%</ThemedText>
                                             </>
                                         ) : (
                                             <>

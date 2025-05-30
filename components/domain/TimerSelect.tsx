@@ -44,8 +44,8 @@ export function TimerSelect({
             <TimerPicker
                 padHoursWithZero={true}
                 padWithNItems={1}
-                hourLabel="hrs"
-                minuteLabel="min"
+                hourLabel="heures"
+                minuteLabel="minutes"
                 secondLabel="sec"
                 maximumHours={23}
                 maximumMinutes={59}
@@ -64,8 +64,8 @@ export function TimerSelect({
                     text: {fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.Bold)},
                     pickerItem: {fontSize: 24, width: 'auto'},
                     pickerItemContainer: {width: 105},
-                    pickerLabel: {fontSize: 14},
-                    pickerLabelContainer: {width: 30},
+                    pickerLabel: {fontSize: 12},
+                    pickerLabelContainer: {width: 50, marginRight: -20},
                     pickerContainer: {
                         width: '97.5%',
                         display: 'flex',
