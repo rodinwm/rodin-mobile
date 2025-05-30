@@ -53,7 +53,7 @@ export default function Page() {
     const startGame = () => {
         setIsRunning(true);
         scale.value = withRepeat(
-            withTiming(1.5, {duration: 5000}), // Change toutes les 5 secondes
+            withTiming(4, {duration: 5000}), // Change toutes les 5 secondes
             -1,
             true // reverse
         );
@@ -112,7 +112,7 @@ export default function Page() {
 
                 <Animated.View
                     style={[{
-                        width: 192, // 48 * 4 (tailwind rem units)
+                        width: 50, // 48 * 4 (tailwind rem units)
                         aspectRatio: 1,
                         justifyContent: 'center',
                         alignItems: 'center',

@@ -20,7 +20,7 @@ export type ThemedButtonProps = ButtonProps & {
     showTitle?: boolean;
     fullWidth?: boolean;
     fullHeight?: boolean;
-    textSize?: "defaultSemiBold" | "miniExtraBold" | "link" | "bigTitle";
+    textSize?: "defaultSemiBold" | "defaultExtraBold" | "miniExtraBold" | "link" | "bigTitle";
     className?: string;
     radiusStyle?: "default" | "full" | "left-only" | "right-only" | "none";
     paddingStyle?: "default" | "small" | "uniform" | "uniform-big" | "uniform-very-big" | "none";
@@ -42,7 +42,7 @@ export function ThemedButton({
                                  isBackgroundBlur = false,
                                  showTitle = true,
                                  hapticOnPress = true,
-                                 textSize = "defaultSemiBold",
+                                 textSize = "defaultExtraBold",
                                  radiusStyle = "default",
                                  type = "default",
                                  paddingStyle = "default",
@@ -57,7 +57,7 @@ export function ThemedButton({
         textSize === "bigTitle" ? 'items-start' : 'items-center',
         paddingStyle !== "none" ? 'overflow-hidden' : '',
         paddingStyle === "default" ?
-            'px-6 py-3' : paddingStyle === "small" ?
+            'px-6 py-4' : paddingStyle === "small" ?
                 'px-3 py-2' : paddingStyle === "uniform" ?
                     'p-3' : paddingStyle === "uniform-big" ?
                         'p-10' : paddingStyle === "uniform-very-big" ?

@@ -23,7 +23,7 @@ export default function Page() {
     const router = useRouter();
     const tipOfTheDay = dailyTips[new Date().getDate() % dailyTips.length].text;
     const pagerRef = useRef<PagerView | null>(null);
-    const [isRodPicsUnlocked, setIsRodPicsUnlocked] = useState(false);
+    const [isRodPicsUnlocked, setIsRodPicsUnlocked] = useState(true);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
         tipOfTheDay: false,
         rodpics: false,
@@ -218,17 +218,21 @@ export default function Page() {
 
                 <ThemedView className={'w-full flex flex-row gap-3'}>
                     <ThemedButton
-                        icon={{name: 'Timer'}}
-                        title={"Start"}
+                        title={"START"}
                         className={'flex-1'}
+                        justifyItems={"justify-between"}
                         onPress={() => router.push('/timer')}
+                        suffixIcon={{
+                            name: "ChevronRight",
+                        }}
                     />
                     <ThemedButton
-                        //icon={{name: !isRodPicsUnlocked ? 'Lock' : 'Camera'}}
-                        //disabled={!isRodPicsUnlocked}
-                        icon={{name: 'Camera'}}
                         title={"RodPics"}
                         className={'flex-1'}
+                        justifyItems={"justify-between"}
+                        suffixIcon={{
+                            name: "Camera",
+                        }}
                         onPress={() => {
                             if (isRodPicsUnlocked) {
                                 router.push('/rodpics');
