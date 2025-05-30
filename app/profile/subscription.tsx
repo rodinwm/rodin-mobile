@@ -65,12 +65,21 @@ export default function Page() {
                             {sub.price && (
                                 <ThemedText>
                                     <ThemedText type={'title'}>
-                                        {CurrencyHelper.format(sub.price[subscriptionRecurrence])}
-                                    </ThemedText> / {subscriptionRecurrence === SubscriptionRecurrence.Yearly ? "an" : "mois"}
+                                        {subscriptionRecurrence === SubscriptionRecurrence.Yearly ?
+                                            CurrencyHelper.format(sub.price[subscriptionRecurrence] / 12)
+                                            : CurrencyHelper.format(sub.price[subscriptionRecurrence])
+                                        }
+                                    </ThemedText> / mois
                                 </ThemedText>
                             )}
 
-                            {sub.price && subscriptionRecurrence === SubscriptionRecurrence.Monthly && (
+                            {sub.price && (
+                                <ThemedText className={'mb-2'}>
+                                    {subscriptionRecurrence === SubscriptionRecurrence.Yearly ? `${CurrencyHelper.format(sub.price[subscriptionRecurrence])} facturé annuellement` : "Facturé mensuellement"}
+                                </ThemedText>
+                            )}
+
+                            {sub.price && subscriptionRecurrence && (
                                 <ThemedView
                                     paddingStyle={"small"}
                                     radiusStyle={"small"}
@@ -80,16 +89,24 @@ export default function Page() {
                                     <ThemedText
                                         className={"flex-1 text-foreground-success-light dark:text-foreground-success-dark"}
                                         type={"small"} filled={false}>
-                                        Economisez <ThemedText filled={false}
-                                                               className={'text-foreground-success-light dark:text-foreground-success-dark'}
-                                                               type={"miniExtraBold"}>{CurrencyHelper.computeDifferenceInPercent(sub.price[SubscriptionRecurrence.Yearly], sub.price[SubscriptionRecurrence.Monthly])}%</ThemedText> grâce
-                                        à l'abonnement annuel
+                                        {subscriptionRecurrence === SubscriptionRecurrence.Yearly ? (
+                                            <>
+                                                Vous économisez <ThemedText filled={false}
+                                                                            className={'text-foreground-success-light dark:text-foreground-success-dark'}
+                                                                            type={"miniExtraBold"}>{CurrencyHelper.computeDifferenceInPercent(sub.price[SubscriptionRecurrence.Yearly] / 12, sub.price[SubscriptionRecurrence.Monthly])}%</ThemedText>
+                                            </>
+                                        ) : (
+                                            <>
+                                                Economisez <ThemedText filled={false}
+                                                                       className={'text-foreground-success-light dark:text-foreground-success-dark'}
+                                                                       type={"miniExtraBold"}>{CurrencyHelper.computeDifferenceInPercent(sub.price[SubscriptionRecurrence.Yearly] / 12, sub.price[SubscriptionRecurrence.Monthly])}%</ThemedText> grâce
+                                                à l'abonnement annuel
+                                            </>
+                                        )}
                                     </ThemedText>
                                 </ThemedView>
                             )}
                         </ThemedView>
-
-                        <ThemedText>{sub.description}</ThemedText>
 
                         <ThemedView className={'w-full flex flex-col gap-2'}>
                             {sub.content.map((content, index) => (

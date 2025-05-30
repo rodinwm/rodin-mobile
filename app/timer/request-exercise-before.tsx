@@ -25,7 +25,7 @@ export default function Page() {
             bottomSheet={(
                 <MessageSheet
                     title={`Choisissez un exercice de concentration`}
-                    subtitle={"Les détails vous serront donné sur l'écran d'après"}
+                    subtitle={"Les détails de chaque exercice vous serront donné sur l'écran d'après."}
                     isOpen={isBottomSheetOpen.exerciseSelection}
                     onClose={() => {
                         setIsBottomSheetOpen(prevState => ({...prevState, exerciseSelection: false}));

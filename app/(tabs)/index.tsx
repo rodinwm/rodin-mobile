@@ -143,7 +143,7 @@ export default function Page() {
                         textSize={"miniExtraBold"}
                         paddingStyle={"small"}
                         radiusStyle={'full'}
-                        disabled={true}
+                        //disabled={true}
                         icon={{
                             name: "ChartColumn",
                             size: 14,
