@@ -14,31 +14,37 @@ export function SubscriptionAdvantageTable({}: Props) {
     return (
         <Table
             borderStyle={{
-                borderWidth: 1,
-                borderColor: Colors.foreground[colorScheme] + 'AA',
+                //borderWidth: 1,
+                borderColor: Colors.foreground[colorScheme] + '33',
+                gap: 0,
             }}
         >
             <Row
                 flexArr={[2, 1, 1]}
                 data={['Fonctionnalités', 'Gratuit', 'Premium']}
                 style={{
-                    backgroundColor: Colors.foreground[colorScheme],
-                    borderColor: Colors.background[colorScheme],
+                    //backgroundColor: Colors.foreground[colorScheme],
+                    borderBottomWidth: 1,
+                    borderColor: Colors.foreground[colorScheme] + '33',
+                    paddingVertical: 10,
                     gap: 10,
                 }}
                 textStyle={{
-                    color: Colors.background[colorScheme],
-                    fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.Bold),
-                    padding: 5,
+                    color: Colors.foreground[colorScheme],
+                    fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.ExtraBold),
                 }}
             />
             <Rows
                 flexArr={[2, 1, 1]}
                 data={subscriptionAdvantages}
+                style={{
+                    borderBottomWidth: 1,
+                    borderColor: Colors.foreground[colorScheme] + '33',
+                    paddingVertical: 10,
+                }}
                 textStyle={{
                     color: Colors.foreground[colorScheme],
                     fontFamily: FontHelper.getMainFontVariable(),
-                    padding: 5,
                 }}
             />
         </Table>
