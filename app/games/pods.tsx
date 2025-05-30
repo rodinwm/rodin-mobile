@@ -16,7 +16,7 @@ export default function Page() {
     const [step, setStep] = useState(GameHelper.getEmptyPodsGameStep());
     // Timer setup
     const totalTime = 30; // 1m30s en secondes
-    const stepTimerRef = useRef<NodeJS.Timeout | null>(null);
+    const stepTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [timeLeft, setTimeLeft] = useState(totalTime);
     const [stepTimer, setStepTimer] = useState(1000); // Timer en millisecondes
     // Score & errors setup
@@ -55,7 +55,7 @@ export default function Page() {
         if (stepTimerRef.current) {
             clearTimeout(stepTimerRef.current);
         }
-        stepTimerRef.current = setTimeout(generateNewPods, stepTimer);
+        stepTimerRef.current = setTimeout(generateNewPods, stepTimer) as ReturnType<typeof setTimeout>;
     };
 
     const generateNewPods = () => {

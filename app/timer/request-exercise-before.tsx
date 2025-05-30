@@ -58,9 +58,9 @@ export default function Page() {
                                 subtitle={"Mémorisez puis refaite une série de motifs"}
                                 fillStyle={"inversed"}
                                 hasPadding={true}
-                                disabled={true}
+                                //disabled={true}
                                 onPress={() => {
-                                    router.push('/games/respiration');
+                                    router.push('/games/patterns');
                                 }}
                             />
                         </ThemedView>

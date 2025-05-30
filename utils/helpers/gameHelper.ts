@@ -12,6 +12,13 @@ export abstract class GameHelper {
         }));
     }
 
+    static getEmptyPatternsGameStep(): Pod[] {
+        return Array.from({length: 16}, () => ({
+            id: faker.string.uuid(),
+            color: PodColor.Neutral
+        }));
+    }
+
     static generatePodsGameStep(): Pod[] {
         const pods: Pod[] = [
             // 🔴 1 pod rouge obligatoire
