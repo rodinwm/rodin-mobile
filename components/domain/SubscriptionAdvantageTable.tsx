@@ -27,7 +27,7 @@ export function SubscriptionAdvantageTable({}: Props) {
                     borderBottomWidth: 1,
                     borderColor: Colors.foreground[colorScheme] + '33',
                     paddingVertical: 10,
-                    gap: 10,
+                    gap: 5,
                 }}
                 textStyle={{
                     color: Colors.foreground[colorScheme],
@@ -41,6 +41,7 @@ export function SubscriptionAdvantageTable({}: Props) {
                     borderBottomWidth: 1,
                     borderColor: Colors.foreground[colorScheme] + '33',
                     paddingVertical: 10,
+                    gap: 5,
                 }}
                 textStyle={{
                     color: Colors.foreground[colorScheme],
