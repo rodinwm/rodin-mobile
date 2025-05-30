@@ -9,7 +9,7 @@ import {
     ThemedText,
     ThemedView
 } from '@/components';
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {dailyTips} from "@/assets/static/daily-tips";
 import {useRouter} from "expo-router";
 import {DateHelper} from "@/utils/helpers/dateHelper";
@@ -23,16 +23,50 @@ export default function Page() {
     const router = useRouter();
     const tipOfTheDay = dailyTips[new Date().getDate() % dailyTips.length].text;
     const pagerRef = useRef<PagerView | null>(null);
-    const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-    const [isRodPicsUnlocked, setIsRodPicsUnlocked] = useState(true);
+    const [isRodPicsUnlocked, setIsRodPicsUnlocked] = useState(false);
+    const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
+        tipOfTheDay: false,
+        rodpics: false,
+    });
     const [chartConfig, setChartConfig] = useState({
         type: ChartType.Line,
         period: ChartPeriod.Week,
     });
+    const [chartData, setChartData] = useState({
+        [ChartType.Line]: ChartHelper.generateLineChartData(chartConfig.period),
+        [ChartType.Bar]: ChartHelper.generateStackBarChartData(chartConfig.period),
+        [ChartType.Pie]: ChartHelper.generatePieChartData(chartConfig.period),
+    });
+
 
     const handleChartConfigChange = (config: 'type' | 'period', value: ChartType | ChartPeriod) => {
         setChartConfig(prevState => ({...prevState, [config]: value}));
     };
+
+    useEffect(() => {
+        switch (chartConfig.type) {
+            case ChartType.Line:
+                setChartData(prevState => ({
+                    ...prevState,
+                    [ChartType.Line]: ChartHelper.generateLineChartData(chartConfig.period)
+                }));
+                break;
+            case ChartType.Bar:
+                setChartData(prevState => ({
+                    ...prevState,
+                    [ChartType.Bar]: ChartHelper.generateStackBarChartData(chartConfig.period)
+                }));
+                break;
+            case ChartType.Pie:
+                setChartData(prevState => ({
+                    ...prevState,
+                    [ChartType.Pie]: ChartHelper.generatePieChartData(chartConfig.period)
+                }));
+                break;
+            default:
+                break;
+        }
+    }, [chartConfig.period, chartConfig.type])
 
     return (
         <ScreenTemplate
@@ -41,15 +75,39 @@ export default function Page() {
             setHeightToScreenSize={true}
             scrollEnabled={false}
             bottomSheet={(
-                <MessageSheet
-                    title={`Conseil du ${DateHelper.formatDate(new Date())}`}
-                    subtitle={tipOfTheDay}
-                    isOpen={isBottomSheetOpen}
-                    takeBottomBarIntoAccount={true}
-                    onClose={() => {
-                        setIsBottomSheetOpen(false)
-                    }}
-                />
+                <>
+                    <MessageSheet
+                        title={`Conseil du ${DateHelper.formatDate(new Date())}`}
+                        subtitle={tipOfTheDay}
+                        isOpen={isBottomSheetOpen.tipOfTheDay}
+                        takeBottomBarIntoAccount={true}
+                        onClose={() => {
+                            setIsBottomSheetOpen(prevState => ({...prevState, tipOfTheDay: false}));
+                        }}
+                    />
+                    <MessageSheet
+                        title={"Vous devez d'abord réaliser une session de travail"}
+                        subtitle={"Pour que vous n’ayez pas à les entrer lors de votre prochaine connexion."}
+                        isOpen={isBottomSheetOpen.rodpics}
+                        takeBottomBarIntoAccount={true}
+                        onClose={() => {
+                            setIsBottomSheetOpen(prevState => ({...prevState, rodpics: false}));
+                        }}
+                        confirm={{
+                            text: "Start",
+                            onPress: () => {
+                                setIsBottomSheetOpen(prevState => ({...prevState, rodpics: false}));
+                                router.push('/timer')
+                            }
+                        }}
+                        cancel={{
+                            text: "Annuler",
+                            onPress: () => {
+                                setIsBottomSheetOpen(prevState => ({...prevState, rodpics: false}));
+                            }
+                        }}
+                    />
+                </>
             )}
         >
             {/* Stats texts */}
@@ -70,7 +128,6 @@ export default function Page() {
                         type={chartConfig.type === ChartType.Line ? "default" : "no-fill"}
                         paddingStyle={"small"}
                         radiusStyle={'full'}
-                        //showTitle={false}
                         icon={{
                             name: "ChartLine",
                             size: 14,
@@ -86,7 +143,7 @@ export default function Page() {
                         textSize={"miniExtraBold"}
                         paddingStyle={"small"}
                         radiusStyle={'full'}
-                        //showTitle={false}
+                        disabled={true}
                         icon={{
                             name: "ChartColumn",
                             size: 14,
@@ -102,7 +159,6 @@ export default function Page() {
                         textSize={"miniExtraBold"}
                         paddingStyle={"small"}
                         radiusStyle={'full'}
-                        //showTitle={false}
                         icon={{
                             name: "ChartPie",
                             size: 14,
@@ -146,16 +202,16 @@ export default function Page() {
                 >
                     {chartConfig.type === ChartType.Line ? (
                         <FocusTimeLineChart
-                            data={ChartHelper.generateLineChartData(chartConfig.period)}
+                            data={chartData[ChartType.Line]}
                             //data2={ChartHelper.generateLineChartData(chartConfig.period)}
                         />
                     ) : chartConfig.type === ChartType.Bar ? (
                         <FocusTimeBarChart
-                            data={ChartHelper.generateStackBarChartData(chartConfig.period)}
+                            data={chartData[ChartType.Bar]}
                         />
                     ) : (
                         <FocusTimePieChart
-                            data={ChartHelper.generatePieChartData(chartConfig.period)}
+                            data={chartData[ChartType.Pie]}
                         />
                     )}
                 </ThemedView>
@@ -164,17 +220,22 @@ export default function Page() {
                     <ThemedButton
                         icon={{name: 'Timer'}}
                         title={"Start"}
-                        //type={'opacity-15'}
                         className={'flex-1'}
                         onPress={() => router.push('/timer')}
                     />
                     <ThemedButton
-                        icon={{name: !isRodPicsUnlocked ? 'Lock' : 'Camera'}}
+                        //icon={{name: !isRodPicsUnlocked ? 'Lock' : 'Camera'}}
+                        //disabled={!isRodPicsUnlocked}
+                        icon={{name: 'Camera'}}
                         title={"RodPics"}
-                        //type={'opacity-15'}
                         className={'flex-1'}
-                        disabled={!isRodPicsUnlocked}
-                        onPress={() => router.push('/rodpics')}
+                        onPress={() => {
+                            if (isRodPicsUnlocked) {
+                                router.push('/rodpics');
+                            } else {
+                                setIsBottomSheetOpen(prevState => ({...prevState, rodpics: true}))
+                            }
+                        }}
                     />
                 </ThemedView>
             </ThemedView>
@@ -184,7 +245,7 @@ export default function Page() {
                 icon={"Info"}
                 title={"Conseil du jour"}
                 message={tipOfTheDay}
-                onPress={() => setIsBottomSheetOpen(true)}
+                onPress={() => setIsBottomSheetOpen(prevState => ({...prevState, tipOfTheDay: true}))}
             />
         </ScreenTemplate>
     );

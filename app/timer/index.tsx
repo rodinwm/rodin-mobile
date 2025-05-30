@@ -126,18 +126,6 @@ export default function Page() {
             </ThemedView>
 
 
-            {/* Preview
-                    <ThemedView className={'w-full flex flex-col'}>
-                        <ThemedText>
-                            Temps de travail: {workTime.hour}h {workTime.minute}m {workTime.second}s
-                        </ThemedText>
-                        <ThemedText>
-                            Temps de repos: {breakTime.hour}h {breakTime.minute}m {breakTime.second}s
-                        </ThemedText>
-                    </ThemedView>
-                    */}
-
-
             <ThemedView className={'w-full flex flex-row gap-3'}>
                 <ThemedButton
                     title={"Réinitialiser"}
