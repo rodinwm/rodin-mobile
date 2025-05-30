@@ -4,7 +4,7 @@ import {Row, Rows, Table} from 'react-native-table-component';
 import {Colors} from "@/utils/colors";
 import {FontHelper} from "@/utils/helpers/fontHelper";
 import {FontWeightEnum} from "@/utils/enums";
-import {LucideIcon} from "@/components";
+import {LucideIcon} from "@/components/base/LucideIcon";
 
 const yesIcon = <LucideIcon name={'Check'} size={18}/>;
 const noIcon = <LucideIcon name={'X'} size={18}/>;

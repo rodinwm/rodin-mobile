@@ -3,6 +3,14 @@ import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
 import {DateHelper} from "@/utils/helpers/dateHelper";
 import {UIHelper} from "@/utils/helpers/UIHelper";
+import Animated, {
+    cancelAnimation,
+    useAnimatedStyle,
+    useSharedValue,
+    withRepeat,
+    withTiming,
+} from 'react-native-reanimated';
+
 
 export default function Page() {
     const router = useRouter();
@@ -11,6 +19,14 @@ export default function Page() {
     // Timer setup
     const totalTime = 30; // 1m30s en secondes
     const [timeLeft, setTimeLeft] = useState(totalTime);
+    // Animation
+    const scale = useSharedValue(1);
+    const animatedStyle = useAnimatedStyle(() => {
+        return {
+            transform: [{scale: scale.value}],
+        };
+    });
+
 
     // Gestion du temps global
     useEffect(() => {
@@ -22,6 +38,7 @@ export default function Page() {
                 if (newTime <= 0) {
                     setIsRunning(false);
                     clearInterval(timer);
+                    cancelAnimation(scale);
                     UIHelper.hapticImpact('error');
                     return 0;
                 }
@@ -35,6 +52,11 @@ export default function Page() {
 
     const startGame = () => {
         setIsRunning(true);
+        scale.value = withRepeat(
+            withTiming(1.3, {duration: 2000}),
+            -1,
+            true // reverse
+        );
     }
 
     const isGameStarted = () => {
@@ -71,7 +93,8 @@ export default function Page() {
                 radiusStyle={"default"}
                 borderStyle={"default"}
             >
-                {/* Breathing circles */}
+                {/* Breathing circles
+
                 <ThemedView
                     className={'w-48 aspect-square flex justify-center items-center'}
                     fillStyle={'opacity-10'}
@@ -86,7 +109,25 @@ export default function Page() {
                         radiusStyle={'full'}
                         paddingStyle={"default"}
                     />
-                </ThemedView>
+                </ThemedView>*/}
+
+                <Animated.View
+                    style={[{
+                        width: 192, // 48 * 4 (tailwind rem units)
+                        aspectRatio: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: 9999,
+                        padding: 24,
+                    }, animatedStyle]}
+                    className={'bg-foreground-light/10 dark:bg-foreground-dark/10 border border-foreground-light/20 dark:border-foreground-dark/20'}
+                >
+                    {/* Petit cercle blanc au centre */}
+                    <ThemedView
+                        className={'w-20 h-20 bg-background-light dark:bg-background-dark rounded-full'}
+                    />
+                </Animated.View>
+
             </ThemedView>
 
 
