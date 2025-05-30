@@ -1,13 +1,14 @@
-import React from "react";
+import React, {ReactNode} from "react";
 import {ThemedView} from '@/components/base/ThemedView';
 import {ThemedText} from '@/components/base/ThemedText';
 import {ThemedButton} from '@/components/base/ThemedButton';
 import {ThemedBottomSheet} from '@/components/base/ThemedBottomSheet';
 
-export type Props = {
+type Props = {
     title: string;
     subtitle: string;
     isOpen: boolean;
+    children?: ReactNode;
     confirm?: {
         text: string;
         onPress: () => void;
@@ -36,7 +37,9 @@ export function MessageSheet(props: Props) {
                 {props.subtitle}
             </ThemedText>
 
-            {props.confirm || props.cancel ? (
+            {props.children && props.children}
+
+            {(props.confirm || props.cancel) && (
                 <ThemedView className={'w-full flex flex-row gap-3 mt-4'}>
                     {props.confirm ? (
                         <ThemedButton
@@ -55,7 +58,7 @@ export function MessageSheet(props: Props) {
                         />
                     ) : null}
                 </ThemedView>
-            ) : null}
+            )}
 
         </ThemedBottomSheet>
     );

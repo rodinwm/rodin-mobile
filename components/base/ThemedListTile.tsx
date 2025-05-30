@@ -5,6 +5,8 @@ import {type ButtonProps, TouchableOpacity} from "react-native";
 import {icons} from "lucide-react-native";
 import {isValidElement, ReactNode} from "react";
 import {UIHelper} from "@/utils/helpers/UIHelper";
+import {Colors} from "@/utils/colors";
+import {useColorScheme} from "@/utils/hooks/useColorScheme";
 
 export type ThemedListTileProps = ButtonProps & {
     subtitle?: string;
@@ -27,6 +29,8 @@ export function ThemedListTile({
                                    ...otherProps
                                }: ThemedListTileProps
 ) {
+    const colorScheme = useColorScheme() ?? 'light';
+
     return (
         <TouchableOpacity
             onPress={onPress !== undefined ? (event) => {
@@ -36,7 +40,7 @@ export function ThemedListTile({
             {...otherProps}
         >
             <ThemedView
-                fillStyle={fillStyle}
+                fillStyle={otherProps.disabled ? "opacity-50" : fillStyle}
                 radiusStyle={hasPadding ? "default" : "none"}
                 paddingStyle={hasPadding ? "small" : "none"}
                 className={'w-full flex flex-row justify-between items-center gap-2'}
@@ -52,7 +56,9 @@ export function ThemedListTile({
                                 className={"p-2"}
                                 borderStyle={"default"}
                             >
-                                <LucideIcon name={icon} inverseColor={fillStyle !== "inversed"}/>
+                                <LucideIcon name={icon}
+                                            color={otherProps.disabled ? Colors.foreground[colorScheme] + '66' : undefined}
+                                            inverseColor={fillStyle !== "inversed"}/>
                             </ThemedView>
                         )
                         : null}

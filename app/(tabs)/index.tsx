@@ -89,6 +89,7 @@ export default function Page() {
                         title={"Vous devez d'abord réaliser une session de travail"}
                         subtitle={"Pour que vous n’ayez pas à les entrer lors de votre prochaine connexion."}
                         isOpen={isBottomSheetOpen.rodpics}
+                        takeBottomBarIntoAccount={true}
                         onClose={() => {
                             setIsBottomSheetOpen(prevState => ({...prevState, rodpics: false}));
                         }}

@@ -17,7 +17,7 @@ export default function Page() {
     // Game setup
     const [isRunning, setIsRunning] = useState(false);
     // Timer setup
-    const totalTime = 30; // 1m30s en secondes
+    const totalTime = 120; // 2m en secondes
     const [timeLeft, setTimeLeft] = useState(totalTime);
     // Animation
     const scale = useSharedValue(1);
@@ -53,7 +53,7 @@ export default function Page() {
     const startGame = () => {
         setIsRunning(true);
         scale.value = withRepeat(
-            withTiming(1.3, {duration: 2000}),
+            withTiming(1.5, {duration: 5000}), // Change toutes les 5 secondes
             -1,
             true // reverse
         );
@@ -91,7 +91,6 @@ export default function Page() {
                 className={'flex-1 flex justify-center items-center'}
                 paddingStyle={'small'}
                 radiusStyle={"default"}
-                borderStyle={"default"}
             >
                 {/* Breathing circles
 
@@ -118,13 +117,15 @@ export default function Page() {
                         justifyContent: 'center',
                         alignItems: 'center',
                         borderRadius: 9999,
-                        padding: 24,
                     }, animatedStyle]}
                     className={'bg-foreground-light/10 dark:bg-foreground-dark/10 border border-foreground-light/20 dark:border-foreground-dark/20'}
                 >
                     {/* Petit cercle blanc au centre */}
                     <ThemedView
-                        className={'w-20 h-20 bg-background-light dark:bg-background-dark rounded-full'}
+                        className={'flex justify-center items-center'}
+                        fillStyle={'inversed'}
+                        radiusStyle={'full'}
+                        paddingStyle={"default"}
                     />
                 </Animated.View>
 
