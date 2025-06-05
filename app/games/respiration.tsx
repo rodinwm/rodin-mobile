@@ -12,12 +12,17 @@ import Animated, {
     withTiming,
 } from 'react-native-reanimated';
 
+const messages = {
+    welcome: "Concentrez vous uniquement sur le point blanc pendant que vous entrainez votre respiration.",
+    inspiration: "Inspiration",
+    expiration: "Expiration",
+};
 
 export default function Page() {
     const router = useRouter();
     // Game setup
     const [isRunning, setIsRunning] = useState(false);
-    const [step, setStep] = useState<string>("Inspiration");
+    const [step, setStep] = useState(messages.welcome);
     // Timer setup
     const totalTime = 120; // 2m en secondes
     const [timeLeft, setTimeLeft] = useState(totalTime);
@@ -58,6 +63,7 @@ export default function Page() {
 
     const startGame = () => {
         setIsRunning(true);
+        toggleStepAnimation(messages.inspiration);
         scale.value = withRepeat(
             withTiming(4, {duration: 5000}, () => {
                 runOnJS(toggleStepAnimation)();
@@ -67,13 +73,18 @@ export default function Page() {
         );
     }
 
-    const toggleStep = () => {
+    const toggleStep = (newStep?: string) => {
         UIHelper.hapticImpact('feedback');
-        setStep(current => current === 'Inspiration' ? 'Expiration' : 'Inspiration');
+        if (newStep) {
+            setStep(newStep);
+        } else {
+            setStep(current => current === 'Inspiration' ? 'Expiration' : 'Inspiration');
+        }
     };
-    const toggleStepAnimation = () => {
+
+    const toggleStepAnimation = (newStep?: string) => {
         textOpacity.value = withTiming(0, {duration: 300}, () => {
-            runOnJS(toggleStep)();
+            runOnJS(toggleStep)(newStep);
             textOpacity.value = withTiming(1, {duration: 300});
         });
     };
@@ -102,7 +113,7 @@ export default function Page() {
 
                 <Animated.View style={animatedTextStyle}>
                     <ThemedText type={'subtitle'} className={"text-center"}>
-                        {isGameStarted() ? step : 'Prenez quelques secondes pour souffler un peu'}
+                        {step}
                     </ThemedText>
                 </Animated.View>
             </ThemedView>
