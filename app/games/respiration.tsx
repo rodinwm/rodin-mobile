@@ -5,6 +5,7 @@ import {DateHelper} from "@/utils/helpers/dateHelper";
 import {UIHelper} from "@/utils/helpers/UIHelper";
 import Animated, {
     cancelAnimation,
+    runOnJS,
     useAnimatedStyle,
     useSharedValue,
     withRepeat,
@@ -16,6 +17,7 @@ export default function Page() {
     const router = useRouter();
     // Game setup
     const [isRunning, setIsRunning] = useState(false);
+    const [step, setStep] = useState<string>("Inspiration");
     // Timer setup
     const totalTime = 120; // 2m en secondes
     const [timeLeft, setTimeLeft] = useState(totalTime);
@@ -53,11 +55,18 @@ export default function Page() {
     const startGame = () => {
         setIsRunning(true);
         scale.value = withRepeat(
-            withTiming(4, {duration: 5000}), // Change toutes les 5 secondes
+            withTiming(4, {duration: 5000}, () => {
+                runOnJS(toggleStep)();
+            }), // Change toutes les 5 secondes
             -1,
             true // reverse
         );
     }
+
+    const toggleStep = () => {
+        setStep(prev => prev === 'Inspiration' ? 'Expiration' : 'Inspiration');
+        UIHelper.hapticImpact('feedback'); // optionnel
+    };
 
     const isGameStarted = () => {
         return timeLeft < totalTime;
@@ -82,7 +91,7 @@ export default function Page() {
                 </ThemedText>
 
                 <ThemedText type={'subtitle'} className={"text-center"}>
-                    Prenez quelques secondes pour souffler un peu
+                    {isGameStarted() ? step : 'Prenez quelques secondes pour souffler un peu'}
                 </ThemedText>
             </ThemedView>
 
