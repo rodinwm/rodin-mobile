@@ -73,11 +73,11 @@ export default function Page() {
                     key={"1"}
                     onNextPress={goToNextStep}
                 />
-                <SetPhoneNumber
+                <SetEmailAddress
                     key={"2"}
                     onNextPress={goToNextStep}
                 />
-                <SetEmailAddress
+                <SetPhoneNumber
                     key={"3"}
                     onNextPress={goToNextStep}
                 />

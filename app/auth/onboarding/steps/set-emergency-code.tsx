@@ -8,6 +8,7 @@ export default function SetEmergencyCode(props: OnboardingStepScreenProps) {
         <OnboardingStepScreenTemplate
             title={"Code d'urgence"}
             subtitle={"Choisissez un code à 4 chiffres pour déverrouiller votre téléphone en cas d’urgence pendant une session."}
+            addSpaceAtTheBottom={false}
         >
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedTextInput
@@ -16,6 +17,9 @@ export default function SetEmergencyCode(props: OnboardingStepScreenProps) {
                     keyboardType={"number-pad"}
                     placeholder={"Ex: ****"}
                 />
+            </ThemedView>
+
+            <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedButton
                     title={"Suivant"}
                     onPress={props.onNextPress}
