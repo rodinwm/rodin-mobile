@@ -8,12 +8,13 @@ import {
 } from '@/components';
 import React, {useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
-import {NotificationType, SubscriptionRecurrence} from "@/utils/enums";
+import {SubscriptionRecurrence} from "@/utils/enums";
 import {subscriptions} from "@/assets/static/subscriptions";
 import {CurrencyHelper} from "@/utils/helpers/currencyHelper";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {Alert} from "react-native";
+import {NotificationType} from "@rodinwm/rodin-models";
 
 const notificationTypes = Object.values(NotificationType).filter((type) => type !== NotificationType.AutoSuggestions);
 

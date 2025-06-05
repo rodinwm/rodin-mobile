@@ -4,10 +4,11 @@ import {useRouter} from "expo-router";
 import {DateHelper} from "@/utils/helpers/dateHelper";
 import {FlatList} from "react-native";
 import {GameHelper} from "@/utils/helpers/gameHelper";
-import {ConcentrationExercise, PodColor} from "@/utils/enums";
+import {PodColor} from "@/utils/enums";
 import {Pod} from "@/utils/interfaces";
 import {UIHelper} from "@/utils/helpers/UIHelper";
 import {Toast} from "toastify-react-native";
+import {ConcentrationExercise} from "@rodinwm/rodin-models";
 
 export default function Page() {
     const router = useRouter();

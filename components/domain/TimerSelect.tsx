@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import {TimerValue} from "@/utils/interfaces";
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
 import {TimerPicker, TimerPickerProps} from "react-native-timer-picker";
 import MaskedView from "@react-native-masked-view/masked-view"; // for transparent fade-out
@@ -10,6 +9,7 @@ import {ThemedView} from "@/components/base/ThemedView";
 import {clickAudioSource} from "@/utils/constants";
 import {useAudioPlayer} from 'expo-audio';
 import {UIHelper} from "@/utils/helpers/UIHelper";
+import {TimerValue} from "@rodinwm/rodin-models";
 
 type Props = TimerPickerProps & {
     defaultValue?: TimerValue;

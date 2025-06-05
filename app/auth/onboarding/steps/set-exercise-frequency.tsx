@@ -1,7 +1,7 @@
 import {OnboardingStepScreenTemplate, ThemedButton, ThemedView} from '@/components';
 import React, {useState} from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
-import {ExerciseFrequency} from "@/utils/enums";
+import {ExerciseFrequency} from "@rodinwm/rodin-models";
 
 const frequencies = Object.values(ExerciseFrequency);
 

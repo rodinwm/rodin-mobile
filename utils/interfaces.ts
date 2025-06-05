@@ -29,11 +29,6 @@ export interface OnboardingStepScreenProps {
     onSkip?: () => void;
 }
 
-export interface TimerValue {
-    hours: number;
-    minutes: number;
-    seconds: number;
-}
 
 export interface Pod {
     id: string;

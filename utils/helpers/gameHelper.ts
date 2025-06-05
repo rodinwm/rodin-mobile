@@ -1,7 +1,8 @@
-import {ConcentrationExercise, PodColor} from "@/utils/enums";
+import {PodColor} from "@/utils/enums";
 import {faker} from "@faker-js/faker";
 import {Pod} from "@/utils/interfaces";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {ConcentrationExercise} from "@rodinwm/rodin-models";
 
 export abstract class GameHelper {
 
