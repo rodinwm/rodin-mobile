@@ -13,18 +13,20 @@ import Animated, {
 } from 'react-native-reanimated';
 
 const messages = {
-    welcome: "Concentrez vous uniquement sur le point blanc pendant que vous entrainez votre respiration.",
-    inspiration: "Inspiration",
-    expiration: "Expiration",
+    welcome: "Concentrez vous uniquement sur le point blanc pendant tout l'exercice",
+    inspiration: "Inspirez lentement",
+    expiration: "Expirez tout doucement",
+    finish: "Parfait ! Vous êtes maitenant prêt pour votre session de travail",
 };
 
 export default function Page() {
     const router = useRouter();
     // Game setup
+    const isRunningShared = useSharedValue(false);
     const [isRunning, setIsRunning] = useState(false);
     const [step, setStep] = useState(messages.welcome);
     // Timer setup
-    const totalTime = 120; // 2m en secondes
+    const totalTime = 60; // 1m en secondes
     const [timeLeft, setTimeLeft] = useState(totalTime);
     // Animations
     const scale = useSharedValue(1);
@@ -48,9 +50,10 @@ export default function Page() {
                 const newTime = prevTime - 1;
                 if (newTime <= 0) {
                     setIsRunning(false);
+                    isRunningShared.value = false;
                     clearInterval(timer);
                     cancelAnimation(scale);
-                    UIHelper.hapticImpact('error');
+                    toggleStepAnimation(messages.finish);
                     return 0;
                 }
 
@@ -63,10 +66,14 @@ export default function Page() {
 
     const startGame = () => {
         setIsRunning(true);
+        isRunningShared.value = true;
+
         toggleStepAnimation(messages.inspiration);
         scale.value = withRepeat(
             withTiming(4, {duration: 5000}, () => {
-                runOnJS(toggleStepAnimation)();
+                if (isRunningShared.value) {
+                    runOnJS(toggleStepAnimation)();
+                }
             }),
             -1,
             true
@@ -78,7 +85,7 @@ export default function Page() {
         if (newStep) {
             setStep(newStep);
         } else {
-            setStep(current => current === 'Inspiration' ? 'Expiration' : 'Inspiration');
+            setStep(current => current === messages.inspiration ? messages.expiration : messages.inspiration);
         }
     };
 
