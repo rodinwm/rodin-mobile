@@ -21,13 +21,17 @@ export default function Page() {
     // Timer setup
     const totalTime = 120; // 2m en secondes
     const [timeLeft, setTimeLeft] = useState(totalTime);
-    // Animation
+    // Animations
     const scale = useSharedValue(1);
-    const animatedStyle = useAnimatedStyle(() => {
+    const animatedCircleStyle = useAnimatedStyle(() => {
         return {
             transform: [{scale: scale.value}],
         };
     });
+    const textOpacity = useSharedValue(1);
+    const animatedTextStyle = useAnimatedStyle(() => ({
+        opacity: textOpacity.value,
+    }));
 
 
     // Gestion du temps global
@@ -56,16 +60,22 @@ export default function Page() {
         setIsRunning(true);
         scale.value = withRepeat(
             withTiming(4, {duration: 5000}, () => {
-                runOnJS(toggleStep)();
-            }), // Change toutes les 5 secondes
+                runOnJS(toggleStepAnimation)();
+            }),
             -1,
-            true // reverse
+            true
         );
     }
 
     const toggleStep = () => {
-        setStep(prev => prev === 'Inspiration' ? 'Expiration' : 'Inspiration');
-        UIHelper.hapticImpact('feedback'); // optionnel
+        UIHelper.hapticImpact('feedback');
+        setStep(current => current === 'Inspiration' ? 'Expiration' : 'Inspiration');
+    };
+    const toggleStepAnimation = () => {
+        textOpacity.value = withTiming(0, {duration: 300}, () => {
+            runOnJS(toggleStep)();
+            textOpacity.value = withTiming(1, {duration: 300});
+        });
     };
 
     const isGameStarted = () => {
@@ -90,9 +100,11 @@ export default function Page() {
                     {DateHelper.formatTime(timeLeft)}
                 </ThemedText>
 
-                <ThemedText type={'subtitle'} className={"text-center"}>
-                    {isGameStarted() ? step : 'Prenez quelques secondes pour souffler un peu'}
-                </ThemedText>
+                <Animated.View style={animatedTextStyle}>
+                    <ThemedText type={'subtitle'} className={"text-center"}>
+                        {isGameStarted() ? step : 'Prenez quelques secondes pour souffler un peu'}
+                    </ThemedText>
+                </Animated.View>
             </ThemedView>
 
             {/* Container */}
@@ -126,7 +138,7 @@ export default function Page() {
                         justifyContent: 'center',
                         alignItems: 'center',
                         borderRadius: 9999,
-                    }, animatedStyle]}
+                    }, animatedCircleStyle]}
                     className={'bg-foreground-light/10 dark:bg-foreground-dark/10 border border-foreground-light/20 dark:border-foreground-dark/20'}
                 />
                 {/* Petit cercle blanc au centre */}
