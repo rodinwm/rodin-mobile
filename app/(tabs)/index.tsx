@@ -23,6 +23,7 @@ export default function Page() {
     const router = useRouter();
     const tipOfTheDay = dailyTips[new Date().getDate() % dailyTips.length].text;
     const pagerRef = useRef<PagerView | null>(null);
+    const [page, setPage] = useState(0);
     const [isRodPicsUnlocked, setIsRodPicsUnlocked] = useState(true);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
         tipOfTheDay: false,
@@ -193,28 +194,31 @@ export default function Page() {
                     ))}
                 </ThemedView>
 
-                <ThemedView
-                    overflow={"visible"}
-                    borderStyle={"default"}
-                    radiusStyle={"default"}
-                    paddingStyle={"extraSmall"}
-                    className={'w-full h-fit flex flex-col items-center gap-3'}
+
+                <PagerView
+                    ref={pagerRef}
+                    initialPage={0}
+                    style={{height: 250}}
+                    pageMargin={10}
+                    overdrag={true}
+                    scrollEnabled={false}
+                    orientation={"horizontal"}
+                    onPageSelected={(e) => {
+                        const currentPage = e.nativeEvent.position;
+                        setPage(currentPage);
+                    }}
                 >
-                    {chartConfig.type === ChartType.Line ? (
-                        <FocusTimeLineChart
-                            data={chartData[ChartType.Line]}
-                            //data2={ChartHelper.generateLineChartData(chartConfig.period)}
-                        />
-                    ) : chartConfig.type === ChartType.Bar ? (
-                        <FocusTimeBarChart
-                            data={chartData[ChartType.Bar]}
-                        />
-                    ) : (
-                        <FocusTimePieChart
-                            data={chartData[ChartType.Pie]}
-                        />
-                    )}
-                </ThemedView>
+                    <FocusTimeLineChart
+                        data={chartData[ChartType.Line]}
+                        //data2={ChartHelper.generateLineChartData(chartConfig.period)}
+                    />
+                    <FocusTimeBarChart
+                        data={chartData[ChartType.Bar]}
+                    />
+                    <FocusTimePieChart
+                        data={chartData[ChartType.Pie]}
+                    />
+                </PagerView>
 
                 <ThemedView className={'w-full flex flex-row gap-3'}>
                     <ThemedButton

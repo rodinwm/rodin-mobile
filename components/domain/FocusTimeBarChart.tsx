@@ -26,12 +26,19 @@ export function FocusTimeBarChart({data}: Props) {
     };
 
     return (
-        <>
+        <ThemedView
+            overflow={"visible"}
+            borderStyle={"default"}
+            radiusStyle={"default"}
+            paddingStyle={"extraSmall"}
+            className={'w-full h-full flex flex-col justify-center items-center gap-3'}
+        >
             <BarChart
                 barWidth={20}
                 stackBorderRadius={5}
                 stackData={data}
                 width={width * 0.77}
+                height={175}
                 endSpacing={5}
                 initialSpacing={5}
                 backgroundColor={'transparent'}
@@ -61,6 +68,6 @@ export function FocusTimeBarChart({data}: Props) {
                 <ChartLegendItem type={'work'}/>
                 <ChartLegendItem type={'rest'}/>
             </ThemedView>
-        </>
+        </ThemedView>
     );
 }

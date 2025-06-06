@@ -31,7 +31,13 @@ export function FocusTimeLineChart({data, data2}: Props) {
     };
 
     return (
-        <>
+        <ThemedView
+            overflow={"visible"}
+            borderStyle={"default"}
+            radiusStyle={"default"}
+            paddingStyle={"extraSmall"}
+            className={'w-full h-full flex flex-col justify-center items-center gap-3'}
+        >
             <LineChart
                 areaChart={true}
                 startFillColor={Colors.foreground.work[colorScheme]}
@@ -41,6 +47,7 @@ export function FocusTimeLineChart({data, data2}: Props) {
                 data={data}
                 data2={data2}
                 width={width * 0.77}
+                height={190}
                 backgroundColor={'transparent'}
                 adjustToWidth={true}
                 spacing={undefined}
@@ -144,6 +151,6 @@ export function FocusTimeLineChart({data, data2}: Props) {
                 <ChartLegendItem type={'work'}/>
                 {data2 && (<ChartLegendItem type={'rest'}/>)}
             </ThemedView>
-        </>
+        </ThemedView>
     );
 }
