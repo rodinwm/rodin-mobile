@@ -9,13 +9,17 @@ import {
 } from '@/components';
 import React, {useState} from "react";
 import {useRouter} from "expo-router";
-import User from "@rodinwm/rodin-models/User";
+import User from "@/models/User";
 
 export default function Page() {
     const router = useRouter();
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
     // Debug
-    const authUser: User = new User({});
+    const authUser: User = new User({
+        firstname: "Alexandre",
+        lastname: "TAHI",
+        username: "@alexxtahi"
+    });
 
     return (
         <ScreenTemplate

@@ -1,7 +1,7 @@
 import {OnboardingStepScreenTemplate, ThemedButton, ThemedView} from '@/components';
 import React, {useState} from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
-import {AgeRange} from "@/utils/enums";
+import {AgeRange} from "@rodinwm/rodin-models";
 
 const ageRanges = Object.values(AgeRange);
 

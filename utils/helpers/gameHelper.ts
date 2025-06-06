@@ -1,12 +1,20 @@
-import {ConcentrationExercise, PodColor} from "@/utils/enums";
+import {PodColor} from "@/utils/enums";
 import {faker} from "@faker-js/faker";
 import {Pod} from "@/utils/interfaces";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {ConcentrationExercise} from "@rodinwm/rodin-models";
 
 export abstract class GameHelper {
 
     static getEmptyPodsGameStep(): Pod[] {
         return Array.from({length: 4}, () => ({
+            id: faker.string.uuid(),
+            color: PodColor.Neutral
+        }));
+    }
+
+    static getEmptyPatternsGameStep(): Pod[] {
+        return Array.from({length: 16}, () => ({
             id: faker.string.uuid(),
             color: PodColor.Neutral
         }));

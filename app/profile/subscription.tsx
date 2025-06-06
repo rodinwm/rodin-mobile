@@ -8,12 +8,13 @@ import {
 } from '@/components';
 import React, {useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
-import {NotificationType, SubscriptionRecurrence} from "@/utils/enums";
+import {SubscriptionRecurrence} from "@/utils/enums";
 import {subscriptions} from "@/assets/static/subscriptions";
 import {CurrencyHelper} from "@/utils/helpers/currencyHelper";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {Alert} from "react-native";
+import {NotificationType} from "@rodinwm/rodin-models";
 
 const notificationTypes = Object.values(NotificationType).filter((type) => type !== NotificationType.AutoSuggestions);
 
@@ -57,6 +58,7 @@ export default function Page() {
                         fillStyle={"opacity-15"}
                         radiusStyle={"default"}
                         paddingStyle={"default"}
+                        borderStyle={"default"}
                         className={'w-full flex flex-col gap-4'}
                     >
                         <ThemedText type={'h1'}>{sub.title}</ThemedText>
@@ -65,31 +67,48 @@ export default function Page() {
                             {sub.price && (
                                 <ThemedText>
                                     <ThemedText type={'title'}>
-                                        {CurrencyHelper.format(sub.price[subscriptionRecurrence])}
-                                    </ThemedText> / {subscriptionRecurrence === SubscriptionRecurrence.Yearly ? "an" : "mois"}
+                                        {subscriptionRecurrence === SubscriptionRecurrence.Yearly ?
+                                            CurrencyHelper.format(sub.price[subscriptionRecurrence] / 12)
+                                            : CurrencyHelper.format(sub.price[subscriptionRecurrence])
+                                        }
+                                    </ThemedText> / mois
                                 </ThemedText>
                             )}
 
-                            {sub.price && subscriptionRecurrence === SubscriptionRecurrence.Monthly && (
+                            {sub.price && (
+                                <ThemedText className={'mb-2'}>
+                                    {subscriptionRecurrence === SubscriptionRecurrence.Yearly ? `${CurrencyHelper.format(sub.price[subscriptionRecurrence])} facturé annuellement` : "Facturé mensuellement"}
+                                </ThemedText>
+                            )}
+
+                            {sub.price && subscriptionRecurrence && (
                                 <ThemedView
                                     paddingStyle={"small"}
                                     radiusStyle={"small"}
-                                    className={'w-full flex flex-row items-center gap-2 bg-background-success-light/10 dark:bg-background-success-dark/10'}
+                                    className={'w-fit flex flex-row items-center gap-2 bg-background-success-light/10 dark:bg-background-success-dark/10'}
                                 >
                                     <LucideIcon name={'Info'} size={18} color={Colors.foreground.success[colorScheme]}/>
                                     <ThemedText
-                                        className={"flex-1 text-foreground-success-light dark:text-foreground-success-dark"}
+                                        className={"text-foreground-success-light dark:text-foreground-success-dark"}
                                         type={"small"} filled={false}>
-                                        Economisez <ThemedText filled={false}
-                                                               className={'text-foreground-success-light dark:text-foreground-success-dark'}
-                                                               type={"miniExtraBold"}>{CurrencyHelper.computeDifferenceInPercent(sub.price[SubscriptionRecurrence.Yearly], sub.price[SubscriptionRecurrence.Monthly])}%</ThemedText> grâce
-                                        à l'abonnement annuel
+                                        {subscriptionRecurrence === SubscriptionRecurrence.Yearly ? (
+                                            <>
+                                                Economisez <ThemedText filled={false}
+                                                                       className={'text-foreground-success-light dark:text-foreground-success-dark'}
+                                                                       type={"miniExtraBold"}>{CurrencyHelper.computeDifferenceInPercent(sub.price[SubscriptionRecurrence.Yearly] / 12, sub.price[SubscriptionRecurrence.Monthly])}%</ThemedText>
+                                            </>
+                                        ) : (
+                                            <>
+                                                Economisez <ThemedText filled={false}
+                                                                       className={'text-foreground-success-light dark:text-foreground-success-dark'}
+                                                                       type={"miniExtraBold"}>{CurrencyHelper.computeDifferenceInPercent(sub.price[SubscriptionRecurrence.Yearly] / 12, sub.price[SubscriptionRecurrence.Monthly])}%</ThemedText> grâce
+                                                à l'abonnement annuel
+                                            </>
+                                        )}
                                     </ThemedText>
                                 </ThemedView>
                             )}
                         </ThemedView>
-
-                        <ThemedText>{sub.description}</ThemedText>
 
                         <ThemedView className={'w-full flex flex-col gap-2'}>
                             {sub.content.map((content, index) => (

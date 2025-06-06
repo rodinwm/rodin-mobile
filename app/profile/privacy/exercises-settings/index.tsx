@@ -1,7 +1,7 @@
 import {DefaultTimerSheet, ScreenTemplate, ThemedCheckbox, ThemedListTile, ThemedText, ThemedView} from '@/components';
 import React, {useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
-import {ConcentrationExercise} from "@/utils/enums";
+import {ConcentrationExercise} from "@rodinwm/rodin-models";
 
 const exercises = Object.values(ConcentrationExercise);
 

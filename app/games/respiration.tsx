@@ -5,27 +5,40 @@ import {DateHelper} from "@/utils/helpers/dateHelper";
 import {UIHelper} from "@/utils/helpers/UIHelper";
 import Animated, {
     cancelAnimation,
+    runOnJS,
     useAnimatedStyle,
     useSharedValue,
     withRepeat,
     withTiming,
 } from 'react-native-reanimated';
 
+const messages = {
+    welcome: "Concentrez vous uniquement sur le point blanc pendant tout l'exercice",
+    inspiration: "Inspirez lentement",
+    expiration: "Expirez tout doucement",
+    finish: "Parfait ! Vous êtes maitenant prêt pour votre session de travail",
+};
 
 export default function Page() {
     const router = useRouter();
     // Game setup
+    const isRunningShared = useSharedValue(false);
     const [isRunning, setIsRunning] = useState(false);
+    const [step, setStep] = useState(messages.welcome);
     // Timer setup
-    const totalTime = 120; // 2m en secondes
+    const totalTime = 60; // 1m en secondes
     const [timeLeft, setTimeLeft] = useState(totalTime);
-    // Animation
+    // Animations
     const scale = useSharedValue(1);
-    const animatedStyle = useAnimatedStyle(() => {
+    const animatedCircleStyle = useAnimatedStyle(() => {
         return {
             transform: [{scale: scale.value}],
         };
     });
+    const textOpacity = useSharedValue(1);
+    const animatedTextStyle = useAnimatedStyle(() => ({
+        opacity: textOpacity.value,
+    }));
 
 
     // Gestion du temps global
@@ -37,9 +50,10 @@ export default function Page() {
                 const newTime = prevTime - 1;
                 if (newTime <= 0) {
                     setIsRunning(false);
+                    isRunningShared.value = false;
                     clearInterval(timer);
                     cancelAnimation(scale);
-                    UIHelper.hapticImpact('error');
+                    toggleStepAnimation(messages.finish);
                     return 0;
                 }
 
@@ -52,12 +66,35 @@ export default function Page() {
 
     const startGame = () => {
         setIsRunning(true);
+        isRunningShared.value = true;
+
+        toggleStepAnimation(messages.inspiration);
         scale.value = withRepeat(
-            withTiming(1.5, {duration: 5000}), // Change toutes les 5 secondes
+            withTiming(4, {duration: 5000}, () => {
+                if (isRunningShared.value) {
+                    runOnJS(toggleStepAnimation)();
+                }
+            }),
             -1,
-            true // reverse
+            true
         );
     }
+
+    const toggleStep = (newStep?: string) => {
+        UIHelper.hapticImpact('feedback');
+        if (newStep) {
+            setStep(newStep);
+        } else {
+            setStep(current => current === messages.inspiration ? messages.expiration : messages.inspiration);
+        }
+    };
+
+    const toggleStepAnimation = (newStep?: string) => {
+        textOpacity.value = withTiming(0, {duration: 300}, () => {
+            runOnJS(toggleStep)(newStep);
+            textOpacity.value = withTiming(1, {duration: 300});
+        });
+    };
 
     const isGameStarted = () => {
         return timeLeft < totalTime;
@@ -81,9 +118,11 @@ export default function Page() {
                     {DateHelper.formatTime(timeLeft)}
                 </ThemedText>
 
-                <ThemedText type={'subtitle'} className={"text-center"}>
-                    Prenez quelques secondes pour souffler un peu
-                </ThemedText>
+                <Animated.View style={animatedTextStyle}>
+                    <ThemedText type={'subtitle'} className={"text-center"}>
+                        {step}
+                    </ThemedText>
+                </Animated.View>
             </ThemedView>
 
             {/* Container */}
@@ -112,23 +151,21 @@ export default function Page() {
 
                 <Animated.View
                     style={[{
-                        width: 192, // 48 * 4 (tailwind rem units)
+                        width: 50, // 48 * 4 (tailwind rem units)
                         aspectRatio: 1,
                         justifyContent: 'center',
                         alignItems: 'center',
                         borderRadius: 9999,
-                    }, animatedStyle]}
+                    }, animatedCircleStyle]}
                     className={'bg-foreground-light/10 dark:bg-foreground-dark/10 border border-foreground-light/20 dark:border-foreground-dark/20'}
-                >
-                    {/* Petit cercle blanc au centre */}
-                    <ThemedView
-                        className={'flex justify-center items-center'}
-                        fillStyle={'inversed'}
-                        radiusStyle={'full'}
-                        paddingStyle={"default"}
-                    />
-                </Animated.View>
-
+                />
+                {/* Petit cercle blanc au centre */}
+                <ThemedView
+                    className={'absolute flex justify-center items-center'}
+                    fillStyle={'inversed'}
+                    radiusStyle={'full'}
+                    paddingStyle={"default"}
+                />
             </ThemedView>
 
 

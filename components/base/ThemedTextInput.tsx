@@ -25,14 +25,14 @@ export function ThemedTextInput({
                                 }: ThemedViewProps
 ) {
     const classNames: string[] = [
-        'flex flex-row items-center font-sans px-6 py-4 text-foreground-light dark:text-foreground-dark bg-foreground-light/5 dark:bg-foreground-dark/5',
+        'flex flex-row items-center font-sans px-6 py-5 text-foreground-light dark:text-foreground-dark bg-foreground-light/5 dark:bg-foreground-dark/5',
         bigText ? 'text-2xl' : 'text-md',
         outlined ? 'border border-foreground-light/10 dark:border-foreground-dark/10' : '',
         radiusStyle === "default" ?
-            'rounded-3xl' : radiusStyle === "full" ?
+            'rounded-2xl' : radiusStyle === "full" ?
                 'rounded-full' : radiusStyle === "left-only" ?
-                    'rounded-l-3xl' : radiusStyle === "right-only" ?
-                        'rounded-r-3xl' : '',
+                    'rounded-l-2xl' : radiusStyle === "right-only" ?
+                        'rounded-r-2xl' : '',
         className ?? ''
     ];
 

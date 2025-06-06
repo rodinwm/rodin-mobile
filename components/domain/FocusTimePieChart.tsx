@@ -30,14 +30,20 @@ export function FocusTimePieChart({data}: Props) {
     }, [focusedIndex, data]);
 
     return (
-        <>
+        <ThemedView
+            overflow={"visible"}
+            borderStyle={"default"}
+            radiusStyle={"default"}
+            paddingStyle={"extraSmall"}
+            className={'w-full h-full flex flex-col justify-center items-center gap-3'}
+        >
             <PieChart
                 data={chartData}
                 donut={true}
                 showGradient={true}
                 isAnimated={true}
-                radius={100}
-                innerRadius={60}
+                radius={90}
+                innerRadius={50}
                 innerCircleColor={background}
                 textColor={background}
                 tooltipBackgroundColor={foreground}
@@ -66,6 +72,6 @@ export function FocusTimePieChart({data}: Props) {
                 <ChartLegendItem type={'work'}/>
                 <ChartLegendItem type={'rest'}/>
             </ThemedView>
-        </>
+        </ThemedView>
     );
 }
