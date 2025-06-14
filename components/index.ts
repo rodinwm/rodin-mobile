@@ -23,6 +23,7 @@ export {FocusTimePieChart} from '@/components/domain/FocusTimePieChart';
 export {HeaderSpacer} from '@/components/domain/HeaderSpacer';
 export {RodinWheelPicker} from '@/components/domain/RodinWheelPicker';
 export {SubscriptionAdvantageTable} from '@/components/domain/SubscriptionAdvantageTable';
+export {SystemAppIcon} from '@/components/domain/SystemAppIcon';
 export {TimerSelect} from '@/components/domain/TimerSelect';
 
 // Layout components

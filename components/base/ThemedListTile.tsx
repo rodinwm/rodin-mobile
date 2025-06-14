@@ -10,7 +10,7 @@ import {useColorScheme} from "@/utils/hooks/useColorScheme";
 
 export type ThemedListTileProps = ButtonProps & {
     subtitle?: string;
-    icon?: keyof typeof icons;
+    icon?: keyof typeof icons | ReactNode;
     suffixIcon?: keyof typeof icons | ReactNode | null;
     fillStyle?: "default" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
     hasPadding?: boolean;
@@ -47,20 +47,23 @@ export function ThemedListTile({
             >
                 <ThemedView className={'h-fit flex flex-row justify-center items-center gap-4 flex-1'}>
                     {icon !== undefined && icon !== null ?
-                        fillStyle === "none" ? (
-                            <LucideIcon name={icon}/>
-                        ) : (
-                            <ThemedView
-                                fillStyle={fillStyle !== "inversed" ? "inversed" : 'default'}
-                                radiusStyle={'full'}
-                                className={"p-2"}
-                                borderStyle={"default"}
-                            >
-                                <LucideIcon name={icon}
-                                            color={otherProps.disabled ? Colors.foreground[colorScheme] + '66' : undefined}
-                                            inverseColor={fillStyle !== "inversed"}/>
-                            </ThemedView>
-                        )
+                        isValidElement(icon) ? (icon) : (
+                            fillStyle === "none" ? (
+                                <LucideIcon name={icon as keyof typeof icons}/>
+                            ) : (
+                                <ThemedView
+                                    fillStyle={fillStyle !== "inversed" ? "inversed" : 'default'}
+                                    radiusStyle={'full'}
+                                    className={"p-2"}
+                                    borderStyle={"default"}
+                                >
+                                    <LucideIcon
+                                        name={icon as keyof typeof icons}
+                                        color={otherProps.disabled ? Colors.foreground[colorScheme] + '66' : undefined}
+                                        inverseColor={fillStyle !== "inversed"}
+                                    />
+                                </ThemedView>
+                            ))
                         : null}
 
                     <ThemedView className={'flex-1 flex flex-col justify-center'}>

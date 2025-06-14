@@ -55,3 +55,7 @@ export interface ThemedClassName {
     borderStyle?: string;
     customClassName?: string;
 }
+
+export interface SystemApp {
+    name: string;
+}
