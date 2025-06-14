@@ -7,7 +7,7 @@ export type ThemedViewProps = ViewProps & {
     borderWidth?: number;
     borderStyle?: "default" | "inversed" | "none";
     fillStyle?: "default" | "opacity-5" | "opacity-10" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
-    radiusStyle?: "default" | "full" | "big" | "small" | "none";
+    radiusStyle?: "full" | "big" | "default" | "medium" | "small" | "none";
     paddingStyle?: "default" | "asymetric" | "small" | "extraSmall" | "none";
     overflow?: "hidden" | "visible";
     backgroundImage?: ImageSourcePropType | { uri: string };
@@ -43,11 +43,12 @@ export function ThemedView({
                             'bg-foreground-light/5 dark:bg-foreground-dark/5 backdrop-blur-md' : fillStyle === "inversed" ?
                                 'bg-background-dark dark:bg-background-light' : fillStyle === "warning" ?
                                     'bg-background-warning-light dark:bg-background-warning-dark' : '',
-        radiusStyle: radiusStyle === "default" ?
-            'rounded-3xl' : radiusStyle === "full" ?
-                'rounded-full' : radiusStyle === "big" ?
-                    'rounded-6xl' : radiusStyle === "small" ?
-                        'rounded-lg' : '',
+        radiusStyle: radiusStyle === "full" ?
+            'rounded-full' : radiusStyle === "big" ?
+                'rounded-6xl' : radiusStyle === "default" ?
+                    'rounded-3xl' : radiusStyle === "medium" ?
+                        'rounded-xl' : radiusStyle === "small" ?
+                            'rounded-lg' : '',
         borderStyle: borderStyle === "default" ?
             `border border-foreground-light/20 dark:border-foreground-dark/20` : borderStyle === "inversed" ?
                 `border  border-foreground-dark dark:border-foreground-light` : '',

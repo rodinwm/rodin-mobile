@@ -33,14 +33,21 @@ export default function TabLayout() {
             <Tabs.Screen
                 name="index"
                 options={{
-                    title: 'Home',
+                    title: 'Accueil',
                     tabBarIcon: ({color}) => <LucideIcon size={28} name="House" color={color}/>,
+                }}
+            />
+            <Tabs.Screen
+                name="blocker"
+                options={{
+                    title: "Bloqueur d'app",
+                    tabBarIcon: ({color}) => <LucideIcon size={28} name="Shield" color={color}/>,
                 }}
             />
             <Tabs.Screen
                 name="community"
                 options={{
-                    title: 'Community',
+                    title: 'Communauté',
                     tabBarIcon: ({color}) => <LucideIcon size={28} name="Users" color={color}/>,
                 }}
             />
