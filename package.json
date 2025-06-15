@@ -10,7 +10,8 @@
     "web": "expo start --web",
     "test": "jest --updateSnapshot --coverage",
     "lint": "expo lint",
-    "models-reinstall": "npm uninstall @rodinwm/rodin-models --force && npm install @rodinwm/rodin-models --force"
+    "models-reinstall": "npm uninstall @rodinwm/rodin-models --force && npm install @rodinwm/rodin-models --force",
+    "package:login": "npm login --registry=https://npm.pkg.github.com"
   },
   "jest": {
     "preset": "jest-expo",
