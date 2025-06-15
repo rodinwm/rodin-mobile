@@ -18,7 +18,7 @@
 
 /* Begin PBXFileReference section */
 		020452B27F250B7C725EA830 /* Pods-rodinmobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rodinmobile.release.xcconfig"; path = "Target Support Files/Pods-rodinmobile/Pods-rodinmobile.release.xcconfig"; sourceTree = "<group>"; };
-		0A218AF70B30238E3388C496 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = rodinmobile/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		0A218AF70B30238E3388C496 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = rodinmobile/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* rodinmobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rodinmobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = rodinmobile/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = rodinmobile/Info.plist; sourceTree = "<group>"; };
@@ -128,7 +128,6 @@
 				30F8C2CD4E4F6FB3C2A3090F /* Pods-rodinmobile.debug.xcconfig */,
 				020452B27F250B7C725EA830 /* Pods-rodinmobile.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -346,12 +345,14 @@
 					"FB_SONARKIT_ENABLED=1",
 				);
 				INFOPLIST_FILE = rodinmobile/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Rodin;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -377,12 +378,14 @@
 				CODE_SIGN_ENTITLEMENTS = rodinmobile/rodinmobile.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = rodinmobile/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Rodin;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -453,10 +456,7 @@
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -511,10 +511,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
