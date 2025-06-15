@@ -40,7 +40,7 @@ jobs:
           node-version: 20
 
       - name: Install Node.js dependencies
-        run: npm ci --force
+        run: npm ci
 
       - name: Run tests suite and generate coverage report
         run: npm test
