@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {Colors} from "@/utils/colors";
 import {useNavigation} from "expo-router";
 import {DateHelper} from "@/utils/helpers/dateHelper";
+import {VpnHelper} from "@/utils/helpers/vpnHelper";
 
 export default function Page() {
     const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes en secondes
@@ -22,6 +23,13 @@ export default function Page() {
         return () => clearInterval(timer);
     }, [isRunning, timeLeft]);
 
+    useEffect(() => {
+        VpnHelper.setupAndStartVPN([
+            "instagram.com",
+            "tiktok.com",
+            "facebook.com",
+        ]).then();
+    }, []);
 
     return (
         <ScreenTemplate
