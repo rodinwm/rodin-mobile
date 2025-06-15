@@ -77,6 +77,10 @@ export default function Page() {
                         hideHours={true}
                         hideMinutes={true}
                         maximumSeconds={99}
+                        secondLimit={{
+                            min: 1,
+                            max: 99
+                        }}
                         secondLabel={''}
                         onChange={(time: TimerValue) => setNumberOfSessions(time.seconds)}
                     />
