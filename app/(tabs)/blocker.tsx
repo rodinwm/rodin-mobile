@@ -13,7 +13,7 @@ export default function Page() {
 
     return (
         <ScreenTemplate
-            title={"RodBlock"}
+            title={"RodShield"}
             //takeBottomBarIntoAccount={true}
             setHeightToScreenSize={true}
             scrollEnabled={false}
