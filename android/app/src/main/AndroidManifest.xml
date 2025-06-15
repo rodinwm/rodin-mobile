@@ -34,7 +34,6 @@
         <action android:name="android.intent.action.VIEW"/>
         <data android:scheme="https" android:host="rodin.com" android:pathPrefix="/"/>
         <data android:scheme="rodin"/>
-        <data android:scheme="exp+rodin-mobile"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>

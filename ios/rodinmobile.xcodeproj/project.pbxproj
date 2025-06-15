@@ -3,96 +3,41 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07D5939BAA37127C5FE7A726 /* libPods-rodinmobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A1D4E06C5E66E5469F89CA /* libPods-rodinmobile.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		5CF513E54A53886F95D72C20 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0A218AF70B30238E3388C496 /* PrivacyInfo.xcprivacy */; };
-		7AE23E1F9C5CC5FF4AF120CA /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707600100DE8C8809C5A2F61 /* ExpoModulesProvider.swift */; };
-		9D757E532DFEC35B0085A5DB /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D757E522DFEC35B0085A5DB /* NetworkExtension.framework */; };
-		9D757E5B2DFEC35B0085A5DB /* RodinAppBlockerVPN.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9D757E512DFEC35B0085A5DB /* RodinAppBlockerVPN.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		9D757E622DFEC6E10085A5DB /* RodinAppBlockerVPNManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D757E612DFEC6C90085A5DB /* RodinAppBlockerVPNManager.swift */; };
-		9D757E6A2DFED5DC0085A5DB /* RodinAppBlockerVPNManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D757E692DFED5DC0085A5DB /* RodinAppBlockerVPNManager.m */; };
-		9D757E6B2DFED5F20085A5DB /* RodinAppBlockerVPNManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D757E692DFED5DC0085A5DB /* RodinAppBlockerVPNManager.m */; };
+		60A1CBB7F6071D6A9CAF40EC /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 08CE932D7057EFB917109B36 /* PrivacyInfo.xcprivacy */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		CAEE3AA5030FE180EF1FBEFF /* libPods-rodinmobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D71D5C05D05977CBF47FE16B /* libPods-rodinmobile.a */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
+		F422AD5439A6CF75B38A49F7 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D37A124C3747D6F0C80680 /* ExpoModulesProvider.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		9D757E592DFEC35B0085A5DB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9D757E502DFEC35B0085A5DB;
-			remoteInfo = RodinAppBlockerVPN;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		9D757E5C2DFEC35B0085A5DB /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				9D757E5B2DFEC35B0085A5DB /* RodinAppBlockerVPN.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		020452B27F250B7C725EA830 /* Pods-rodinmobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rodinmobile.release.xcconfig"; path = "Target Support Files/Pods-rodinmobile/Pods-rodinmobile.release.xcconfig"; sourceTree = "<group>"; };
-		0A218AF70B30238E3388C496 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = rodinmobile/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		00C089AFFE03F17D5B7748A8 /* Pods-rodinmobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rodinmobile.release.xcconfig"; path = "Target Support Files/Pods-rodinmobile/Pods-rodinmobile.release.xcconfig"; sourceTree = "<group>"; };
+		08CE932D7057EFB917109B36 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = rodinmobile/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* rodinmobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rodinmobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = rodinmobile/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = rodinmobile/Info.plist; sourceTree = "<group>"; };
-		30F8C2CD4E4F6FB3C2A3090F /* Pods-rodinmobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rodinmobile.debug.xcconfig"; path = "Target Support Files/Pods-rodinmobile/Pods-rodinmobile.debug.xcconfig"; sourceTree = "<group>"; };
-		707600100DE8C8809C5A2F61 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-rodinmobile/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		9D757E512DFEC35B0085A5DB /* RodinAppBlockerVPN.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RodinAppBlockerVPN.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D757E522DFEC35B0085A5DB /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
-		9D757E612DFEC6C90085A5DB /* RodinAppBlockerVPNManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RodinAppBlockerVPNManager.swift; sourceTree = "<group>"; };
-		9D757E692DFED5DC0085A5DB /* RodinAppBlockerVPNManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RodinAppBlockerVPNManager.m; sourceTree = "<group>"; };
+		14D37A124C3747D6F0C80680 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-rodinmobile/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		46A1D4E06C5E66E5469F89CA /* libPods-rodinmobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rodinmobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = rodinmobile/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		D71D5C05D05977CBF47FE16B /* libPods-rodinmobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rodinmobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F0120C24786C0F3EC7621D0C /* Pods-rodinmobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rodinmobile.debug.xcconfig"; path = "Target Support Files/Pods-rodinmobile/Pods-rodinmobile.debug.xcconfig"; sourceTree = "<group>"; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = rodinmobile/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* rodinmobile-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "rodinmobile-Bridging-Header.h"; path = "rodinmobile/rodinmobile-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9D757E5F2DFEC35B0085A5DB /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 9D757E502DFEC35B0085A5DB /* RodinAppBlockerVPN */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		9D757E542DFEC35B0085A5DB /* RodinAppBlockerVPN */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9D757E5F2DFEC35B0085A5DB /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = RodinAppBlockerVPN; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAEE3AA5030FE180EF1FBEFF /* libPods-rodinmobile.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9D757E4E2DFEC35B0085A5DB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9D757E532DFEC35B0085A5DB /* NetworkExtension.framework in Frameworks */,
+				07D5939BAA37127C5FE7A726 /* libPods-rodinmobile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,37 +53,36 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				0A218AF70B30238E3388C496 /* PrivacyInfo.xcprivacy */,
-				9D757E612DFEC6C90085A5DB /* RodinAppBlockerVPNManager.swift */,
-				9D757E692DFED5DC0085A5DB /* RodinAppBlockerVPNManager.m */,
+				08CE932D7057EFB917109B36 /* PrivacyInfo.xcprivacy */,
 			);
 			name = rodinmobile;
-			sourceTree = "<group>";
-		};
-		2C7E6D8E4924AB6BA90428C8 /* ExpoModulesProviders */ = {
-			isa = PBXGroup;
-			children = (
-				37D9D13EC36F451C7F21DE26 /* rodinmobile */,
-			);
-			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				D71D5C05D05977CBF47FE16B /* libPods-rodinmobile.a */,
-				9D757E522DFEC35B0085A5DB /* NetworkExtension.framework */,
+				46A1D4E06C5E66E5469F89CA /* libPods-rodinmobile.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		37D9D13EC36F451C7F21DE26 /* rodinmobile */ = {
+		44B1311493888950614474EF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				707600100DE8C8809C5A2F61 /* ExpoModulesProvider.swift */,
+				F0120C24786C0F3EC7621D0C /* Pods-rodinmobile.debug.xcconfig */,
+				00C089AFFE03F17D5B7748A8 /* Pods-rodinmobile.release.xcconfig */,
 			);
-			name = rodinmobile;
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		46232AAB8163C35B6B086759 /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				8CF7088287AB01859F2EAFB4 /* rodinmobile */,
+			);
+			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -153,11 +97,10 @@
 			children = (
 				13B07FAE1A68108700A75B9A /* rodinmobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				9D757E542DFEC35B0085A5DB /* RodinAppBlockerVPN */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				C8E3ED6296F420BB29372BE2 /* Pods */,
-				2C7E6D8E4924AB6BA90428C8 /* ExpoModulesProviders */,
+				44B1311493888950614474EF /* Pods */,
+				46232AAB8163C35B6B086759 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -168,9 +111,16 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* rodinmobile.app */,
-				9D757E512DFEC35B0085A5DB /* RodinAppBlockerVPN.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8CF7088287AB01859F2EAFB4 /* rodinmobile */ = {
+			isa = PBXGroup;
+			children = (
+				14D37A124C3747D6F0C80680 /* ExpoModulesProvider.swift */,
+			);
+			name = rodinmobile;
 			sourceTree = "<group>";
 		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
@@ -182,15 +132,6 @@
 			path = rodinmobile/Supporting;
 			sourceTree = "<group>";
 		};
-		C8E3ED6296F420BB29372BE2 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				30F8C2CD4E4F6FB3C2A3090F /* Pods-rodinmobile.debug.xcconfig */,
-				020452B27F250B7C725EA830 /* Pods-rodinmobile.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -199,46 +140,22 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "rodinmobile" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				83956DCB6CAAC1F6E0055320 /* [Expo] Configure project */,
+				FF84A6E1E2F2A93A34402AC9 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				0D294701D7C01B2F5010CD2B /* [CP] Embed Pods Frameworks */,
-				9D757E5C2DFEC35B0085A5DB /* Embed Foundation Extensions */,
+				456619731574AA7FF5341DCA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9D757E5A2DFEC35B0085A5DB /* PBXTargetDependency */,
 			);
 			name = rodinmobile;
 			productName = rodinmobile;
 			productReference = 13B07F961A680F5B00A75B9A /* rodinmobile.app */;
 			productType = "com.apple.product-type.application";
-		};
-		9D757E502DFEC35B0085A5DB /* RodinAppBlockerVPN */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9D757E602DFEC35B0085A5DB /* Build configuration list for PBXNativeTarget "RodinAppBlockerVPN" */;
-			buildPhases = (
-				9D757E4D2DFEC35B0085A5DB /* Sources */,
-				9D757E4E2DFEC35B0085A5DB /* Frameworks */,
-				9D757E4F2DFEC35B0085A5DB /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				9D757E542DFEC35B0085A5DB /* RodinAppBlockerVPN */,
-			);
-			name = RodinAppBlockerVPN;
-			packageProductDependencies = (
-			);
-			productName = RodinAppBlockerVPN;
-			productReference = 9D757E512DFEC35B0085A5DB /* RodinAppBlockerVPN.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -246,15 +163,10 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1250;
-					};
-					9D757E502DFEC35B0085A5DB = {
-						CreatedOnToolsVersion = 16.4;
-						LastSwiftMigration = 1640;
 					};
 				};
 			};
@@ -272,7 +184,6 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* rodinmobile */,
-				9D757E502DFEC35B0085A5DB /* RodinAppBlockerVPN */,
 			);
 		};
 /* End PBXProject section */
@@ -285,14 +196,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				5CF513E54A53886F95D72C20 /* PrivacyInfo.xcprivacy in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9D757E4F2DFEC35B0085A5DB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				60A1CBB7F6071D6A9CAF40EC /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,7 +240,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		0D294701D7C01B2F5010CD2B /* [CP] Embed Pods Frameworks */ = {
+		456619731574AA7FF5341DCA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -394,7 +298,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-rodinmobile/Pods-rodinmobile-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		83956DCB6CAAC1F6E0055320 /* [Expo] Configure project */ = {
+		FF84A6E1E2F2A93A34402AC9 /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -420,35 +324,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D757E6A2DFED5DC0085A5DB /* RodinAppBlockerVPNManager.m in Sources */,
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				7AE23E1F9C5CC5FF4AF120CA /* ExpoModulesProvider.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9D757E4D2DFEC35B0085A5DB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9D757E6B2DFED5F20085A5DB /* RodinAppBlockerVPNManager.m in Sources */,
-				9D757E622DFEC6E10085A5DB /* RodinAppBlockerVPNManager.swift in Sources */,
+				F422AD5439A6CF75B38A49F7 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		9D757E5A2DFEC35B0085A5DB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9D757E502DFEC35B0085A5DB /* RodinAppBlockerVPN */;
-			targetProxy = 9D757E592DFEC35B0085A5DB /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30F8C2CD4E4F6FB3C2A3090F /* Pods-rodinmobile.debug.xcconfig */;
+			baseConfigurationReference = F0120C24786C0F3EC7621D0C /* Pods-rodinmobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -459,122 +345,13 @@
 					"$(inherited)",
 					"FB_SONARKIT_ENABLED=1",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/DoubleConversion\"",
-					"\"${PODS_ROOT}/Headers/Public/EXConstants\"",
-					"\"${PODS_ROOT}/Headers/Public/EXJSONUtils\"",
-					"\"${PODS_ROOT}/Headers/Public/Expo\"",
-					"\"${PODS_ROOT}/Headers/Public/ExpoAudio\"",
-					"\"${PODS_ROOT}/Headers/Public/ExpoFileSystem\"",
-					"\"${PODS_ROOT}/Headers/Public/ExpoModulesCore\"",
-					"\"${PODS_ROOT}/Headers/Public/FBLazyVector\"",
-					"\"${PODS_ROOT}/Headers/Public/RCT-Folly\"",
-					"\"${PODS_ROOT}/Headers/Public/RCTDeprecation\"",
-					"\"${PODS_ROOT}/Headers/Public/RCTRequired\"",
-					"\"${PODS_ROOT}/Headers/Public/RCTTypeSafety\"",
-					"\"${PODS_ROOT}/Headers/Public/RNCAsyncStorage\"",
-					"\"${PODS_ROOT}/Headers/Public/RNCMaskedView\"",
-					"\"${PODS_ROOT}/Headers/Public/RNGestureHandler\"",
-					"\"${PODS_ROOT}/Headers/Public/RNReanimated\"",
-					"\"${PODS_ROOT}/Headers/Public/RNScreens\"",
-					"\"${PODS_ROOT}/Headers/Public/React-Core\"",
-					"\"${PODS_ROOT}/Headers/Public/React-Fabric\"",
-					"\"${PODS_ROOT}/Headers/Public/React-FabricComponents\"",
-					"\"${PODS_ROOT}/Headers/Public/React-FabricImage\"",
-					"\"${PODS_ROOT}/Headers/Public/React-ImageManager\"",
-					"\"${PODS_ROOT}/Headers/Public/React-Mapbuffer\"",
-					"\"${PODS_ROOT}/Headers/Public/React-NativeModulesApple\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RCTAnimation\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RCTAppDelegate\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RCTBlob\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RCTFBReactNativeSpec\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RCTFabric\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RCTRuntime\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RCTText\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RuntimeApple\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RuntimeCore\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RuntimeHermes\"",
-					"\"${PODS_ROOT}/Headers/Public/React-callinvoker\"",
-					"\"${PODS_ROOT}/Headers/Public/React-cxxreact\"",
-					"\"${PODS_ROOT}/Headers/Public/React-debug\"",
-					"\"${PODS_ROOT}/Headers/Public/React-defaultsnativemodule\"",
-					"\"${PODS_ROOT}/Headers/Public/React-domnativemodule\"",
-					"\"${PODS_ROOT}/Headers/Public/React-featureflags\"",
-					"\"${PODS_ROOT}/Headers/Public/React-featureflagsnativemodule\"",
-					"\"${PODS_ROOT}/Headers/Public/React-graphics\"",
-					"\"${PODS_ROOT}/Headers/Public/React-hermes\"",
-					"\"${PODS_ROOT}/Headers/Public/React-idlecallbacksnativemodule\"",
-					"\"${PODS_ROOT}/Headers/Public/React-jserrorhandler\"",
-					"\"${PODS_ROOT}/Headers/Public/React-jsi\"",
-					"\"${PODS_ROOT}/Headers/Public/React-jsiexecutor\"",
-					"\"${PODS_ROOT}/Headers/Public/React-jsinspector\"",
-					"\"${PODS_ROOT}/Headers/Public/React-jsinspectortracing\"",
-					"\"${PODS_ROOT}/Headers/Public/React-jsitooling\"",
-					"\"${PODS_ROOT}/Headers/Public/React-logger\"",
-					"\"${PODS_ROOT}/Headers/Public/React-microtasksnativemodule\"",
-					"\"${PODS_ROOT}/Headers/Public/React-oscompat\"",
-					"\"${PODS_ROOT}/Headers/Public/React-perflogger\"",
-					"\"${PODS_ROOT}/Headers/Public/React-performancetimeline\"",
-					"\"${PODS_ROOT}/Headers/Public/React-rendererconsistency\"",
-					"\"${PODS_ROOT}/Headers/Public/React-renderercss\"",
-					"\"${PODS_ROOT}/Headers/Public/React-rendererdebug\"",
-					"\"${PODS_ROOT}/Headers/Public/React-runtimeexecutor\"",
-					"\"${PODS_ROOT}/Headers/Public/React-runtimescheduler\"",
-					"\"${PODS_ROOT}/Headers/Public/React-timing\"",
-					"\"${PODS_ROOT}/Headers/Public/React-utils\"",
-					"\"${PODS_ROOT}/Headers/Public/ReactAppDependencyProvider\"",
-					"\"${PODS_ROOT}/Headers/Public/ReactCodegen\"",
-					"\"${PODS_ROOT}/Headers/Public/ReactCommon\"",
-					"\"${PODS_ROOT}/Headers/Public/SocketRocket\"",
-					"\"${PODS_ROOT}/Headers/Public/Yoga\"",
-					"\"${PODS_ROOT}/Headers/Public/ZXingObjC\"",
-					"\"${PODS_ROOT}/Headers/Public/boost\"",
-					"\"${PODS_ROOT}/Headers/Public/expo-dev-launcher\"",
-					"\"${PODS_ROOT}/Headers/Public/expo-dev-menu\"",
-					"\"${PODS_ROOT}/Headers/Public/fast_float\"",
-					"\"${PODS_ROOT}/Headers/Public/fmt\"",
-					"\"${PODS_ROOT}/Headers/Public/glog\"",
-					"\"${PODS_ROOT}/Headers/Public/hermes-engine\"",
-					"\"${PODS_ROOT}/Headers/Public/react-native-pager-view\"",
-					"\"${PODS_ROOT}/Headers/Public/react-native-safe-area-context\"",
-					"\"${PODS_ROOT}/Headers/Public/react-native-webview\"",
-					"\"$(PODS_ROOT)/DoubleConversion\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/EXManifests/Swift Compatibility Header\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/EXUpdatesInterface/Swift Compatibility Header\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Expo/Swift Compatibility Header\"",
-					"\"$(PODS_ROOT)/Headers/Private/Yoga\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/ExpoModulesCore/Swift Compatibility Header\"",
-					"\"$(PODS_ROOT)/Headers/Private/Yoga\"",
-					"\"$(PODS_ROOT)/boost\"",
-					"\"$(PODS_ROOT)/boost\"",
-					"\"$(PODS_ROOT)/boost-for-react-native\"",
-					"\"$(PODS_ROOT)/glog\"",
-					"\"$(PODS_ROOT)/RCT-Folly\"",
-					"\"$(PODS_ROOT)/Headers/Public/React-hermes\"",
-					"\"$(PODS_ROOT)/Headers/Public/hermes-engine\"",
-					"\"$(PODS_ROOT)/../../node_modules/react-native/ReactCommon\"",
-					"\"$(PODS_ROOT)/../../node_modules/react-native-reanimated/apple\"",
-					"\"$(PODS_ROOT)/../../node_modules/react-native-reanimated/Common/cpp\"",
-					"\"$(PODS_ROOT)/Headers/Private/React-Core\"",
-					"\"$(PODS_ROOT)/Headers/Private/React-Core\"",
-					"\"$(PODS_ROOT)/Headers/Private/Yoga\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/expo-dev-launcher/Swift Compatibility Header\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/expo-dev-menu/Swift Compatibility Header\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/expo-dev-menu-interface/Swift Compatibility Header\"",
-					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native/React/Base/**",
-				);
 				INFOPLIST_FILE = rodinmobile/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Rodin;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -593,126 +370,19 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 020452B27F250B7C725EA830 /* Pods-rodinmobile.release.xcconfig */;
+			baseConfigurationReference = 00C089AFFE03F17D5B7748A8 /* Pods-rodinmobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = rodinmobile/rodinmobile.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/DoubleConversion\"",
-					"\"${PODS_ROOT}/Headers/Public/EXConstants\"",
-					"\"${PODS_ROOT}/Headers/Public/EXJSONUtils\"",
-					"\"${PODS_ROOT}/Headers/Public/Expo\"",
-					"\"${PODS_ROOT}/Headers/Public/ExpoAudio\"",
-					"\"${PODS_ROOT}/Headers/Public/ExpoFileSystem\"",
-					"\"${PODS_ROOT}/Headers/Public/ExpoModulesCore\"",
-					"\"${PODS_ROOT}/Headers/Public/FBLazyVector\"",
-					"\"${PODS_ROOT}/Headers/Public/RCT-Folly\"",
-					"\"${PODS_ROOT}/Headers/Public/RCTDeprecation\"",
-					"\"${PODS_ROOT}/Headers/Public/RCTRequired\"",
-					"\"${PODS_ROOT}/Headers/Public/RCTTypeSafety\"",
-					"\"${PODS_ROOT}/Headers/Public/RNCAsyncStorage\"",
-					"\"${PODS_ROOT}/Headers/Public/RNCMaskedView\"",
-					"\"${PODS_ROOT}/Headers/Public/RNGestureHandler\"",
-					"\"${PODS_ROOT}/Headers/Public/RNReanimated\"",
-					"\"${PODS_ROOT}/Headers/Public/RNScreens\"",
-					"\"${PODS_ROOT}/Headers/Public/React-Core\"",
-					"\"${PODS_ROOT}/Headers/Public/React-Fabric\"",
-					"\"${PODS_ROOT}/Headers/Public/React-FabricComponents\"",
-					"\"${PODS_ROOT}/Headers/Public/React-FabricImage\"",
-					"\"${PODS_ROOT}/Headers/Public/React-ImageManager\"",
-					"\"${PODS_ROOT}/Headers/Public/React-Mapbuffer\"",
-					"\"${PODS_ROOT}/Headers/Public/React-NativeModulesApple\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RCTAnimation\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RCTAppDelegate\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RCTBlob\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RCTFBReactNativeSpec\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RCTFabric\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RCTRuntime\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RCTText\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RuntimeApple\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RuntimeCore\"",
-					"\"${PODS_ROOT}/Headers/Public/React-RuntimeHermes\"",
-					"\"${PODS_ROOT}/Headers/Public/React-callinvoker\"",
-					"\"${PODS_ROOT}/Headers/Public/React-cxxreact\"",
-					"\"${PODS_ROOT}/Headers/Public/React-debug\"",
-					"\"${PODS_ROOT}/Headers/Public/React-defaultsnativemodule\"",
-					"\"${PODS_ROOT}/Headers/Public/React-domnativemodule\"",
-					"\"${PODS_ROOT}/Headers/Public/React-featureflags\"",
-					"\"${PODS_ROOT}/Headers/Public/React-featureflagsnativemodule\"",
-					"\"${PODS_ROOT}/Headers/Public/React-graphics\"",
-					"\"${PODS_ROOT}/Headers/Public/React-hermes\"",
-					"\"${PODS_ROOT}/Headers/Public/React-idlecallbacksnativemodule\"",
-					"\"${PODS_ROOT}/Headers/Public/React-jserrorhandler\"",
-					"\"${PODS_ROOT}/Headers/Public/React-jsi\"",
-					"\"${PODS_ROOT}/Headers/Public/React-jsiexecutor\"",
-					"\"${PODS_ROOT}/Headers/Public/React-jsinspector\"",
-					"\"${PODS_ROOT}/Headers/Public/React-jsinspectortracing\"",
-					"\"${PODS_ROOT}/Headers/Public/React-jsitooling\"",
-					"\"${PODS_ROOT}/Headers/Public/React-logger\"",
-					"\"${PODS_ROOT}/Headers/Public/React-microtasksnativemodule\"",
-					"\"${PODS_ROOT}/Headers/Public/React-oscompat\"",
-					"\"${PODS_ROOT}/Headers/Public/React-perflogger\"",
-					"\"${PODS_ROOT}/Headers/Public/React-performancetimeline\"",
-					"\"${PODS_ROOT}/Headers/Public/React-rendererconsistency\"",
-					"\"${PODS_ROOT}/Headers/Public/React-renderercss\"",
-					"\"${PODS_ROOT}/Headers/Public/React-rendererdebug\"",
-					"\"${PODS_ROOT}/Headers/Public/React-runtimeexecutor\"",
-					"\"${PODS_ROOT}/Headers/Public/React-runtimescheduler\"",
-					"\"${PODS_ROOT}/Headers/Public/React-timing\"",
-					"\"${PODS_ROOT}/Headers/Public/React-utils\"",
-					"\"${PODS_ROOT}/Headers/Public/ReactAppDependencyProvider\"",
-					"\"${PODS_ROOT}/Headers/Public/ReactCodegen\"",
-					"\"${PODS_ROOT}/Headers/Public/ReactCommon\"",
-					"\"${PODS_ROOT}/Headers/Public/SocketRocket\"",
-					"\"${PODS_ROOT}/Headers/Public/Yoga\"",
-					"\"${PODS_ROOT}/Headers/Public/ZXingObjC\"",
-					"\"${PODS_ROOT}/Headers/Public/boost\"",
-					"\"${PODS_ROOT}/Headers/Public/expo-dev-launcher\"",
-					"\"${PODS_ROOT}/Headers/Public/expo-dev-menu\"",
-					"\"${PODS_ROOT}/Headers/Public/fast_float\"",
-					"\"${PODS_ROOT}/Headers/Public/fmt\"",
-					"\"${PODS_ROOT}/Headers/Public/glog\"",
-					"\"${PODS_ROOT}/Headers/Public/hermes-engine\"",
-					"\"${PODS_ROOT}/Headers/Public/react-native-pager-view\"",
-					"\"${PODS_ROOT}/Headers/Public/react-native-safe-area-context\"",
-					"\"${PODS_ROOT}/Headers/Public/react-native-webview\"",
-					"\"$(PODS_ROOT)/DoubleConversion\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/EXManifests/Swift Compatibility Header\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/EXUpdatesInterface/Swift Compatibility Header\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Expo/Swift Compatibility Header\"",
-					"\"$(PODS_ROOT)/Headers/Private/Yoga\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/ExpoModulesCore/Swift Compatibility Header\"",
-					"\"$(PODS_ROOT)/Headers/Private/Yoga\"",
-					"\"$(PODS_ROOT)/boost\"",
-					"\"$(PODS_ROOT)/boost\"",
-					"\"$(PODS_ROOT)/boost-for-react-native\"",
-					"\"$(PODS_ROOT)/glog\"",
-					"\"$(PODS_ROOT)/RCT-Folly\"",
-					"\"$(PODS_ROOT)/Headers/Public/React-hermes\"",
-					"\"$(PODS_ROOT)/Headers/Public/hermes-engine\"",
-					"\"$(PODS_ROOT)/../../node_modules/react-native/ReactCommon\"",
-					"\"$(PODS_ROOT)/../../node_modules/react-native-reanimated/apple\"",
-					"\"$(PODS_ROOT)/../../node_modules/react-native-reanimated/Common/cpp\"",
-					"\"$(PODS_ROOT)/Headers/Private/React-Core\"",
-					"\"$(PODS_ROOT)/Headers/Private/React-Core\"",
-					"\"$(PODS_ROOT)/Headers/Private/Yoga\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/expo-dev-menu-interface/Swift Compatibility Header\"",
-					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native/React/Base/**",
-				);
 				INFOPLIST_FILE = rodinmobile/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Rodin;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -783,7 +453,10 @@
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -838,98 +511,14 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		9D757E5D2DFEC35B0085A5DB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = RodinAppBlockerVPN/RodinAppBlockerVPN.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RodinAppBlockerVPN/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RodinAppBlockerVPN;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rod1n.rodinmobile.RodinAppBlockerVPN;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "RodinAppBlockerVPN/RodinAppBlockerVPN-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		9D757E5E2DFEC35B0085A5DB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = RodinAppBlockerVPN/RodinAppBlockerVPN.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RodinAppBlockerVPN/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RodinAppBlockerVPN;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rod1n.rodinmobile.RodinAppBlockerVPN;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "RodinAppBlockerVPN/RodinAppBlockerVPN-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -950,15 +539,6 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9D757E602DFEC35B0085A5DB /* Build configuration list for PBXNativeTarget "RodinAppBlockerVPN" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9D757E5D2DFEC35B0085A5DB /* Debug */,
-				9D757E5E2DFEC35B0085A5DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
