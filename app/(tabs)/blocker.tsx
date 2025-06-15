@@ -14,6 +14,8 @@ export default function Page() {
         <ScreenTemplate
             title={"Bloqueur d'app"}
             takeBottomBarIntoAccount={true}
+            setHeightToScreenSize={true}
+            scrollEnabled={false}
         >
             <ThemedView className={'w-full flex flex-col'}>
                 <ThemedText type={'default'}>Mes applications bloquées</ThemedText>
@@ -26,14 +28,14 @@ export default function Page() {
                 fillStyle={"opacity-10"}
                 radiusStyle={"default"}
                 className={'w-full flex flex-col justify-center items-center'}
-                style={{minHeight: 100, maxHeight: 310}}
+                style={{minHeight: 100, maxHeight: 210}}
             >
                 {selectedApps.length === 0 ? (
                     <ThemedView
                         paddingStyle={"default"}
                         className={'w-full gap-1 flex flex-col justify-center items-center'}
                     >
-                        <LucideIcon name={'LockKeyholeOpen'} size={150}/>
+                        <LucideIcon name={'LockKeyholeOpen'} size={100}/>
                         <ThemedText type={'subtitle'} className={'text-center'}>Aucune app bloquée</ThemedText>
                         <ThemedText type={'small'} className={'text-center'}>Pensez à ajouter celles que vous voulez
                             bloquer pendant votre
@@ -55,7 +57,7 @@ export default function Page() {
                         ItemSeparatorComponent={() => (<ThemedView className={"h-5"}/>)}
                         ListHeaderComponent={() => (<ThemedView className={"h-5"}/>)}
                         ListFooterComponent={() => (<ThemedView className={"h-5"}/>)}
-                        keyExtractor={item => item.name}
+                        keyExtractor={(item, index) => `${item.name}-${index}`}
                         renderItem={({item}) => (
                             <SystemAppIcon
                                 app={item}
@@ -72,7 +74,9 @@ export default function Page() {
             </ThemedView>
 
             {/* App list */}
-            <ThemedView className={'w-full flex flex-col gap-6'}>
+            <ThemedView
+                className={'w-full flex-1 flex flex-col justify-center items-center'}
+            >
                 <FlatList
                     data={SystemApps}
                     refreshing={false}
@@ -82,7 +86,7 @@ export default function Page() {
                     ItemSeparatorComponent={() => (
                         <ThemedView className={"h-5"}/>
                     )}
-                    keyExtractor={item => item.name}
+                    keyExtractor={(item, index) => `${item.name}-${index}`}
                     renderItem={({item}) => (
                         <SystemAppTile
                             app={item}
