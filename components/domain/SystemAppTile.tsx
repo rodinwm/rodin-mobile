@@ -17,6 +17,7 @@ export function SystemAppTile({app, onPress, isSelected = false}: Props) {
                     app={app}
                     mini={true}
                     showAppName={false}
+                    onPress={onPress}
                 />
             )}
             fillStyle={"none"}

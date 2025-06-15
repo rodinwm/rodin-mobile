@@ -1,8 +1,10 @@
 import {AlertCard, LucideIcon, ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import {Colors} from "@/utils/colors";
-import {useNavigation} from "expo-router";
 import {DateHelper} from "@/utils/helpers/dateHelper";
+import {VpnHelper} from "@/utils/helpers/vpnHelper";
+import {useFocusEffect, useNavigation} from "expo-router";
+import {BackHandler} from "react-native";
 
 export default function Page() {
     const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes en secondes
@@ -22,6 +24,28 @@ export default function Page() {
         return () => clearInterval(timer);
     }, [isRunning, timeLeft]);
 
+    useEffect(() => {
+        VpnHelper.setupAndStartVPN([
+            "instagram.com",
+            "tiktok.com",
+            "facebook.com",
+        ]).then();
+    }, []);
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerShown: false,        // Enlève la top bar
+            gestureEnabled: false,     // Désactive les gestures (iOS swipe)
+            presentation: 'transparentModal', // Optionnel : bloque fermeture sur iOS
+        });
+    }, [navigation]);
+
+    // Android back button (physique)
+    useFocusEffect(() => {
+        const onBackPress = () => true; // bloque le retour
+        const subscription = BackHandler.addEventListener("hardwareBackPress", onBackPress);
+        return () => subscription.remove(); // ✅ la bonne manière de retirer le listener
+    });
 
     return (
         <ScreenTemplate
