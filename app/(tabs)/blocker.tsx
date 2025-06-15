@@ -37,7 +37,7 @@ export default function Page() {
             {selectedApps.length !== 0 && (
 
                 <ThemedView
-                    borderStyle={"default"}
+                    borderStyle={"opacity-20"}
                     fillStyle={"opacity-10"}
                     radiusStyle={"default"}
                     className={'w-full flex flex-col justify-center items-center'}

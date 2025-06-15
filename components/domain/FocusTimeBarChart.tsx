@@ -28,7 +28,7 @@ export function FocusTimeBarChart({data}: Props) {
     return (
         <ThemedView
             overflow={"visible"}
-            borderStyle={"default"}
+            borderStyle={"opacity-20"}
             radiusStyle={"default"}
             paddingStyle={"extraSmall"}
             className={'w-full h-full flex flex-col justify-center items-center gap-3'}

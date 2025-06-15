@@ -15,10 +15,14 @@ export function ThemedCheckbox({
     return (
         <BouncyCheckbox
             iconComponent={(
-                <LucideIcon name={"Check"} size={14} inverseColor={true}/>
+                <LucideIcon
+                    name={"Check"}
+                    size={14}
+                    inverseColor={true}
+                    color={!otherProps.isChecked ? "transparent" : undefined}
+                />
             )}
             fillColor={Colors.foreground[colorScheme]}
-            //unFillColor={Colors.foreground[colorScheme] + "33"} // FIXME: find how to hide checkkk icon when checkbox is not checked
             disableText={true}
             {...otherProps}
         />
