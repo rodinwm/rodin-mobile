@@ -1,0 +1,5 @@
+# ios/Gemfile
+source 'https://rubygems.org'
+
+gem 'cocoapods', '1.15.2' # ou plus récent
+gem 'xcodeproj', '1.23.0' # compatible Xcode 15

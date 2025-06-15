@@ -1,4 +1,4 @@
-import {LucideIcon, ScreenTemplate, SystemAppIcon, ThemedText, ThemedView} from '@/components';
+import {LucideIcon, ScreenTemplate, SystemAppIcon, ThemedText, ThemedTextInput, ThemedView} from '@/components';
 import React, {useState} from "react";
 import {useRouter} from "expo-router";
 import {FlatList} from "react-native";
@@ -21,6 +21,14 @@ export default function Page() {
                 <ThemedText type={'default'}>Mes applications bloquées</ThemedText>
                 <ThemedText type={'title'}>{selectedApps.length} apps bloquées</ThemedText>
             </ThemedView>
+
+            <ThemedTextInput
+                clearButtonMode={"while-editing"}
+                placeholder={"Rechercher une application"}
+                onChangeText={(text) => {
+                    console.log(text);
+                }}
+            />
 
             {/* Selected app grid */}
             <ThemedView
