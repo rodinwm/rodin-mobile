@@ -40,7 +40,7 @@ export default function TabLayout() {
             <Tabs.Screen
                 name="blocker"
                 options={{
-                    title: "Bloqueur d'app",
+                    title: "RodBlock",
                     tabBarIcon: ({color}) => <LucideIcon size={28} name="Shield" color={color}/>,
                 }}
             />

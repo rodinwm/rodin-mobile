@@ -1,4 +1,4 @@
-import {LucideIcon, ScreenTemplate, SystemAppIcon, ThemedText, ThemedTextInput, ThemedView} from '@/components';
+import {ScreenTemplate, SystemAppIcon, ThemedText, ThemedTextInput, ThemedView} from '@/components';
 import React, {useState} from "react";
 import {useRouter} from "expo-router";
 import {FlatList} from "react-native";
@@ -9,47 +9,41 @@ import {SystemApp} from "@/utils/interfaces";
 export default function Page() {
     const router = useRouter();
     const [selectedApps, setSelectedApps] = useState<SystemApp[]>([]);
+    const [searchedApp, setSearchedApp] = useState('');
 
     return (
         <ScreenTemplate
-            title={"Bloqueur d'app"}
-            takeBottomBarIntoAccount={true}
+            title={"RodBlock"}
+            //takeBottomBarIntoAccount={true}
             setHeightToScreenSize={true}
             scrollEnabled={false}
         >
             <ThemedView className={'w-full flex flex-col'}>
                 <ThemedText type={'default'}>Mes applications bloquées</ThemedText>
-                <ThemedText type={'title'}>{selectedApps.length} apps bloquées</ThemedText>
+                <ThemedText type={'title'}>
+                    {selectedApps.length} {selectedApps.length > 1 ? 'applications bloquées' : 'application bloquée'}
+                </ThemedText>
             </ThemedView>
 
             <ThemedTextInput
                 clearButtonMode={"while-editing"}
                 placeholder={"Rechercher une application"}
                 onChangeText={(text) => {
-                    console.log(text);
+                    setSearchedApp(text);
                 }}
             />
 
             {/* Selected app grid */}
-            <ThemedView
-                borderStyle={"default"}
-                fillStyle={"opacity-10"}
-                radiusStyle={"default"}
-                className={'w-full flex flex-col justify-center items-center'}
-                style={{minHeight: 100, maxHeight: 210}}
-            >
-                {selectedApps.length === 0 ? (
-                    <ThemedView
-                        paddingStyle={"default"}
-                        className={'w-full gap-1 flex flex-col justify-center items-center'}
-                    >
-                        <LucideIcon name={'LockKeyholeOpen'} size={100}/>
-                        <ThemedText type={'subtitle'} className={'text-center'}>Aucune app bloquée</ThemedText>
-                        <ThemedText type={'small'} className={'text-center'}>Pensez à ajouter celles que vous voulez
-                            bloquer pendant votre
-                            focus</ThemedText>
-                    </ThemedView>
-                ) : (
+            {selectedApps.length !== 0 && (
+
+                <ThemedView
+                    borderStyle={"default"}
+                    fillStyle={"opacity-10"}
+                    radiusStyle={"default"}
+                    className={'w-full flex flex-col justify-center items-center'}
+                    style={{minHeight: 100, maxHeight: 210}}
+                >
+
                     <FlatList
                         data={selectedApps}
                         refreshing={false}
@@ -78,22 +72,21 @@ export default function Page() {
                             />
                         )}
                     />
-                )}
-            </ThemedView>
+                </ThemedView>
+            )}
 
             {/* App list */}
             <ThemedView
                 className={'w-full flex-1 flex flex-col justify-center items-center'}
             >
                 <FlatList
-                    data={SystemApps}
+                    data={SystemApps.filter(app => app.name.includes(searchedApp))}
                     refreshing={false}
                     onRefresh={() => console.log('refresh')}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
-                    ItemSeparatorComponent={() => (
-                        <ThemedView className={"h-5"}/>
-                    )}
+                    ItemSeparatorComponent={() => (<ThemedView className={"h-5"}/>)}
+                    ListFooterComponent={() => (<ThemedView className={"h-16"}/>)}
                     keyExtractor={(item, index) => `${item.name}-${index}`}
                     renderItem={({item}) => (
                         <SystemAppTile
