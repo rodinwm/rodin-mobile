@@ -7,7 +7,7 @@
     "reset-project": "node utils/scripts/reset-project.js",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "build:ios": "expo run:ios -- --mode='Release'",
+    "build:ios": "npx -y eas-cli@latest-eas-build build:internal --platform ios --profile development",
     "web": "expo start --web",
     "test": "jest --updateSnapshot --coverage",
     "lint": "expo lint",
@@ -39,6 +39,7 @@
     "expo": "53.0.11",
     "expo-audio": "~0.4.6",
     "expo-blur": "~14.1.5",
+    "expo-build-properties": "~0.14.6",
     "expo-camera": "~16.1.8",
     "expo-constants": "~17.1.6",
     "expo-dev-client": "~5.2.0",
@@ -74,8 +75,7 @@
     "react-native-webview": "13.13.5",
     "react-native-wheely": "^0.6.0",
     "tailwindcss": "^3.4.17",
-    "toastify-react-native": "^6.0.0",
-    "expo-build-properties": "~0.14.6"
+    "toastify-react-native": "^6.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -87,7 +87,8 @@
     "jest-expo": "~53.0.7",
     "jest-sonar-reporter": "^2.0.0",
     "react-test-renderer": "^19.0.0",
-    "typescript": "~5.8.3"
+    "typescript": "~5.8.3",
+    "eas-cli": "^16.10.1"
   },
   "private": true
 }
