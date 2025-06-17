@@ -81,7 +81,7 @@
         "react-native-device-activity",
         {
           "appleTeamId": "com.rod1n",
-          "appGroup": "group.com.rod1n.rodinmobile"
+          "appGroup": "group.com.rodinwm.rodinmobile"
         }
       ]
     ],
@@ -100,7 +100,7 @@
               "appExtensions": [
                 {
                   "targetName": "ActivityMonitorExtension",
-                  "bundleIdentifier": "com.rod1n.rodinmobile.RodinAppBlockerVPN",
+                  "bundleIdentifier": "com.rodinwm.rodinmobile.RodinAppBlockerVPN",
                   "entitlements": {
                     "com.apple.developer.family-controls": true,
                     "com.apple.security.application-groups": [

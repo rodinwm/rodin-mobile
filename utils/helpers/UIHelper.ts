@@ -1,4 +1,5 @@
 import * as Haptics from "expo-haptics";
+import {dailyTips} from "@/assets/static/daily-tips";
 
 export abstract class UIHelper {
     static hapticImpact(impactType?: 'error' | 'success' | 'feedback' | 'selection') {
@@ -21,5 +22,9 @@ export abstract class UIHelper {
                     break;
             }
         }
+    }
+
+    static getTipOfTheDay() {
+        return dailyTips[new Date().getDate() % dailyTips.length].text;
     }
 }

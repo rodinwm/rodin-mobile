@@ -5,6 +5,7 @@ import {DateHelper} from "@/utils/helpers/dateHelper";
 import {VpnHelper} from "@/utils/helpers/vpnHelper";
 import {useFocusEffect, useNavigation} from "expo-router";
 import {BackHandler} from "react-native";
+import {UIHelper} from "@/utils/helpers/UIHelper";
 
 export default function Page() {
     const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes en secondes
@@ -64,7 +65,6 @@ export default function Page() {
 
             <ThemedView className={'w-full flex flex-col gap-4 justify-center items-center'}>
                 <ThemedView
-                    borderStyle={"default"}
                     radiusStyle={"default"}
                     paddingStyle={"small"}
                     className={"flex flex-row gap-1 items-center justify-center"}
@@ -77,7 +77,7 @@ export default function Page() {
                 </ThemedView>
 
                 <ThemedView
-                    borderStyle={"default"}
+                    borderStyle={"opacity-20"}
                     radiusStyle={"default"}
                     paddingStyle={"default"}
                     className={'w-full'}
@@ -128,7 +128,7 @@ export default function Page() {
             <AlertCard
                 icon={"Shrub"}
                 title={"Motivation"}
-                message={"Phrase de motivation aléatoire ici"}
+                message={UIHelper.getTipOfTheDay()}
             />
         </ScreenTemplate>
     );
