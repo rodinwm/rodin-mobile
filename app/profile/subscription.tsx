@@ -23,6 +23,7 @@ export default function Page() {
     const router = useRouter();
     const navigation = useNavigation();
     const [subscriptionRecurrence, setSubscriptionRecurrence] = useState(SubscriptionRecurrence.Yearly);
+    const [selectedPlan, setSelectedPlan] = useState(subscriptions[1]);
 
     return (
         <ScreenTemplate
@@ -58,10 +59,13 @@ export default function Page() {
                         fillStyle={"opacity-15"}
                         radiusStyle={"default"}
                         paddingStyle={"default"}
-                        borderStyle={"default"}
+                        borderStyle={selectedPlan === sub ? "default" : "opacity-20"}
+                        borderWidth={2}
                         className={'w-full flex flex-col gap-4'}
                     >
-                        <ThemedText type={'h1'}>{sub.title}</ThemedText>
+                        <ThemedView className={'w-full flex flex-row gap-1 justify-between items-center'}>
+                            <ThemedText type={'h1'}>{sub.title}</ThemedText>
+                        </ThemedView>
 
                         <ThemedView className={'w-full flex flex-col gap-1'}>
                             {sub.price && (

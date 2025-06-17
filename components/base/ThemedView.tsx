@@ -5,7 +5,7 @@ import {ThemedClassName} from "@/utils/interfaces";
 
 export type ThemedViewProps = ViewProps & {
     borderWidth?: number;
-    borderStyle?: "default" | "inversed" | "none";
+    borderStyle?: "default" | "inversed" | "opacity-20" | "none";
     fillStyle?: "default" | "opacity-5" | "opacity-10" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
     radiusStyle?: "full" | "big" | "default" | "medium" | "small" | "none";
     paddingStyle?: "default" | "asymetric" | "small" | "extraSmall" | "none";
@@ -50,8 +50,9 @@ export function ThemedView({
                         'rounded-xl' : radiusStyle === "small" ?
                             'rounded-lg' : '',
         borderStyle: borderStyle === "default" ?
-            `border border-foreground-light/20 dark:border-foreground-dark/20` : borderStyle === "inversed" ?
-                `border  border-foreground-dark dark:border-foreground-light` : '',
+            `border border-foreground-light dark:border-foreground-dark` : borderStyle === "opacity-20" ?
+                `border border-foreground-light/20 dark:border-foreground-dark/20` : borderStyle === "inversed" ?
+                    `border border-foreground-dark dark:border-foreground-light` : '',
         paddingStyle: paddingStyle === "default" ?
             'p-6' : paddingStyle === "asymetric" ?
                 'px-6 py-3' : paddingStyle === "small" ?

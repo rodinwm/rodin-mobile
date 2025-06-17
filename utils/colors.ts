@@ -1,3 +1,11 @@
+/*
+const workColor = "#9ac8eb";
+const restColor = "#5784ba";
+*/
+
+const workColor = "#2cced2";
+const restColor = "#5784ba";
+
 export const Colors = {
     foreground: {
         /*light: "#020617",
@@ -13,12 +21,12 @@ export const Colors = {
             dark: "#422006",
         },
         work: {
-            light: "#04ca64",
-            dark: "#04ca64",
+            light: workColor,
+            dark: workColor,
         },
         rest: {
-            light: "#ca8a04",
-            dark: "#ca8a04",
+            light: restColor,
+            dark: restColor,
         },
     },
     background: {
@@ -39,12 +47,12 @@ export const Colors = {
             dark: "#181C2C",
         },
         work: {
-            light: "#04ca64",
-            dark: "#04ca64",
+            light: workColor,
+            dark: workColor,
         },
         rest: {
-            light: "#ca8a04",
-            dark: "#ca8a04",
+            light: restColor,
+            dark: restColor,
         },
     },
 };

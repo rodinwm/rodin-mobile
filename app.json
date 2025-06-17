@@ -10,13 +10,13 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.rod1n.rodinmobile",
+      "bundleIdentifier": "com.rodinwm.rodinmobile",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
-      "package": "com.rod1n.rodinmobile",
+      "package": "com.rodinwm.rodinmobile",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -68,6 +68,21 @@
           "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
           "recordAudioAndroid": true
         }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "15.1"
+          }
+        }
+      ],
+      [
+        "react-native-device-activity",
+        {
+          "appleTeamId": "com.rod1n",
+          "appGroup": "group.com.rodinwm.rodinmobile"
+        }
       ]
     ],
     "experiments": {
@@ -78,7 +93,25 @@
         "origin": false
       },
       "eas": {
-        "projectId": "ccdd5c4a-c763-4014-b182-a8ac405f5f52"
+        "projectId": "ccdd5c4a-c763-4014-b182-a8ac405f5f52",
+        "build": {
+          "experimental": {
+            "ios": {
+              "appExtensions": [
+                {
+                  "targetName": "ActivityMonitorExtension",
+                  "bundleIdentifier": "com.rodinwm.rodinmobile.RodinAppBlockerVPN",
+                  "entitlements": {
+                    "com.apple.developer.family-controls": true,
+                    "com.apple.security.application-groups": [
+                      "group.ActivityMonitor"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
       }
     },
     "owner": "rod1n"

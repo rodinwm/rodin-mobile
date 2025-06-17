@@ -10,18 +10,17 @@ import {
     ThemedView
 } from '@/components';
 import React, {useEffect, useRef, useState} from "react";
-import {dailyTips} from "@/assets/static/daily-tips";
 import {useRouter} from "expo-router";
 import {DateHelper} from "@/utils/helpers/dateHelper";
 import PagerView from "react-native-pager-view";
 import {ChartPeriod, ChartType} from '@/utils/enums';
 import {ChartHelper} from "@/utils/helpers/chartHelper";
+import {UIHelper} from "@/utils/helpers/UIHelper";
 
 const chartPeriods = Object.values(ChartPeriod);
 
 export default function Page() {
     const router = useRouter();
-    const tipOfTheDay = dailyTips[new Date().getDate() % dailyTips.length].text;
     const pagerRef = useRef<PagerView | null>(null);
     const [page, setPage] = useState(0);
     const [isRodPicsUnlocked, setIsRodPicsUnlocked] = useState(true);
@@ -79,7 +78,7 @@ export default function Page() {
                 <>
                     <MessageSheet
                         title={`Conseil du ${DateHelper.formatDate(new Date())}`}
-                        subtitle={tipOfTheDay}
+                        subtitle={UIHelper.getTipOfTheDay()}
                         isOpen={isBottomSheetOpen.tipOfTheDay}
                         takeBottomBarIntoAccount={true}
                         onClose={() => {
@@ -252,7 +251,7 @@ export default function Page() {
             <AlertCard
                 icon={"Info"}
                 title={"Conseil du jour"}
-                message={tipOfTheDay}
+                message={UIHelper.getTipOfTheDay()}
                 onPress={() => setIsBottomSheetOpen(prevState => ({...prevState, tipOfTheDay: true}))}
             />
         </ScreenTemplate>

@@ -26,7 +26,7 @@ export default function Page() {
 
             {/* Ads */}
             <ThemedView
-                borderStyle={"default"}
+                borderStyle={"opacity-20"}
                 fillStyle={"opacity-15"}
                 radiusStyle={"default"}
                 paddingStyle={"default"}

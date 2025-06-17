@@ -2,9 +2,8 @@ import {ScreenTemplate, SystemAppIcon, ThemedText, ThemedTextInput, ThemedView} 
 import React, {useState} from "react";
 import {useRouter} from "expo-router";
 import {FlatList} from "react-native";
-import {SystemApps} from "@/assets/static/system-apps";
-import {SystemAppTile} from "@/components/domain/SystemAppTile";
 import {SystemApp} from "@/utils/interfaces";
+import {NativeBlockerAppView} from "@/components/layouts/NativeBlockerAppView";
 
 export default function Page() {
     const router = useRouter();
@@ -37,7 +36,7 @@ export default function Page() {
             {selectedApps.length !== 0 && (
 
                 <ThemedView
-                    borderStyle={"default"}
+                    borderStyle={"opacity-20"}
                     fillStyle={"opacity-10"}
                     radiusStyle={"default"}
                     className={'w-full flex flex-col justify-center items-center'}
@@ -75,7 +74,9 @@ export default function Page() {
                 </ThemedView>
             )}
 
-            {/* App list */}
+            <NativeBlockerAppView/>
+
+            {/* App list
             <ThemedView
                 className={'w-full flex-1 flex flex-col justify-center items-center'}
             >
@@ -93,6 +94,7 @@ export default function Page() {
                             app={item}
                             isSelected={selectedApps.includes(item)}
                             onPress={() => {
+                                AppBlockerHelper.block("Instagram");
                                 setSelectedApps((prevSelected) => {
                                     if (selectedApps.includes(item)) {
                                         return prevSelected.filter(app => app.name !== item.name);
@@ -108,6 +110,7 @@ export default function Page() {
                     )}
                 />
             </ThemedView>
+            */}
         </ScreenTemplate>
     );
 }
