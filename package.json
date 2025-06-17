@@ -7,6 +7,7 @@
     "reset-project": "node utils/scripts/reset-project.js",
     "android": "expo run:android",
     "ios": "expo run:ios",
+    "build:ios": "expo run:ios -- --mode='Release'",
     "web": "expo start --web",
     "test": "jest --updateSnapshot --coverage",
     "lint": "expo lint",

@@ -11,6 +11,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.rodinwm.rodinmobile",
+      "appleTeamId": "2B2UV6F9BA",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -80,7 +81,7 @@
       [
         "react-native-device-activity",
         {
-          "appleTeamId": "com.rod1n",
+          "appleTeamId": "2B2UV6F9BA",
           "appGroup": "group.com.rodinwm.rodinmobile"
         }
       ]
@@ -114,6 +115,6 @@
         }
       }
     },
-    "owner": "rod1n"
+    "owner": "rodinwm"
   }
 }
