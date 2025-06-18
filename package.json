@@ -8,6 +8,7 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "build:ios": "eas build -p ios --profile development",
+    "open:xcode": "open ios/rodinmobile.xcworkspace",
     "web": "expo start --web",
     "test": "jest --updateSnapshot --coverage",
     "lint": "expo lint",
