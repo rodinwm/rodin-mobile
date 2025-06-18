@@ -65,7 +65,8 @@ target 'rodinmobile' do
     installer.pods_project.targets.each do |target|
     if ['expo-dev-menu', 'Main', 'ReactNativeCompatibles', 'SafeAreaView', 'Vendored'].include?(target.name)
       target.build_configurations.each do |config|
-        config.build_settings['DEFINES_MODULE'] = 'YES'
+        config.build_settings.delete('DEFINES_MODULE') # <- Supprime la valeur conflictuelle
+        config.build_settings['DEFINES_MODULE'] = 'YES' # <- Redéfinit propremen
       end
     end
     end
