@@ -7,7 +7,7 @@
     "reset-project": "node utils/scripts/reset-project.js",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "build:ios": "npx -y eas-cli@latest-eas-build build:internal --platform ios --profile development",
+    "build:ios": "eas build -p ios --profile development",
     "web": "expo start --web",
     "test": "jest --updateSnapshot --coverage",
     "lint": "expo lint",
