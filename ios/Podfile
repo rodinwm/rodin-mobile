@@ -60,6 +60,15 @@ target 'rodinmobile' do
         end
       end
     end
+
+    # ✅ Patch pour le warning DEFINES_MODULE (expo-dev-menu, etc.)
+    installer.pods_project.targets.each do |target|
+    if ['expo-dev-menu', 'Main', 'ReactNativeCompatibles', 'SafeAreaView', 'Vendored'].include?(target.name)
+      target.build_configurations.each do |config|
+        config.build_settings['DEFINES_MODULE'] = 'YES'
+      end
+    end
+    end
   end
 end
 
