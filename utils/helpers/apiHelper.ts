@@ -1,5 +1,5 @@
 import axios, {AxiosResponse, HttpStatusCode} from 'axios';
-import {CreateUserRequestBody} from "@rodinwm/rodin-models";
+import {CreateUserRequestBody} from "@rodinwm/rodin-models/frontend";
 
 export abstract class ApiHelper {
     private readonly host = "http://127.0.0.1:8000";

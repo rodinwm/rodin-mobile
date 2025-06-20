@@ -6,11 +6,11 @@ export abstract class PermissionHelper {
         try {
             switch (Platform.OS) {
                 case "ios":
-                    request(PERMISSIONS.IOS.CAMERA).then((status) => {
+                    request(PERMISSIONS.IOS.CAMERA).then(() => {
                     });
                     break;
                 case "android":
-                    request(PERMISSIONS.ANDROID.CAMERA).then((status) => {
+                    request(PERMISSIONS.ANDROID.CAMERA).then(() => {
                     });
                     break;
                 default:

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useRouter} from "expo-router";
-import {TimerValue} from "@rodinwm/rodin-models";
+import {TimerValue} from "@rodinwm/rodin-models/frontend";
 import {
     DefaultTimerSheet,
     LucideIcon,

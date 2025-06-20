@@ -1,7 +1,7 @@
 import {ScreenTemplate, ThemedCheckbox, ThemedListTile, ThemedText, ThemedView} from '@/components';
 import React, {useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
-import {NotificationType} from "@rodinwm/rodin-models";
+import {NotificationType} from "@rodinwm/rodin-models/frontend";
 
 const notificationTypes = Object.values(NotificationType).filter((type) => type !== NotificationType.AutoSuggestions);
 

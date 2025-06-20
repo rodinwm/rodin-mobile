@@ -1,7 +1,7 @@
 import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView} from '@/components';
 import React, {useEffect, useState} from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
-import {Profession} from '@rodinwm/rodin-models';
+import {Profession} from '@rodinwm/rodin-models/frontend';
 
 const professions = Object.values(Profession);
 
