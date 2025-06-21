@@ -1,5 +1,6 @@
 import axios, {AxiosResponse, HttpStatusCode} from 'axios';
-import {CreateUserRequestBody} from "@rodinwm/rodin-models/frontend";
+
+//import {CreateUserRequestBody} from "@rodinwm/rodin-models/frontend";
 
 export abstract class ApiHelper {
     private readonly host = "http://127.0.0.1:8000";
@@ -14,7 +15,8 @@ export abstract class ApiHelper {
         config: {},
     } as AxiosResponse;
 
-    async register(payload: CreateUserRequestBody): Promise<AxiosResponse> {
+    //async register(payload: CreateUserRequestBody): Promise<AxiosResponse> {
+    async register(payload: any): Promise<AxiosResponse> {
         try {
             const response = await axios.post(`${this.host}/api/users`, payload, {
                 headers: {

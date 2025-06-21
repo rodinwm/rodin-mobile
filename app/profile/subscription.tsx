@@ -16,7 +16,7 @@ import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {Alert} from "react-native";
 import {NotificationType} from "@rodinwm/rodin-models/frontend";
 
-const notificationTypes = Object.values(NotificationType).filter((type) => type !== NotificationType.AutoSuggestions);
+const notificationTypes = Object.values(NotificationType).filter((type) => type !== NotificationType.AUTO_SUGGESTIONS);
 
 export default function Page() {
     const colorScheme = useColorScheme() ?? 'light';

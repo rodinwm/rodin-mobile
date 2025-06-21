@@ -8,7 +8,7 @@ const exercises = Object.values(ConcentrationExercise);
 export default function Page() {
     const router = useRouter();
     const navigation = useNavigation();
-    const [defaultExercise, setDefaultExercise] = useState(ConcentrationExercise.Pods);
+    const [defaultExercise, setDefaultExercise] = useState<ConcentrationExercise>(ConcentrationExercise.PODS);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
     return (

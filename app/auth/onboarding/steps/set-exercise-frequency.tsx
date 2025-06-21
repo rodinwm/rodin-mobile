@@ -8,7 +8,6 @@ const frequencies = Object.values(ExerciseFrequency);
 export default function SetExerciseFrequency(props: OnboardingStepScreenProps) {
     const [selectedFrequency, setSelectedFrequency] = useState<ExerciseFrequency | null>(null);
 
-
     return (
         <OnboardingStepScreenTemplate
             title={"Fréquence d'exercice"}
