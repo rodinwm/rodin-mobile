@@ -8,7 +8,7 @@ import {PodColor} from "@/utils/enums";
 import {Pod} from "@/utils/interfaces";
 import {UIHelper} from "@/utils/helpers/UIHelper";
 import {Toast} from "toastify-react-native";
-import {ConcentrationExercise} from "@rodinwm/rodin-models";
+import {ConcentrationExercise} from "@rodinwm/rodin-models/frontend";
 
 export default function Page() {
     const router = useRouter();
@@ -27,7 +27,7 @@ export default function Page() {
 
     // Chargement du meilleur score
     useEffect(() => {
-        GameHelper.loadBestScore(ConcentrationExercise.Pods)
+        GameHelper.loadBestScore(ConcentrationExercise.PODS)
             .then((loadedBestScore: number) => setBestScore(loadedBestScore));
     }, []);
 
@@ -84,7 +84,7 @@ export default function Page() {
 
         if (score > bestScore) {
             setBestScore(score);
-            GameHelper.saveBestScore(ConcentrationExercise.Pods, score).then();
+            GameHelper.saveBestScore(ConcentrationExercise.PODS, score).then();
             UIHelper.hapticImpact('success');
             Toast.success("Nouveau meilleur score !");
         }

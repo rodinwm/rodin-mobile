@@ -8,7 +8,7 @@ import {
 } from '@/components';
 import React, {useState} from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
-import {TimerValue} from "@rodinwm/rodin-models";
+import {TimerValue} from "@rodinwm/rodin-models/frontend";
 
 export default function SetDefaultTimer(props: OnboardingStepScreenProps) {
     const [workTime, setWorkTime] = useState<TimerValue>({hours: 0, minutes: 0, seconds: 0});

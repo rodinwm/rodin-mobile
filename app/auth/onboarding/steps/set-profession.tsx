@@ -1,7 +1,7 @@
 import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView} from '@/components';
 import React, {useEffect, useState} from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
-import {Profession} from '@rodinwm/rodin-models';
+import {Profession} from '@rodinwm/rodin-models/frontend';
 
 const professions = Object.values(Profession);
 
@@ -11,7 +11,7 @@ export default function SetProfession(props: OnboardingStepScreenProps) {
     const [showCustomProfessionInput, setShowCustomProfessionInput] = useState(false);
 
     useEffect(() => {
-        if (selectedProfession === Profession.Autre) {
+        if (selectedProfession === Profession.AUTRE) {
             setShowCustomProfessionInput(true);
         } else {
             setShowCustomProfessionInput(false);
@@ -48,7 +48,7 @@ export default function SetProfession(props: OnboardingStepScreenProps) {
 
             <ThemedButton
                 title={"Suivant"}
-                disabled={(selectedProfession === null) || (selectedProfession === Profession.Autre && customProfession === "")}
+                disabled={(selectedProfession === null) || (selectedProfession === Profession.AUTRE && customProfession === "")}
                 onPress={props.onNextPress}
             />
         </OnboardingStepScreenTemplate>

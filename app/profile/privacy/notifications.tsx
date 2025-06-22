@@ -1,19 +1,19 @@
 import {ScreenTemplate, ThemedCheckbox, ThemedListTile, ThemedText, ThemedView} from '@/components';
 import React, {useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
-import {NotificationType} from "@rodinwm/rodin-models";
+import {NotificationType} from "@rodinwm/rodin-models/frontend";
 
-const notificationTypes = Object.values(NotificationType).filter((type) => type !== NotificationType.AutoSuggestions);
+const notificationTypes = Object.values(NotificationType).filter((type) => type !== NotificationType.AUTO_SUGGESTIONS);
 
 export default function Page() {
     const router = useRouter();
     const navigation = useNavigation();
     const [notifTypes, setNotifTypes] = useState({
-        autoSuggestions: false,
-        message: false,
-        mail: false,
-        flash: false
-    })
+        [NotificationType.AUTO_SUGGESTIONS]: false,
+        [NotificationType.MESSAGE]: false,
+        [NotificationType.MAIL]: false,
+        [NotificationType.FLASH]: false,
+    });
 
     const updateNotifTypes = (type: NotificationType) => {
         setNotifTypes(prevState => ({
@@ -32,9 +32,9 @@ export default function Page() {
                 <ThemedListTile
                     title={"Suggestions automatiques"}
                     subtitle={"Activer des suggestions automatiques (ex: \"Cela fait 2 jours que vous n'avez pas utilisé l'application\")"}
-                    onPress={() => updateNotifTypes(NotificationType.AutoSuggestions)}
+                    onPress={() => updateNotifTypes(NotificationType.AUTO_SUGGESTIONS)}
                     suffixIcon={(
-                        <ThemedCheckbox isChecked={notifTypes[NotificationType.AutoSuggestions]} disabled={true}/>
+                        <ThemedCheckbox isChecked={notifTypes[NotificationType.AUTO_SUGGESTIONS]} disabled={true}/>
                     )}
                 />
             </ThemedView>

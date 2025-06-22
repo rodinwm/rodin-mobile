@@ -1,14 +1,14 @@
 import {DefaultTimerSheet, ScreenTemplate, ThemedCheckbox, ThemedListTile, ThemedText, ThemedView} from '@/components';
 import React, {useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
-import {ConcentrationExercise} from "@rodinwm/rodin-models";
+import {ConcentrationExercise} from "@rodinwm/rodin-models/frontend";
 
 const exercises = Object.values(ConcentrationExercise);
 
 export default function Page() {
     const router = useRouter();
     const navigation = useNavigation();
-    const [defaultExercise, setDefaultExercise] = useState(ConcentrationExercise.Pods);
+    const [defaultExercise, setDefaultExercise] = useState<ConcentrationExercise>(ConcentrationExercise.PODS);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
     return (

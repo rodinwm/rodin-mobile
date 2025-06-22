@@ -9,7 +9,7 @@ import {ThemedView} from "@/components/base/ThemedView";
 import {clickAudioSource} from "@/utils/constants";
 import {useAudioPlayer} from 'expo-audio';
 import {UIHelper} from "@/utils/helpers/UIHelper";
-import {TimerValue} from "@rodinwm/rodin-models";
+import {TimerValue} from "@rodinwm/rodin-models/frontend";
 
 type Props = TimerPickerProps & {
     defaultValue?: TimerValue;

@@ -4,7 +4,7 @@ import {LucideIcon} from "@/components/base/LucideIcon";
 import {ThemedText} from "@/components/base/ThemedText";
 import {ThemedView} from "@/components/base/ThemedView";
 import React, {useState} from "react";
-import {TimerValue} from "@rodinwm/rodin-models";
+import {TimerValue} from "@rodinwm/rodin-models/frontend";
 import {defaultBreakTime, defaultWorkTime} from '@/utils/constants';
 
 type Props = {
