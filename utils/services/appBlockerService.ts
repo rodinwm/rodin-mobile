@@ -1,4 +1,11 @@
-import {blockSelection, ShieldActions, ShieldConfiguration, updateShield} from "react-native-device-activity";
+import {
+    AuthorizationStatus,
+    blockSelection,
+    getAuthorizationStatus,
+    ShieldActions,
+    ShieldConfiguration,
+    updateShield
+} from "react-native-device-activity";
 import {LogService} from "@/utils/services/logService";
 import {LogType, PermissionResult} from "@/utils/enums";
 import ReactNativeDeviceActivityModule from "react-native-device-activity/build/ReactNativeDeviceActivityModule";
@@ -20,26 +27,35 @@ export abstract class AppBlockerService {
         secondary: {type: "dismiss", behavior: "close"},
     };
 
-    static init() {
-        this.requestPermissions().then((granted) => {
-            if (!granted) {
-                this.logService.log({
-                    type: LogType.Error,
-                    data: ["Permission for device activity denied. AppBlockerService will not work. Please check your settings."]
-                });
-                return;
+    static async init(): Promise<boolean> {
+        return this.requestPermissions().then((permissionResult) => {
+            switch (permissionResult) {
+                case PermissionResult.Granted:
+                    this.setupShield();
+                    this.logService.log({
+                        type: LogType.Log,
+                        data: ["Device activity started."]
+                    });
+                    return true;
+                default:
+                    this.logService.log({
+                        type: LogType.Error,
+                        data: ["Permission for device activity denied. AppBlockerService will not work. Please check your settings."]
+                    });
+                    break;
             }
-            this.setupShield();
-            this.logService.log({
-                type: LogType.Log,
-                data: ["Device activity started."]
-            });
+            return false;
         }).catch((error) => {
             this.logService.log({
                 type: LogType.Error,
                 data: ["App blocker initialization error :", error]
             });
+            return false;
         });
+    }
+
+    static isInit() {
+        return getAuthorizationStatus() === AuthorizationStatus.approved;
     }
 
     static async requestPermissions(): Promise<PermissionResult> {

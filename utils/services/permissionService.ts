@@ -4,7 +4,7 @@ import {LogService} from "@/utils/services/logService";
 import {LogType} from "@/utils/enums";
 import {AppBlockerService} from "@/utils/services/appBlockerService";
 
-export abstract class PermissionHelper {
+export abstract class PermissionService {
     private static readonly logService = new LogService(this.name);
 
     static async requestAllPermissions() {
