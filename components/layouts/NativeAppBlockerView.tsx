@@ -2,10 +2,19 @@ import React, {useState} from "react";
 import {Alert} from "react-native";
 import {ThemedButton, ThemedView} from '@/components';
 import * as ReactNativeDeviceActivity from 'react-native-device-activity';
+import {Colors} from "@/utils/colors";
+import {useColorScheme} from "@/utils/hooks/useColorScheme";
 
 type Props = {}
 
+// Constants for identifying your selections, shields and scheduled activities
+const SELECTION_ID = "evening_block_selection";
+const SHIELD_CONFIG_ID = "evening_shield_config";
+const ACTIVITY_NAME = "evening_block";
+
 export function NativeAppBlockerView({}: Props) {
+    const colorScheme = useColorScheme() ?? 'light';
+
     // Step 2: Manage the selection state of apps/websites to block
     const [currentFamilyActivitySelection, setCurrentFamilyActivitySelection] =
         useState<string | null>(null);
@@ -118,24 +127,45 @@ export function NativeAppBlockerView({}: Props) {
         }
     };
 
+    const stopScheduledBlocking = async () => {
+        try {
+
+            await ReactNativeDeviceActivity.stopMonitoring([ACTIVITY_NAME]);
+
+            Alert.alert("Success", "Blocking schedule has been stopped!");
+        } catch (error) {
+            console.error("Failed to stop scheduled blocking:", error);
+            Alert.alert("Error", "Failed to stop blocking schedule");
+        }
+    };
+
     return (
-        <ThemedView className={'flex-1'} style={{flex: 1}}>
+        <ThemedView className={'flex-1 flex flex-col justify-center items-center gap-3'} style={{flex: 1}}>
             {/* Native selection view for choosing apps to block */}
             <ReactNativeDeviceActivity.DeviceActivitySelectionView
                 onSelectionChange={handleSelectionChange}
                 familyActivitySelection={currentFamilyActivitySelection}
                 style={{
+                    flex: 1,
                     width: "100%",
                     height: "100%",
-                    flex: 1
+                    backgroundColor: Colors.background[colorScheme],
                 }}
             />
 
             {/* Save button */}
-            <ThemedButton
-                title="Save Selection and Schedule Blocking"
-                onPress={saveSelection}
-            />
+            <ThemedView
+                className={'w-full flex flex-row justify-center items-center gap-3 px-3'}
+            >
+                <ThemedButton
+                    title="Start block"
+                    onPress={saveSelection}
+                />
+                <ThemedButton
+                    title="Stop block"
+                    onPress={stopScheduledBlocking}
+                />
+            </ThemedView>
         </ThemedView>
     );
 }
