@@ -11,7 +11,7 @@ import React, {useState, useEffect} from "react";
 import {useRouter} from "expo-router";
 import {FlatList} from "react-native";
 import {SystemApp} from "@/utils/interfaces";
-import {NativeBlockerAppView} from "@/components/layouts/NativeBlockerAppView";
+import {NativeAppBlockerView} from "@/components/layouts/NativeAppBlockerView";
 import {AppBlockerService} from "@/utils/services/appBlockerService";
 
 export default function Page() {
@@ -57,7 +57,7 @@ export default function Page() {
     ) : (
         <ScreenTemplate
             title={"RodShield"}
-            //takeBottomBarIntoAccount={true}
+            takeBottomBarIntoAccount={true}
             setHeightToScreenSize={true}
             scrollEnabled={false}
         >
@@ -118,7 +118,7 @@ export default function Page() {
                 </ThemedView>
             )}
 
-            <NativeBlockerAppView/>
+            <NativeAppBlockerView/>
 
             {/* App list
             <ThemedView
