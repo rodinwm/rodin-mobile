@@ -40,3 +40,18 @@ export enum ChartPeriod {
     Trimester = "90j",
     All = "Tout",
 }
+
+export enum LogType {
+    Log = "log",
+    Info = "info",
+    Debug = "debug",
+    Error = "error",
+    Warning = "warn",
+}
+
+export enum PermissionResult {
+    Granted = "granted",
+    Denied = "denied",
+    Cancelled = "cancelled",
+    Blocked = "blocked",
+}

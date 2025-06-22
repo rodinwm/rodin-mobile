@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 import {DeviceActivitySelectionView} from "react-native-device-activity";
-import {AppBlockerHelper} from "@/utils/helpers/appBlockerHelper";
+import {AppBlockerService} from "@/utils/services/appBlockerService";
 
 type Props = {}
 
 export function NativeBlockerAppView({}: Props) {
     // First things first, you need to request authorization
     useEffect(() => {
-        AppBlockerHelper.init();
+        AppBlockerService.init();
     }, [])
 
     const [familyActivitySelection, setFamilyActivitySelection] = React.useState<string | null>(null);

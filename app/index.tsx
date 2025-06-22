@@ -1,10 +1,16 @@
 import {AppNameTag, ScreenTemplate, ThemedButton, ThemedListTile, ThemedText, ThemedView} from '@/components';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
+import {PermissionHelper} from "@/utils/helpers/permissionHelper";
 
 export default function Page() {
     const [alreadyLoggedIn, setAlreadyLoggedIn] = useState(false);
     const router = useRouter();
+
+    // Permissions check
+    useEffect(() => {
+        PermissionHelper.requestAllPermissions().then();
+    }, []);
 
     return (
         <ScreenTemplate
@@ -21,7 +27,6 @@ export default function Page() {
                     sdfsd fsdf
                 </ThemedText>
             </ThemedView>
-
 
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 {alreadyLoggedIn ? (

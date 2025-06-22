@@ -94,7 +94,7 @@ export default function Page() {
                             app={item}
                             isSelected={selectedApps.includes(item)}
                             onPress={() => {
-                                AppBlockerHelper.block("Instagram");
+                                AppBlockerService.block("Instagram");
                                 setSelectedApps((prevSelected) => {
                                     if (selectedApps.includes(item)) {
                                         return prevSelected.filter(app => app.name !== item.name);

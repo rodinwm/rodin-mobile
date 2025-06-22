@@ -1,12 +1,17 @@
 import {Platform} from "react-native";
 import {PERMISSIONS, request} from 'react-native-permissions';
+import {LogService} from "@/utils/services/logService";
+import {LogType} from "@/utils/enums";
+import {AppBlockerService} from "@/utils/services/appBlockerService";
 
 export abstract class PermissionHelper {
-    static async getAllPermissions() {
+    private static readonly logService = new LogService(this.name);
+
+    static async requestAllPermissions() {
         try {
             switch (Platform.OS) {
                 case "ios":
-                    request(PERMISSIONS.IOS.CAMERA).then(() => {
+                    AppBlockerService.requestPermissions().then(() => {
                     });
                     break;
                 case "android":
@@ -16,9 +21,11 @@ export abstract class PermissionHelper {
                 default:
                     break;
             }
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            this.logService.log({
+                type: LogType.Error,
+                data: ["Permissions request error :", error]
+            });
         }
-        return null;
     }
 }
