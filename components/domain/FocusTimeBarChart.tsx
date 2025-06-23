@@ -5,8 +5,8 @@ import {useWindowDimensions} from "react-native";
 import {Colors} from "@/utils/colors";
 import {ChartLegendItem} from "@/components/domain/ChartLegendItem";
 import {ThemedView} from "@/components/base/ThemedView";
-import {FontHelper} from "@/utils/helpers/fontHelper";
-import {UIHelper} from "@/utils/helpers/UIHelper";
+import {FontService} from "@/utils/services/fontService";
+import {UiService} from "@/utils/services/uiService";
 
 type Props = {
     data: stackDataItem[],
@@ -20,7 +20,7 @@ export function FocusTimeBarChart({data}: Props) {
         textStyle: {
             color: foreground,
             fontSize: 10,
-            fontFamily: FontHelper.getMainFontVariable(),
+            fontFamily: FontService.getMainFontVariable(),
         },
         rulesColor: foreground + '33'
     };
@@ -55,11 +55,11 @@ export function FocusTimeBarChart({data}: Props) {
                 yAxisThickness={0}
                 xAxisThickness={1}
                 yAxisLabelContainerStyle={{
-                    fontFamily: FontHelper.getMainFontVariable(),
+                    fontFamily: FontService.getMainFontVariable(),
                 }}
                 focusBarOnPress={true}
                 onLongPress={(point: stackDataItem, index: number) => {
-                    UIHelper.hapticImpact();
+                    UiService.hapticImpact();
                     console.info("Long press on bar", index);
                 }}
             />

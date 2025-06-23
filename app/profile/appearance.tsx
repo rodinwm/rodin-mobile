@@ -1,7 +1,7 @@
 import {AppearanceCard, ScreenTemplate, ThemedListTile, ThemedView} from '@/components';
 import React, {useEffect, useState} from "react";
 import {ColorTheme} from "@/utils/enums";
-import {AppearanceHelper} from "@/utils/helpers/appearanceHelper";
+import {AppearanceService} from "@/utils/services/appearanceService";
 
 export default function Page() {
     const [theme, setTheme] = useState(ColorTheme.System);
@@ -10,14 +10,14 @@ export default function Page() {
         return relatedTheme === theme;
     }
     const selectTheme = (relatedTheme: ColorTheme) => {
-        AppearanceHelper.saveSelectedTheme(relatedTheme).then(() => {
+        AppearanceService.saveSelectedTheme(relatedTheme).then(() => {
             setTheme(relatedTheme);
-            AppearanceHelper.applyTheme(relatedTheme);
+            AppearanceService.applyTheme(relatedTheme);
         });
     }
 
     useEffect(() => {
-        AppearanceHelper.loadSavedTheme().then((loadedTheme: ColorTheme) => setTheme(loadedTheme));
+        AppearanceService.loadSavedTheme().then((loadedTheme: ColorTheme) => setTheme(loadedTheme));
     }, [false]);
 
     return (

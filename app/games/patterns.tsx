@@ -1,12 +1,12 @@
 import {ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React, {useEffect, useRef, useState} from "react";
 import {useRouter} from "expo-router";
-import {DateHelper} from "@/utils/helpers/dateHelper";
+import {DateService} from "@/utils/services/dateService";
 import {FlatList} from "react-native";
-import {GameHelper} from "@/utils/helpers/gameHelper";
+import {GameService} from "@/utils/services/gameService";
 import {PodColor} from "@/utils/enums";
 import {Pod} from "@/utils/interfaces";
-import {UIHelper} from "@/utils/helpers/UIHelper";
+import {UiService} from "@/utils/services/uiService";
 import {Toast} from "toastify-react-native";
 import {ConcentrationExercise} from "@rodinwm/rodin-models/frontend";
 
@@ -14,7 +14,7 @@ export default function Page() {
     const router = useRouter();
     // Game setup
     const [isRunning, setIsRunning] = useState(false);
-    const [step, setStep] = useState(GameHelper.getEmptyPatternsGameStep());
+    const [step, setStep] = useState(GameService.getEmptyPatternsGameStep());
     // Timer setup
     const totalTime = 5 * 60; // 5 mins en secondes
     const stepTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -27,7 +27,7 @@ export default function Page() {
 
     // Chargement du meilleur score
     useEffect(() => {
-        GameHelper.loadBestScore(ConcentrationExercise.PATTERNS)
+        GameService.loadBestScore(ConcentrationExercise.PATTERNS)
             .then((loadedBestScore: number) => setBestScore(loadedBestScore));
     }, []);
 
@@ -41,7 +41,7 @@ export default function Page() {
                 if (newTime <= 0) {
                     setIsRunning(false);
                     clearInterval(timer);
-                    UIHelper.hapticImpact('error');
+                    UiService.hapticImpact('error');
                     return 0;
                 }
 
@@ -60,7 +60,7 @@ export default function Page() {
     };
 
     const generateNewPods = () => {
-        setStep(GameHelper.generatePodsGameStep());
+        setStep(GameService.generatePodsGameStep());
         startStepTimer();
     };
 
@@ -84,8 +84,8 @@ export default function Page() {
 
         if (score > bestScore) {
             setBestScore(score);
-            GameHelper.saveBestScore(ConcentrationExercise.PATTERNS, score).then();
-            UIHelper.hapticImpact('success');
+            GameService.saveBestScore(ConcentrationExercise.PATTERNS, score).then();
+            UiService.hapticImpact('success');
             Toast.success("Nouveau meilleur score !");
         }
 
@@ -94,7 +94,7 @@ export default function Page() {
 
 
     const startGame = () => {
-        setStep(GameHelper.generatePodsGameStep());
+        setStep(GameService.generatePodsGameStep());
         setIsRunning(true);
     }
 
@@ -111,12 +111,12 @@ export default function Page() {
 
         console.info(`Pod ${pod.color} tapped!`);
         if (pod.color === PodColor.Red) {
-            UIHelper.hapticImpact();
+            UiService.hapticImpact();
             setScore(prevState => prevState + 1);
         } else {
-            UIHelper.hapticImpact("error");
+            UiService.hapticImpact("error");
             setErrorCount(prevState => prevState + 1);
-            setStep(GameHelper.generatePodsGameStep());
+            setStep(GameService.generatePodsGameStep());
         }
         // Générer de nouveaux pods
         generateNewPods();
@@ -133,7 +133,7 @@ export default function Page() {
                 className={'w-full flex flex-col justify-center items-center'}
             >
                 <ThemedText type={'logo'} className={"text-center"}>
-                    {DateHelper.formatTime(timeLeft)}
+                    {DateService.formatTime(timeLeft)}
                 </ThemedText>
 
                 <ThemedText type={'subtitle'} className={"text-center"}>

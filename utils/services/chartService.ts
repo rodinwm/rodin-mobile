@@ -4,7 +4,7 @@ import {barDataItem, lineDataItem, pieDataItem, stackDataItem} from "react-nativ
 import dayjs from "dayjs";
 import {Colors} from "@/utils/colors";
 
-export abstract class ChartHelper {
+export abstract class ChartService {
 
     static generateLineChartData(period: ChartPeriod): lineDataItem[] {
         const count = this.getCountFromPeriod(period);

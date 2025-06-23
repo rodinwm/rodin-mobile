@@ -4,7 +4,7 @@ import {ThemedText} from "@/components/base/ThemedText";
 import {type ButtonProps, TouchableOpacity} from "react-native";
 import React from "react";
 import {icons} from "lucide-react-native";
-import {UIHelper} from "@/utils/helpers/UIHelper";
+import {UiService} from "@/utils/services/uiService";
 
 export type ThemedButtonProps = ButtonProps & {
     icon?: {
@@ -89,7 +89,7 @@ export function ThemedButton({
             disabled={disabled}
             className={classNames.join(' ')}
             onPress={onPress !== undefined ? (event) => {
-                if (hapticOnPress) UIHelper.hapticImpact()
+                if (hapticOnPress) UiService.hapticImpact()
                 onPress(event);
             } : undefined}
             {...otherProps}

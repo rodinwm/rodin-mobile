@@ -1,11 +1,11 @@
 import {AlertCard, LucideIcon, ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React, {useEffect, useLayoutEffect, useState} from "react";
 import {Colors} from "@/utils/colors";
-import {DateHelper} from "@/utils/helpers/dateHelper";
+import {DateService} from "@/utils/services/dateService";
 import {VpnHelper} from "@/utils/helpers/vpnHelper";
 import {useFocusEffect, useNavigation} from "expo-router";
 import {BackHandler} from "react-native";
-import {UIHelper} from "@/utils/helpers/UIHelper";
+import {UiService} from "@/utils/services/uiService";
 
 export default function Page() {
     const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes en secondes
@@ -84,7 +84,7 @@ export default function Page() {
                     isBackgroundBlur={true}
                 >
                     <ThemedText type={'logo'} className={"text-center"}>
-                        {DateHelper.formatTime(timeLeft)}
+                        {DateService.formatTime(timeLeft)}
                     </ThemedText>
                 </ThemedView>
 
@@ -128,7 +128,7 @@ export default function Page() {
             <AlertCard
                 icon={"Shrub"}
                 title={"Motivation"}
-                message={UIHelper.getTipOfTheDay()}
+                message={UiService.getTipOfTheDay()}
             />
         </ScreenTemplate>
     );

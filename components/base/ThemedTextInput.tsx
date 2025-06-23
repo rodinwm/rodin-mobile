@@ -1,5 +1,5 @@
 import {TextInput, type TextInputProps} from 'react-native';
-import {FontHelper} from "@/utils/helpers/fontHelper";
+import {FontService} from "@/utils/services/fontService";
 import {FontWeightEnum} from "@/utils/enums";
 import {ThemedText} from "@/components/base/ThemedText";
 import {ThemedView} from "@/components/base/ThemedView";
@@ -46,7 +46,7 @@ export function ThemedTextInput({
             <TextInput
                 className={classNames.join(' ')}
                 placeholderClassName={bigText ? 'text-2xl' : 'text-lg'}
-                style={{fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.Medium)}}
+                style={{fontFamily: FontService.getMainFontStatic(FontWeightEnum.Medium)}}
                 {...otherProps}
             />
         </ThemedView>

@@ -1,5 +1,5 @@
 import {Text, type TextProps} from 'react-native';
-import {FontHelper} from "@/utils/helpers/fontHelper";
+import {FontService} from "@/utils/services/fontService";
 import {FontWeightEnum} from "@/utils/enums";
 
 export type ThemedTextProps = TextProps & {
@@ -86,7 +86,7 @@ export function ThemedText({
             className={classNames.join(' ')}
             style={{
                 fontFamily: type === 'bigTitle' ?
-                    FontHelper.getBigTitleFontStatic() : FontHelper.getMainFontStatic(styles[type].fontWeight),
+                    FontService.getBigTitleFontStatic() : FontService.getMainFontStatic(styles[type].fontWeight),
                 lineHeight: 0,
                 ...(style as object || {})
             }}

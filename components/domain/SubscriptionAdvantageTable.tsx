@@ -2,7 +2,7 @@ import React from "react";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {Row, Rows, Table} from 'react-native-table-component';
 import {Colors} from "@/utils/colors";
-import {FontHelper} from "@/utils/helpers/fontHelper";
+import {FontService} from "@/utils/services/fontService";
 import {FontWeightEnum} from "@/utils/enums";
 import {LucideIcon} from "@/components/base/LucideIcon";
 
@@ -43,7 +43,7 @@ export function SubscriptionAdvantageTable() {
                 }}
                 textStyle={{
                     color: Colors.foreground[colorScheme],
-                    fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.ExtraBold),
+                    fontFamily: FontService.getMainFontStatic(FontWeightEnum.ExtraBold),
                 }}
             />
             <Rows
@@ -57,7 +57,7 @@ export function SubscriptionAdvantageTable() {
                 }}
                 textStyle={{
                     color: Colors.foreground[colorScheme],
-                    fontFamily: FontHelper.getMainFontVariable(),
+                    fontFamily: FontService.getMainFontVariable(),
                 }}
             />
         </Table>
