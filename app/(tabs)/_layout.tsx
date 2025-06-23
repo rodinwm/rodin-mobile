@@ -15,10 +15,13 @@ export default function TabLayout() {
         <Tabs
             screenOptions={{
                 tabBarActiveTintColor: Colors.foreground[colorScheme ?? 'light'],
-                headerShown: false,
+                headerShown: false, // TODO: Use this later
                 tabBarButton: HapticTab,
                 tabBarBackground: TabBarBackground,
-                headerTitleStyle: {fontFamily: FontService.getMainFontStatic(FontWeightEnum.Bold)},
+                headerTitleStyle: {
+                    fontFamily: FontService.getMainFontStatic(FontWeightEnum.ExtraBold),
+                    fontSize: 28,
+                },
                 tabBarLabelStyle: {fontFamily: FontService.getMainFontStatic(FontWeightEnum.Bold)},
                 tabBarStyle: Platform.select({
                     ios: {

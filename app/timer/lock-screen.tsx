@@ -2,7 +2,6 @@ import {AlertCard, LucideIcon, ScreenTemplate, ThemedButton, ThemedText, ThemedV
 import React, {useEffect, useLayoutEffect, useState} from "react";
 import {Colors} from "@/utils/colors";
 import {DateService} from "@/utils/services/dateService";
-import {VpnHelper} from "@/utils/helpers/vpnHelper";
 import {useFocusEffect, useNavigation} from "expo-router";
 import {BackHandler} from "react-native";
 import {UiService} from "@/utils/services/uiService";
@@ -24,14 +23,6 @@ export default function Page() {
         }
         return () => clearInterval(timer);
     }, [isRunning, timeLeft]);
-
-    useEffect(() => {
-        VpnHelper.setupAndStartVPN([
-            "instagram.com",
-            "tiktok.com",
-            "facebook.com",
-        ]).then();
-    }, []);
 
     useLayoutEffect(() => {
         navigation.setOptions({

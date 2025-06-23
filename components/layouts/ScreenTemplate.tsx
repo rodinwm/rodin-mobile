@@ -5,7 +5,7 @@ import {HeaderSpacer} from '@/components/domain/HeaderSpacer';
 import React, {ReactNode} from "react";
 import {useBottomTabOverflow} from "@/components/base/TabBarBackground";
 import {SafeAreaView, useSafeAreaInsets} from "react-native-safe-area-context";
-import {useNavigation} from "expo-router";
+import {Stack, useNavigation} from "expo-router";
 import {HeaderBtn} from "@/utils/interfaces";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {ImageSourcePropType} from "react-native";
@@ -29,81 +29,90 @@ export function ScreenTemplate(props: Props) {
     const insets = useSafeAreaInsets();
 
     return (
-        <ThemedView
-            className={"w-full h-screen"}
-            fillStyle={"default"}
-            backgroundImage={props.backgroundImage}
-            showBlackOverlay={props.backgroundImage !== undefined}
-        >
-            <KeyboardAwareScrollView
-                enableOnAndroid={true}
-                showsHorizontalScrollIndicator={false}
-                showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps="handled"
-                contentContainerClassName={'grow'}
-                nestedScrollEnabled={true}
-                scrollEnabled={props.scrollEnabled}
+        <>
+            <Stack.Screen
+                options={{
+                    title: props.title,
+                    //headerShown: false
+                }}
+            />
+
+            <ThemedView
+                className={"w-full h-screen"}
+                fillStyle={"default"}
+                backgroundImage={props.backgroundImage}
+                showBlackOverlay={props.backgroundImage !== undefined}
             >
-                <SafeAreaView
-                    className={`w-full flex flex-col gap-6 ${props.setHeightToScreenSize ? 'h-screen justify-between' : 'h-full'} ${props.removeBodyPadding ? 'p-0 pb-20' : 'p-6 pt-0'}`}
-                    style={props.takeBottomBarIntoAccount ? {
-                        paddingBottom: insets.bottom + useBottomTabOverflow(),
-                    } : null}
+                <KeyboardAwareScrollView
+                    enableOnAndroid={true}
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
+                    keyboardShouldPersistTaps="handled"
+                    contentContainerClassName={'grow'}
+                    nestedScrollEnabled={true}
+                    scrollEnabled={props.scrollEnabled}
                 >
-                    {/* Header */}
-                    <ThemedView
-                        className={`w-full flex flex-row items-center justify-between ${props.removeBodyPadding ? 'px-6' : ''}`}>
-                        {props.headerLeftBtn === "backBtn" ? (
-                            <ThemedButton
-                                title={"Back"}
-                                icon={{name: 'ChevronLeft'}}
-                                showTitle={false}
-                                paddingStyle={"none"}
-                                type={"no-fill"}
-                                onPress={() => navigation.goBack()}
-                            />
-                        ) : props.headerLeftBtn !== undefined ? (
-                            <ThemedButton
-                                title={"HeaderLeftBtn"}
-                                icon={{name: props.headerLeftBtn.icon}}
-                                showTitle={false}
-                                paddingStyle={"none"}
-                                type={"no-fill"}
-                                onPress={props.headerLeftBtn.onPress}
-                            />
-                        ) : (
-                            <HeaderSpacer/>
-                        )}
+                    <SafeAreaView
+                        className={`w-full flex flex-col gap-6 ${props.setHeightToScreenSize ? 'h-screen justify-between' : 'h-full'} ${props.removeBodyPadding ? 'p-0 pb-20' : 'p-6 pt-0'}`}
+                        style={props.takeBottomBarIntoAccount ? {
+                            paddingBottom: insets.bottom + useBottomTabOverflow(),
+                        } : null}
+                    >
+                        {/* Header */}
+                        <ThemedView
+                            className={`w-full flex flex-row items-center justify-between ${props.removeBodyPadding ? 'px-6' : ''}`}>
+                            {props.headerLeftBtn === "backBtn" ? (
+                                <ThemedButton
+                                    title={"Back"}
+                                    icon={{name: 'ChevronLeft'}}
+                                    showTitle={false}
+                                    paddingStyle={"none"}
+                                    type={"no-fill"}
+                                    onPress={() => navigation.goBack()}
+                                />
+                            ) : props.headerLeftBtn !== undefined ? (
+                                <ThemedButton
+                                    title={"HeaderLeftBtn"}
+                                    icon={{name: props.headerLeftBtn.icon}}
+                                    showTitle={false}
+                                    paddingStyle={"none"}
+                                    type={"no-fill"}
+                                    onPress={props.headerLeftBtn.onPress}
+                                />
+                            ) : (
+                                <HeaderSpacer/>
+                            )}
 
-                        {props.title ? (
-                            <ThemedText type={'title'}>
-                                {props.title}
-                            </ThemedText>
-                        ) : null}
+                            {props.title ? (
+                                <ThemedText type={'title'}>
+                                    {props.title}
+                                </ThemedText>
+                            ) : null}
 
-                        {props.headerRightBtn !== undefined ? (
-                            <ThemedButton
-                                title={"HeaderRightBtn"}
-                                icon={{name: props.headerRightBtn.icon}}
-                                showTitle={false}
-                                paddingStyle={"none"}
-                                type={"no-fill"}
-                                onPress={props.headerRightBtn.onPress}
-                            />
-                        ) : (
-                            <HeaderSpacer/>
-                        )}
-                    </ThemedView>
+                            {props.headerRightBtn !== undefined ? (
+                                <ThemedButton
+                                    title={"HeaderRightBtn"}
+                                    icon={{name: props.headerRightBtn.icon}}
+                                    showTitle={false}
+                                    paddingStyle={"none"}
+                                    type={"no-fill"}
+                                    onPress={props.headerRightBtn.onPress}
+                                />
+                            ) : (
+                                <HeaderSpacer/>
+                            )}
+                        </ThemedView>
 
-                    {/* Children */}
-                    {props.children}
+                        {/* Children */}
+                        {props.children}
 
-                </SafeAreaView>
-            </KeyboardAwareScrollView>
+                    </SafeAreaView>
+                </KeyboardAwareScrollView>
 
-            {/* Bottom sheet */}
-            {props.bottomSheet ?? null}
-        </ThemedView>
+                {/* Bottom sheet */}
+                {props.bottomSheet ?? null}
+            </ThemedView>
+        </>
     );
 }
 
