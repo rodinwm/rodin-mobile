@@ -33,7 +33,7 @@ export function ScreenTemplate(props: Props) {
             <Stack.Screen
                 options={{
                     title: props.title,
-                    //headerShown: false
+                    headerShown: false
                 }}
             />
 
