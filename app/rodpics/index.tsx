@@ -4,7 +4,7 @@ import {CameraType, CameraView, useCameraPermissions} from "expo-camera";
 import {useRouter} from "expo-router";
 import {Toast} from "toastify-react-native";
 import {TouchableOpacity} from "react-native";
-import {UIHelper} from "@/utils/helpers/UIHelper";
+import {UiService} from "@/utils/services/uiService";
 import {useIsFocused} from "@react-navigation/native";
 
 export default function Page() {
@@ -37,7 +37,7 @@ export default function Page() {
         });
     }
     const toggleFacing = () => {
-        UIHelper.hapticImpact('feedback');
+        UiService.hapticImpact('feedback');
         setFacing(current => (current === 'back' ? 'front' : 'back'));
     }
 

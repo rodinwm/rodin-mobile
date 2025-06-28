@@ -11,11 +11,11 @@ import {
 } from '@/components';
 import React, {useEffect, useRef, useState} from "react";
 import {useRouter} from "expo-router";
-import {DateHelper} from "@/utils/helpers/dateHelper";
+import {DateService} from "@/utils/services/dateService";
 import PagerView from "react-native-pager-view";
 import {ChartPeriod, ChartType} from '@/utils/enums';
-import {ChartHelper} from "@/utils/helpers/chartHelper";
-import {UIHelper} from "@/utils/helpers/UIHelper";
+import {ChartService} from "@/utils/services/chartService";
+import {UiService} from "@/utils/services/uiService";
 
 const chartPeriods = Object.values(ChartPeriod);
 
@@ -33,9 +33,9 @@ export default function Page() {
         period: ChartPeriod.Week,
     });
     const [chartData, setChartData] = useState({
-        [ChartType.Line]: ChartHelper.generateLineChartData(chartConfig.period),
-        [ChartType.Bar]: ChartHelper.generateStackBarChartData(chartConfig.period),
-        [ChartType.Pie]: ChartHelper.generatePieChartData(chartConfig.period),
+        [ChartType.Line]: ChartService.generateLineChartData(chartConfig.period),
+        [ChartType.Bar]: ChartService.generateStackBarChartData(chartConfig.period),
+        [ChartType.Pie]: ChartService.generatePieChartData(chartConfig.period),
     });
 
 
@@ -48,19 +48,19 @@ export default function Page() {
             case ChartType.Line:
                 setChartData(prevState => ({
                     ...prevState,
-                    [ChartType.Line]: ChartHelper.generateLineChartData(chartConfig.period)
+                    [ChartType.Line]: ChartService.generateLineChartData(chartConfig.period)
                 }));
                 break;
             case ChartType.Bar:
                 setChartData(prevState => ({
                     ...prevState,
-                    [ChartType.Bar]: ChartHelper.generateStackBarChartData(chartConfig.period)
+                    [ChartType.Bar]: ChartService.generateStackBarChartData(chartConfig.period)
                 }));
                 break;
             case ChartType.Pie:
                 setChartData(prevState => ({
                     ...prevState,
-                    [ChartType.Pie]: ChartHelper.generatePieChartData(chartConfig.period)
+                    [ChartType.Pie]: ChartService.generatePieChartData(chartConfig.period)
                 }));
                 break;
             default:
@@ -77,8 +77,8 @@ export default function Page() {
             bottomSheet={(
                 <>
                     <MessageSheet
-                        title={`Conseil du ${DateHelper.formatDate(new Date())}`}
-                        subtitle={UIHelper.getTipOfTheDay()}
+                        title={`Conseil du ${DateService.formatDate(new Date())}`}
+                        subtitle={UiService.getTipOfTheDay()}
                         isOpen={isBottomSheetOpen.tipOfTheDay}
                         takeBottomBarIntoAccount={true}
                         onClose={() => {
@@ -209,7 +209,7 @@ export default function Page() {
                 >
                     <FocusTimeLineChart
                         data={chartData[ChartType.Line]}
-                        //data2={ChartHelper.generateLineChartData(chartConfig.period)}
+                        //data2={ChartService.generateLineChartData(chartConfig.period)}
                     />
                     <FocusTimeBarChart
                         data={chartData[ChartType.Bar]}
@@ -251,7 +251,7 @@ export default function Page() {
             <AlertCard
                 icon={"Info"}
                 title={"Conseil du jour"}
-                message={UIHelper.getTipOfTheDay()}
+                message={UiService.getTipOfTheDay()}
                 onPress={() => setIsBottomSheetOpen(prevState => ({...prevState, tipOfTheDay: true}))}
             />
         </ScreenTemplate>

@@ -6,8 +6,8 @@ import {Colors} from "@/utils/colors";
 import {ChartLegendItem} from "@/components/domain/ChartLegendItem";
 import {ThemedView} from "@/components/base/ThemedView";
 import {ThemedText} from "@/components/base/ThemedText";
-import {FontHelper} from "@/utils/helpers/fontHelper";
-import {UIHelper} from "@/utils/helpers/UIHelper";
+import {FontService} from "@/utils/services/fontService";
+import {UiService} from "@/utils/services/uiService";
 
 type Props = {
     data: lineDataItem[],
@@ -23,7 +23,7 @@ export function FocusTimeLineChart({data, data2}: Props) {
         textStyle: {
             color: foreground,
             fontSize: 10,
-            fontFamily: FontHelper.getMainFontVariable(),
+            fontFamily: FontService.getMainFontVariable(),
         },
         rulesColor: foreground + '33',
         stripColor: foreground,
@@ -92,7 +92,7 @@ export function FocusTimeLineChart({data, data2}: Props) {
                 rotateLabel={false}
                 yAxisLabelSuffix={'h'}
                 yAxisLabelContainerStyle={{
-                    fontFamily: FontHelper.getMainFontVariable(),
+                    fontFamily: FontService.getMainFontVariable(),
                 }}
                 animationDuration={1000}
                 onDataChangeAnimationDuration={300}
@@ -111,7 +111,7 @@ export function FocusTimeLineChart({data, data2}: Props) {
                     pointerColor: foreground + '33',
                     pointerLabelWidth: data2 ? 100 : 60,
                     pointerLabelComponent: (points: lineDataItem[]) => {
-                        UIHelper.hapticImpact('selection');
+                        UiService.hapticImpact('selection');
                         return (
                             <ThemedView
                                 className={`w-full flex flex-row gap-2 ${data2 ? 'justify-between' : 'justify-center'} items-center`}

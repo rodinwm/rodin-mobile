@@ -3,12 +3,12 @@ import {useColorScheme} from '@/utils/hooks/useColorScheme';
 import {TimerPicker, TimerPickerProps} from "react-native-timer-picker";
 import MaskedView from "@react-native-masked-view/masked-view"; // for transparent fade-out
 import {LinearGradient} from "expo-linear-gradient"; // or `import LinearGradient from "react-native-linear-gradient"`
-import {FontHelper} from "@/utils/helpers/fontHelper";
+import {FontService} from "@/utils/services/fontService";
 import {FontWeightEnum} from "@/utils/enums";
 import {ThemedView} from "@/components/base/ThemedView";
 import {clickAudioSource} from "@/utils/constants";
 import {useAudioPlayer} from 'expo-audio';
-import {UIHelper} from "@/utils/helpers/UIHelper";
+import {UiService} from "@/utils/services/uiService";
 import {TimerValue} from "@rodinwm/rodin-models/frontend";
 
 type Props = TimerPickerProps & {
@@ -56,12 +56,12 @@ export function TimerSelect({
                 onDurationChange={updateTime}
                 disableInfiniteScroll={true}
                 pickerFeedback={() => {
-                    UIHelper.hapticImpact('selection');
+                    UiService.hapticImpact('selection');
                 }}
                 styles={{
                     theme: colorScheme,
                     backgroundColor: "transparent",
-                    text: {fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.Bold)},
+                    text: {fontFamily: FontService.getMainFontStatic(FontWeightEnum.Bold)},
                     pickerItem: {fontSize: 24, width: 'auto'},
                     pickerItemContainer: {width: 105},
                     pickerLabel: {fontSize: 12},

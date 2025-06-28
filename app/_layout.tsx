@@ -13,10 +13,10 @@ import {SafeAreaProvider} from "react-native-safe-area-context";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import Routes from "@/app/routes";
 import ToastManager from "toastify-react-native";
-import {FontHelper} from "@/utils/helpers/fontHelper";
+import {FontService} from "@/utils/services/fontService";
 import {FontWeightEnum} from "@/utils/enums";
 import {Colors} from "@/utils/colors";
-import {AppearanceHelper} from "@/utils/helpers/appearanceHelper";
+import {AppearanceService} from "@/utils/services/appearanceService";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync().then();
@@ -45,8 +45,8 @@ export default function RootLayout() {
         }
 
         // Appearance setting up
-        AppearanceHelper.loadSavedTheme().then((loadedTheme) => {
-            AppearanceHelper.applyTheme(loadedTheme);
+        AppearanceService.loadSavedTheme().then((loadedTheme) => {
+            AppearanceService.applyTheme(loadedTheme);
         });
 
     }, [fontLoaded]);
@@ -81,7 +81,7 @@ export default function RootLayout() {
                         showProgressBar={false}
                         showCloseIcon={false}
                         textStyle={{
-                            fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.Regular)
+                            fontFamily: FontService.getMainFontStatic(FontWeightEnum.Regular)
                         }}
                         style={{
                             borderRadius: 18,

@@ -68,13 +68,13 @@ export default function Page() {
                         )}
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
-                        keyExtractor={item => item.username}
+                        keyExtractor={item => item.pseudo}
                         renderItem={({item}) => (
                             <ThemedListTile
-                                key={item.username}
+                                key={item.pseudo}
                                 icon={'User'}
-                                title={item.getFullName()}
-                                subtitle={item.username}
+                                title={item.pseudo}
+                                subtitle={item.pseudo}
                                 fillStyle={"none"}
                                 suffixIcon={(
                                     <ThemedView className={'flex flex-row items-center gap-3'}>
@@ -116,14 +116,14 @@ export default function Page() {
                         )}
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
-                        keyExtractor={item => item.username}
+                        keyExtractor={item => item.pseudo}
                         renderItem={({item}) => (
                             <ThemedListTile
-                                key={item.username}
+                                key={item.pseudo}
                                 icon={'User'}
                                 fillStyle={"none"}
-                                title={item.getFullName()}
-                                subtitle={item.username}
+                                title={item.pseudo}
+                                subtitle={item.pseudo}
                                 suffixIcon={(
                                     <ThemedView className={'flex flex-row gap-2'}>
                                         <ThemedButton

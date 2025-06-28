@@ -1,8 +1,8 @@
 import {ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
-import {DateHelper} from "@/utils/helpers/dateHelper";
-import {UIHelper} from "@/utils/helpers/UIHelper";
+import {DateService} from "@/utils/services/dateService";
+import {UiService} from "@/utils/services/uiService";
 import Animated, {
     cancelAnimation,
     runOnJS,
@@ -81,7 +81,7 @@ export default function Page() {
     }
 
     const toggleStep = (newStep?: string) => {
-        UIHelper.hapticImpact('feedback');
+        UiService.hapticImpact('feedback');
         if (newStep) {
             setStep(newStep);
         } else {
@@ -115,7 +115,7 @@ export default function Page() {
                 className={'w-full flex flex-col justify-center items-center'}
             >
                 <ThemedText type={'logo'} className={"text-center"}>
-                    {DateHelper.formatTime(timeLeft)}
+                    {DateService.formatTime(timeLeft)}
                 </ThemedText>
 
                 <Animated.View style={animatedTextStyle}>

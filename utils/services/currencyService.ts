@@ -1,4 +1,4 @@
-export abstract class CurrencyHelper {
+export abstract class CurrencyService {
     private static formatter = new Intl.NumberFormat('fr-FR', {
         style: 'currency',
         currency: 'EUR',
@@ -7,7 +7,7 @@ export abstract class CurrencyHelper {
     });
 
     static format(amount: number): string {
-        return CurrencyHelper.formatter.format(amount);
+        return CurrencyService.formatter.format(amount);
     }
 
     static computeDifferenceInPercent(amount1: number, amount2: number): number {

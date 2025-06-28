@@ -1,18 +1,10 @@
 import {AppNameTag, ScreenTemplate, ThemedButton, ThemedListTile, ThemedText, ThemedView} from '@/components';
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useRouter} from "expo-router";
-import {PermissionService} from "@/utils/services/permissionService";
 
 export default function Page() {
     const [alreadyLoggedIn, setAlreadyLoggedIn] = useState(false);
     const router = useRouter();
-
-    // Permissions check
-    /*
-    useEffect(() => {
-        PermissionService.requestAllPermissions().then();
-    }, []);
-     */
 
     return (
         <ScreenTemplate

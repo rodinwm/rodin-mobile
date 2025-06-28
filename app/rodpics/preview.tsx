@@ -6,7 +6,7 @@ import {Alert, LayoutRectangle, TouchableOpacity} from "react-native";
 import Animated from 'react-native-reanimated';
 import {GestureDetector} from 'react-native-gesture-handler';
 import {useDraggableGesture} from "@/utils/hooks/useDraggableGesture";
-import {UIHelper} from "@/utils/helpers/UIHelper";
+import {UiService} from "@/utils/services/uiService";
 
 export default function Page() {
     const colorScheme = useColorScheme() ?? 'light';
@@ -50,7 +50,7 @@ export default function Page() {
                         <TouchableOpacity
                             className={'flex-1 shadow-lg'}
                             onPress={() => {
-                                UIHelper.hapticImpact();
+                                UiService.hapticImpact();
                                 setIsSwapped(prev => !prev);
                             }}
                         >

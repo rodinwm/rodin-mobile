@@ -1,8 +1,3 @@
-/*
-const workColor = "#9ac8eb";
-const restColor = "#5784ba";
-*/
-
 const workColor = "#2cced2";
 const restColor = "#5784ba";
 

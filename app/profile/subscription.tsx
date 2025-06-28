@@ -10,7 +10,7 @@ import React, {useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
 import {SubscriptionRecurrence} from "@/utils/enums";
 import {subscriptions} from "@/assets/static/subscriptions";
-import {CurrencyHelper} from "@/utils/helpers/currencyHelper";
+import {CurrencyService} from "@/utils/services/currencyService";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {Alert} from "react-native";
@@ -72,8 +72,8 @@ export default function Page() {
                                 <ThemedText>
                                     <ThemedText type={'title'}>
                                         {subscriptionRecurrence === SubscriptionRecurrence.Yearly ?
-                                            CurrencyHelper.format(sub.price[subscriptionRecurrence] / 12)
-                                            : CurrencyHelper.format(sub.price[subscriptionRecurrence])
+                                            CurrencyService.format(sub.price[subscriptionRecurrence] / 12)
+                                            : CurrencyService.format(sub.price[subscriptionRecurrence])
                                         }
                                     </ThemedText> / mois
                                 </ThemedText>
@@ -81,7 +81,7 @@ export default function Page() {
 
                             {sub.price && (
                                 <ThemedText className={'mb-2'}>
-                                    {subscriptionRecurrence === SubscriptionRecurrence.Yearly ? `${CurrencyHelper.format(sub.price[subscriptionRecurrence])} facturé annuellement` : "Facturé mensuellement"}
+                                    {subscriptionRecurrence === SubscriptionRecurrence.Yearly ? `${CurrencyService.format(sub.price[subscriptionRecurrence])} facturé annuellement` : "Facturé mensuellement"}
                                 </ThemedText>
                             )}
 
@@ -99,13 +99,13 @@ export default function Page() {
                                             <>
                                                 Economisez <ThemedText filled={false}
                                                                        className={'text-foreground-success-light dark:text-foreground-success-dark'}
-                                                                       type={"miniExtraBold"}>{CurrencyHelper.computeDifferenceInPercent(sub.price[SubscriptionRecurrence.Yearly] / 12, sub.price[SubscriptionRecurrence.Monthly])}%</ThemedText>
+                                                                       type={"miniExtraBold"}>{CurrencyService.computeDifferenceInPercent(sub.price[SubscriptionRecurrence.Yearly] / 12, sub.price[SubscriptionRecurrence.Monthly])}%</ThemedText>
                                             </>
                                         ) : (
                                             <>
                                                 Economisez <ThemedText filled={false}
                                                                        className={'text-foreground-success-light dark:text-foreground-success-dark'}
-                                                                       type={"miniExtraBold"}>{CurrencyHelper.computeDifferenceInPercent(sub.price[SubscriptionRecurrence.Yearly] / 12, sub.price[SubscriptionRecurrence.Monthly])}%</ThemedText> grâce
+                                                                       type={"miniExtraBold"}>{CurrencyService.computeDifferenceInPercent(sub.price[SubscriptionRecurrence.Yearly] / 12, sub.price[SubscriptionRecurrence.Monthly])}%</ThemedText> grâce
                                                 à l'abonnement annuel
                                             </>
                                         )}

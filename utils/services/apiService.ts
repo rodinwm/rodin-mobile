@@ -1,11 +1,12 @@
 import axios, {AxiosResponse, HttpStatusCode} from 'axios';
+import {LogService} from "@/utils/services/logService";
+import {LogType} from "@/utils/enums";
 
-//import {CreateUserRequestBody} from "@rodinwm/rodin-models/frontend";
-
-export abstract class ApiHelper {
-    private readonly host = "http://127.0.0.1:8000";
-    private readonly defaultTimeout = 5000; // Timeout en millisecondes
-    private readonly serverErrorResponse = {
+export abstract class ApiService {
+    private static readonly logService = new LogService(this.name);
+    private static readonly host = "http://82.29.174.212:3000";
+    private static readonly defaultTimeout = 5000; // Timeout en millisecondes
+    private static readonly serverErrorResponse = {
         status: 500,
         statusText: "Failed API call",
         data: {
@@ -15,8 +16,7 @@ export abstract class ApiHelper {
         config: {},
     } as AxiosResponse;
 
-    //async register(payload: CreateUserRequestBody): Promise<AxiosResponse> {
-    async register(payload: any): Promise<AxiosResponse> {
+    static async register(payload: any): Promise<AxiosResponse> {
         try {
             const response = await axios.post(`${this.host}/api/users`, payload, {
                 headers: {
@@ -25,11 +25,17 @@ export abstract class ApiHelper {
                 timeout: this.defaultTimeout,
             });
 
-            console.debug("register response", response.status, response.data);
+            this.logService.log({
+                type: LogType.Debug,
+                data: ["register() response", response.status, response.data]
+            });
             return response;
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                console.error("register error", error);
+                this.logService.log({
+                    type: LogType.Error,
+                    data: ["register() error", error]
+                });
 
                 switch (error.response?.status) {
                     case HttpStatusCode.NotAcceptable:
@@ -38,7 +44,10 @@ export abstract class ApiHelper {
                         return this.serverErrorResponse;
                 }
             } else {
-                console.error(this.serverErrorResponse.data.message, error);
+                this.logService.log({
+                    type: LogType.Error,
+                    data: [this.serverErrorResponse.data.message, error]
+                });
                 return this.serverErrorResponse;
             }
         }

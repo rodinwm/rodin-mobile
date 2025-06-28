@@ -1,10 +1,10 @@
 import {WheelStyle} from "@/utils/interfaces";
 import WheelPicker from "react-native-wheely";
-import {FontHelper} from "@/utils/helpers/fontHelper";
+import {FontService} from "@/utils/services/fontService";
 import {FontWeightEnum} from "@/utils/enums";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
-import {UIHelper} from "@/utils/helpers/UIHelper";
+import {UiService} from "@/utils/services/uiService";
 
 type Props = {
     options: string[];
@@ -27,7 +27,7 @@ export function RodinWheelPicker({
     const wheelStyle: WheelStyle = {
         visibleRest: 1,
         itemTextStyle: {
-            fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.Bold),
+            fontFamily: FontService.getMainFontStatic(FontWeightEnum.Bold),
             fontSize: 20,
             color: Colors.foreground[colorScheme],
         },
@@ -57,7 +57,7 @@ export function RodinWheelPicker({
             options={options}
             selectedIndex={selectedIndex}
             onChange={(index) => {
-                UIHelper.hapticImpact();
+                UiService.hapticImpact();
                 if (onChange) {
                     onChange(index);
                 }

@@ -1,12 +1,28 @@
-import {ScreenTemplate, ThemedButton, ThemedListTile, ThemedText, ThemedTextInput, ThemedView} from '@/components';
-import React from "react";
+import {
+    LucideIcon,
+    ScreenTemplate,
+    ThemedButton,
+    ThemedListTile,
+    ThemedText,
+    ThemedTextInput,
+    ThemedView
+} from '@/components';
+import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
 import {FlatList, Platform} from 'react-native';
 import {Friends} from "@/assets/static/friends";
 import {openBrowserAsync} from "expo-web-browser";
+import {User} from "@rodinwm/rodin-models/frontend";
 
 export default function Page() {
     const router = useRouter();
+    const [searchedFriend, setSearchedFriend] = useState('');
+    const [friends, setFriends] = useState<User[]>(Friends.filter(friend => friend.pseudo.includes(searchedFriend)));
+
+    // Update friend list on search
+    useEffect(() => {
+        setFriends(Friends.filter(friend => friend.pseudo.includes(searchedFriend)));
+    }, [searchedFriend]);
 
     return (
         <ScreenTemplate
@@ -22,7 +38,7 @@ export default function Page() {
                     clearButtonMode={"while-editing"}
                     placeholder={"Rechercher vos amis"}
                     onChangeText={(text) => {
-                        console.log(text);
+                        setSearchedFriend(text);
                     }}
                 />
                 <ThemedListTile
@@ -48,7 +64,7 @@ export default function Page() {
                 </ThemedText>
 
                 <FlatList
-                    data={Friends}
+                    data={friends}
                     refreshing={false}
                     onRefresh={() => console.log('refresh')}
                     showsHorizontalScrollIndicator={false}
@@ -56,22 +72,35 @@ export default function Page() {
                     ItemSeparatorComponent={() => (
                         <ThemedView className={"h-5"}/>
                     )}
-                    ListFooterComponent={() => (
+                    ListFooterComponent={() => friends.length > 0 ? (
                         <ThemedView className={'w-full mt-14'}>
                             <ThemedButton
                                 title={"Voir plus"}
                                 onPress={() => console.log("Voir plus")}
                             />
                         </ThemedView>
+                    ) : (
+                        <ThemedView
+                            className={'w-full flex flex-row items-center gap-4'}
+                            fillStyle={'opacity-10'}
+                            paddingStyle={'small'}
+                            radiusStyle={'medium'}
+                        >
+                            <LucideIcon name={"SearchX"}/>
+                            <ThemedText type={"default"} className={'flex-1'}>
+                                <ThemedText type={"defaultExtraBold"}>{searchedFriend}</ThemedText> n'a pas été trouvé
+                                parmis vos amis.
+                            </ThemedText>
+                        </ThemedView>
                     )}
-                    keyExtractor={item => item.username}
+                    keyExtractor={item => item.pseudo}
                     renderItem={({item}) => (
                         <ThemedListTile
-                            key={item.username}
+                            key={item.pseudo}
                             icon={'User'}
                             fillStyle={"none"}
-                            title={item.getFullName()}
-                            subtitle={item.username}
+                            title={item.pseudo}
+                            subtitle={item.pseudo}
                             suffixIcon={(
                                 <ThemedView className={'flex flex-row gap-2'}>
                                     <ThemedButton
@@ -87,6 +116,54 @@ export default function Page() {
                     )}
                 />
             </ThemedView>
+
+            {/* Search outside friends results */}
+            {friends.length === 0 && (
+                <ThemedView className={'w-full flex flex-col gap-4'}>
+                    <ThemedText type={"h1"}>
+                        Rechercher des amis
+                    </ThemedText>
+
+                    <FlatList
+                        data={Friends}
+                        refreshing={false}
+                        onRefresh={() => console.log('refresh')}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+                        ItemSeparatorComponent={() => (
+                            <ThemedView className={"h-5"}/>
+                        )}
+                        ListFooterComponent={() => friends.length > 0 && (
+                            <ThemedView className={'w-full mt-14'}>
+                                <ThemedButton
+                                    title={"Voir plus"}
+                                    onPress={() => console.log("Voir plus")}
+                                />
+                            </ThemedView>
+                        )}
+                        keyExtractor={item => item.pseudo}
+                        renderItem={({item}) => (
+                            <ThemedListTile
+                                key={item.pseudo}
+                                icon={'User'}
+                                fillStyle={"none"}
+                                title={item.pseudo}
+                                subtitle={item.pseudo}
+                                suffixIcon={(
+                                    <ThemedView className={'flex flex-row gap-2'}>
+                                        <ThemedButton
+                                            title={"Ajouter"}
+                                            textSize={"miniExtraBold"}
+                                            paddingStyle={"small"}
+                                            type={"opacity-25"}
+                                        />
+                                    </ThemedView>
+                                )}
+                            />
+                        )}
+                    />
+                </ThemedView>
+            )}
         </ScreenTemplate>
     );
 }

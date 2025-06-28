@@ -1,7 +1,7 @@
 import * as Haptics from "expo-haptics";
 import {dailyTips} from "@/assets/static/daily-tips";
 
-export abstract class UIHelper {
+export abstract class UiService {
     static hapticImpact(impactType?: 'error' | 'success' | 'feedback' | 'selection') {
         if (process.env.EXPO_OS === 'ios') {
             switch (impactType) {

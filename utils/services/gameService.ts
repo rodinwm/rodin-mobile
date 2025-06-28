@@ -4,7 +4,7 @@ import {Pod} from "@/utils/interfaces";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {ConcentrationExercise} from "@rodinwm/rodin-models/frontend";
 
-export abstract class GameHelper {
+export abstract class GameService {
 
     static getEmptyPodsGameStep(): Pod[] {
         return Array.from({length: 4}, () => ({

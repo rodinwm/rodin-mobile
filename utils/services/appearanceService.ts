@@ -2,7 +2,7 @@ import {ColorTheme} from "@/utils/enums";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Appearance} from "react-native";
 
-export abstract class AppearanceHelper {
+export abstract class AppearanceService {
 
     static async saveSelectedTheme(theme: ColorTheme): Promise<void> {
         try {

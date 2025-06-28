@@ -4,7 +4,7 @@ import {Platform} from 'react-native';
 
 import {HapticTab, LucideIcon, TabBarBackground} from '@/components';
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
-import {FontHelper} from "@/utils/helpers/fontHelper";
+import {FontService} from "@/utils/services/fontService";
 import {FontWeightEnum} from "@/utils/enums";
 import {Colors} from "@/utils/colors";
 
@@ -15,11 +15,14 @@ export default function TabLayout() {
         <Tabs
             screenOptions={{
                 tabBarActiveTintColor: Colors.foreground[colorScheme ?? 'light'],
-                headerShown: false,
+                headerShown: false, // TODO: Use this later
                 tabBarButton: HapticTab,
                 tabBarBackground: TabBarBackground,
-                headerTitleStyle: {fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.Bold)},
-                tabBarLabelStyle: {fontFamily: FontHelper.getMainFontStatic(FontWeightEnum.Bold)},
+                headerTitleStyle: {
+                    fontFamily: FontService.getMainFontStatic(FontWeightEnum.ExtraBold),
+                    fontSize: 28,
+                },
+                tabBarLabelStyle: {fontFamily: FontService.getMainFontStatic(FontWeightEnum.Bold)},
                 tabBarStyle: Platform.select({
                     ios: {
                         // Use a transparent background on iOS to show the blur effect

@@ -4,7 +4,7 @@ import {ThemedView} from "@/components/base/ThemedView";
 import {type ButtonProps, TouchableOpacity} from "react-native";
 import {icons} from "lucide-react-native";
 import {isValidElement, ReactNode} from "react";
-import {UIHelper} from "@/utils/helpers/UIHelper";
+import {UiService} from "@/utils/services/uiService";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 
@@ -34,7 +34,7 @@ export function ThemedListTile({
     return (
         <TouchableOpacity
             onPress={onPress !== undefined ? (event) => {
-                if (hapticOnPress) UIHelper.hapticImpact()
+                if (hapticOnPress) UiService.hapticImpact()
                 onPress(event);
             } : undefined}
             {...otherProps}

@@ -4,14 +4,14 @@ import {barDataItem, lineDataItem, pieDataItem, stackDataItem} from "react-nativ
 import dayjs from "dayjs";
 import {Colors} from "@/utils/colors";
 
-export abstract class ChartHelper {
+export abstract class ChartService {
 
     static generateLineChartData(period: ChartPeriod): lineDataItem[] {
         const count = this.getCountFromPeriod(period);
         return Array.from({length: count}, (_, index) => {
             const value = faker.number.int({min: 0, max: 480});
             return {
-                value,
+                value: value,
                 dataPointText: value.toString(),
                 label: dayjs().subtract(count - 1 - index, 'day').format('DD/MM'),
             };
