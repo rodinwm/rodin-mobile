@@ -1,5 +1,5 @@
 import {ScreenTemplate, ThemedButton, ThemedListTile, ThemedText, ThemedTextInput, ThemedView} from '@/components';
-import React from "react";
+import React, {useState} from "react";
 import {useRouter} from "expo-router";
 import {FlatList, Platform} from 'react-native';
 import {Friends} from "@/assets/static/friends";
@@ -7,6 +7,7 @@ import {openBrowserAsync} from "expo-web-browser";
 
 export default function Page() {
     const router = useRouter();
+    const [searchedFriend, setSearchedFriend] = useState('');
 
     return (
         <ScreenTemplate
@@ -22,7 +23,7 @@ export default function Page() {
                     clearButtonMode={"while-editing"}
                     placeholder={"Rechercher vos amis"}
                     onChangeText={(text) => {
-                        console.log(text);
+                        setSearchedFriend(text);
                     }}
                 />
                 <ThemedListTile
@@ -48,7 +49,7 @@ export default function Page() {
                 </ThemedText>
 
                 <FlatList
-                    data={Friends}
+                    data={Friends.filter(friend => friend.pseudo.includes(searchedFriend))}
                     refreshing={false}
                     onRefresh={() => console.log('refresh')}
                     showsHorizontalScrollIndicator={false}
@@ -64,14 +65,14 @@ export default function Page() {
                             />
                         </ThemedView>
                     )}
-                    keyExtractor={item => item.username}
+                    keyExtractor={item => item.pseudo}
                     renderItem={({item}) => (
                         <ThemedListTile
-                            key={item.username}
+                            key={item.pseudo}
                             icon={'User'}
                             fillStyle={"none"}
-                            title={item.getFullName()}
-                            subtitle={item.username}
+                            title={item.pseudo}
+                            subtitle={item.pseudo}
                             suffixIcon={(
                                 <ThemedView className={'flex flex-row gap-2'}>
                                     <ThemedButton
