@@ -1,13 +1,17 @@
 #!/bin/bash
-
 set -e
 
-echo "🔧 [CI] Using Node at: $(which node)"
-echo "📁 [CI] Cleaning previous pods..."
+# ✅ Fallback vers $CI_NODE si node introuvable
+export NODE_BINARY=${CI_NODE:-$(which node)}
+
+echo "🔧 [CI] Using Node at: $NODE_BINARY"
+
 cd "$(dirname "$0")/.."
+
+echo "📁 [CI] Cleaning Pods..."
 rm -rf Pods Podfile.lock *.xcworkspace
 
-echo "📦 [CI] Installing pods..."
+echo "📦 [CI] Installing Pods..."
 pod install --repo-update
 
 echo "✅ [CI] Pods installed successfully"
