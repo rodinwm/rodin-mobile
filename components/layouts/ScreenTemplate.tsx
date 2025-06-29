@@ -12,6 +12,7 @@ import {ImageSourcePropType} from "react-native";
 
 type Props = {
     children: ReactNode;
+    screenName?: string;
     title?: string;
     takeBottomBarIntoAccount?: boolean;
     headerLeftBtn?: "backBtn" | HeaderBtn;
@@ -31,6 +32,7 @@ export function ScreenTemplate(props: Props) {
     return (
         <>
             <Stack.Screen
+                name={props.screenName}
                 options={{
                     title: props.title,
                     headerShown: false
