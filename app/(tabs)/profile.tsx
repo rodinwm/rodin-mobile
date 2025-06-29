@@ -74,7 +74,9 @@ export default function Page() {
                 title={"Déconnexion"}
                 type={"no-fill"}
                 icon={{name: 'LogOut'}}
-                onPress={() => console.log("Déconnexion")}
+                onPress={() => {
+                    router.replace('/(welcome)');
+                }}
             />
 
             {/* App name & Version */}

@@ -9,10 +9,11 @@ import {FontWeightEnum} from "@/utils/enums";
 import {Colors} from "@/utils/colors";
 
 export default function TabLayout() {
-    const colorScheme = useColorScheme();
+    const colorScheme = useColorScheme() ?? 'light';
 
     return (
         <Tabs
+            detachInactiveScreens={true}
             screenOptions={{
                 tabBarActiveTintColor: Colors.foreground[colorScheme ?? 'light'],
                 headerShown: false, // TODO: Use this later

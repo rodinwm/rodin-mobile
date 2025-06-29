@@ -8,10 +8,11 @@ import {
     ThemedView
 } from '@/components';
 import React, {useState} from "react";
-import {useRouter} from "expo-router";
+import {useNavigation, useRouter} from "expo-router";
 
 export default function Page() {
     const router = useRouter();
+    const navigation = useNavigation();
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
     // Debug
     /*const authUser: User = {
@@ -19,6 +20,12 @@ export default function Page() {
         //lastname: "TAHI",
         pseudo: "@alexxtahi"
     };*/
+
+    const goToHomeScreen = () => {
+        setIsBottomSheetOpen(false);
+        router.back();
+        router.replace('/(tabs)');
+    }
 
     return (
         <ScreenTemplate
@@ -29,23 +36,16 @@ export default function Page() {
                     title={"Enregistrer vos informations de connexions ?"}
                     subtitle={"Pour que vous n’ayez pas à les entrer lors de votre prochaine connexion."}
                     isOpen={isBottomSheetOpen}
-                    onClose={() => {
-                        setIsBottomSheetOpen(false)
-                        router.push('/(tabs)')
-                    }}
+                    onClose={goToHomeScreen}
                     confirm={{
                         text: "Oui",
                         onPress: () => {
-                            setIsBottomSheetOpen(false)
-                            router.push('/(tabs)')
+                            goToHomeScreen();
                         }
                     }}
                     cancel={{
                         text: "Plus tard",
-                        onPress: () => {
-                            setIsBottomSheetOpen(false)
-                            router.push('/(tabs)')
-                        }
+                        onPress: goToHomeScreen
                     }}
                 />
             )}
@@ -75,7 +75,7 @@ export default function Page() {
                     <ThemedButton
                         type={'link'}
                         title={"Mot de passe oublié ?"}
-                        onPress={() => router.push('/auth/forgot-password')}
+                        onPress={() => router.push('/(auth)/forgot-password')}
                     />
                 </ThemedView>
             </ThemedView>
@@ -91,7 +91,7 @@ export default function Page() {
                     title={"S'inscrire"}
                     type={"outlined"}
                     onPress={() => {
-                        router.replace('/auth/onboarding')
+                        router.replace('/(auth)/onboarding')
                     }}
                 />
             </ThemedView>

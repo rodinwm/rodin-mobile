@@ -44,12 +44,12 @@ export default function Page() {
                     <>
                         <ThemedButton
                             title={"Commencer l'aventure"}
-                            onPress={() => router.push('/auth/onboarding')}
+                            onPress={() => router.push('/(auth)/onboarding')}
                         />
                         <ThemedButton
                             title={"J'ai déjà un compte"}
                             type={"outlined"}
-                            onPress={() => router.push('/auth/login')}
+                            onPress={() => router.push('/(auth)/login')}
                         />
                     </>
                 )}

@@ -110,7 +110,7 @@ export default function Page() {
                 />
                 <SetProfession
                     key={"10"}
-                    onNextPress={() => router.push('/auth/onboarding/finish')}
+                    onNextPress={() => router.push('/(auth)/onboarding/finish')}
                 />
             </PagerView>
 

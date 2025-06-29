@@ -252,7 +252,10 @@ export default function Page() {
                 icon={"Info"}
                 title={"Conseil du jour"}
                 message={UiService.getTipOfTheDay()}
-                onPress={() => setIsBottomSheetOpen(prevState => ({...prevState, tipOfTheDay: true}))}
+                onPress={() => {
+                    // Complete here
+                    setIsBottomSheetOpen(prevState => ({...prevState, tipOfTheDay: true}));
+                }}
             />
         </ScreenTemplate>
     );
