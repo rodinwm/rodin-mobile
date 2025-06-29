@@ -2,20 +2,20 @@ import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView}
 import React from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 
-export default function SetPhoneNumber(props: OnboardingStepScreenProps) {
+export function SetPassword(props: OnboardingStepScreenProps) {
 
     return (
         <OnboardingStepScreenTemplate
-            title={'Quel est votre numéro de mobile ?'}
-            subtitle={"Ce numéro vous permettra de vous connecter et de réinitialiser votre mot de passe."}
+            title={'Créez un mot de passe'}
+            subtitle={"Entrez votre mot de passe d’au moins 6 caractères. Il devra obligatoirement contenir au moins une lettre majuscule, au moins une lettre minuscule, au moins un chiffre et au moins une ponctuation."}
             addSpaceAtTheBottom={false}
         >
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedTextInput
-                    label={"Numéro de téléphone"}
-                    textContentType={"telephoneNumber"}
-                    keyboardType={"phone-pad"}
-                    placeholder={"Ex: +330102030405"}
+                    label={"Mot de passe"}
+                    textContentType={"password"}
+                    keyboardType={"visible-password"}
+                    placeholder={"Ex: ******"}
                 />
             </ThemedView>
 
@@ -23,11 +23,6 @@ export default function SetPhoneNumber(props: OnboardingStepScreenProps) {
                 <ThemedButton
                     title={"Suivant"}
                     onPress={props.onNextPress}
-                />
-                <ThemedButton
-                    title={"Ignorer"}
-                    type={"outlined"}
-                    onPress={props.onSkip}
                 />
             </ThemedView>
         </OnboardingStepScreenTemplate>

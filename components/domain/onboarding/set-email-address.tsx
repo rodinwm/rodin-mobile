@@ -2,20 +2,20 @@ import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView}
 import React from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 
-export default function SetEmergencyCode(props: OnboardingStepScreenProps) {
+export function SetEmailAddress(props: OnboardingStepScreenProps) {
 
     return (
         <OnboardingStepScreenTemplate
-            title={"Code d'urgence"}
-            subtitle={"Choisissez un code à 4 chiffres pour déverrouiller votre téléphone en cas d’urgence pendant une session."}
+            title={'Quel est votre adresse e-mail ?'}
+            subtitle={"Cette adresse e-mail vous permettra de vous connecter et de réinitialiser votre mot de passe."}
             addSpaceAtTheBottom={false}
         >
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedTextInput
-                    label={"Code"}
-                    textContentType={"password"}
-                    keyboardType={"number-pad"}
-                    placeholder={"Ex: ****"}
+                    label={"Email"}
+                    textContentType={"emailAddress"}
+                    keyboardType={"email-address"}
+                    placeholder={"Ex: alexandretahi@gmail.com"}
                 />
             </ThemedView>
 

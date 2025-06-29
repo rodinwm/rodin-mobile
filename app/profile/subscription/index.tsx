@@ -10,21 +10,18 @@ import {
 } from '@/components';
 import React, {useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
-import {SubscriptionRecurrence} from "@/utils/enums";
 import {subscriptions} from "@/assets/static/subscriptions";
+import {SubscriptionFrequency} from "@rodinwm/rodin-models/frontend";
 import {CurrencyService} from "@/utils/services/currencyService";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {Alert} from "react-native";
-import {NotificationType} from "@rodinwm/rodin-models/frontend";
-
-const notificationTypes = Object.values(NotificationType).filter((type) => type !== NotificationType.AUTO_SUGGESTIONS);
 
 export default function Page() {
     const colorScheme = useColorScheme() ?? 'light';
     const router = useRouter();
     const navigation = useNavigation();
-    const [subscriptionRecurrence, setSubscriptionRecurrence] = useState(SubscriptionRecurrence.Yearly);
+    const [subscriptionFrequency, setSubscriptionFrequency] = useState<SubscriptionFrequency>(SubscriptionFrequency.YEARLY);
     const [selectedPlan, setSelectedPlan] = useState(subscriptions[1]);
 
     return (
@@ -38,19 +35,19 @@ export default function Page() {
                     <ThemedButton
                         title={"Annuel"}
                         textSize={"miniExtraBold"}
-                        type={subscriptionRecurrence === SubscriptionRecurrence.Yearly ? "default" : "no-fill"}
+                        type={subscriptionFrequency === SubscriptionFrequency.YEARLY ? "default" : "no-fill"}
                         className={'flex-1'}
                         onPress={() => {
-                            setSubscriptionRecurrence(SubscriptionRecurrence.Yearly);
+                            setSubscriptionFrequency(SubscriptionFrequency.YEARLY);
                         }}
                     />
                     <ThemedButton
                         title={"Mensuel"}
                         textSize={"miniExtraBold"}
-                        type={subscriptionRecurrence === SubscriptionRecurrence.Monthly ? "default" : "no-fill"}
+                        type={subscriptionFrequency === SubscriptionFrequency.MONTHLY ? "default" : "no-fill"}
                         className={'flex-1'}
                         onPress={() => {
-                            setSubscriptionRecurrence(SubscriptionRecurrence.Monthly);
+                            setSubscriptionFrequency(SubscriptionFrequency.MONTHLY);
                         }}
                     />
                 </ThemedView>
@@ -73,9 +70,9 @@ export default function Page() {
                             {sub.price && (
                                 <ThemedText>
                                     <ThemedText type={'title'}>
-                                        {subscriptionRecurrence === SubscriptionRecurrence.Yearly ?
-                                            CurrencyService.format(sub.price[subscriptionRecurrence] / 12)
-                                            : CurrencyService.format(sub.price[subscriptionRecurrence])
+                                        {subscriptionFrequency === SubscriptionFrequency.YEARLY ?
+                                            CurrencyService.format(sub.price[subscriptionFrequency] / 12)
+                                            : CurrencyService.format(sub.price[subscriptionFrequency])
                                         }
                                     </ThemedText> / mois
                                 </ThemedText>
@@ -83,11 +80,11 @@ export default function Page() {
 
                             {sub.price && (
                                 <ThemedText className={'mb-2'}>
-                                    {subscriptionRecurrence === SubscriptionRecurrence.Yearly ? `${CurrencyService.format(sub.price[subscriptionRecurrence])} facturé annuellement` : "Facturé mensuellement"}
+                                    {subscriptionFrequency === SubscriptionFrequency.YEARLY ? `${CurrencyService.format(sub.price[subscriptionFrequency])} facturé annuellement` : "Facturé mensuellement"}
                                 </ThemedText>
                             )}
 
-                            {sub.price && subscriptionRecurrence && (
+                            {sub.price && SubscriptionFrequency && (
                                 <ThemedView
                                     paddingStyle={"small"}
                                     radiusStyle={"small"}
@@ -97,17 +94,17 @@ export default function Page() {
                                     <ThemedText
                                         className={"text-foreground-success-light dark:text-foreground-success-dark"}
                                         type={"small"} filled={false}>
-                                        {subscriptionRecurrence === SubscriptionRecurrence.Yearly ? (
+                                        {subscriptionFrequency === SubscriptionFrequency.YEARLY ? (
                                             <>
                                                 Economisez <ThemedText filled={false}
                                                                        className={'text-foreground-success-light dark:text-foreground-success-dark'}
-                                                                       type={"miniExtraBold"}>{CurrencyService.computeDifferenceInPercent(sub.price[SubscriptionRecurrence.Yearly] / 12, sub.price[SubscriptionRecurrence.Monthly])}%</ThemedText>
+                                                                       type={"miniExtraBold"}>{CurrencyService.computeDifferenceInPercent(sub.price[SubscriptionFrequency.YEARLY] / 12, sub.price[SubscriptionFrequency.MONTHLY])}%</ThemedText>
                                             </>
                                         ) : (
                                             <>
                                                 Economisez <ThemedText filled={false}
                                                                        className={'text-foreground-success-light dark:text-foreground-success-dark'}
-                                                                       type={"miniExtraBold"}>{CurrencyService.computeDifferenceInPercent(sub.price[SubscriptionRecurrence.Yearly] / 12, sub.price[SubscriptionRecurrence.Monthly])}%</ThemedText> grâce
+                                                                       type={"miniExtraBold"}>{CurrencyService.computeDifferenceInPercent(sub.price[SubscriptionFrequency.YEARLY] / 12, sub.price[SubscriptionFrequency.MONTHLY])}%</ThemedText> grâce
                                                 à l'abonnement annuel
                                             </>
                                         )}

@@ -1,10 +1,11 @@
-// file: /app/routes.ts
+// file: app/routes.ts
 export const Routes: string[] = [
     "index",
     "(tabs)",
     // Auth
-    "auth/login",
     "auth/forgot-password",
+    "auth/login",
+    // Auth > Onboarding
     "auth/onboarding",
     "auth/onboarding/finish",
     // Timer

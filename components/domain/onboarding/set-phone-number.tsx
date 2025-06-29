@@ -2,18 +2,20 @@ import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView}
 import React from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 
-export default function ChoosePseudo(props: OnboardingStepScreenProps) {
+export function SetPhoneNumber(props: OnboardingStepScreenProps) {
 
     return (
         <OnboardingStepScreenTemplate
-            title={'Choisissez un pseudo'}
-            subtitle={"Attention vous ne pourrez changer de pseudo qu'une seule fois."}
+            title={'Quel est votre numéro de mobile ?'}
+            subtitle={"Ce numéro vous permettra de vous connecter et de réinitialiser votre mot de passe."}
             addSpaceAtTheBottom={false}
         >
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedTextInput
-                    label={"Pseudo"}
-                    placeholder={"Ex: mvxence"}
+                    label={"Numéro de téléphone"}
+                    textContentType={"telephoneNumber"}
+                    keyboardType={"phone-pad"}
+                    placeholder={"Ex: +330102030405"}
                 />
             </ThemedView>
 
@@ -21,6 +23,11 @@ export default function ChoosePseudo(props: OnboardingStepScreenProps) {
                 <ThemedButton
                     title={"Suivant"}
                     onPress={props.onNextPress}
+                />
+                <ThemedButton
+                    title={"Ignorer"}
+                    type={"outlined"}
+                    onPress={props.onSkip}
                 />
             </ThemedView>
         </OnboardingStepScreenTemplate>

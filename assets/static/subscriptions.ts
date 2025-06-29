@@ -1,13 +1,13 @@
 import {Subscription} from "@/utils/interfaces";
-import {SubscriptionRecurrence} from "@/utils/enums";
+import {SubscriptionFrequency} from "@rodinwm/rodin-models/frontend";
 
 export const subscriptions: Subscription[] = [
     {
         title: "Premium",
         description: "Travaille dans un endroit calme et bien éclairé",
         price: {
-            [SubscriptionRecurrence.Yearly]: 19.99,
-            [SubscriptionRecurrence.Monthly]: 1.99
+            [SubscriptionFrequency.YEARLY]: 19.99,
+            [SubscriptionFrequency.MONTHLY]: 1.99
         },
         content: [
             "Tracker de temps de travail",

@@ -1,17 +1,17 @@
 import React, {useRef, useState} from "react";
 import {MessageSheet, ScreenTemplate} from "@/components";
 import PagerView from "react-native-pager-view";
-import ChoosePseudo from "@/app/auth/onboarding/steps/choose-pseudo";
-import SetPhoneNumber from "@/app/auth/onboarding/steps/set-phone-number";
-import SetEmailAddress from "@/app/auth/onboarding/steps/set-email-address";
-import SetPassword from "@/app/auth/onboarding/steps/set-password";
+import {ChoosePseudo} from "@/components/domain/onboarding/choose-pseudo";
+import {SetPhoneNumber} from "@/components/domain/onboarding/set-phone-number";
+import {SetEmailAddress} from "@/components/domain/onboarding/set-email-address";
+import {SetPassword} from "@/components/domain/onboarding/set-password";
 import {useRouter} from "expo-router";
-import ReadCGU from "@/app/auth/onboarding/steps/read-cgu";
-import SetDefaultTimer from "@/app/auth/onboarding/steps/set-default-timer";
-import SetExerciseFrequency from "@/app/auth/onboarding/steps/set-exercise-frequency";
-import SetEmergencyCode from "@/app/auth/onboarding/steps/set-emergency-code";
-import SetAgeRange from "@/app/auth/onboarding/steps/set-age-range";
-import SetProfession from "@/app/auth/onboarding/steps/set-profession";
+import {ReadCGU} from "@/components/domain/onboarding/read-cgu";
+import {SetDefaultTimer} from "@/components/domain/onboarding/set-default-timer";
+import {SetExerciseFrequency} from "@/components/domain/onboarding/set-exercise-frequency";
+import {SetEmergencyCode} from "@/components/domain/onboarding/set-emergency-code";
+import {SetAgeRange} from "@/components/domain/onboarding/set-age-range";
+import {SetProfession} from "@/components/domain/onboarding/set-profession";
 
 export default function Page() {
     const pagerRef = useRef<PagerView | null>(null);

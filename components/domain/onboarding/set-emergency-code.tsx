@@ -2,20 +2,20 @@ import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView}
 import React from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 
-export default function SetPassword(props: OnboardingStepScreenProps) {
+export function SetEmergencyCode(props: OnboardingStepScreenProps) {
 
     return (
         <OnboardingStepScreenTemplate
-            title={'Créez un mot de passe'}
-            subtitle={"Entrez votre mot de passe d’au moins 6 caractères. Il devra obligatoirement contenir au moins une lettre majuscule, au moins une lettre minuscule, au moins un chiffre et au moins une ponctuation."}
+            title={"Code d'urgence"}
+            subtitle={"Choisissez un code à 4 chiffres pour déverrouiller votre téléphone en cas d’urgence pendant une session."}
             addSpaceAtTheBottom={false}
         >
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedTextInput
-                    label={"Mot de passe"}
+                    label={"Code"}
                     textContentType={"password"}
-                    keyboardType={"visible-password"}
-                    placeholder={"Ex: ******"}
+                    keyboardType={"number-pad"}
+                    placeholder={"Ex: ****"}
                 />
             </ThemedView>
 
