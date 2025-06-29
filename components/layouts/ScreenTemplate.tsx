@@ -5,7 +5,7 @@ import {HeaderSpacer} from '@/components/domain/HeaderSpacer';
 import React, {ReactNode} from "react";
 import {useBottomTabOverflow} from "@/components/base/TabBarBackground";
 import {SafeAreaView, useSafeAreaInsets} from "react-native-safe-area-context";
-import {Stack, useNavigation} from "expo-router";
+import {useNavigation} from "expo-router";
 import {HeaderBtn} from "@/utils/interfaces";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {ImageSourcePropType} from "react-native";
@@ -31,6 +31,7 @@ export function ScreenTemplate(props: Props) {
 
     return (
         <>
+            {/*
             <Stack.Screen
                 name={props.screenName}
                 options={{
@@ -38,6 +39,7 @@ export function ScreenTemplate(props: Props) {
                     headerShown: false
                 }}
             />
+            */}
 
             <ThemedView
                 className={"w-full h-screen"}

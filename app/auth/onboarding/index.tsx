@@ -28,6 +28,7 @@ export default function Page() {
 
     return (
         <ScreenTemplate
+            screenName={'auth/onboarding'}
             headerLeftBtn={step === 0 ? "backBtn" : {
                 icon: 'ChevronLeft',
                 onPress: goToPreviousStep
