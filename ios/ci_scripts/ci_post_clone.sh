@@ -3,7 +3,6 @@
 set -e
 
 echo "👉 [CI] Cleaning Pods..."
-cd ios || exit
 rm -rf ../Pods ../Podfile.lock ../*.xcworkspace
 
 echo "👉 [CI] Installing Pods..."
