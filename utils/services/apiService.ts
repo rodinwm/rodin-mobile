@@ -1,6 +1,7 @@
 import axios, {AxiosResponse, HttpStatusCode} from 'axios';
 import {LogService} from "@/utils/services/logService";
 import {LogType} from "@/utils/enums";
+import {FriendStatus, Prisma} from "@rodinwm/rodin-models/frontend";
 
 export abstract class ApiService {
     private static readonly logService = new LogService(this.name);
@@ -16,7 +17,8 @@ export abstract class ApiService {
         config: {},
     } as AxiosResponse;
 
-    static async register(payload: any): Promise<AxiosResponse> {
+    static async register(payload: Prisma.UserCreateInput): Promise<AxiosResponse> {
+        const methodName = "register";
         try {
             const response = await axios.post(`${this.host}/api/users`, payload, {
                 headers: {
@@ -25,31 +27,165 @@ export abstract class ApiService {
                 timeout: this.defaultTimeout,
             });
 
-            this.logService.log({
-                type: LogType.Debug,
-                data: ["register() response", response.status, response.data]
-            });
-            return response;
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                this.logService.log({
-                    type: LogType.Error,
-                    data: ["register() error", error]
-                });
+            return this.handleResponse(methodName, response);
 
-                switch (error.response?.status) {
-                    case HttpStatusCode.NotAcceptable:
-                        return error.response;
-                    default:
-                        return this.serverErrorResponse;
-                }
-            } else {
-                this.logService.log({
-                    type: LogType.Error,
-                    data: [this.serverErrorResponse.data.message, error]
-                });
-                return this.serverErrorResponse;
+        } catch (error) {
+            return this.handleError(methodName, error);
+        }
+    }
+
+    static async login(payload: {
+        email: string;
+        password: string;
+    }): Promise<AxiosResponse> {
+        const methodName = "login";
+        try {
+            const response = await axios.post(`${this.host}/api/users/auth`, payload, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                timeout: this.defaultTimeout,
+            });
+
+            return this.handleResponse(methodName, response);
+        } catch (error) {
+            return this.handleError(methodName, error);
+        }
+    }
+
+    static async getUser(token: string): Promise<AxiosResponse> {
+        const methodName = "getUser";
+        try {
+            const response = await axios.get(`${this.host}/api/users`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                timeout: this.defaultTimeout,
+            });
+
+            return this.handleResponse(methodName, response);
+        } catch (error) {
+            return this.handleError(methodName, error);
+        }
+    }
+
+    static async updateUser(token: string, payload: Prisma.UserUpdateInput): Promise<AxiosResponse> {
+        const methodName = "updateUser";
+        try {
+            const response = await axios.put(`${this.host}/api/users`, payload, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                timeout: this.defaultTimeout,
+            });
+
+            return this.handleResponse(methodName, response);
+        } catch (error) {
+            return this.handleError(methodName, error);
+        }
+    }
+
+    static async getFriends(token: string): Promise<AxiosResponse> {
+        const methodName = "getFriends";
+        try {
+            const response = await axios.get(`${this.host}/api/friend`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                timeout: this.defaultTimeout,
+            });
+
+            return this.handleResponse(methodName, response);
+        } catch (error) {
+            return this.handleError(methodName, error);
+        }
+    }
+
+    static async sendFriendRequest(token: string, payload: { friendId: string }): Promise<AxiosResponse> {
+        const methodName = "sendFriendRequest";
+        try {
+            const response = await axios.post(`${this.host}/api/friend`, payload, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                timeout: this.defaultTimeout,
+            });
+
+            return this.handleResponse(methodName, response);
+        } catch (error) {
+            return this.handleError(methodName, error);
+        }
+    }
+
+    static async respondToFriendRequest(token: string, payload: {
+        userId: string,
+        status: FriendStatus
+    }): Promise<AxiosResponse> {
+        const methodName = "respondToFriendRequest";
+        try {
+            const response = await axios.put(`${this.host}/api/friend`, payload, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                timeout: this.defaultTimeout,
+            });
+
+            return this.handleResponse(methodName, response);
+        } catch (error) {
+            return this.handleError(methodName, error);
+        }
+    }
+
+    static async removeFriend(token: string, params: { friendId: string }): Promise<AxiosResponse> {
+        const methodName = "removeFriend";
+        try {
+            const response = await axios.delete(`${this.host}/api/friend`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                params: params,
+                timeout: this.defaultTimeout,
+            });
+
+            return this.handleResponse(methodName, response);
+        } catch (error) {
+            return this.handleError(methodName, error);
+        }
+    }
+
+    private static handleResponse(methodName: string, response: AxiosResponse): AxiosResponse {
+        this.logService.log({
+            type: LogType.Debug,
+            data: [`${methodName}() response`, response.status, response.data]
+        });
+        return response;
+    }
+
+    private static handleError(methodName: string, error: any): AxiosResponse {
+        if (axios.isAxiosError(error)) {
+            this.logService.log({
+                type: LogType.Error,
+                data: [`${methodName}() error`, error]
+            });
+
+            switch (error.response?.status) {
+                case HttpStatusCode.NotAcceptable:
+                    return error.response;
+                default:
+                    return this.serverErrorResponse;
             }
+        } else {
+            this.logService.log({
+                type: LogType.Error,
+                data: [this.serverErrorResponse.data.message, error]
+            });
+            return this.serverErrorResponse;
         }
     }
 }
