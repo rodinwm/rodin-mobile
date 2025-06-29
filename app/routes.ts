@@ -1,6 +1,6 @@
 // file: app/routes.ts
 
-export const Routes: string[] = [
+const Routes: string[] = [
     "index",
     "(tabs)",
     // Auth
@@ -9,13 +9,15 @@ export const Routes: string[] = [
     // Auth > Onboarding
     "auth/onboarding",
     "auth/onboarding/finish",
-    // Timer
-    "timer",
-    "timer/request-exercise-before",
-    "timer/lock-screen",
+    // Community
+    "community/friend-requests",
+    // Games
+    "games/breathing",
+    "games/patterns",
+    "games/pods",
     // Profile
-    "profile/personal-infos",
     "profile/appearance",
+    "profile/personal-infos",
     // Profile > Subscription
     "profile/subscription",
     // Profile > Privacy
@@ -33,13 +35,13 @@ export const Routes: string[] = [
     "profile/help/guide",
     "profile/help/tips",
     "profile/help/faq",
-    // Community
-    "community/friend-requests",
     // RodPic's
     "rodpics",
     "rodpics/preview",
-    // Games
-    "games/pods",
-    "games/patterns",
-    "games/respiration",
+    // Timer
+    "timer",
+    "timer/request-exercise-before",
+    "timer/lock-screen",
 ];
+
+export default Routes;
