@@ -1,5 +1,6 @@
 #!/bin/bash
 
-echo "✅ Installing CocoaPods..."
+echo ">>> 💡 Running pod install for Xcode Cloud..."
 cd ios || exit
-pod install
+rm -rf Pods Podfile.lock *.xcworkspace
+pod install --repo-update
