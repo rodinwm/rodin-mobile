@@ -11,7 +11,7 @@ import {Appearance, Dimensions} from 'react-native';
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
-import Routes from "@/app/routes";
+import {Routes} from "@/app/routes";
 import ToastManager from "toastify-react-native";
 import {FontService} from "@/utils/services/fontService";
 import {FontWeightEnum} from "@/utils/enums";

@@ -1,3 +1,5 @@
+// file: app/profile/subscription/index.tsx
+
 import {
     LucideIcon,
     ScreenTemplate,

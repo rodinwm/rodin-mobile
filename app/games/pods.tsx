@@ -182,7 +182,7 @@ export default function Page() {
                 keyExtractor={(item) => item.id}
                 scrollEnabled={false}
                 nestedScrollEnabled={false}
-                contentContainerClassName={"justify-center items-center"}
+                contentContainerClassName={"flex-1 justify-center items-center"}
                 columnWrapperClassName="gap-10"
                 ItemSeparatorComponent={() => (
                     <ThemedView paddingStyle={"default"}/>
