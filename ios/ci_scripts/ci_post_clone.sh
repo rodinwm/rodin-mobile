@@ -1,6 +1,8 @@
 #!/bin/bash
 
 set -e
+echo "Using Node from: $NODE_BINARY"
+$NODE_BINARY -v
 
 echo "👉 [CI] Cleaning Pods..."
 rm -rf ../Pods ../Podfile.lock ../*.xcworkspace
