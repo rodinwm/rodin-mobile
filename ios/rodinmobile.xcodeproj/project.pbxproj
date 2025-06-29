@@ -69,6 +69,7 @@
 		3CD9069A78D77021906692F4 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = rodinmobile/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		42A5EF1CC18CF11BAEB5A175 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-rodinmobile/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		476412EFC111AB65FB8C45C2 /* Pods-rodinmobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rodinmobile.release.xcconfig"; path = "Target Support Files/Pods-rodinmobile/Pods-rodinmobile.release.xcconfig"; sourceTree = "<group>"; };
+		9DD303392E11FA0C00F3C069 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		A357C3BCB2B2BA0E2DD90245 /* libPods-rodinmobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rodinmobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = rodinmobile/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
@@ -207,6 +208,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				9DD303382E11F9E000F3C069 /* ci_scripts */,
 				XX3E41C1850246162C0061XX /* expo:targets */,
 				13B07FAE1A68108700A75B9A /* rodinmobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -237,6 +239,14 @@
 				42A5EF1CC18CF11BAEB5A175 /* ExpoModulesProvider.swift */,
 			);
 			name = rodinmobile;
+			sourceTree = "<group>";
+		};
+		9DD303382E11F9E000F3C069 /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				9DD303392E11FA0C00F3C069 /* ci_post_clone.sh */,
+			);
+			path = ci_scripts;
 			sourceTree = "<group>";
 		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
