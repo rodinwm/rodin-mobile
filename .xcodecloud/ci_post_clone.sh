@@ -1,5 +1,5 @@
 #!/bin/bash
 
 echo "✅ Installing CocoaPods..."
-cd ios
+cd ios || exit
 pod install
