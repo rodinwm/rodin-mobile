@@ -9,7 +9,7 @@ import {
     ThemedView
 } from '@/components';
 import React, {useState} from "react";
-import {Href, useRouter} from "expo-router";
+import {useRouter} from "expo-router";
 
 export default function Page() {
     const router = useRouter();
@@ -49,7 +49,7 @@ export default function Page() {
                                 fillStyle={"inversed"}
                                 hasPadding={true}
                                 onPress={() => {
-                                    router.push('/games/respiration');
+                                    router.push('/games/breathing');
                                 }}
                             />
                             <ThemedListTile
@@ -81,12 +81,7 @@ export default function Page() {
                 <ThemedButton
                     title={"Oui"}
                     onPress={() => {
-                        const gameRoutes: Href[] = [
-                            '/games/pods',
-                            '/games/respiration',
-                        ];
                         setIsBottomSheetOpen(prevState => ({...prevState, exerciseSelection: true}));
-                        //router.push(gameRoutes[0]);
                     }}
                 />
                 <ThemedButton

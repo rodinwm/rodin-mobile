@@ -5,7 +5,7 @@ import {AgeRange} from "@rodinwm/rodin-models/frontend";
 
 const ageRanges = Object.values(AgeRange);
 
-export default function SetAgeRange(props: OnboardingStepScreenProps) {
+export function SetAgeRange(props: OnboardingStepScreenProps) {
     const [selectedAgeRange, setSelectedAgeRange] = useState<AgeRange | null>(null);
 
     return (

@@ -13,6 +13,7 @@ type Props = {
     title: string;
     message: string;
     onPress?: () => void;
+    disableTextDarkMode?: boolean;
 }
 
 export function AlertCard({
@@ -20,14 +21,15 @@ export function AlertCard({
                               type = "default",
                               title,
                               message,
-                              onPress
+                              onPress,
+                              disableTextDarkMode = false,
                           }: Props
 ) {
     const colorScheme = useColorScheme() ?? 'light';
     const iconColor = type === "warning" ?
         Colors.foreground.warning[colorScheme] : Colors.foreground[colorScheme];
     const textColor = type === "warning" ?
-        'text-foreground-warning-light dark:text-foreground-warning-dark' : 'text-foreground-light dark:text-foreground-dark';
+        `text-foreground-warning-light ${disableTextDarkMode ? '' : 'dark:text-foreground-warning-dark'}` : `text-foreground-light ${disableTextDarkMode ? '' : 'dark:text-foreground-dark'}`;
 
     return (
         <TouchableOpacity

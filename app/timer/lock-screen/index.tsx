@@ -48,7 +48,7 @@ export default function Page() {
             {/* Message */}
             <ThemedView className={'w-full flex flex-col gap-3 justify-center items-center'}>
                 <LucideIcon name={'LockKeyhole'} size={50} strokeWidth={1}/>
-                <ThemedText type={'h1'} className={"text-center"}>
+                <ThemedText type={'h1'} className={"text-center"} disableDarkMode={true}>
                     Téléphone verrouillé
                 </ThemedText>
             </ThemedView>
@@ -74,7 +74,7 @@ export default function Page() {
                     className={'w-full'}
                     isBackgroundBlur={true}
                 >
-                    <ThemedText type={'logo'} className={"text-center"}>
+                    <ThemedText type={'logo'} className={"text-center"} disableDarkMode={true}>
                         {DateService.formatTime(timeLeft)}
                     </ThemedText>
                 </ThemedView>
@@ -120,6 +120,7 @@ export default function Page() {
                 icon={"Shrub"}
                 title={"Motivation"}
                 message={UiService.getTipOfTheDay()}
+                disableTextDarkMode={true}
             />
         </ScreenTemplate>
     );

@@ -3,9 +3,9 @@ import React, {useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
 import {NotificationType} from "@rodinwm/rodin-models/frontend";
 
-const notificationTypes = Object.values(NotificationType).filter((type) => type !== NotificationType.AUTO_SUGGESTIONS);
+const notificationTypes: NotificationType[] = Object.values(NotificationType).filter((type) => type !== NotificationType.AUTO_SUGGESTIONS);
 
-export default function Page() {
+const Page = () => {
     const router = useRouter();
     const navigation = useNavigation();
     const [notifTypes, setNotifTypes] = useState({
@@ -56,3 +56,4 @@ export default function Page() {
     );
 }
 
+export default Page;

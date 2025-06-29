@@ -5,7 +5,7 @@ import {HeaderSpacer} from '@/components/domain/HeaderSpacer';
 import React, {ReactNode} from "react";
 import {useBottomTabOverflow} from "@/components/base/TabBarBackground";
 import {SafeAreaView, useSafeAreaInsets} from "react-native-safe-area-context";
-import {Stack, useNavigation} from "expo-router";
+import {useRouter} from "expo-router";
 import {HeaderBtn} from "@/utils/interfaces";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {ImageSourcePropType} from "react-native";
@@ -26,11 +26,12 @@ type Props = {
 }
 
 export function ScreenTemplate(props: Props) {
-    const navigation = useNavigation();
+    const router = useRouter();
     const insets = useSafeAreaInsets();
 
     return (
         <>
+            {/*
             <Stack.Screen
                 name={props.screenName}
                 options={{
@@ -38,6 +39,7 @@ export function ScreenTemplate(props: Props) {
                     headerShown: false
                 }}
             />
+            */}
 
             <ThemedView
                 className={"w-full h-screen"}
@@ -63,16 +65,16 @@ export function ScreenTemplate(props: Props) {
                         {/* Header */}
                         <ThemedView
                             className={`w-full flex flex-row items-center justify-between ${props.removeBodyPadding ? 'px-6' : ''}`}>
-                            {props.headerLeftBtn === "backBtn" ? (
+                            {props.headerLeftBtn === "backBtn" && router.canGoBack() ? (
                                 <ThemedButton
                                     title={"Back"}
                                     icon={{name: 'ChevronLeft'}}
                                     showTitle={false}
                                     paddingStyle={"none"}
                                     type={"no-fill"}
-                                    onPress={() => navigation.goBack()}
+                                    onPress={() => router.back()}
                                 />
-                            ) : props.headerLeftBtn !== undefined ? (
+                            ) : props.headerLeftBtn !== undefined && props.headerLeftBtn !== "backBtn" ? (
                                 <ThemedButton
                                     title={"HeaderLeftBtn"}
                                     icon={{name: props.headerLeftBtn.icon}}

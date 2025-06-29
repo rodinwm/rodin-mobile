@@ -4,7 +4,7 @@ import {OnboardingStepScreenProps} from "@/utils/interfaces";
 import {CGU} from "@/assets/static/cgu";
 import {NativeScrollEvent, NativeSyntheticEvent, ScrollView} from "react-native";
 
-export default function ReadCGU(props: OnboardingStepScreenProps) {
+export function ReadCGU(props: OnboardingStepScreenProps) {
     const [isScrolledToEnd, setIsScrolledToEnd] = useState(false);
 
     return (

@@ -7,6 +7,7 @@ export type ThemedTextProps = TextProps & {
     filled?: boolean;
     inverseColor?: boolean;
     numberOfLines?: number;
+    disableDarkMode?: boolean;
 };
 
 export function ThemedText({
@@ -15,6 +16,7 @@ export function ThemedText({
                                type = 'default',
                                filled = true,
                                inverseColor = false,
+                               disableDarkMode = false,
                                style,
                                ...otherProps
                            }: ThemedTextProps
@@ -74,8 +76,8 @@ export function ThemedText({
         styles[type].fontSize,
         filled ?
             !inverseColor ?
-                'text-foreground-light dark:text-foreground-dark'
-                : 'text-foreground-dark dark:text-foreground-light'
+                `text-foreground-light ${disableDarkMode ? '' : 'dark:text-foreground-dark'}`
+                : `text-foreground-dark ${disableDarkMode ? '' : 'dark:text-foreground-light'}`
             : '',
         type === "link" ? 'underline underline-offset-8' : '',
         className ?? ''

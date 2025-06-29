@@ -8,6 +8,7 @@ export default function NotFoundScreen() {
     return (
         <ScreenTemplate
             title={"Rodin"}
+            headerLeftBtn={"backBtn"}
             setHeightToScreenSize={true}
             scrollEnabled={false}
         >

@@ -5,7 +5,7 @@ import {Profession} from '@rodinwm/rodin-models/frontend';
 
 const professions = Object.values(Profession);
 
-export default function SetProfession(props: OnboardingStepScreenProps) {
+export function SetProfession(props: OnboardingStepScreenProps) {
     const [selectedProfession, setSelectedProfession] = useState<Profession | null>(null);
     const [customProfession, setCustomProfession] = useState("");
     const [showCustomProfessionInput, setShowCustomProfessionInput] = useState(false);

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Alert} from "react-native";
 import {ThemedButton, ThemedView} from '@/components';
 import * as ReactNativeDeviceActivity from 'react-native-device-activity';
+import {ShieldActions} from 'react-native-device-activity';
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 
@@ -20,7 +21,7 @@ export function NativeAppBlockerView({}: Props) {
         useState<string | null>(null);
 
     // Step 3: Handle selection changes from the native selection UI
-    const handleSelectionChange = (event) => {
+    const handleSelectionChange = (event: any) => {
         // The selection is a serialized string containing the user's app selections
         setCurrentFamilyActivitySelection(event.nativeEvent.familyActivitySelection);
     };
@@ -53,7 +54,7 @@ export function NativeAppBlockerView({}: Props) {
         };
 
         // Define what happens when users interact with the shield
-        const shieldActions = {
+        const shieldActions: ShieldActions = {
             primary: {
                 behavior: "close" // Just close the shield when OK is tapped
             }
@@ -84,7 +85,7 @@ export function NativeAppBlockerView({}: Props) {
         });
 
         // Start the monitoring schedule
-        startScheduledBlocking();
+        startScheduledBlocking().then();
     };
 
     // Step 6: Define and start the blocking schedule

@@ -5,7 +5,7 @@ import {ExerciseFrequency} from "@rodinwm/rodin-models/frontend";
 
 const frequencies: ExerciseFrequency[] = Object.values(ExerciseFrequency);
 
-export default function SetExerciseFrequency(props: OnboardingStepScreenProps) {
+export function SetExerciseFrequency(props: OnboardingStepScreenProps) {
     const [selectedFrequency, setSelectedFrequency] = useState<ExerciseFrequency | null>(null);
 
     return (
