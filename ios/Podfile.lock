@@ -2107,7 +2107,7 @@ PODS:
     - React-utils (= 0.79.4)
   - ReactNativeDeviceActivity (0.4.31):
     - ExpoModulesCore
-  - RNCAsyncStorage (2.2.0):
+  - RNCAsyncStorage (2.1.2):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2868,7 +2868,7 @@ SPEC CHECKSUMS:
   ReactCodegen: f891084749d03b8af8a244cefaa492e491b763fd
   ReactCommon: c7d636ec1b9801ff4ee83cce8e0bf74a1610fc3f
   ReactNativeDeviceActivity: 2960bc0a6bfe7a33a2a9c7e93fb83517103ee82d
-  RNCAsyncStorage: a1c8cc8a99c32de1244a9cf707bf9d83d0de0f71
+  RNCAsyncStorage: 39c42c1e478e1f5166d1db52b5055e090e85ad66
   RNCMaskedView: ae521efb1c6c2b183ae0f8479487db03c826184c
   RNGestureHandler: 7d0931a61d7ba0259f32db0ba7d0963c3ed15d2b
   RNPermissions: 91cbb1391e2e7002f85d4b2f55d5b81cbc554b7c
