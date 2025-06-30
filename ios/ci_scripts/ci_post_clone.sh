@@ -16,7 +16,7 @@ if [ -z "$NODE_AUTH_TOKEN" ]; then
 fi
 
 # Prepare .npmrc
-sed -i.bak "s|^#*//npm.pkg.github.com|//npm.pkg.github.com|" .npmrc
+sed -i "s|^#*//npm.pkg.github.com|//npm.pkg.github.com|" .npmrc
 sed -i '' "s|NODE_AUTH_TOKEN|$NODE_AUTH_TOKEN|g" .npmrc
 echo "[CI] ✅ .npmrc updated with GitHub token"
 

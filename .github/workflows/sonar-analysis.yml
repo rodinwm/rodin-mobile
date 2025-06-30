@@ -37,7 +37,7 @@ jobs:
       - name: Prepare .npmrc file
         run: |
           sed -i.bak "s|^#*//npm.pkg.github.com|//npm.pkg.github.com|" .npmrc
-          sed -i 's/NODE_AUTH_TOKEN/${{ secrets.NODE_AUTH_TOKEN }}/g' .npmrc
+          sed -i 's/NODE_AUTH_TOKEN/${{ secrets.GITHUB_TOKEN }}/g' .npmrc
           echo "[SUCCESS] Personal access token replaced in .npmrc file"
           cat .npmrc
 
