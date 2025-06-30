@@ -1,11 +1,5 @@
-def resolve_package_dir(package)
-  node_bin = ENV['NODE_BINARY'] || 'node'
-  path = `#{node_bin} -e "console.log(require.resolve('#{package}/package.json'))"`.strip
-  File.dirname(path)
-end
-
-require File.join(resolve_package_dir('expo'), 'scripts/autolinking')
-require File.join(resolve_package_dir('react-native'), 'scripts/react_native_pods')
+require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
+require File.join(File.dirname(`node --print "require.resolve('react-native/package.json')"`), "scripts/react_native_pods")
 
 require 'json'
 podfile_properties = JSON.parse(File.read(File.join(__dir__, 'Podfile.properties.json'))) rescue {}

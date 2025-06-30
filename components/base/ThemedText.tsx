@@ -75,9 +75,11 @@ export function ThemedText({
     const classNames: string[] = [
         styles[type].fontSize,
         filled ?
-            !inverseColor ?
-                `text-foreground-light ${disableDarkMode ? '' : 'dark:text-foreground-dark'}`
-                : `text-foreground-dark ${disableDarkMode ? '' : 'dark:text-foreground-light'}`
+            // TODO: Fix this later
+            disableDarkMode ? 'text-foreground-light dark:text-foreground-light' :
+                !inverseColor ?
+                    `text-foreground-light dark:text-foreground-dark`
+                    : `text-foreground-dark dark:text-foreground-light`
             : '',
         type === "link" ? 'underline underline-offset-8' : '',
         className ?? ''

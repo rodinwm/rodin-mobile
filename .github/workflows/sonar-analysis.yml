@@ -34,10 +34,17 @@ jobs:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
           ref: ${{ github.ref_name }}
 
+      - name: Prepare .npmrc file
+        run: |
+          sed -i "s|^#*//npm.pkg.github.com|//npm.pkg.github.com|" .npmrc
+          sed -i "s/NODE_AUTH_TOKEN/${{ secrets.NODE_AUTH_TOKEN }}/g" .npmrc
+          echo "[SUCCESS] Personal access token replaced in .npmrc file"
+          cat .npmrc
+
       - name: Setup Node.js 20 environment
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install Node.js dependencies
         run: npm ci

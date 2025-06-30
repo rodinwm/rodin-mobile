@@ -136,7 +136,7 @@ export default function Page() {
                         className={'flex flex-row justify-center items-center'}
                         fillStyle={'default'}
                         radiusStyle={'full'}
-                        borderStyle={'default'}
+                        borderStyle={'inversed'}
                         borderWidth={2}
                     >
                         <ThemedButton
