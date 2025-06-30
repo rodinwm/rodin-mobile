@@ -1,4 +1,13 @@
-import {AlertCard, LucideIcon, ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
+import {
+    AlertCard,
+    LucideIcon,
+    MessageSheet,
+    ScreenTemplate,
+    ThemedButton,
+    ThemedText,
+    ThemedTextInput,
+    ThemedView
+} from '@/components';
 import React, {useEffect, useState} from "react";
 import {Colors} from "@/utils/colors";
 import {DateService} from "@/utils/services/dateService";
@@ -10,6 +19,8 @@ import {useIsFocused} from "@react-navigation/native";
 export default function Page() {
     const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes en secondes
     const [isRunning, setIsRunning] = useState(false);
+    const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+    const [emergencyCode, setEmergencyCode] = useState('');
     const router = useRouter();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
@@ -32,6 +43,9 @@ export default function Page() {
     }, [navigation, isFocused]);
     */
 
+    useEffect(() => {
+        setEmergencyCode('');
+    }, [isBottomSheetOpen]);
 
     useEffect(() => {
         if (timeLeft <= 0) {
@@ -52,7 +66,31 @@ export default function Page() {
             scrollEnabled={false}
             setHeightToScreenSize={true}
             backgroundImage={require('@/assets/images/wallpapers/nature-1.jpg')}
-
+            bottomSheet={(
+                <MessageSheet
+                    title={"Code d'urgence"}
+                    subtitle={"Entrez votre code d'urgence pour débloquer l'application et arrêter votre session."}
+                    isOpen={isBottomSheetOpen}
+                    onClose={() => setIsBottomSheetOpen(false)}
+                    children={(
+                        <ThemedTextInput
+                            value={emergencyCode}
+                            placeholder={"Ex: 1234"}
+                            keyboardType={"number-pad"}
+                            onChangeText={(text) => {
+                                setEmergencyCode(text);
+                            }}
+                        />
+                    )}
+                    confirm={{
+                        text: "Débloquer",
+                        disabled: emergencyCode.length !== 4,
+                        onPress: () => {
+                            router.replace('/(tabs)')
+                        }
+                    }}
+                />
+            )}
         >
             {/* Message */}
             <ThemedView className={'w-full flex flex-col gap-3 justify-center items-center'}>
@@ -96,7 +134,7 @@ export default function Page() {
                         isBackgroundBlur={true}
                         paddingStyle={"uniform"}
                         showTitle={false}
-                        onPress={() => router.back()}
+                        onPress={() => setIsBottomSheetOpen(true)}
                     />
                     <ThemedButton
                         title={isRunning ? "Pause" : "Play"}

@@ -1,22 +1,48 @@
 import {
     AppNameTag,
     LucideIcon,
+    MessageSheet,
     ScreenTemplate,
     ThemedButton,
     ThemedListTile,
     ThemedText,
     ThemedView
 } from '@/components';
-import React from "react";
+import React, {useState} from "react";
 import {useRouter} from "expo-router";
 
 export default function Page() {
     const router = useRouter();
+    const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
+    const goToWelcomeScreen = () => {
+        setIsBottomSheetOpen(false);
+        router.replace('/(welcome)');
+    }
 
     return (
         <ScreenTemplate
             title={"Profil"}
             takeBottomBarIntoAccount={true}
+            bottomSheet={(
+                <MessageSheet
+                    title={"Deconnexion"}
+                    subtitle={"Voulez vous vraiment quitter l'application ?"}
+                    isOpen={isBottomSheetOpen}
+                    onClose={() => setIsBottomSheetOpen(false)}
+                    takeBottomBarIntoAccount={true}
+                    confirm={{
+                        text: "Oui",
+                        onPress: () => {
+                            goToWelcomeScreen();
+                        }
+                    }}
+                    cancel={{
+                        text: "Rester",
+                        onPress: () => setIsBottomSheetOpen(false),
+                    }}
+                />
+            )}
         >
             {/* Name */}
             <ThemedView className={'w-full flex flex-col'}>
@@ -74,9 +100,7 @@ export default function Page() {
                 title={"Déconnexion"}
                 type={"no-fill"}
                 icon={{name: 'LogOut'}}
-                onPress={() => {
-                    router.replace('/(welcome)');
-                }}
+                onPress={() => setIsBottomSheetOpen(true)}
             />
 
             {/* App name & Version */}

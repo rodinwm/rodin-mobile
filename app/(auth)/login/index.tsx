@@ -8,18 +8,11 @@ import {
     ThemedView
 } from '@/components';
 import React, {useState} from "react";
-import {useNavigation, useRouter} from "expo-router";
+import {useRouter} from "expo-router";
 
 export default function Page() {
     const router = useRouter();
-    const navigation = useNavigation();
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-    // Debug
-    /*const authUser: User = {
-        //firstname: "Alexandre",
-        //lastname: "TAHI",
-        pseudo: "@alexxtahi"
-    };*/
 
     const goToHomeScreen = () => {
         setIsBottomSheetOpen(false);
