@@ -11,6 +11,7 @@ type Props = {
     children?: ReactNode;
     confirm?: {
         text: string;
+        disabled?: boolean;
         onPress: () => void;
     }
     cancel?: {
@@ -46,6 +47,7 @@ export function MessageSheet(props: Props) {
                             title={props.confirm.text}
                             className={'flex-1'}
                             onPress={props.confirm.onPress}
+                            disabled={props.confirm.disabled}
                         />
                     ) : null}
 

@@ -13,6 +13,7 @@ import {useRouter} from "expo-router";
 
 export default function Page() {
     const router = useRouter();
+    const screensBeforeLockScreen = 2;
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
         exerciseSelection: false,
     });
@@ -92,7 +93,8 @@ export default function Page() {
                     title={"Non"}
                     type={"outlined"}
                     onPress={() => {
-                        router.push('/timer/lock-screen');
+                        for (let i = 0; i < screensBeforeLockScreen; i++) router.back();
+                        router.replace('/timer/lock-screen');
                     }}
                 />
             </ThemedView>
