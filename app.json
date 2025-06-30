@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "Rodin.",
+    "name": "Rodin",
     "slug": "rodin-mobile",
     "version": "1.0.0",
+    "owner": "rodinwm",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "rodin",
@@ -84,7 +85,8 @@
           "appleTeamId": "2B2UV6F9BA",
           "appGroup": "group.com.rodinwm.rodinmobile"
         }
-      ]
+      ],
+      "expo-asset"
     ],
     "experiments": {
       "typedRoutes": true
@@ -98,23 +100,11 @@
         "build": {
           "experimental": {
             "ios": {
-              "appExtensions": [
-                {
-                  "targetName": "ActivityMonitorExtension",
-                  "bundleIdentifier": "com.rodinwm.rodinmobile.RodinAppBlockerVPN",
-                  "entitlements": {
-                    "com.apple.developer.family-controls": true,
-                    "com.apple.security.application-groups": [
-                      "group.ActivityMonitor"
-                    ]
-                  }
-                }
-              ]
+              "appExtensions": []
             }
           }
         }
       }
-    },
-    "owner": "rodinwm"
+    }
   }
 }

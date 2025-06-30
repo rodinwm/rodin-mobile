@@ -8,7 +8,7 @@ import {
     ThemedText,
     ThemedView
 } from '@/components';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
 
 export default function Page() {
@@ -16,6 +16,10 @@ export default function Page() {
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
         exerciseSelection: false,
     });
+
+    useEffect(() => {
+        router.prefetch('/timer/lock-screen');
+    }, [])
 
     return (
         <ScreenTemplate
@@ -87,7 +91,9 @@ export default function Page() {
                 <ThemedButton
                     title={"Non"}
                     type={"outlined"}
-                    onPress={() => router.push('/timer/lock-screen')}
+                    onPress={() => {
+                        router.push('/timer/lock-screen');
+                    }}
                 />
             </ThemedView>
 
