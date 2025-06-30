@@ -3,7 +3,7 @@ import {useFonts} from 'expo-font';
 import {Stack} from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import {StatusBar} from 'expo-status-bar';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import 'react-native-reanimated';
 import './app.css';
 import {Appearance, Dimensions} from 'react-native';
@@ -16,6 +16,7 @@ import {FontService} from "@/utils/services/fontService";
 import {FontWeightEnum} from "@/utils/enums";
 import {Colors} from "@/utils/colors";
 import {AppearanceService} from "@/utils/services/appearanceService";
+import {PreloadService} from "@/utils/services/preloadService";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync().then();
@@ -23,6 +24,7 @@ SplashScreen.preventAutoHideAsync().then();
 export default function RootLayout() {
     const colorScheme = useColorScheme() ?? 'light';
     const appearance = Appearance.getColorScheme();
+    const [resourcesLoaded, setResourcesLoaded] = useState(false);
 
     const [fontLoaded] = useFonts({
         // Base
@@ -37,20 +39,24 @@ export default function RootLayout() {
         "Poppins-Black": require('@/assets/fonts/Poppins/Poppins-Black.ttf'),
     });
 
+    // Preload assets
     useEffect(() => {
-        // Font loading
-        if (fontLoaded) {
+        PreloadService.preloadResources().then((isAssetsLoaded) => {
+            setResourcesLoaded(fontLoaded && isAssetsLoaded);
             SplashScreen.hideAsync().then();
-        }
+        }).catch((error) => {
+            console.warn("Error loading assets:", error);
+        });
+    }, [fontLoaded]);
 
-        // Appearance setting up
+    // Apply saved theme
+    useEffect(() => {
         AppearanceService.loadSavedTheme().then((loadedTheme) => {
             AppearanceService.applyTheme(loadedTheme);
         });
+    }, []);
 
-    }, [fontLoaded]);
-
-    if (!fontLoaded) {
+    if (!resourcesLoaded) {
         return null;
     }
 
@@ -58,11 +64,7 @@ export default function RootLayout() {
         <GestureHandlerRootView style={{flex: 1}}>
             <SafeAreaProvider>
                 <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-                    <Stack
-                        screenOptions={{
-                            headerShown: false
-                        }}
-                    >
+                    <Stack screenOptions={{headerShown: false}}>
                         {/*
                         <Stack.Screen name="+not-found"/>
                         */}
@@ -89,10 +91,10 @@ export default function RootLayout() {
                             borderWidth: 1,
                             borderColor: Colors.background[colorScheme == "light" ? "dark" : "light"] + '11',
                             // Shadow
-                            shadowColor: "#000000", // Couleur de l'ombre
-                            shadowOffset: {width: 0, height: 10}, // Décalage vertical
-                            shadowOpacity: 0.2, // Opacité de l'ombre
-                            shadowRadius: 10, // Taille du flou de l'ombre
+                            shadowColor: "#000000",
+                            shadowOffset: {width: 0, height: 10},
+                            shadowOpacity: 0.2,
+                            shadowRadius: 10,
                             elevation: 8, // Ombre pour Android
                         }}
                     />

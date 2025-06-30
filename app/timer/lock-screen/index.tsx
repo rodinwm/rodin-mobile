@@ -1,15 +1,18 @@
 import {AlertCard, LucideIcon, ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
-import React, {useEffect, useLayoutEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Colors} from "@/utils/colors";
 import {DateService} from "@/utils/services/dateService";
-import {useFocusEffect, useNavigation} from "expo-router";
+import {useFocusEffect, useNavigation, useRouter} from "expo-router";
 import {BackHandler} from "react-native";
 import {UiService} from "@/utils/services/uiService";
+import {useIsFocused} from "@react-navigation/native";
 
 export default function Page() {
     const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes en secondes
     const [isRunning, setIsRunning] = useState(false);
+    const router = useRouter();
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
 
     let timer = setInterval(() => {
         if (isRunning) {
@@ -17,20 +20,25 @@ export default function Page() {
         }
     }, 1000);
 
+    /*
+    useLayoutEffect(() => {
+        if (!isFocused) return;
+
+        navigation.setOptions({
+            headerShown: false,
+            gestureEnabled: false,
+            presentation: 'transparentModal',
+        });
+    }, [navigation, isFocused]);
+    */
+
+
     useEffect(() => {
         if (timeLeft <= 0) {
             clearInterval(timer);
         }
         return () => clearInterval(timer);
     }, [isRunning, timeLeft]);
-
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerShown: false,        // Enlève la top bar
-            gestureEnabled: false,     // Désactive les gestures (iOS swipe)
-            presentation: 'transparentModal', // Optionnel : bloque fermeture sur iOS
-        });
-    }, [navigation]);
 
     // Android back button (physique)
     useFocusEffect(() => {
@@ -44,6 +52,7 @@ export default function Page() {
             scrollEnabled={false}
             setHeightToScreenSize={true}
             backgroundImage={require('@/assets/images/wallpapers/nature-1.jpg')}
+
         >
             {/* Message */}
             <ThemedView className={'w-full flex flex-col gap-3 justify-center items-center'}>
@@ -87,7 +96,7 @@ export default function Page() {
                         isBackgroundBlur={true}
                         paddingStyle={"uniform"}
                         showTitle={false}
-                        onPress={() => navigation.goBack()}
+                        onPress={() => router.back()}
                     />
                     <ThemedButton
                         title={isRunning ? "Pause" : "Play"}
