@@ -4,24 +4,38 @@
     "slug": "rodin-mobile",
     "version": "1.0.0",
     "owner": "rodinwm",
+    "description": "Le partenaire de concentration conçu pour vous aider à rester focus sur vos tâches.",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logos/logo-rodin-dark-1024.png",
     "scheme": "rodin",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "githubUrl": "https://github.com/rodinwm/rodin-mobile",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "notification": {
+      "icon": "./assets/images/logos/logo-rodin-dark-48.png",
+      "iosDisplayInForeground": true
+    },
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.rodinwm.rodinmobile",
       "appleTeamId": "2B2UV6F9BA",
-      "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+      "usesNonExemptEncryption": true,
+      "icon": {
+        "light": "./assets/images/logos/logo-rodin-light-1024.png",
+        "dark": "./assets/images/logos/logo-rodin-dark-1024.png",
+        "tinted": "./assets/images/logos/logo-rodin-dark-1024.png"
       }
     },
     "android": {
       "package": "com.rodinwm.rodinmobile",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/logos/logo-rodin-dark-1024.png",
+        "monochromeImage": "./assets/images/logos/logo-rodin-dark-1024.png",
+        "backgroundColor": "#000000"
       },
       "permissions": [
         "INTERNET",
