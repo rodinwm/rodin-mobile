@@ -21,6 +21,12 @@ import {PreloadService} from "@/utils/services/preloadService";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync().then();
 
+// Set the animation options. This is optional.
+SplashScreen.setOptions({
+    duration: 1000,
+    fade: true,
+});
+
 export default function RootLayout() {
     const colorScheme = useColorScheme() ?? 'light';
     const appearance = Appearance.getColorScheme();

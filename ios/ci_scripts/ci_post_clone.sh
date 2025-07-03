@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e  # Faire échouer le script dès qu'une commande échoue
+
 # Go to root folder
 cd "$(dirname "$0")/../.." || exit 1
 
