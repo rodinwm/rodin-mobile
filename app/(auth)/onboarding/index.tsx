@@ -12,12 +12,30 @@ import {SetExerciseFrequency} from "@/components/domain/onboarding/set-exercise-
 import {SetEmergencyCode} from "@/components/domain/onboarding/set-emergency-code";
 import {SetAgeRange} from "@/components/domain/onboarding/set-age-range";
 import {SetProfession} from "@/components/domain/onboarding/set-profession";
+import {SetName} from "@/components/domain/onboarding/set-name";
+import {AgeRange, ExerciseFrequency, Prisma, Profession} from "@rodinwm/rodin-models/frontend";
 
 export default function Page() {
+    const router = useRouter();
     const pagerRef = useRef<PagerView | null>(null);
     const [step, setStep] = useState(0);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-    const router = useRouter();
+    const [formData, setFormData] = useState<Prisma.UserCreateInput>({
+        firstname: 'Alexandre',
+        lastname: 'TAHI',
+        pseudo: 'alexxtahi',
+        ageRange: AgeRange.AGE_18_24,
+        profession: Profession.ETUDIANT,
+        email: 'alexandretahi7@gmail.com',
+        phoneNumber: '+33602030405',
+        password: 'Azerty123#',
+        passwordConfirmation: 'Azerty123#',
+        cgu: false,
+        defaultWorkTime: {hours: 0, minutes: 45, seconds: 0},
+        defaultBreakTime: {hours: 0, minutes: 45, seconds: 0},
+        exerciseFrequency: ExerciseFrequency.ONE_PER_SESSION,
+        emergencyCode: '1234',
+    });
 
     const goToNextStep = () => {
         pagerRef.current?.setPage(step + 1);
@@ -70,46 +88,50 @@ export default function Page() {
                 keyboardDismissMode={"on-drag"}
                 onPageSelected={(e) => setStep(e.nativeEvent.position)}
             >
-                <ChoosePseudo
+                <SetName
                     key={"1"}
                     onNextPress={goToNextStep}
                 />
-                <SetEmailAddress
+                <ChoosePseudo
                     key={"2"}
                     onNextPress={goToNextStep}
                 />
-                <SetPhoneNumber
+                <SetEmailAddress
                     key={"3"}
                     onNextPress={goToNextStep}
                 />
-                <SetPassword
+                <SetPhoneNumber
                     key={"4"}
+                    onNextPress={goToNextStep}
+                />
+                <SetPassword
+                    key={"5"}
                     onNextPress={() => {
                         setIsBottomSheetOpen(true);
                     }}
                 />
                 <ReadCGU
-                    key={"5"}
-                    onNextPress={goToNextStep}
-                />
-                <SetDefaultTimer
                     key={"6"}
                     onNextPress={goToNextStep}
                 />
-                <SetExerciseFrequency
+                <SetDefaultTimer
                     key={"7"}
                     onNextPress={goToNextStep}
                 />
-                <SetEmergencyCode
+                <SetExerciseFrequency
                     key={"8"}
                     onNextPress={goToNextStep}
                 />
-                <SetAgeRange
+                <SetEmergencyCode
                     key={"9"}
                     onNextPress={goToNextStep}
                 />
-                <SetProfession
+                <SetAgeRange
                     key={"10"}
+                    onNextPress={goToNextStep}
+                />
+                <SetProfession
+                    key={"11"}
                     onNextPress={() => router.push('/(auth)/onboarding/finish')}
                 />
             </PagerView>
