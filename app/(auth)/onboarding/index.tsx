@@ -14,13 +14,26 @@ import {SetAgeRange} from "@/components/domain/onboarding/set-age-range";
 import {SetProfession} from "@/components/domain/onboarding/set-profession";
 import {SetName} from "@/components/domain/onboarding/set-name";
 import {AgeRange, ExerciseFrequency, Prisma, Profession} from "@rodinwm/rodin-models/frontend";
+import {LogService} from "@/utils/services/logService";
+import {LogType} from "@/utils/enums";
+
+type CreateUserPayload = Prisma.UserCreateInput & {
+    passwordConfirmation: string;
+    cgu: false,
+}
+
+const logService = new LogService("Onboarding index");
+logService.log({
+    type: LogType.Log,
+    data: ["Exercise frequency: ", ExerciseFrequency],
+})
 
 export default function Page() {
     const router = useRouter();
     const pagerRef = useRef<PagerView | null>(null);
     const [step, setStep] = useState(0);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-    const [formData, setFormData] = useState<Prisma.UserCreateInput>({
+    const [formData, setFormData] = useState<CreateUserPayload>({
         firstname: 'Alexandre',
         lastname: 'TAHI',
         pseudo: 'alexxtahi',
@@ -32,7 +45,7 @@ export default function Page() {
         passwordConfirmation: 'Azerty123#',
         cgu: false,
         defaultWorkTime: {hours: 0, minutes: 45, seconds: 0},
-        defaultBreakTime: {hours: 0, minutes: 45, seconds: 0},
+        defaultBreakTime: {hours: 0, minutes: 10, seconds: 0},
         exerciseFrequency: ExerciseFrequency.ONE_PER_SESSION,
         emergencyCode: '1234',
     });
