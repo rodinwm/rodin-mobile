@@ -2,9 +2,9 @@ import {OnboardingStepScreenTemplate, ThemedButton, ThemedView} from '@/componen
 import React, {useState} from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 import {ExerciseFrequency} from "@rodinwm/rodin-models/frontend";
-import {ModelService} from "@/utils/services/modelService";
+import {modelService} from "@/utils/constants";
 
-const frequencies = ModelService.getExerciseFrequencies();
+const frequencies = modelService.getExerciseFrequencies();
 
 export function SetExerciseFrequency(props: OnboardingStepScreenProps) {
     const [selectedFrequency, setSelectedFrequency] = useState<ExerciseFrequency | null>(null);

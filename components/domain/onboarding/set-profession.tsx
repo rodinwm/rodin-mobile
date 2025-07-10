@@ -2,9 +2,10 @@ import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView}
 import React, {useEffect, useState} from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 import {Profession} from '@rodinwm/rodin-models/frontend';
+import {modelService} from "@/utils/constants";
 
 
-const professions = ModelService.getProfessions();
+const professions = modelService.getProfessions();
 
 export function SetProfession(props: OnboardingStepScreenProps) {
     const [selectedProfession, setSelectedProfession] = useState<Profession | null>(null);

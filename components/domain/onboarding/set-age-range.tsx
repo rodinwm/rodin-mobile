@@ -2,9 +2,9 @@ import {OnboardingStepScreenTemplate, ThemedButton, ThemedView} from '@/componen
 import React, {useState} from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 import {AgeRange} from "@rodinwm/rodin-models/frontend";
-import {ModelService} from "@/utils/services/modelService";
+import {modelService} from "@/utils/constants";
 
-const ageRanges = ModelService.getAgeRanges();
+const ageRanges = modelService.getAgeRanges();
 
 export function SetAgeRange(props: OnboardingStepScreenProps) {
     const [selectedAgeRange, setSelectedAgeRange] = useState<AgeRange | null>(null);
