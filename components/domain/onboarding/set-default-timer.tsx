@@ -11,8 +11,8 @@ import {OnboardingStepScreenProps} from "@/utils/interfaces";
 import {TimerValue} from "@rodinwm/rodin-models/frontend";
 
 export function SetDefaultTimer(props: OnboardingStepScreenProps) {
-    const [workTime, setWorkTime] = useState<TimerValue>({hours: 0, minutes: 0, seconds: 0});
-    const [breakTime, setBreakTime] = useState<TimerValue>({hours: 0, minutes: 0, seconds: 0});
+    const [workTime, setWorkTime] = useState<TimerValue>({hours: 0, minutes: 45, seconds: 0});
+    const [breakTime, setBreakTime] = useState<TimerValue>({hours: 0, minutes: 10, seconds: 0});
 
 
     return (
@@ -29,7 +29,10 @@ export function SetDefaultTimer(props: OnboardingStepScreenProps) {
                         <ThemedText type={'defaultSemiBold'}>Temps de travail</ThemedText>
                     </ThemedView>
 
-                    <TimerSelect onChange={(time) => setWorkTime(time)}/>
+                    <TimerSelect
+                        initialValue={workTime}
+                        onChange={(time) => setWorkTime(time)}
+                    />
                 </ThemedView>
 
                 {/* Temps de repos */}
@@ -39,7 +42,10 @@ export function SetDefaultTimer(props: OnboardingStepScreenProps) {
                         <ThemedText type={'defaultSemiBold'}>Temps de repos</ThemedText>
                     </ThemedView>
 
-                    <TimerSelect onChange={(time) => setBreakTime(time)}/>
+                    <TimerSelect
+                        initialValue={breakTime}
+                        onChange={(time) => setBreakTime(time)}
+                    />
                 </ThemedView>
             </ThemedView>
             <ThemedView className={'w-full flex flex-col gap-3'}>
