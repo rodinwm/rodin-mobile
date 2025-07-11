@@ -45,3 +45,6 @@ app-example
 # Tests
 /__tests__/coverage
 /__tests__/reports
+
+# APK
+*.apk
