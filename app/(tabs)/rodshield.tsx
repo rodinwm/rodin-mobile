@@ -1,7 +1,9 @@
 import {LucideIcon, ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React, {useEffect, useState} from "react";
-import {NativeAppBlockerView} from "@/components/layouts/NativeAppBlockerView";
+import {IOSAppBlockerView} from "@/components/domain/appBlocker/IOSAppBlockerView";
 import {AppBlockerService} from "@/utils/services/appBlockerService";
+import {Platform} from "react-native";
+import {AndroidAppBlockerView} from "@/components/domain/appBlocker/AndroidAppBlockerView";
 
 export default function Page() {
     const [isAppBlockerInit, setIsAppBlockerInit] = useState(AppBlockerService.isInit());
@@ -47,7 +49,13 @@ export default function Page() {
             scrollEnabled={false}
             removeBodyPadding={true}
         >
-            <NativeAppBlockerView/>
+            {Platform.OS === 'ios' && (
+                <IOSAppBlockerView/>
+            )}
+
+            {Platform.OS === 'android' && (
+                <AndroidAppBlockerView/>
+            )}
         </ScreenTemplate>
     );
 }

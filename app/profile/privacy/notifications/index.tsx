@@ -2,9 +2,9 @@ import {ScreenTemplate, ThemedCheckbox, ThemedListTile, ThemedText, ThemedView} 
 import React, {useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
 import {NotificationType} from "@rodinwm/rodin-models/frontend";
-import {ModelService} from "@/utils/services/modelService";
+import {modelService} from "@/utils/constants";
 
-const notificationTypes = ModelService.getNotificationTypes().filter((type) => type !== NotificationType.AUTO_SUGGESTIONS);
+const notificationTypes = modelService.getNotificationTypes().filter((type) => type !== NotificationType.AUTO_SUGGESTIONS);
 
 const Page = () => {
     const router = useRouter();

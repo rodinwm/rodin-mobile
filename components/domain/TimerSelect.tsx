@@ -24,7 +24,7 @@ export function TimerSelect({
 ) {
     const [isMounted, setIsMounted] = useState(false);
     const [time, setTime] = useState<TimerValue>(defaultValue ?? {hours: 0, minutes: 0, seconds: 0});
-    const colorScheme = useColorScheme() ?? 'light';
+    const colorScheme = useColorScheme() ?? 'dark';
     const audioPlayer = useAudioPlayer(clickAudioSource); // TODO: Find how to use this to play sound at each change
 
     const updateTime = (time: TimerValue) => {

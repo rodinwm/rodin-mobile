@@ -21,7 +21,7 @@ const subscriptionAdvantages = [
 ];
 
 export function SubscriptionAdvantageTable() {
-    const colorScheme = useColorScheme() ?? 'light';
+    const colorScheme = useColorScheme() ?? 'dark';
 
     return (
         <Table

@@ -29,7 +29,7 @@ export function ThemedListTile({
                                    ...otherProps
                                }: ThemedListTileProps
 ) {
-    const colorScheme = useColorScheme() ?? 'light';
+    const colorScheme = useColorScheme() ?? 'dark';
 
     return (
         <TouchableOpacity

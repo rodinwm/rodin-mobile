@@ -31,7 +31,8 @@ yarn-error.*
 *.pem
 
 # local env files
-.env*.local
+.env*
+!.env.template
 
 # typescript
 *.tsbuildinfo
@@ -44,3 +45,6 @@ app-example
 # Tests
 /__tests__/coverage
 /__tests__/reports
+
+# APK
+*.apk

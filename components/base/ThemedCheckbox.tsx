@@ -10,7 +10,7 @@ export function ThemedCheckbox({
                                    ...otherProps
                                }: ThemedCheckboxProps
 ) {
-    const colorScheme = useColorScheme() ?? 'light';
+    const colorScheme = useColorScheme() ?? 'dark';
 
     return (
         <BouncyCheckbox

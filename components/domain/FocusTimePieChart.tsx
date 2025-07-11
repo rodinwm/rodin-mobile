@@ -11,7 +11,7 @@ type Props = {
 };
 
 export function FocusTimePieChart({data}: Props) {
-    const colorScheme = useColorScheme() ?? 'light';
+    const colorScheme = useColorScheme() ?? 'dark';
     const [focusedIndex, setFocusedIndex] = useState<number | undefined>(undefined);
     const foreground = Colors.foreground[colorScheme];
     const background = Colors.background[colorScheme];

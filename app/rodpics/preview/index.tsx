@@ -9,7 +9,7 @@ import {useDraggableGesture} from "@/utils/hooks/useDraggableGesture";
 import {UiService} from "@/utils/services/uiService";
 
 export default function Page() {
-    const colorScheme = useColorScheme() ?? 'light';
+    const colorScheme = useColorScheme() ?? 'dark';
     const {firstPicUri, secondPicUri} = useLocalSearchParams();
     const [isSwapped, setIsSwapped] = useState(false);
     const [elementLayout, setElementLayout] = useState<LayoutRectangle>({width: 0, height: 0, x: 0, y: 0});

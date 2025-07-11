@@ -23,15 +23,20 @@
       "supportsTablet": false,
       "bundleIdentifier": "com.rodinwm.rodinmobile",
       "appleTeamId": "2B2UV6F9BA",
-      "usesNonExemptEncryption": true,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      },
       "icon": {
         "light": "./assets/images/logos/logo-rodin-light-1024.png",
         "dark": "./assets/images/logos/logo-rodin-dark-1024.png",
         "tinted": "./assets/images/logos/logo-rodin-dark-1024.png"
-      }
+      },
+      "backgroundColor": "#000000"
     },
     "android": {
+      "edgeToEdge": true,
       "package": "com.rodinwm.rodinmobile",
+      "backgroundColor": "#000000",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logos/logo-rodin-dark-1024.png",
         "monochromeImage": "./assets/images/logos/logo-rodin-dark-1024.png",
@@ -72,7 +77,6 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/logos/logo-rodin-light-1024.png",
-          "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#FFFFFF",
           "dark": {

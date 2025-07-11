@@ -13,7 +13,7 @@ type Props = {
 }
 
 export function FocusTimeBarChart({data}: Props) {
-    const colorScheme = useColorScheme() ?? 'light';
+    const colorScheme = useColorScheme() ?? 'dark';
     const {width} = useWindowDimensions();
     const foreground = Colors.foreground[colorScheme];
     const chartStyle = {

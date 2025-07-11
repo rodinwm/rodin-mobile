@@ -9,7 +9,7 @@ import {FontWeightEnum} from "@/utils/enums";
 import {Colors} from "@/utils/colors";
 
 export default function TabLayout() {
-    const colorScheme = useColorScheme() ?? 'light';
+    const colorScheme = useColorScheme() ?? 'dark';
 
     return (
         <Tabs

@@ -15,7 +15,7 @@ type Props = {
 };
 
 export function FocusTimeLineChart({data, data2}: Props) {
-    const colorScheme = useColorScheme() ?? 'light';
+    const colorScheme = useColorScheme() ?? 'dark';
     const {width} = useWindowDimensions();
     const foreground = Colors.foreground[colorScheme];
 

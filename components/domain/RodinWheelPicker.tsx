@@ -22,7 +22,7 @@ export function RodinWheelPicker({
                                      isRightCornerRounded,
                                  }: Props
 ) {
-    const colorScheme = useColorScheme() ?? 'light';
+    const colorScheme = useColorScheme() ?? 'dark';
 
     const wheelStyle: WheelStyle = {
         visibleRest: 1,
