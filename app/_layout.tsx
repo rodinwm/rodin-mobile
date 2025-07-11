@@ -30,7 +30,7 @@ SplashScreen.setOptions({
 });
 
 export default function RootLayout() {
-    const colorScheme = useColorScheme() ?? 'light';
+    const colorScheme = useColorScheme() ?? 'dark';
     const appearance = Appearance.getColorScheme();
     const [assetsLoaded, setAssetsLoaded] = useState(false);
     const [resourcesLoaded, setResourcesLoaded] = useState(false);

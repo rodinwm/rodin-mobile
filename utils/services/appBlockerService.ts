@@ -9,6 +9,7 @@ import {
 import {LogService} from "@/utils/services/logService";
 import {LogType, PermissionResult} from "@/utils/enums";
 import ReactNativeDeviceActivityModule from "react-native-device-activity/build/ReactNativeDeviceActivityModule";
+import {Platform} from "react-native";
 
 /**
  * Reference : https://www.npmjs.com/package/react-native-device-activity
@@ -28,6 +29,55 @@ export abstract class AppBlockerService {
     };
 
     static async init(): Promise<boolean> {
+        switch (Platform.OS) {
+            case "ios":
+                return await this.initIOS();
+            case "android":
+                return await this.initAndroid();
+            default:
+                return false; // Unsupported platform
+        }
+    }
+
+    static isInit() {
+        switch (Platform.OS) {
+            case "ios":
+                return getAuthorizationStatus() === AuthorizationStatus.approved;
+            case "android":
+                return true;
+            default:
+                return false; // Unsupported platform
+        }
+    }
+
+    static async requestPermissions(): Promise<PermissionResult> {
+        try {
+            await ReactNativeDeviceActivityModule?.requestAuthorization("individual");
+            this.logService.log({
+                type: LogType.Info,
+                data: ["Permission for device activity granted."]
+            });
+            return PermissionResult.Granted;
+        } catch (error) {
+            this.logService.log({
+                type: LogType.Error,
+                data: ["Authorization request error :", error]
+            });
+            return PermissionResult.Denied;
+        }
+    }
+
+    static block(selectionId: string) {
+        blockSelection({
+            activitySelectionId: selectionId,
+        });
+    }
+
+    private static async initAndroid(): Promise<boolean> {
+        return true;
+    }
+
+    private static async initIOS(): Promise<boolean> {
         return this.requestPermissions().then((permissionResult) => {
             switch (permissionResult) {
                 case PermissionResult.Granted:
@@ -51,33 +101,6 @@ export abstract class AppBlockerService {
                 data: ["App blocker initialization error :", error]
             });
             return false;
-        });
-    }
-
-    static isInit() {
-        return getAuthorizationStatus() === AuthorizationStatus.approved;
-    }
-
-    static async requestPermissions(): Promise<PermissionResult> {
-        try {
-            await ReactNativeDeviceActivityModule?.requestAuthorization("individual");
-            this.logService.log({
-                type: LogType.Info,
-                data: ["Permission for device activity granted."]
-            });
-            return PermissionResult.Granted;
-        } catch (error) {
-            this.logService.log({
-                type: LogType.Error,
-                data: ["Authorization request error :", error]
-            });
-            return PermissionResult.Denied;
-        }
-    }
-
-    static block(selectionId: string) {
-        blockSelection({
-            activitySelectionId: selectionId,
         });
     }
 

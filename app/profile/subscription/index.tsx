@@ -18,7 +18,7 @@ import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {Alert} from "react-native";
 
 export default function Page() {
-    const colorScheme = useColorScheme() ?? 'light';
+    const colorScheme = useColorScheme() ?? 'dark';
     const router = useRouter();
     const navigation = useNavigation();
     const [subscriptionFrequency, setSubscriptionFrequency] = useState<SubscriptionFrequency>(SubscriptionFrequency.YEARLY);

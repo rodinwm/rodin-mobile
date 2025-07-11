@@ -25,7 +25,7 @@ export function AlertCard({
                               disableTextDarkMode = false,
                           }: Props
 ) {
-    const colorScheme = useColorScheme() ?? 'light';
+    const colorScheme = useColorScheme() ?? 'dark';
     const iconColor = type === "warning" ?
         Colors.foreground.warning[colorScheme] : Colors.foreground[colorScheme];
     const textColor = type === "warning" ?

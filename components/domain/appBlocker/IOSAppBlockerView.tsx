@@ -13,8 +13,8 @@ const SELECTION_ID = "evening_block_selection";
 const SHIELD_CONFIG_ID = "evening_shield_config";
 const ACTIVITY_NAME = "evening_block";
 
-export function NativeAppBlockerView({}: Props) {
-    const colorScheme = useColorScheme() ?? 'light';
+export function IOSAppBlockerView({}: Props) {
+    const colorScheme = useColorScheme() ?? 'dark';
 
     // Step 2: Manage the selection state of apps/websites to block
     const [currentFamilyActivitySelection, setCurrentFamilyActivitySelection] =

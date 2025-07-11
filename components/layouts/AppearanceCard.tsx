@@ -18,7 +18,7 @@ export function AppearanceCard({
                                    onSelect,
                                }: Props
 ) {
-    const colorScheme = useColorScheme() ?? 'light';
+    const colorScheme = useColorScheme() ?? 'dark';
 
     return (
         <TouchableOpacity

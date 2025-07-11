@@ -9,7 +9,7 @@ type Props = {
 };
 
 export function ChartLegendItem({type}: Props) {
-    const colorScheme = useColorScheme() ?? 'light';
+    const colorScheme = useColorScheme() ?? 'dark';
 
     return (
         <ThemedView
