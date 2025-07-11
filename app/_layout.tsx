@@ -1,3 +1,5 @@
+// file: app/_layout.tsx
+
 import {DarkTheme, DefaultTheme, ThemeProvider} from '@react-navigation/native';
 import {useFonts} from 'expo-font';
 import {Stack} from 'expo-router';
@@ -30,8 +32,8 @@ SplashScreen.setOptions({
 export default function RootLayout() {
     const colorScheme = useColorScheme() ?? 'light';
     const appearance = Appearance.getColorScheme();
+    const [assetsLoaded, setAssetsLoaded] = useState(false);
     const [resourcesLoaded, setResourcesLoaded] = useState(false);
-
     const [fontLoaded] = useFonts({
         // Base
         "FunnelDisplay-Light": require('@/assets/fonts/FunnelDisplay/FunnelDisplay-Light.ttf'),
@@ -45,22 +47,29 @@ export default function RootLayout() {
         "Poppins-Black": require('@/assets/fonts/Poppins/Poppins-Black.ttf'),
     });
 
-    // Preload assets
-    useEffect(() => {
-        PreloadService.preloadResources().then((isAssetsLoaded) => {
-            setResourcesLoaded(fontLoaded && isAssetsLoaded);
-            SplashScreen.hideAsync().then();
-        }).catch((error) => {
-            console.warn("Error loading assets:", error);
-        });
-    }, [fontLoaded]);
-
     // Apply saved theme
     useEffect(() => {
         AppearanceService.loadSavedTheme().then((loadedTheme) => {
             AppearanceService.applyTheme(loadedTheme);
         });
     }, []);
+
+    // Load assets
+    useEffect(() => {
+        PreloadService.preloadResources().then(() => {
+            setAssetsLoaded(true);
+        }).catch((error) => {
+            console.warn("Error loading assets:", error);
+        });
+    }, []);
+
+    // Check if all resources are loaded
+    useEffect(() => {
+        if (fontLoaded && assetsLoaded) {
+            setResourcesLoaded(true);
+            SplashScreen.hideAsync().then();
+        }
+    }, [fontLoaded, assetsLoaded]);
 
     if (!resourcesLoaded) {
         return null;
