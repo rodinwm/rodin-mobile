@@ -17,8 +17,7 @@ export default function Page() {
                     Rodin
                 </ThemedText>
                 <ThemedText type={'small'} className={"text-center opacity-50"}>
-                    Votre appli de concentration ultime sdf sgsgssd fsdf sdfgsfssd fsdf sdfdfsdfsdfs dfsd fsdf sdfsdf
-                    sdfsd fsdf
+                    Le partenaire de concentration conçu pour vous aider à rester focus sur vos tâches.
                 </ThemedText>
             </ThemedView>
 
