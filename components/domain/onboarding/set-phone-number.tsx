@@ -2,7 +2,12 @@ import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView}
 import React from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 
-export function SetPhoneNumber(props: OnboardingStepScreenProps) {
+type Props = OnboardingStepScreenProps & {
+    phoneNumber?: string;
+    onChangePhoneNumber: (text: string) => void;
+};
+
+export function SetPhoneNumber(props: Props) {
 
     return (
         <OnboardingStepScreenTemplate
@@ -16,6 +21,8 @@ export function SetPhoneNumber(props: OnboardingStepScreenProps) {
                     textContentType={"telephoneNumber"}
                     keyboardType={"phone-pad"}
                     placeholder={"Ex: +330102030405"}
+                    value={props.phoneNumber}
+                    onChangeText={(phoneNumber) => props.onChangePhoneNumber(phoneNumber)}
                 />
             </ThemedView>
 
@@ -23,6 +30,7 @@ export function SetPhoneNumber(props: OnboardingStepScreenProps) {
                 <ThemedButton
                     title={"Suivant"}
                     onPress={props.onNextPress}
+                    disabled={props.phoneNumber === ""}
                 />
                 <ThemedButton
                     title={"Ignorer"}

@@ -2,7 +2,12 @@ import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView}
 import React from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 
-export function ChoosePseudo(props: OnboardingStepScreenProps) {
+type Props = OnboardingStepScreenProps & {
+    pseudo: string;
+    onChangePseudo: (text: string) => void;
+};
+
+export function ChoosePseudo(props: Props) {
 
     return (
         <OnboardingStepScreenTemplate
@@ -14,6 +19,8 @@ export function ChoosePseudo(props: OnboardingStepScreenProps) {
                 <ThemedTextInput
                     label={"Pseudo"}
                     placeholder={"Ex: mvxence"}
+                    value={props.pseudo}
+                    onChangeText={(pseudo) => props.onChangePseudo(pseudo)}
                 />
             </ThemedView>
 
@@ -21,6 +28,7 @@ export function ChoosePseudo(props: OnboardingStepScreenProps) {
                 <ThemedButton
                     title={"Suivant"}
                     onPress={props.onNextPress}
+                    disabled={props.pseudo === ""}
                 />
             </ThemedView>
         </OnboardingStepScreenTemplate>

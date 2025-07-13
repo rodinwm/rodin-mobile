@@ -2,7 +2,12 @@ import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView}
 import React from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 
-export function SetEmailAddress(props: OnboardingStepScreenProps) {
+type Props = OnboardingStepScreenProps & {
+    email: string;
+    onChangeEmail: (text: string) => void;
+};
+
+export function SetEmailAddress(props: Props) {
 
     return (
         <OnboardingStepScreenTemplate
@@ -16,6 +21,8 @@ export function SetEmailAddress(props: OnboardingStepScreenProps) {
                     textContentType={"emailAddress"}
                     keyboardType={"email-address"}
                     placeholder={"Ex: alexandretahi@gmail.com"}
+                    value={props.email}
+                    onChangeText={(email) => props.onChangeEmail(email)}
                 />
             </ThemedView>
 
@@ -23,6 +30,7 @@ export function SetEmailAddress(props: OnboardingStepScreenProps) {
                 <ThemedButton
                     title={"Suivant"}
                     onPress={props.onNextPress}
+                    disabled={props.email === ""}
                 />
             </ThemedView>
         </OnboardingStepScreenTemplate>

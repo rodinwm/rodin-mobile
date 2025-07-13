@@ -6,15 +6,18 @@ import {
     ThemedView,
     TimerSelect
 } from '@/components';
-import React, {useState} from "react";
+import React from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 import {TimerValue} from "@rodinwm/rodin-models/frontend";
 
-export function SetDefaultTimer(props: OnboardingStepScreenProps) {
-    const [workTime, setWorkTime] = useState<TimerValue>({hours: 0, minutes: 0, seconds: 0});
-    const [breakTime, setBreakTime] = useState<TimerValue>({hours: 0, minutes: 0, seconds: 0});
+type Props = OnboardingStepScreenProps & {
+    defaultWorkTime: TimerValue;
+    defaultBreakTime: TimerValue;
+    onChangeDefaultWorkTime: (value: TimerValue) => void;
+    onChangeDefaultBreakTime: (value: TimerValue) => void;
+};
 
-
+export function SetDefaultTimer(props: Props) {
     return (
         <OnboardingStepScreenTemplate
             title={'Choisissez votre temps de travail et repos par défaut'}
@@ -29,7 +32,10 @@ export function SetDefaultTimer(props: OnboardingStepScreenProps) {
                         <ThemedText type={'defaultSemiBold'}>Temps de travail</ThemedText>
                     </ThemedView>
 
-                    <TimerSelect onChange={(time) => setWorkTime(time)}/>
+                    <TimerSelect
+                        initialValue={props.defaultWorkTime}
+                        onChange={props.onChangeDefaultWorkTime}
+                    />
                 </ThemedView>
 
                 {/* Temps de repos */}
@@ -39,7 +45,10 @@ export function SetDefaultTimer(props: OnboardingStepScreenProps) {
                         <ThemedText type={'defaultSemiBold'}>Temps de repos</ThemedText>
                     </ThemedView>
 
-                    <TimerSelect onChange={(time) => setBreakTime(time)}/>
+                    <TimerSelect
+                        initialValue={props.defaultBreakTime}
+                        onChange={props.onChangeDefaultBreakTime}
+                    />
                 </ThemedView>
             </ThemedView>
             <ThemedView className={'w-full flex flex-col gap-3'}>

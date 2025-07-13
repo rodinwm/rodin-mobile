@@ -2,7 +2,14 @@ import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView}
 import React from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 
-export function SetName(props: OnboardingStepScreenProps) {
+type Props = OnboardingStepScreenProps & {
+    firstname: string;
+    lastname: string;
+    onChangeFirstName: (text: string) => void;
+    onChangeLastName: (text: string) => void;
+};
+
+export function SetName(props: Props) {
 
     return (
         <OnboardingStepScreenTemplate
@@ -14,16 +21,21 @@ export function SetName(props: OnboardingStepScreenProps) {
                 <ThemedTextInput
                     label={"Prénom"}
                     placeholder={"Ex: William"}
+                    value={props.firstname}
+                    onChangeText={(firstname) => props.onChangeFirstName(firstname)}
                 />
                 <ThemedTextInput
                     label={"Nom"}
                     placeholder={"Ex: SIBI"}
+                    value={props.lastname}
+                    onChangeText={(lastname) => props.onChangeLastName(lastname)}
                 />
             </ThemedView>
 
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedButton
                     title={"Suivant"}
+                    disabled={props.firstname === "" || props.lastname === ""}
                     onPress={props.onNextPress}
                 />
             </ThemedView>

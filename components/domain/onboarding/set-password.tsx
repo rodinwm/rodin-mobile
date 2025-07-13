@@ -1,8 +1,17 @@
 import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView} from '@/components';
 import React from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
+import {ToastService} from "@/utils/services/toastService";
+import {ToastType} from "@/utils/enums";
 
-export function SetPassword(props: OnboardingStepScreenProps) {
+type Props = OnboardingStepScreenProps & {
+    password: string;
+    passwordConfirmation: string;
+    onChangePassword: (text: string) => void;
+    onChangePasswordConfirmation: (text: string) => void;
+}
+
+export function SetPassword(props: Props) {
 
     return (
         <OnboardingStepScreenTemplate
@@ -16,13 +25,35 @@ export function SetPassword(props: OnboardingStepScreenProps) {
                     textContentType={"password"}
                     keyboardType={"visible-password"}
                     placeholder={"Ex: ******"}
+                    secureTextEntry={true}
+                    value={props.password}
+                    onChangeText={(password) => props.onChangePassword(password)}
+                />
+                <ThemedTextInput
+                    label={"Confirmation du mot de passe"}
+                    textContentType={"password"}
+                    keyboardType={"visible-password"}
+                    placeholder={"Ex: ******"}
+                    secureTextEntry={true}
+                    value={props.passwordConfirmation}
+                    onChangeText={(passwordConfirmation) => props.onChangePasswordConfirmation(passwordConfirmation)}
                 />
             </ThemedView>
 
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedButton
                     title={"Suivant"}
-                    onPress={props.onNextPress}
+                    onPress={() => {
+                        if (props.password !== props.passwordConfirmation) {
+                            ToastService.show({
+                                type: ToastType.Error,
+                                message: "Les mots de passe ne correspondent pas. Veuillez réessayer."
+                            });
+                            return;
+                        }
+                        props.onNextPress();
+                    }}
+                    disabled={props.password === "" || props.passwordConfirmation === ""}
                 />
             </ThemedView>
         </OnboardingStepScreenTemplate>

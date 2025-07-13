@@ -13,20 +13,14 @@ import {SetEmergencyCode} from "@/components/domain/onboarding/set-emergency-cod
 import {SetAgeRange} from "@/components/domain/onboarding/set-age-range";
 import {SetProfession} from "@/components/domain/onboarding/set-profession";
 import {SetName} from "@/components/domain/onboarding/set-name";
-import {AgeRange, ExerciseFrequency, Prisma, Profession} from "@rodinwm/rodin-models/frontend";
-import {LogService} from "@/utils/services/logService";
-import {LogType} from "@/utils/enums";
+import {AgeRange, Prisma, Profession, TimerValue} from "@rodinwm/rodin-models/frontend";
 
-type CreateUserPayload = Prisma.UserCreateInput & {
+type CreateUserPayload = Omit<Prisma.UserCreateInput, 'defaultWorkTime' | 'defaultBreakTime'> & {
     passwordConfirmation: string;
-    cgu: false,
-}
-
-const logService = new LogService("Onboarding index");
-logService.log({
-    type: LogType.Log,
-    data: ["Exercise frequency: ", ExerciseFrequency],
-})
+    phoneNumber?: string;
+    defaultWorkTime: TimerValue;
+    defaultBreakTime: TimerValue;
+};
 
 export default function Page() {
     const router = useRouter();
@@ -43,10 +37,9 @@ export default function Page() {
         phoneNumber: '+33602030405',
         password: 'Azerty123#',
         passwordConfirmation: 'Azerty123#',
-        cgu: false,
         defaultWorkTime: {hours: 0, minutes: 45, seconds: 0},
         defaultBreakTime: {hours: 0, minutes: 10, seconds: 0},
-        exerciseFrequency: ExerciseFrequency.ONE_PER_SESSION,
+        //exerciseFrequency: ExerciseFrequency.ONE_PER_SESSION,
         emergencyCode: '1234',
     });
 
@@ -103,22 +96,43 @@ export default function Page() {
             >
                 <SetName
                     key={"1"}
+                    firstname={formData.firstname}
+                    lastname={formData.lastname}
+                    onChangeFirstName={(firstname) => setFormData({...formData, firstname})}
+                    onChangeLastName={(lastname) => setFormData({...formData, lastname})}
                     onNextPress={goToNextStep}
                 />
                 <ChoosePseudo
                     key={"2"}
+                    pseudo={formData.pseudo}
+                    onChangePseudo={(pseudo) => setFormData({...formData, pseudo})}
                     onNextPress={goToNextStep}
                 />
                 <SetEmailAddress
                     key={"3"}
+                    email={formData.email}
+                    onChangeEmail={(email) => setFormData({...formData, email})}
                     onNextPress={goToNextStep}
                 />
                 <SetPhoneNumber
                     key={"4"}
+                    phoneNumber={formData.phoneNumber}
+                    onChangePhoneNumber={(phoneNumber) => setFormData({...formData, phoneNumber})}
                     onNextPress={goToNextStep}
+                    onSkip={() => {
+                        setFormData({...formData, phoneNumber: undefined});
+                        goToNextStep();
+                    }}
                 />
                 <SetPassword
                     key={"5"}
+                    password={formData.password}
+                    passwordConfirmation={formData.passwordConfirmation}
+                    onChangePassword={(password) => setFormData({...formData, password})}
+                    onChangePasswordConfirmation={(passwordConfirmation) => setFormData({
+                        ...formData,
+                        passwordConfirmation
+                    })}
                     onNextPress={() => {
                         setIsBottomSheetOpen(true);
                     }}
@@ -129,6 +143,16 @@ export default function Page() {
                 />
                 <SetDefaultTimer
                     key={"7"}
+                    defaultWorkTime={formData.defaultWorkTime}
+                    defaultBreakTime={formData.defaultBreakTime}
+                    onChangeDefaultWorkTime={(defaultWorkTime) => setFormData({
+                        ...formData,
+                        defaultWorkTime
+                    })}
+                    onChangeDefaultBreakTime={(defaultBreakTime) => setFormData({
+                        ...formData,
+                        defaultBreakTime
+                    })}
                     onNextPress={goToNextStep}
                 />
                 <SetExerciseFrequency
