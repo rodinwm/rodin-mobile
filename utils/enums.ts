@@ -49,6 +49,13 @@ export enum LogType {
     Warning = "warn",
 }
 
+export enum ToastType {
+    Info = "info",
+    Error = "error",
+    Success = "success",
+    Warning = "warn",
+}
+
 export enum PermissionResult {
     Granted = "granted",
     Denied = "denied",

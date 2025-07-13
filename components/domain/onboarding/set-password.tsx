@@ -1,6 +1,8 @@
 import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView} from '@/components';
 import React from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
+import {ToastService} from "@/utils/services/toastService";
+import {ToastType} from "@/utils/enums";
 
 type Props = OnboardingStepScreenProps & {
     password: string;
@@ -43,7 +45,10 @@ export function SetPassword(props: Props) {
                     title={"Suivant"}
                     onPress={() => {
                         if (props.password !== props.passwordConfirmation) {
-                            alert("Les mots de passe ne correspondent pas. Veuillez réessayer.");
+                            ToastService.show({
+                                type: ToastType.Error,
+                                message: "Les mots de passe ne correspondent pas. Veuillez réessayer."
+                            });
                             return;
                         }
                         props.onNextPress();

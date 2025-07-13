@@ -13,21 +13,14 @@ import {SetEmergencyCode} from "@/components/domain/onboarding/set-emergency-cod
 import {SetAgeRange} from "@/components/domain/onboarding/set-age-range";
 import {SetProfession} from "@/components/domain/onboarding/set-profession";
 import {SetName} from "@/components/domain/onboarding/set-name";
-import {AgeRange, ExerciseFrequency, Prisma, Profession} from "@rodinwm/rodin-models/frontend";
-import {LogService} from "@/utils/services/logService";
-import {LogType} from "@/utils/enums";
+import {AgeRange, Prisma, Profession, TimerValue} from "@rodinwm/rodin-models/frontend";
 
-type CreateUserPayload = Prisma.UserCreateInput & {
+type CreateUserPayload = Omit<Prisma.UserCreateInput, 'defaultWorkTime' | 'defaultBreakTime'> & {
     passwordConfirmation: string;
-    cgu: boolean;
     phoneNumber?: string;
-}
-
-const logService = new LogService("Onboarding index");
-logService.log({
-    type: LogType.Log,
-    data: ["Exercise frequency: ", ExerciseFrequency],
-})
+    defaultWorkTime: TimerValue;
+    defaultBreakTime: TimerValue;
+};
 
 export default function Page() {
     const router = useRouter();
@@ -44,7 +37,6 @@ export default function Page() {
         phoneNumber: '+33602030405',
         password: 'Azerty123#',
         passwordConfirmation: 'Azerty123#',
-        cgu: true,
         defaultWorkTime: {hours: 0, minutes: 45, seconds: 0},
         defaultBreakTime: {hours: 0, minutes: 10, seconds: 0},
         //exerciseFrequency: ExerciseFrequency.ONE_PER_SESSION,
@@ -151,6 +143,16 @@ export default function Page() {
                 />
                 <SetDefaultTimer
                     key={"7"}
+                    defaultWorkTime={formData.defaultWorkTime}
+                    defaultBreakTime={formData.defaultBreakTime}
+                    onChangeDefaultWorkTime={(defaultWorkTime) => setFormData({
+                        ...formData,
+                        defaultWorkTime
+                    })}
+                    onChangeDefaultBreakTime={(defaultBreakTime) => setFormData({
+                        ...formData,
+                        defaultBreakTime
+                    })}
                     onNextPress={goToNextStep}
                 />
                 <SetExerciseFrequency

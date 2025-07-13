@@ -6,15 +6,18 @@ import {
     ThemedView,
     TimerSelect
 } from '@/components';
-import React, {useState} from "react";
+import React from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 import {TimerValue} from "@rodinwm/rodin-models/frontend";
 
-export function SetDefaultTimer(props: OnboardingStepScreenProps) {
-    const [workTime, setWorkTime] = useState<TimerValue>({hours: 0, minutes: 45, seconds: 0});
-    const [breakTime, setBreakTime] = useState<TimerValue>({hours: 0, minutes: 10, seconds: 0});
+type Props = OnboardingStepScreenProps & {
+    defaultWorkTime: TimerValue;
+    defaultBreakTime: TimerValue;
+    onChangeDefaultWorkTime: (value: TimerValue) => void;
+    onChangeDefaultBreakTime: (value: TimerValue) => void;
+};
 
-
+export function SetDefaultTimer(props: Props) {
     return (
         <OnboardingStepScreenTemplate
             title={'Choisissez votre temps de travail et repos par défaut'}
@@ -30,8 +33,8 @@ export function SetDefaultTimer(props: OnboardingStepScreenProps) {
                     </ThemedView>
 
                     <TimerSelect
-                        initialValue={workTime}
-                        onChange={(time) => setWorkTime(time)}
+                        initialValue={props.defaultWorkTime}
+                        onChange={props.onChangeDefaultWorkTime}
                     />
                 </ThemedView>
 
@@ -43,8 +46,8 @@ export function SetDefaultTimer(props: OnboardingStepScreenProps) {
                     </ThemedView>
 
                     <TimerSelect
-                        initialValue={breakTime}
-                        onChange={(time) => setBreakTime(time)}
+                        initialValue={props.defaultBreakTime}
+                        onChange={props.onChangeDefaultBreakTime}
                     />
                 </ThemedView>
             </ThemedView>
