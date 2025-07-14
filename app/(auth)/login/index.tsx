@@ -18,7 +18,7 @@ export default function Page() {
         setIsBottomSheetOpen(false);
         router.back();
         router.replace('/(tabs)');
-    }
+    };
 
     return (
         <ScreenTemplate

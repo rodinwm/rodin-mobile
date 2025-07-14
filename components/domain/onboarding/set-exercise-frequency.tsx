@@ -1,9 +1,9 @@
 import {OnboardingStepScreenTemplate, ThemedButton, ThemedView} from '@/components';
 import React, {useState} from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
-import {ExerciseFrequency} from '@/utils/model.enums';
+import {ExerciseFrequency} from "@/utils/model.enums";
 
-//const frequencies = modelService.getExerciseFrequencies(); // TODO :Fix this when the modelService is ready
+//const frequencies = modelService.getEnumValues('ExerciseFrequency');
 const frequencies: ExerciseFrequency[] = Object.values(ExerciseFrequency);
 
 export function SetExerciseFrequency(props: OnboardingStepScreenProps) {
