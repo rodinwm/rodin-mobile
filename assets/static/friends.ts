@@ -1,5 +1,6 @@
 import {faker} from '@faker-js/faker';
-import {AgeRange, Profession, SubscriptionStatus, User} from '@rodinwm/rodin-models/frontend';
+import {User} from '@rodinwm/rodin-models/frontend';
+import {AgeRange, Profession, SubscriptionStatus} from '@/utils/model.enums';
 
 export const Friends: User[] = Array.from({length: 15}, () => {
     return {

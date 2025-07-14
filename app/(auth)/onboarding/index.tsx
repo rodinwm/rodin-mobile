@@ -13,7 +13,8 @@ import {SetEmergencyCode} from "@/components/domain/onboarding/set-emergency-cod
 import {SetAgeRange} from "@/components/domain/onboarding/set-age-range";
 import {SetProfession} from "@/components/domain/onboarding/set-profession";
 import {SetName} from "@/components/domain/onboarding/set-name";
-import {AgeRange, Prisma, Profession, TimerValue} from "@rodinwm/rodin-models/frontend";
+import {Prisma, TimerValue} from "@rodinwm/rodin-models/frontend";
+import {AgeRange, Profession} from "@/utils/model.enums";
 
 type CreateUserPayload = Omit<Prisma.UserCreateInput, 'defaultWorkTime' | 'defaultBreakTime'> & {
     passwordConfirmation: string;
@@ -169,7 +170,10 @@ export default function Page() {
                 />
                 <SetProfession
                     key={"11"}
-                    onNextPress={() => router.push('/(auth)/onboarding/finish')}
+                    onNextPress={() => {
+                        router.back();
+                        router.replace('/(auth)/onboarding/finish');
+                    }}
                 />
             </PagerView>
 

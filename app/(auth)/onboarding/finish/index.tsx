@@ -5,6 +5,11 @@ import {useRouter} from "expo-router";
 export default function Page() {
     const router = useRouter();
 
+    const goToHomeScreen = () => {
+        router.back();
+        router.replace('/(tabs)');
+    };
+
     return (
         <ScreenTemplate
             setHeightToScreenSize={true}
@@ -24,7 +29,7 @@ export default function Page() {
 
             <ThemedButton
                 title={"Continuer"}
-                onPress={() => router.push('/(tabs)')}
+                onPress={goToHomeScreen}
             />
 
         </ScreenTemplate>
