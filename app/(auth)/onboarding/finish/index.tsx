@@ -6,7 +6,6 @@ export default function Page() {
     const router = useRouter();
 
     const goToHomeScreen = () => {
-        router.back();
         router.replace('/(tabs)');
     };
 
@@ -25,8 +24,7 @@ export default function Page() {
                     concentration optimale dans vos différentes tâches.
                 </ThemedText>
             </ThemedView>
-
-
+            
             <ThemedButton
                 title={"Continuer"}
                 onPress={goToHomeScreen}

@@ -9,7 +9,7 @@ type Props = OnboardingStepScreenProps & {
     passwordConfirmation: string;
     onChangePassword: (text: string) => void;
     onChangePasswordConfirmation: (text: string) => void;
-}
+};
 
 export function SetPassword(props: Props) {
 

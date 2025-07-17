@@ -1,13 +1,18 @@
 import {OnboardingStepScreenTemplate, ThemedButton, ThemedView} from '@/components';
 import React, {useState} from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
-import {ExerciseFrequency} from "@/utils/model.enums";
+import {modelService} from "@/utils/constants";
+import {ExerciseFrequency} from "@/utils/models/model.enums";
 
-//const frequencies = modelService.getEnumValues('ExerciseFrequency');
-const frequencies: ExerciseFrequency[] = Object.values(ExerciseFrequency);
+const frequencies = modelService.getEnumValues('ExerciseFrequency') as ExerciseFrequency[];
 
-export function SetExerciseFrequency(props: OnboardingStepScreenProps) {
-    const [selectedFrequency, setSelectedFrequency] = useState<ExerciseFrequency | null>(null);
+type Props = OnboardingStepScreenProps & {
+    exerciseFrequency: ExerciseFrequency;
+    onChangeExerciseFrequency: (frequency: ExerciseFrequency) => void;
+}
+
+export function SetExerciseFrequency(props: Props) {
+    const [selectedFrequency, setSelectedFrequency] = useState<ExerciseFrequency>(ExerciseFrequency.ONE_PER_SESSION);
 
     return (
         <OnboardingStepScreenTemplate
@@ -19,9 +24,13 @@ export function SetExerciseFrequency(props: OnboardingStepScreenProps) {
                 {frequencies.map((frequency) => (
                     <ThemedButton
                         key={frequency}
-                        title={frequency}
+                        title={modelService.getEnumLabel('ExerciseFrequency', frequency)}
                         type={frequency === selectedFrequency ? "default" : "outlined"}
-                        onPress={() => setSelectedFrequency(frequency)}
+                        onPress={() => {
+                            const newFrequency = ExerciseFrequency[frequency as keyof typeof ExerciseFrequency];
+                            setSelectedFrequency(newFrequency);
+                            props.onChangeExerciseFrequency(newFrequency);
+                        }}
                     />
                 ))}
             </ThemedView>

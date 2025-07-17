@@ -19,6 +19,7 @@ type Props = {
         onPress: () => void;
     }
     onClose: () => void;
+    closeOnTapOutside?: boolean;
     takeBottomBarIntoAccount?: boolean;
 }
 
@@ -28,6 +29,7 @@ export function MessageSheet(props: Props) {
         <ThemedBottomSheet
             isOpen={props.isOpen}
             onClose={props.onClose}
+            closeOnTapOutside={props.closeOnTapOutside}
             takeBottomBarIntoAccount={props.takeBottomBarIntoAccount}
         >
             <ThemedText type={'title'}>
