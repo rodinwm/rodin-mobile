@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - dev
-      - release-*
+      - release/*
       - dependabot/*
 
   workflow_dispatch:
@@ -45,6 +45,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          npm-version: 10
 
       - name: Install Node.js dependencies
         run: npm ci

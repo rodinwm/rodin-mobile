@@ -1,13 +1,13 @@
 import React from "react";
-import {useColorScheme} from "@/utils/hooks/useColorScheme";
-import {Row, Rows, Table} from 'react-native-table-component';
-import {Colors} from "@/utils/colors";
-import {FontService} from "@/utils/services/fontService";
-import {FontWeightEnum} from "@/utils/enums";
-import {LucideIcon} from "@/components/base/LucideIcon";
+import { useColorScheme } from "@/utils/hooks";
+import { Row, Rows, Table } from 'react-native-table-component';
+import { Colors } from "@/utils/colors";
+import { FontService } from "@/utils/services/fontService";
+import { FontWeightEnum } from "@/utils/enums";
+import { LucideIcon } from "@/components/base/LucideIcon";
 
-const yesIcon = <LucideIcon name={'Check'} size={18}/>;
-const noIcon = <LucideIcon name={'X'} size={18}/>;
+const yesIcon = <LucideIcon name={'Check'} size={18} />;
+const noIcon = <LucideIcon name={'X'} size={18} />;
 
 const subscriptionAdvantages = [
     ['Tracker de temps de travail', noIcon, yesIcon],
@@ -21,7 +21,7 @@ const subscriptionAdvantages = [
 ];
 
 export function SubscriptionAdvantageTable() {
-    const colorScheme = useColorScheme() ?? 'dark';
+    const colorScheme = useColorScheme();
 
     return (
         <Table

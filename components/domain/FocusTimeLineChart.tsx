@@ -1,22 +1,22 @@
 import React from "react";
-import {useColorScheme} from "@/utils/hooks/useColorScheme";
-import {LineChart, lineDataItem} from "react-native-gifted-charts";
-import {useWindowDimensions} from "react-native";
-import {Colors} from "@/utils/colors";
-import {ChartLegendItem} from "@/components/domain/ChartLegendItem";
-import {ThemedView} from "@/components/base/ThemedView";
-import {ThemedText} from "@/components/base/ThemedText";
-import {FontService} from "@/utils/services/fontService";
-import {UiService} from "@/utils/services/uiService";
+import { useColorScheme } from "@/utils/hooks/useColorScheme";
+import { LineChart, lineDataItem } from "react-native-gifted-charts";
+import { useWindowDimensions } from "react-native";
+import { Colors } from "@/utils/colors";
+import { ChartLegendItem } from "@/components/domain/ChartLegendItem";
+import { ThemedView } from "@/components/base/ThemedView";
+import { ThemedText } from "@/components/base/ThemedText";
+import { FontService } from "@/utils/services/fontService";
+import { UiService } from "@/utils/services/uiService";
 
 type Props = {
     data: lineDataItem[],
     data2?: lineDataItem[],
 };
 
-export function FocusTimeLineChart({data, data2}: Props) {
-    const colorScheme = useColorScheme() ?? 'dark';
-    const {width} = useWindowDimensions();
+export function FocusTimeLineChart({ data, data2 }: Props) {
+    const colorScheme = useColorScheme();
+    const { width } = useWindowDimensions();
     const foreground = Colors.foreground[colorScheme];
 
     const chartStyle = {
@@ -148,8 +148,8 @@ export function FocusTimeLineChart({data, data2}: Props) {
             />
             <ThemedView
                 className={'flex flex-row gap-6 justify-between items-center'}>
-                <ChartLegendItem type={'work'}/>
-                {data2 && (<ChartLegendItem type={'rest'}/>)}
+                <ChartLegendItem type={'work'} />
+                {data2 && (<ChartLegendItem type={'rest'} />)}
             </ThemedView>
         </ThemedView>
     );

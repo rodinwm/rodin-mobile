@@ -1,16 +1,16 @@
-import {Colors} from "@/utils/colors";
-import {useColorScheme} from "@/utils/hooks/useColorScheme";
-import {LucideIcon} from "@/components/base/LucideIcon";
-import BouncyCheckbox, {BouncyCheckboxProps} from "react-native-bouncy-checkbox";
+import { Colors } from "@/utils/colors";
+import { useColorScheme } from "@/utils/hooks/useColorScheme";
+import { LucideIcon } from "@/components/base/LucideIcon";
+import BouncyCheckbox, { BouncyCheckboxProps } from "react-native-bouncy-checkbox";
 import React from "react";
 
 export type ThemedCheckboxProps = BouncyCheckboxProps & {}
 
 export function ThemedCheckbox({
-                                   ...otherProps
-                               }: ThemedCheckboxProps
+    ...otherProps
+}: ThemedCheckboxProps
 ) {
-    const colorScheme = useColorScheme() ?? 'dark';
+    const colorScheme = useColorScheme();
 
     return (
         <BouncyCheckbox

@@ -1,11 +1,11 @@
-import {ThemedView} from '@/components/base/ThemedView';
-import {ThemedText} from '@/components/base/ThemedText';
-import {LucideIcon} from '@/components/base/LucideIcon';
+import { ThemedView } from '@/components/base/ThemedView';
+import { ThemedText } from '@/components/base/ThemedText';
+import { LucideIcon } from '@/components/base/LucideIcon';
 import React from "react";
-import {Colors} from "@/utils/colors";
-import {useColorScheme} from "@/utils/hooks/useColorScheme";
-import {icons} from "lucide-react-native";
-import {TouchableOpacity} from "react-native";
+import { Colors } from "@/utils/colors";
+import { useColorScheme } from "@/utils/hooks/useColorScheme";
+import { icons } from "lucide-react-native";
+import { TouchableOpacity } from "react-native";
 
 type Props = {
     icon?: keyof typeof icons;
@@ -17,15 +17,15 @@ type Props = {
 }
 
 export function AlertCard({
-                              icon,
-                              type = "default",
-                              title,
-                              message,
-                              onPress,
-                              disableTextDarkMode = false,
-                          }: Props
+    icon,
+    type = "default",
+    title,
+    message,
+    onPress,
+    disableTextDarkMode = false,
+}: Props
 ) {
-    const colorScheme = useColorScheme() ?? 'dark';
+    const colorScheme = useColorScheme();
     const iconColor = type === "warning" ?
         Colors.foreground.warning[colorScheme] : Colors.foreground[colorScheme];
     const textColor = type === "warning" ?

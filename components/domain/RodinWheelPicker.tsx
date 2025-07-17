@@ -1,10 +1,10 @@
-import {WheelStyle} from "@/utils/interfaces";
+import { WheelStyle } from "@/utils/interfaces";
 import WheelPicker from "react-native-wheely";
-import {FontService} from "@/utils/services/fontService";
-import {FontWeightEnum} from "@/utils/enums";
-import {Colors} from "@/utils/colors";
-import {useColorScheme} from '@/utils/hooks/useColorScheme';
-import {UiService} from "@/utils/services/uiService";
+import { FontService } from "@/utils/services/fontService";
+import { FontWeightEnum } from "@/utils/enums";
+import { Colors } from "@/utils/colors";
+import { useColorScheme } from '@/utils/hooks/useColorScheme';
+import { UiService } from "@/utils/services/uiService";
 
 type Props = {
     options: string[];
@@ -15,14 +15,14 @@ type Props = {
 }
 
 export function RodinWheelPicker({
-                                     options,
-                                     selectedIndex = 0,
-                                     onChange = (index: number) => console.info("RodinWheelPicker onChange method not implemented."),
-                                     isLeftCornerRounded,
-                                     isRightCornerRounded,
-                                 }: Props
+    options,
+    selectedIndex = 0,
+    onChange = (index: number) => console.info("RodinWheelPicker onChange method not implemented."),
+    isLeftCornerRounded,
+    isRightCornerRounded,
+}: Props
 ) {
-    const colorScheme = useColorScheme() ?? 'dark';
+    const colorScheme = useColorScheme();
 
     const wheelStyle: WheelStyle = {
         visibleRest: 1,

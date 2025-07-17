@@ -1,20 +1,20 @@
-import {LucideIcon, ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
-import React, {useState} from "react";
-import {useLocalSearchParams} from "expo-router";
-import {useColorScheme} from "@/utils/hooks/useColorScheme";
-import {Alert, LayoutRectangle, TouchableOpacity} from "react-native";
+import { LucideIcon, ScreenTemplate, ThemedButton, ThemedText, ThemedView } from '@/components';
+import React, { useState } from "react";
+import { useLocalSearchParams } from "expo-router";
+import { useColorScheme } from "@/utils/hooks/useColorScheme";
+import { Alert, LayoutRectangle, TouchableOpacity } from "react-native";
 import Animated from 'react-native-reanimated';
-import {GestureDetector} from 'react-native-gesture-handler';
-import {useDraggableGesture} from "@/utils/hooks/useDraggableGesture";
-import {UiService} from "@/utils/services/uiService";
+import { GestureDetector } from 'react-native-gesture-handler';
+import { useDraggableGesture } from "@/utils/hooks/useDraggableGesture";
+import { UiService } from "@/utils/services/uiService";
 
 export default function Page() {
-    const colorScheme = useColorScheme() ?? 'dark';
-    const {firstPicUri, secondPicUri} = useLocalSearchParams();
+    const colorScheme = useColorScheme();
+    const { firstPicUri, secondPicUri } = useLocalSearchParams();
     const [isSwapped, setIsSwapped] = useState(false);
-    const [elementLayout, setElementLayout] = useState<LayoutRectangle>({width: 0, height: 0, x: 0, y: 0});
-    const [parentLayout, setParentLayout] = useState<LayoutRectangle>({width: 0, height: 0, x: 0, y: 0});
-    const {gesture, animatedStyle} = useDraggableGesture({
+    const [elementLayout, setElementLayout] = useState<LayoutRectangle>({ width: 0, height: 0, x: 0, y: 0 });
+    const [parentLayout, setParentLayout] = useState<LayoutRectangle>({ width: 0, height: 0, x: 0, y: 0 });
+    const { gesture, animatedStyle } = useDraggableGesture({
         elementLayout: elementLayout,
         parentLayout: parentLayout,
         padding: 15
@@ -33,7 +33,7 @@ export default function Page() {
                 className={'w-full h-full flex-1 flex flex-col justify-between'}
                 radiusStyle={"default"}
                 fillStyle={"inversed"}
-                backgroundImage={{uri: (isSwapped ? secondPicUri : firstPicUri).toString()}}
+                backgroundImage={{ uri: (isSwapped ? secondPicUri : firstPicUri).toString() }}
                 onLayout={(e) => setParentLayout(e.nativeEvent.layout)}
             >
                 {/* Little preview */}
@@ -59,7 +59,7 @@ export default function Page() {
                                 radiusStyle={"default"}
                                 borderWidth={2}
                                 borderStyle={"inversed"}
-                                backgroundImage={{uri: (isSwapped ? firstPicUri : secondPicUri).toString()}}
+                                backgroundImage={{ uri: (isSwapped ? firstPicUri : secondPicUri).toString() }}
                             />
                         </TouchableOpacity>
                     </Animated.View>
@@ -85,7 +85,7 @@ export default function Page() {
                             paddingStyle={"asymetric"}
                             isBackgroundBlur={true}
                         >
-                            <LucideIcon name={'Brain'} size={18}/>
+                            <LucideIcon name={'Brain'} size={18} />
                             <ThemedText
                                 type={'defaultExtraBold'}
                                 className={"opacity-70"}

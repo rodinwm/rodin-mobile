@@ -1,15 +1,15 @@
-import {PropsWithChildren, useState} from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import { PropsWithChildren, useState } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
-import {ThemedView} from '@/components/base/ThemedView';
-import {ThemedText} from '@/components/base/ThemedText';
-import {LucideIcon} from '@/components/base/LucideIcon';
-import {Colors} from '@/utils/colors';
-import {useColorScheme} from '@/utils/hooks/useColorScheme';
+import { ThemedView } from '@/components/base/ThemedView';
+import { ThemedText } from '@/components/base/ThemedText';
+import { LucideIcon } from '@/components/base/LucideIcon';
+import { Colors } from '@/utils/colors';
+import { useColorScheme } from '@/utils/hooks/useColorScheme';
 
-export function Collapsible({children, title}: PropsWithChildren & { title: string }) {
+export function Collapsible({ children, title }: PropsWithChildren & { title: string }) {
     const [isOpen, setIsOpen] = useState(false);
-    const theme = useColorScheme() ?? 'dark';
+    const theme = useColorScheme();
 
     return (
         <ThemedView>
@@ -22,7 +22,7 @@ export function Collapsible({children, title}: PropsWithChildren & { title: stri
                     color={theme === 'light' ? Colors.foreground.light : Colors.foreground.dark}
                     name="ChevronRight"
                     style={{
-                        transform: [{rotate: isOpen ? `90deg` : '0deg'}]
+                        transform: [{ rotate: isOpen ? `90deg` : '0deg' }]
                     }}
                 />
 

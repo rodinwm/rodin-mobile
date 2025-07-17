@@ -1,15 +1,15 @@
 import React from "react";
-import {ThemedText} from "@/components/base/ThemedText";
-import {ThemedView} from "@/components/base/ThemedView";
-import {useColorScheme} from "@/utils/hooks/useColorScheme";
-import {Colors} from "@/utils/colors";
+import { ThemedText } from "@/components/base/ThemedText";
+import { ThemedView } from "@/components/base/ThemedView";
+import { useColorScheme } from "@/utils/hooks/useColorScheme";
+import { Colors } from "@/utils/colors";
 
 type Props = {
     type: 'work' | 'rest';
 };
 
-export function ChartLegendItem({type}: Props) {
-    const colorScheme = useColorScheme() ?? 'dark';
+export function ChartLegendItem({ type }: Props) {
+    const colorScheme = useColorScheme();
 
     return (
         <ThemedView
