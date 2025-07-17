@@ -10,10 +10,11 @@ export type ThemedBottomSheetProps = {
     isOpen: boolean;
     children?: ReactNode;
     onClose?: () => void;
+    closeOnTapOutside?: boolean;
     takeBottomBarIntoAccount?: boolean;
 };
 
-export function ThemedBottomSheet(props: ThemedBottomSheetProps) {
+export function ThemedBottomSheet({closeOnTapOutside = true, ...props}: ThemedBottomSheetProps) {
     const margin = 10;
     const ref = useRef<BottomSheet>(null);
     const insets = useSafeAreaInsets();
@@ -31,7 +32,7 @@ export function ThemedBottomSheet(props: ThemedBottomSheetProps) {
             {/* Flou d'arrière-plan */}
             <Pressable
                 className={props.isOpen ? '' : 'hidden'}
-                onPress={props.onClose}
+                onPress={closeOnTapOutside ? props.onClose : undefined}
                 style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}
             >
                 <BlurView

@@ -2,10 +2,12 @@ import axios, {AxiosResponse, HttpStatusCode} from 'axios';
 import {LogService} from "@/utils/services/logService";
 import {LogType} from "@/utils/enums";
 import {FriendStatus, Prisma} from "@rodinwm/rodin-models/frontend";
+import {CreateUserPayload} from "@/utils/types";
 
 export abstract class ApiService {
     private static readonly logService = new LogService(this.name);
-    private static readonly host = process.env.NODE_ENV === 'production' ? "http://82.29.174.212:3000" : "http://localhost:3000";
+    //private static readonly host = process.env.NODE_ENV === 'production' ? "http://82.29.174.212:3000" : "http://localhost:3000";
+    private static readonly host = "http://localhost:3000";
     private static readonly defaultTimeout = 5000; // Timeout en millisecondes
     private static readonly serverErrorResponse = {
         status: 500,
@@ -17,7 +19,7 @@ export abstract class ApiService {
         config: {},
     } as AxiosResponse;
 
-    static async register(payload: Prisma.UserCreateInput): Promise<AxiosResponse> {
+    static async register(payload: CreateUserPayload): Promise<AxiosResponse> {
         const methodName = "register";
         try {
             const response = await axios.post(`${this.host}/api/users`, payload, {
@@ -28,7 +30,6 @@ export abstract class ApiService {
             });
 
             return this.handleResponse(methodName, response);
-
         } catch (error) {
             return this.handleError(methodName, error);
         }
