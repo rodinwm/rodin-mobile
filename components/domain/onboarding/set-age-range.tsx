@@ -1,13 +1,18 @@
 import {OnboardingStepScreenTemplate, ThemedButton, ThemedView} from '@/components';
 import React, {useState} from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
-import {AgeRange} from "@/utils/model.enums";
+import {AgeRange} from "@/utils/models/model.enums";
+import {modelService} from "@/utils/constants";
 
-//const ageRanges = modelService.getAgRanges();
-const ageRanges: AgeRange[] = Object.values(AgeRange);
+const ageRanges = modelService.getEnumValues('AgeRange') as AgeRange[];
 
-export function SetAgeRange(props: OnboardingStepScreenProps) {
-    const [selectedAgeRange, setSelectedAgeRange] = useState<AgeRange | null>(null);
+type Props = OnboardingStepScreenProps & {
+    ageRange: AgeRange;
+    onChangeAgeRange: (ageRange: AgeRange) => void;
+}
+
+export function SetAgeRange(props: Props) {
+    const [selectedAgeRange, setSelectedAgeRange] = useState<AgeRange>(AgeRange.AGE_18_24);
 
     return (
         <OnboardingStepScreenTemplate
@@ -19,9 +24,13 @@ export function SetAgeRange(props: OnboardingStepScreenProps) {
                 {ageRanges.map((ageRange) => (
                     <ThemedButton
                         key={ageRange}
-                        title={ageRange}
+                        title={modelService.getEnumLabel('AgeRange', ageRange)}
                         type={ageRange === selectedAgeRange ? "default" : "outlined"}
-                        onPress={() => setSelectedAgeRange(ageRange)}
+                        onPress={() => {
+                            const newAgeRange = AgeRange[ageRange as keyof typeof AgeRange];
+                            setSelectedAgeRange(newAgeRange);
+                            props.onChangeAgeRange(newAgeRange);
+                        }}
                     />
                 ))}
             </ThemedView>

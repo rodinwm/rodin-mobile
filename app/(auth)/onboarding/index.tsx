@@ -14,13 +14,23 @@ import {SetAgeRange} from "@/components/domain/onboarding/set-age-range";
 import {SetProfession} from "@/components/domain/onboarding/set-profession";
 import {SetName} from "@/components/domain/onboarding/set-name";
 import {Prisma, TimerValue} from "@rodinwm/rodin-models/frontend";
-import {AgeRange, Profession} from "@/utils/model.enums";
+import {AgeRange, ExerciseFrequency, Profession} from "@/utils/models/model.enums";
+import {defaultBreakTime, defaultWorkTime, onboardingLogService} from "@/utils/constants";
+import {LogType} from "@/utils/enums";
 
-type CreateUserPayload = Omit<Prisma.UserCreateInput, 'defaultWorkTime' | 'defaultBreakTime'> & {
+type CreateUserPayload =
+    Omit<Prisma.UserCreateInput, 'defaultWorkTime' | 'defaultBreakTime' | 'ageRange' | 'exerciseFrequency' | 'profession'>
+    & {
     passwordConfirmation: string;
+    emergencyCode: string;
+    emergencyCodeConfirmation: string;
+    exerciseFrequency: ExerciseFrequency;
     phoneNumber?: string;
     defaultWorkTime: TimerValue;
     defaultBreakTime: TimerValue;
+    ageRange: AgeRange;
+    profession: Profession;
+    customProfession?: string;
 };
 
 export default function Page() {
@@ -34,14 +44,16 @@ export default function Page() {
         pseudo: 'alexxtahi',
         ageRange: AgeRange.AGE_18_24,
         profession: Profession.ETUDIANT,
+        customProfession: undefined,
         email: 'alexandretahi7@gmail.com',
         phoneNumber: '+33602030405',
         password: 'Azerty123#',
         passwordConfirmation: 'Azerty123#',
         defaultWorkTime: {hours: 0, minutes: 45, seconds: 0},
         defaultBreakTime: {hours: 0, minutes: 10, seconds: 0},
-        //exerciseFrequency: ExerciseFrequency.ONE_PER_SESSION,
+        exerciseFrequency: ExerciseFrequency.ONE_PER_SESSION,
         emergencyCode: '1234',
+        emergencyCodeConfirmation: '1234',
     });
 
     const goToNextStep = () => {
@@ -155,22 +167,56 @@ export default function Page() {
                         defaultBreakTime
                     })}
                     onNextPress={goToNextStep}
+                    onSkip={() => {
+                        setFormData({
+                            ...formData,
+                            defaultWorkTime,
+                            defaultBreakTime
+                        });
+                        goToNextStep();
+                    }}
                 />
                 <SetExerciseFrequency
                     key={"8"}
                     onNextPress={goToNextStep}
+                    exerciseFrequency={formData.exerciseFrequency}
+                    onChangeExerciseFrequency={(exerciseFrequency) => setFormData({
+                        ...formData,
+                        exerciseFrequency
+                    })}
                 />
                 <SetEmergencyCode
                     key={"9"}
                     onNextPress={goToNextStep}
+                    emergencyCode={formData.emergencyCode}
+                    emergencyCodeConfirmation={formData.emergencyCodeConfirmation}
+                    onChangeEmergencyCode={(emergencyCode) => setFormData({...formData, emergencyCode})}
+                    onChangeEmergencyCodeConfirmation={(emergencyCodeConfirmation) => setFormData({
+                        ...formData,
+                        emergencyCodeConfirmation
+                    })}
                 />
                 <SetAgeRange
                     key={"10"}
                     onNextPress={goToNextStep}
+                    ageRange={formData.ageRange}
+                    onChangeAgeRange={(ageRange) => setFormData({...formData, ageRange})}
                 />
                 <SetProfession
                     key={"11"}
+                    profession={formData.profession}
+                    onChangeProfession={(profession, customProfession) => {
+                        setFormData({
+                            ...formData,
+                            profession,
+                            customProfession
+                        });
+                    }}
                     onNextPress={() => {
+                        onboardingLogService.log({
+                            type: LogType.Log,
+                            data: ['Onboarding - User data:', formData]
+                        });
                         router.back();
                         router.replace('/(auth)/onboarding/finish');
                     }}

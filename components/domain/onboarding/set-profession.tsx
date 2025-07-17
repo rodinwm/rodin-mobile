@@ -1,15 +1,19 @@
 import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView} from '@/components';
 import React, {useEffect, useState} from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
-import {Profession} from "@/utils/model.enums";
+import {Profession} from "@/utils/models/model.enums";
+import {modelService} from "@/utils/constants";
 
+const professions = modelService.getEnumValues('Profession') as Profession[];
 
-//const professions = modelService.getProfessions();
-const professions = Object.values(Profession);
+type Props = OnboardingStepScreenProps & {
+    profession: Profession;
+    onChangeProfession: (profession: Profession, customProfession?: string) => void;
+}
 
-export function SetProfession(props: OnboardingStepScreenProps) {
-    const [selectedProfession, setSelectedProfession] = useState<Profession | null>(null);
-    const [customProfession, setCustomProfession] = useState("");
+export function SetProfession(props: Props) {
+    const [selectedProfession, setSelectedProfession] = useState<Profession>(Profession.ETUDIANT);
+    const [customProfession, setCustomProfession] = useState<string | undefined>(undefined);
     const [showCustomProfessionInput, setShowCustomProfessionInput] = useState(false);
 
     useEffect(() => {
@@ -29,9 +33,14 @@ export function SetProfession(props: OnboardingStepScreenProps) {
                 {professions.map((profession) => (
                     <ThemedButton
                         key={profession}
-                        title={profession}
+                        title={modelService.getEnumLabel('Profession', profession)}
                         type={profession === selectedProfession ? "default" : "outlined"}
-                        onPress={() => setSelectedProfession(profession)}
+                        onPress={() => {
+                            const newProfession = Profession[profession as keyof typeof Profession];
+                            setSelectedProfession(newProfession);
+                            props.onChangeProfession(newProfession, newProfession === Profession.AUTRE ? customProfession : undefined);
+                            setCustomProfession("");
+                        }}
                     />
                 ))}
 
