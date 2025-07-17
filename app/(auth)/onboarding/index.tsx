@@ -250,9 +250,7 @@ export default function Page() {
                                 data: ['Error creating user account:', error]
                             });
                             setIsBottomSheetOpen({...isBottomSheetOpen, createAccount: false});
-                        }).finally(() =>
-                            setIsBottomSheetOpen({...isBottomSheetOpen, createAccount: false})
-                        );
+                        }).finally(() => setIsBottomSheetOpen({...isBottomSheetOpen, createAccount: false}));
                     }}
                 />
             </PagerView>

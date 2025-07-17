@@ -6,8 +6,8 @@ import {CreateUserPayload} from "@/utils/types";
 
 export abstract class ApiService {
     private static readonly logService = new LogService(this.name);
-    //private static readonly host = process.env.NODE_ENV === 'production' ? "http://82.29.174.212:3000" : "http://localhost:3000";
-    private static readonly host = "http://localhost:3000";
+    private static readonly host = __DEV__ ? "http://192.168.1.188:3000" : "http://82.29.174.212:3000";
+    //private static readonly host = "http://192.168.1.188:3000";
     private static readonly defaultTimeout = 5000; // Timeout en millisecondes
     private static readonly serverErrorResponse = {
         status: 500,
