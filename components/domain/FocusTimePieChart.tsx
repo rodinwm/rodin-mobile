@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from "react";
-import {useColorScheme} from "@/utils/hooks/useColorScheme";
-import {PieChart, pieDataItem} from "react-native-gifted-charts";
-import {Colors} from "@/utils/colors";
-import {ChartLegendItem} from "@/components/domain/ChartLegendItem";
-import {ThemedView} from "@/components/base/ThemedView";
-import {ThemedText} from "@/components/base/ThemedText";
+import React, { useEffect, useState } from "react";
+import { useColorScheme } from "@/utils/hooks/useColorScheme";
+import { PieChart, pieDataItem } from "react-native-gifted-charts";
+import { Colors } from "@/utils/colors";
+import { ChartLegendItem } from "@/components/domain/ChartLegendItem";
+import { ThemedView } from "@/components/base/ThemedView";
+import { ThemedText } from "@/components/base/ThemedText";
 
 type Props = {
     data: pieDataItem[],
 };
 
-export function FocusTimePieChart({data}: Props) {
-    const colorScheme = useColorScheme() ?? 'dark';
+export function FocusTimePieChart({ data }: Props) {
+    const colorScheme = useColorScheme();
     const [focusedIndex, setFocusedIndex] = useState<number | undefined>(undefined);
     const foreground = Colors.foreground[colorScheme];
     const background = Colors.background[colorScheme];
@@ -69,8 +69,8 @@ export function FocusTimePieChart({data}: Props) {
             />
             <ThemedView
                 className={'flex flex-row gap-6 justify-between items-center'}>
-                <ChartLegendItem type={'work'}/>
-                <ChartLegendItem type={'rest'}/>
+                <ChartLegendItem type={'work'} />
+                <ChartLegendItem type={'rest'} />
             </ThemedView>
         </ThemedView>
     );

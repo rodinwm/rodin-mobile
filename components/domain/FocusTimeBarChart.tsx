@@ -1,20 +1,20 @@
 import React from "react";
-import {useColorScheme} from "@/utils/hooks/useColorScheme";
-import {BarChart, stackDataItem} from "react-native-gifted-charts";
-import {useWindowDimensions} from "react-native";
-import {Colors} from "@/utils/colors";
-import {ChartLegendItem} from "@/components/domain/ChartLegendItem";
-import {ThemedView} from "@/components/base/ThemedView";
-import {FontService} from "@/utils/services/fontService";
-import {UiService} from "@/utils/services/uiService";
+import { useColorScheme } from "@/utils/hooks/useColorScheme";
+import { BarChart, stackDataItem } from "react-native-gifted-charts";
+import { useWindowDimensions } from "react-native";
+import { Colors } from "@/utils/colors";
+import { ChartLegendItem } from "@/components/domain/ChartLegendItem";
+import { ThemedView } from "@/components/base/ThemedView";
+import { FontService } from "@/utils/services/fontService";
+import { UiService } from "@/utils/services/uiService";
 
 type Props = {
     data: stackDataItem[],
 }
 
-export function FocusTimeBarChart({data}: Props) {
-    const colorScheme = useColorScheme() ?? 'dark';
-    const {width} = useWindowDimensions();
+export function FocusTimeBarChart({ data }: Props) {
+    const colorScheme = useColorScheme();
+    const { width } = useWindowDimensions();
     const foreground = Colors.foreground[colorScheme];
     const chartStyle = {
         textStyle: {
@@ -65,8 +65,8 @@ export function FocusTimeBarChart({data}: Props) {
             />
             <ThemedView
                 className={'flex flex-row gap-6 justify-between items-center'}>
-                <ChartLegendItem type={'work'}/>
-                <ChartLegendItem type={'rest'}/>
+                <ChartLegendItem type={'work'} />
+                <ChartLegendItem type={'rest'} />
             </ThemedView>
         </ThemedView>
     );

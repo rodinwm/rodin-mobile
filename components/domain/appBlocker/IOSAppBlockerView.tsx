@@ -1,10 +1,10 @@
-import React, {useState} from "react";
-import {Alert} from "react-native";
-import {ThemedButton, ThemedView} from '@/components';
+import React, { useState } from "react";
+import { Alert } from "react-native";
+import { ThemedButton, ThemedView } from '@/components';
 import * as ReactNativeDeviceActivity from 'react-native-device-activity';
-import {ShieldActions} from 'react-native-device-activity';
-import {Colors} from "@/utils/colors";
-import {useColorScheme} from "@/utils/hooks/useColorScheme";
+import { ShieldActions } from 'react-native-device-activity';
+import { Colors } from "@/utils/colors";
+import { useColorScheme } from "@/utils/hooks/useColorScheme";
 
 type Props = {}
 
@@ -13,8 +13,8 @@ const SELECTION_ID = "evening_block_selection";
 const SHIELD_CONFIG_ID = "evening_shield_config";
 const ACTIVITY_NAME = "evening_block";
 
-export function IOSAppBlockerView({}: Props) {
-    const colorScheme = useColorScheme() ?? 'dark';
+export function IOSAppBlockerView({ }: Props) {
+    const colorScheme = useColorScheme();
 
     // Step 2: Manage the selection state of apps/websites to block
     const [currentFamilyActivitySelection, setCurrentFamilyActivitySelection] =
@@ -93,8 +93,8 @@ export function IOSAppBlockerView({}: Props) {
         try {
             // Define when blocking should occur (7 PM to midnight daily)
             const schedule = {
-                intervalStart: {hour: 19, minute: 0}, // 7:00 PM
-                intervalEnd: {hour: 23, minute: 59}, // 11:59 PM
+                intervalStart: { hour: 19, minute: 0 }, // 7:00 PM
+                intervalEnd: { hour: 23, minute: 59 }, // 11:59 PM
                 repeats: true // Repeat this schedule daily
                 // Optional: warningTime: { minutes: 5 } // Warn user 5 minutes before blocking starts
             };
@@ -141,7 +141,7 @@ export function IOSAppBlockerView({}: Props) {
     };
 
     return (
-        <ThemedView className={'flex-1 flex flex-col justify-center items-center gap-3'} style={{flex: 1}}>
+        <ThemedView className={'flex-1 flex flex-col justify-center items-center gap-3'} style={{ flex: 1 }}>
             {/* Native selection view for choosing apps to block */}
             <ReactNativeDeviceActivity.DeviceActivitySelectionView
                 onSelectionChange={handleSelectionChange}
