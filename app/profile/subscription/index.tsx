@@ -8,17 +8,17 @@ import {
     ThemedText,
     ThemedView
 } from '@/components';
-import React, {useState} from "react";
-import {useNavigation, useRouter} from "expo-router";
-import {subscriptions} from "@/assets/static/subscriptions";
-import {SubscriptionFrequency} from "@rodinwm/rodin-models/frontend";
-import {CurrencyService} from "@/utils/services/currencyService";
-import {Colors} from "@/utils/colors";
-import {useColorScheme} from "@/utils/hooks/useColorScheme";
-import {Alert} from "react-native";
+import React, { useState } from "react";
+import { useNavigation, useRouter } from "expo-router";
+import { subscriptions } from "@/assets/static/subscriptions";
+import { SubscriptionFrequency } from "@rodinwm/rodin-models/frontend";
+import { CurrencyService } from "@/utils/services/currencyService";
+import { Colors } from "@/utils/colors";
+import { useColorScheme } from "@/utils/hooks/useColorScheme";
+import { Alert } from "react-native";
 
 export default function Page() {
-    const colorScheme = useColorScheme() ?? 'dark';
+    const colorScheme = useColorScheme();
     const router = useRouter();
     const navigation = useNavigation();
     const [subscriptionFrequency, setSubscriptionFrequency] = useState<SubscriptionFrequency>(SubscriptionFrequency.YEARLY);
@@ -90,21 +90,21 @@ export default function Page() {
                                     radiusStyle={"small"}
                                     className={'w-fit flex flex-row items-center gap-2 bg-background-success-light/10 dark:bg-background-success-dark/10'}
                                 >
-                                    <LucideIcon name={'Info'} size={18} color={Colors.foreground.success[colorScheme]}/>
+                                    <LucideIcon name={'Info'} size={18} color={Colors.foreground.success[colorScheme]} />
                                     <ThemedText
                                         className={"text-foreground-success-light dark:text-foreground-success-dark"}
                                         type={"small"} filled={false}>
                                         {subscriptionFrequency === SubscriptionFrequency.YEARLY ? (
                                             <>
                                                 Economisez <ThemedText filled={false}
-                                                                       className={'text-foreground-success-light dark:text-foreground-success-dark'}
-                                                                       type={"miniExtraBold"}>{CurrencyService.computeDifferenceInPercent(sub.price[SubscriptionFrequency.YEARLY] / 12, sub.price[SubscriptionFrequency.MONTHLY])}%</ThemedText>
+                                                    className={'text-foreground-success-light dark:text-foreground-success-dark'}
+                                                    type={"miniExtraBold"}>{CurrencyService.computeDifferenceInPercent(sub.price[SubscriptionFrequency.YEARLY] / 12, sub.price[SubscriptionFrequency.MONTHLY])}%</ThemedText>
                                             </>
                                         ) : (
                                             <>
                                                 Economisez <ThemedText filled={false}
-                                                                       className={'text-foreground-success-light dark:text-foreground-success-dark'}
-                                                                       type={"miniExtraBold"}>{CurrencyService.computeDifferenceInPercent(sub.price[SubscriptionFrequency.YEARLY] / 12, sub.price[SubscriptionFrequency.MONTHLY])}%</ThemedText> grâce
+                                                    className={'text-foreground-success-light dark:text-foreground-success-dark'}
+                                                    type={"miniExtraBold"}>{CurrencyService.computeDifferenceInPercent(sub.price[SubscriptionFrequency.YEARLY] / 12, sub.price[SubscriptionFrequency.MONTHLY])}%</ThemedText> grâce
                                                 à l'abonnement annuel
                                             </>
                                         )}
@@ -119,7 +119,7 @@ export default function Page() {
                                     key={`subscription-card-content-line-${index}`}
                                     className={'w-full flex flex-row items-center opacity-50 gap-2'}
                                 >
-                                    <LucideIcon name={'Check'} size={18}/>
+                                    <LucideIcon name={'Check'} size={18} />
                                     <ThemedText>{content}</ThemedText>
                                 </ThemedView>
                             ))}
@@ -141,7 +141,7 @@ export default function Page() {
 
             <ThemedView className={'w-full flex flex-col gap-3 mt-6'}>
                 <ThemedText type={'h1'}>Avantages détaillés</ThemedText>
-                <SubscriptionAdvantageTable/>
+                <SubscriptionAdvantageTable />
             </ThemedView>
         </ScreenTemplate>
     );
