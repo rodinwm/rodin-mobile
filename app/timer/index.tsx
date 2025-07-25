@@ -11,14 +11,20 @@ import {
     TimerSelect
 } from "@/components";
 import {defaultBreakTime, defaultWorkTime} from '@/utils/constants';
+import {useAuthUser} from "@/utils/hooks/useAuthUser";
+import {LoadingScreen} from "@/components/layouts/LoadingScreen";
 
 export default function Page() {
     const router = useRouter();
+    const {authUser} = useAuthUser({});
     const [numberOfSessions, setNumberOfSessions] = useState(0);
-    const [workTime, setWorkTime] = useState<TimerValue>(defaultWorkTime);
-    const [breakTime, setBreakTime] = useState<TimerValue>(defaultBreakTime);
+    const [workTime, setWorkTime] = useState<TimerValue>(authUser?.defaultWorkTime as unknown as TimerValue ?? defaultWorkTime);
+    const [breakTime, setBreakTime] = useState<TimerValue>(authUser?.defaultBreakTime as unknown as TimerValue ?? defaultBreakTime);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
+    if (!authUser) {
+        return <LoadingScreen/>;
+    }
 
     return (
         <ScreenTemplate
@@ -46,7 +52,8 @@ export default function Page() {
                 </ThemedView>
 
                 <TimerSelect
-                    defaultValue={defaultWorkTime}
+                    defaultValue={authUser.defaultWorkTime as unknown as TimerValue ?? defaultWorkTime}
+                    onMounted={(time: TimerValue) => setWorkTime(time)}
                     onChange={(time: TimerValue) => setWorkTime(time)}
                 />
             </ThemedView>
@@ -59,7 +66,8 @@ export default function Page() {
                 </ThemedView>
 
                 <TimerSelect
-                    defaultValue={defaultBreakTime}
+                    defaultValue={authUser.defaultBreakTime as unknown as TimerValue ?? defaultBreakTime}
+                    onMounted={(time: TimerValue) => setBreakTime(time)}
                     onChange={(time: TimerValue) => setBreakTime(time)}
                 />
             </ThemedView>
