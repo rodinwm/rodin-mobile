@@ -10,9 +10,11 @@ import {
 } from '@/components';
 import React, {useState} from "react";
 import {useRouter} from "expo-router";
+import {useAuthUser} from "@/utils/hooks/useAuthUser";
 
 export default function Page() {
     const router = useRouter();
+    const {authUser} = useAuthUser({});
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
     const goToWelcomeScreen = () => {
@@ -47,7 +49,9 @@ export default function Page() {
             {/* Name */}
             <ThemedView className={'w-full flex flex-col'}>
                 <ThemedText type={'default'}>Mon profil</ThemedText>
-                <ThemedText type={'title'}>Alexandre TAHI</ThemedText>
+                <ThemedText type={'title'}>
+                    {authUser ? authUser.firstname + ' ' + authUser.lastname : "Rodin"}
+                </ThemedText>
             </ThemedView>
 
             {/* Ads */}

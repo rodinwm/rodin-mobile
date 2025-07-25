@@ -18,7 +18,8 @@ import {ToastService} from "@/utils/services/toastService";
 import {ActivityIndicator} from "react-native";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {AuthService} from "@/utils/services/authService";
+import {User} from "@rodinwm/rodin-models/frontend";
 
 export default function Page() {
     const router = useRouter();
@@ -58,14 +59,28 @@ export default function Page() {
                         data: ['User successfully logged in.']
                     });
 
-                    // Save credentials if requested
-                    if (saveCredentials) {
-                        loginLogService.log({
-                            type: LogType.Log,
-                            data: ['Saving user credentials.']
+                    // Fetch user data
+                    const userResponse = await ApiService.getUser(loginResponseData.token);
+                    if (userResponse.status !== HttpStatusCode.Ok) {
+                        onboardingLogService.log({
+                            type: LogType.Error,
+                            data: ['Error fetching user data after login:', userResponse.status, userResponse.data]
                         });
-                        await AsyncStorage.setItem("token", loginResponseData.token);
+                        ToastService.show({
+                            type: ToastType.Error,
+                            message: 'Une erreur est survenue lors de la récupération de vos données utilisateur. Veuillez réessayer plus tard.',
+                        });
+                        return;
                     }
+
+                    // Save credentials if requested
+                    //if (saveCredentials) {
+                    await AuthService.saveCredentials(loginResponseData.token, userResponse.data.user as User);
+                    onboardingLogService.log({
+                        type: LogType.Log,
+                        data: ['Credentials saved successfully.']
+                    });
+                    //}
 
                     // Go to home screen
                     ToastService.show({
@@ -116,19 +131,19 @@ export default function Page() {
                         subtitle={"Pour que vous n’ayez pas à les entrer lors de votre prochaine connexion."}
                         isOpen={isBottomSheetOpen.saveCredentials}
                         onClose={() => {
-                            setIsBottomSheetOpen({...isBottomSheetOpen, saveCredentials: false});
+                            setIsBottomSheetOpen(prev => ({...prev, saveCredentials: false}));
                         }}
                         confirm={{
                             text: "Oui",
                             onPress: () => {
-                                setIsBottomSheetOpen({...isBottomSheetOpen, saveCredentials: false});
+                                setIsBottomSheetOpen(prev => ({...prev, saveCredentials: false}));
                                 login(true).then();
                             }
                         }}
                         cancel={{
                             text: "Plus tard",
                             onPress: () => {
-                                setIsBottomSheetOpen({...isBottomSheetOpen, saveCredentials: false});
+                                setIsBottomSheetOpen(prev => ({...prev, saveCredentials: false}));
                                 login().then();
                             }
                         }}
@@ -139,7 +154,7 @@ export default function Page() {
                         isOpen={isBottomSheetOpen.login}
                         closeOnTapOutside={false}
                         onClose={() => {
-                            setIsBottomSheetOpen({...isBottomSheetOpen, login: false});
+                            setIsBottomSheetOpen(prev => ({...prev, login: false}));
                         }}
                         children={(
                             <ThemedView paddingStyle={'default'}>
@@ -192,7 +207,7 @@ export default function Page() {
                 <ThemedButton
                     title={"Se connecter"}
                     onPress={() => {
-                        setIsBottomSheetOpen({...isBottomSheetOpen, saveCredentials: true});
+                        setIsBottomSheetOpen(prev => ({...prev, saveCredentials: true}));
                     }}
                 />
                 <ThemedButton

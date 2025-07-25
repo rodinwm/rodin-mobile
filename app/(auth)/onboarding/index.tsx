@@ -15,13 +15,14 @@ import {SetProfession} from "@/components/domain/onboarding/set-profession";
 import {SetName} from "@/components/domain/onboarding/set-name";
 import {AgeRange, ExerciseFrequency, Profession} from "@/utils/models/model.enums";
 import {defaultBreakTime, defaultWorkTime, onboardingLogService} from "@/utils/constants";
-import {LogType} from "@/utils/enums";
+import {LogType, ToastType} from "@/utils/enums";
 import {ActivityIndicator} from "react-native";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {ApiService} from "@/utils/services/apiService";
 import {CreateUserPayload} from "@/utils/types";
 import {HttpStatusCode} from "axios";
+import {ToastService} from "@/utils/services/toastService";
 
 export default function Page() {
     const router = useRouter();
@@ -57,6 +58,53 @@ export default function Page() {
         pagerRef.current?.setPage(step - 1);
     }
 
+    const register = async () => {
+        onboardingLogService.log({
+            type: LogType.Log,
+            data: ['Onboarding - User data:', formData]
+        });
+
+        setIsBottomSheetOpen(prev => ({...prev, createAccount: true}));
+
+        try {
+            const response = await ApiService.register(formData);
+
+            switch (response.status) {
+                case HttpStatusCode.Created:
+                    onboardingLogService.log({
+                        type: LogType.Log,
+                        data: ['User account created successfully.']
+                    });
+                    router.back();
+                    router.replace('/(auth)/onboarding/finish');
+                    break;
+                case HttpStatusCode.Conflict:
+                    onboardingLogService.log({
+                        type: LogType.Error,
+                        data: ['User account already exists.']
+                    });
+                    ToastService.show({
+                        type: ToastType.Error,
+                        message: 'Un compte avec cette adresse email déjà. Veuillez en choisir une autre.',
+                    })
+                    break;
+                default:
+                    onboardingLogService.log({
+                        type: LogType.Error,
+                        data: ['Error creating user account:', response.data]
+                    });
+                    break;
+            }
+        } catch (error) {
+            onboardingLogService.log({
+                type: LogType.Error,
+                data: ['Error creating user account (exception):', error]
+            });
+        } finally {
+            setIsBottomSheetOpen(prev => ({...prev, createAccount: false}));
+        }
+    };
+
     return (
         <ScreenTemplate
             screenName={'auth/onboarding'}
@@ -73,19 +121,19 @@ export default function Page() {
                         subtitle={"Pour que vous n’ayez pas à les entrer lors de votre prochaine connexion."}
                         isOpen={isBottomSheetOpen.saveCredentials}
                         onClose={() => {
-                            setIsBottomSheetOpen({...isBottomSheetOpen, saveCredentials: false});
+                            setIsBottomSheetOpen(prev => ({...prev, saveCredentials: false}));
                         }}
                         confirm={{
                             text: "Oui",
                             onPress: () => {
-                                setIsBottomSheetOpen({...isBottomSheetOpen, saveCredentials: false});
+                                setIsBottomSheetOpen(prev => ({...prev, saveCredentials: false}));
                                 goToNextStep();
                             }
                         }}
                         cancel={{
                             text: "Plus tard",
                             onPress: () => {
-                                setIsBottomSheetOpen({...isBottomSheetOpen, saveCredentials: false});
+                                setIsBottomSheetOpen(prev => ({...prev, saveCredentials: false}));
                                 goToNextStep();
                             }
                         }}
@@ -96,7 +144,7 @@ export default function Page() {
                         isOpen={isBottomSheetOpen.createAccount}
                         closeOnTapOutside={false}
                         onClose={() => {
-                            setIsBottomSheetOpen({...isBottomSheetOpen, createAccount: false});
+                            setIsBottomSheetOpen(prev => ({...prev, createAccount: false}));
                         }}
                         children={(
                             <ThemedView paddingStyle={'default'}>
@@ -157,7 +205,7 @@ export default function Page() {
                         passwordConfirmation
                     })}
                     onNextPress={() => {
-                        setIsBottomSheetOpen({...isBottomSheetOpen, saveCredentials: true});
+                        setIsBottomSheetOpen(prev => ({...prev, saveCredentials: true}));
                     }}
                 />
                 <ReadCGU
@@ -222,42 +270,7 @@ export default function Page() {
                             customProfession
                         });
                     }}
-                    onNextPress={async () => {
-                        onboardingLogService.log({
-                            type: LogType.Log,
-                            data: ['Onboarding - User data:', formData]
-                        });
-
-                        setIsBottomSheetOpen(prev => ({...prev, createAccount: true}));
-
-                        try {
-                            const response = await ApiService.register(formData);
-
-                            switch (response.status) {
-                                case HttpStatusCode.Ok:
-                                    onboardingLogService.log({
-                                        type: LogType.Log,
-                                        data: ['User account created successfully.']
-                                    });
-                                    router.back();
-                                    router.replace('/(auth)/onboarding/finish');
-                                    break;
-                                default:
-                                    onboardingLogService.log({
-                                        type: LogType.Error,
-                                        data: ['Error creating user account (non-201):', response.data]
-                                    });
-                                    break;
-                            }
-                        } catch (error) {
-                            onboardingLogService.log({
-                                type: LogType.Error,
-                                data: ['Error creating user account (exception):', error]
-                            });
-                        } finally {
-                            setIsBottomSheetOpen(prev => ({...prev, createAccount: false}));
-                        }
-                    }}
+                    onNextPress={register}
                 />
             </PagerView>
 
