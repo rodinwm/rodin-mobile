@@ -24,7 +24,7 @@ export default function Page() {
                     concentration optimale dans vos différentes tâches.
                 </ThemedText>
             </ThemedView>
-            
+
             <ThemedButton
                 title={"Continuer"}
                 onPress={goToHomeScreen}

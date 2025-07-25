@@ -1,26 +1,28 @@
-import React, { useRef, useState } from "react";
-import { MessageSheet, ScreenTemplate, ThemedView } from "@/components";
+import React, {useRef, useState} from "react";
+import {MessageSheet, ScreenTemplate, ThemedView} from "@/components";
 import PagerView from "react-native-pager-view";
-import { ChoosePseudo } from "@/components/domain/onboarding/choose-pseudo";
-import { SetPhoneNumber } from "@/components/domain/onboarding/set-phone-number";
-import { SetEmailAddress } from "@/components/domain/onboarding/set-email-address";
-import { SetPassword } from "@/components/domain/onboarding/set-password";
-import { useRouter } from "expo-router";
-import { ReadCGU } from "@/components/domain/onboarding/read-cgu";
-import { SetDefaultTimer } from "@/components/domain/onboarding/set-default-timer";
-import { SetExerciseFrequency } from "@/components/domain/onboarding/set-exercise-frequency";
-import { SetEmergencyCode } from "@/components/domain/onboarding/set-emergency-code";
-import { SetAgeRange } from "@/components/domain/onboarding/set-age-range";
-import { SetProfession } from "@/components/domain/onboarding/set-profession";
-import { SetName } from "@/components/domain/onboarding/set-name";
-import { AgeRange, ExerciseFrequency, Profession } from "@/utils/models/model.enums";
-import { defaultBreakTime, defaultWorkTime, onboardingLogService } from "@/utils/constants";
-import { LogType } from "@/utils/enums";
-import { ActivityIndicator } from "react-native";
-import { Colors } from "@/utils/colors";
-import { useColorScheme } from "@/utils/hooks/useColorScheme";
-import { ApiService } from "@/utils/services/apiService";
-import { CreateUserPayload } from "@/utils/types";
+import {ChoosePseudo} from "@/components/domain/onboarding/choose-pseudo";
+import {SetPhoneNumber} from "@/components/domain/onboarding/set-phone-number";
+import {SetEmailAddress} from "@/components/domain/onboarding/set-email-address";
+import {SetPassword} from "@/components/domain/onboarding/set-password";
+import {useRouter} from "expo-router";
+import {ReadCGU} from "@/components/domain/onboarding/read-cgu";
+import {SetDefaultTimer} from "@/components/domain/onboarding/set-default-timer";
+import {SetExerciseFrequency} from "@/components/domain/onboarding/set-exercise-frequency";
+import {SetEmergencyCode} from "@/components/domain/onboarding/set-emergency-code";
+import {SetAgeRange} from "@/components/domain/onboarding/set-age-range";
+import {SetProfession} from "@/components/domain/onboarding/set-profession";
+import {SetName} from "@/components/domain/onboarding/set-name";
+import {AgeRange, ExerciseFrequency, Profession} from "@/utils/models/model.enums";
+import {defaultBreakTime, defaultWorkTime, onboardingLogService} from "@/utils/constants";
+import {LogType, ToastType} from "@/utils/enums";
+import {ActivityIndicator} from "react-native";
+import {Colors} from "@/utils/colors";
+import {useColorScheme} from "@/utils/hooks/useColorScheme";
+import {ApiService} from "@/utils/services/apiService";
+import {CreateUserPayload} from "@/utils/types";
+import {HttpStatusCode} from "axios";
+import {ToastService} from "@/utils/services/toastService";
 
 export default function Page() {
     const router = useRouter();
@@ -42,8 +44,8 @@ export default function Page() {
         phoneNumber: '+33602030405',
         password: 'Azerty123#',
         passwordConfirmation: 'Azerty123#',
-        defaultWorkTime: { hours: 0, minutes: 45, seconds: 0 },
-        defaultBreakTime: { hours: 0, minutes: 10, seconds: 0 },
+        defaultWorkTime: {hours: 0, minutes: 45, seconds: 0},
+        defaultBreakTime: {hours: 0, minutes: 10, seconds: 0},
         exerciseFrequency: ExerciseFrequency.ONE_PER_SESSION,
         emergencyCode: '1234',
         emergencyCodeConfirmation: '1234',
@@ -55,6 +57,53 @@ export default function Page() {
     const goToPreviousStep = () => {
         pagerRef.current?.setPage(step - 1);
     }
+
+    const register = async () => {
+        onboardingLogService.log({
+            type: LogType.Log,
+            data: ['Onboarding - User data:', formData]
+        });
+
+        setIsBottomSheetOpen(prev => ({...prev, createAccount: true}));
+
+        try {
+            const response = await ApiService.register(formData);
+
+            switch (response.status) {
+                case HttpStatusCode.Created:
+                    onboardingLogService.log({
+                        type: LogType.Log,
+                        data: ['User account created successfully.']
+                    });
+                    router.back();
+                    router.replace('/(auth)/onboarding/finish');
+                    break;
+                case HttpStatusCode.Conflict:
+                    onboardingLogService.log({
+                        type: LogType.Error,
+                        data: ['User account already exists.']
+                    });
+                    ToastService.show({
+                        type: ToastType.Error,
+                        message: 'Un compte avec cette adresse email déjà. Veuillez en choisir une autre.',
+                    })
+                    break;
+                default:
+                    onboardingLogService.log({
+                        type: LogType.Error,
+                        data: ['Error creating user account:', response.data]
+                    });
+                    break;
+            }
+        } catch (error) {
+            onboardingLogService.log({
+                type: LogType.Error,
+                data: ['Error creating user account (exception):', error]
+            });
+        } finally {
+            setIsBottomSheetOpen(prev => ({...prev, createAccount: false}));
+        }
+    };
 
     return (
         <ScreenTemplate
@@ -72,19 +121,19 @@ export default function Page() {
                         subtitle={"Pour que vous n’ayez pas à les entrer lors de votre prochaine connexion."}
                         isOpen={isBottomSheetOpen.saveCredentials}
                         onClose={() => {
-                            setIsBottomSheetOpen({ ...isBottomSheetOpen, saveCredentials: false });
+                            setIsBottomSheetOpen(prev => ({...prev, saveCredentials: false}));
                         }}
                         confirm={{
                             text: "Oui",
                             onPress: () => {
-                                setIsBottomSheetOpen({ ...isBottomSheetOpen, saveCredentials: false });
+                                setIsBottomSheetOpen(prev => ({...prev, saveCredentials: false}));
                                 goToNextStep();
                             }
                         }}
                         cancel={{
                             text: "Plus tard",
                             onPress: () => {
-                                setIsBottomSheetOpen({ ...isBottomSheetOpen, saveCredentials: false });
+                                setIsBottomSheetOpen(prev => ({...prev, saveCredentials: false}));
                                 goToNextStep();
                             }
                         }}
@@ -95,11 +144,11 @@ export default function Page() {
                         isOpen={isBottomSheetOpen.createAccount}
                         closeOnTapOutside={false}
                         onClose={() => {
-                            setIsBottomSheetOpen({ ...isBottomSheetOpen, createAccount: false });
+                            setIsBottomSheetOpen(prev => ({...prev, createAccount: false}));
                         }}
                         children={(
                             <ThemedView paddingStyle={'default'}>
-                                <ActivityIndicator size="large" color={Colors.foreground[colorScheme]} />
+                                <ActivityIndicator size="large" color={Colors.foreground[colorScheme]}/>
                             </ThemedView>
                         )}
                     />
@@ -109,7 +158,7 @@ export default function Page() {
             <PagerView
                 ref={pagerRef}
                 initialPage={0}
-                style={{ flex: 1 }}
+                style={{flex: 1}}
                 pageMargin={10}
                 scrollEnabled={false}
                 orientation={"horizontal"}
@@ -120,29 +169,29 @@ export default function Page() {
                     key={"1"}
                     firstname={formData.firstname}
                     lastname={formData.lastname}
-                    onChangeFirstName={(firstname) => setFormData({ ...formData, firstname })}
-                    onChangeLastName={(lastname) => setFormData({ ...formData, lastname })}
+                    onChangeFirstName={(firstname) => setFormData({...formData, firstname})}
+                    onChangeLastName={(lastname) => setFormData({...formData, lastname})}
                     onNextPress={goToNextStep}
                 />
                 <ChoosePseudo
                     key={"2"}
                     pseudo={formData.pseudo}
-                    onChangePseudo={(pseudo) => setFormData({ ...formData, pseudo })}
+                    onChangePseudo={(pseudo) => setFormData({...formData, pseudo})}
                     onNextPress={goToNextStep}
                 />
                 <SetEmailAddress
                     key={"3"}
                     email={formData.email}
-                    onChangeEmail={(email) => setFormData({ ...formData, email })}
+                    onChangeEmail={(email) => setFormData({...formData, email})}
                     onNextPress={goToNextStep}
                 />
                 <SetPhoneNumber
                     key={"4"}
                     phoneNumber={formData.phoneNumber}
-                    onChangePhoneNumber={(phoneNumber) => setFormData({ ...formData, phoneNumber })}
+                    onChangePhoneNumber={(phoneNumber) => setFormData({...formData, phoneNumber})}
                     onNextPress={goToNextStep}
                     onSkip={() => {
-                        setFormData({ ...formData, phoneNumber: undefined });
+                        setFormData({...formData, phoneNumber: undefined});
                         goToNextStep();
                     }}
                 />
@@ -150,13 +199,13 @@ export default function Page() {
                     key={"5"}
                     password={formData.password}
                     passwordConfirmation={formData.passwordConfirmation}
-                    onChangePassword={(password) => setFormData({ ...formData, password })}
+                    onChangePassword={(password) => setFormData({...formData, password})}
                     onChangePasswordConfirmation={(passwordConfirmation) => setFormData({
                         ...formData,
                         passwordConfirmation
                     })}
                     onNextPress={() => {
-                        setIsBottomSheetOpen({ ...isBottomSheetOpen, saveCredentials: true });
+                        setIsBottomSheetOpen(prev => ({...prev, saveCredentials: true}));
                     }}
                 />
                 <ReadCGU
@@ -199,7 +248,7 @@ export default function Page() {
                     onNextPress={goToNextStep}
                     emergencyCode={formData.emergencyCode}
                     emergencyCodeConfirmation={formData.emergencyCodeConfirmation}
-                    onChangeEmergencyCode={(emergencyCode) => setFormData({ ...formData, emergencyCode })}
+                    onChangeEmergencyCode={(emergencyCode) => setFormData({...formData, emergencyCode})}
                     onChangeEmergencyCodeConfirmation={(emergencyCodeConfirmation) => setFormData({
                         ...formData,
                         emergencyCodeConfirmation
@@ -209,7 +258,7 @@ export default function Page() {
                     key={"10"}
                     onNextPress={goToNextStep}
                     ageRange={formData.ageRange}
-                    onChangeAgeRange={(ageRange) => setFormData({ ...formData, ageRange })}
+                    onChangeAgeRange={(ageRange) => setFormData({...formData, ageRange})}
                 />
                 <SetProfession
                     key={"11"}
@@ -221,37 +270,7 @@ export default function Page() {
                             customProfession
                         });
                     }}
-                    onNextPress={() => {
-                        onboardingLogService.log({
-                            type: LogType.Log,
-                            data: ['Onboarding - User data:', formData]
-                        });
-                        setIsBottomSheetOpen({ ...isBottomSheetOpen, createAccount: true });
-
-                        // API call to create the user account
-                        ApiService.register(formData).then((response) => {
-                            if (response.status === 201) {
-                                onboardingLogService.log({
-                                    type: LogType.Log,
-                                    data: ['User account created successfully.']
-                                });
-                                router.back();
-                                router.replace('/(auth)/onboarding/finish');
-                            } else {
-                                onboardingLogService.log({
-                                    type: LogType.Error,
-                                    data: ['Error creating user account in .then():', response.data]
-                                });
-                            }
-                            setIsBottomSheetOpen({ ...isBottomSheetOpen, createAccount: false });
-                        }).catch((error) => {
-                            onboardingLogService.log({
-                                type: LogType.Error,
-                                data: ['Error creating user account:', error]
-                            });
-                            setIsBottomSheetOpen({ ...isBottomSheetOpen, createAccount: false });
-                        }).finally(() => setIsBottomSheetOpen({ ...isBottomSheetOpen, createAccount: false }));
-                    }}
+                    onNextPress={register}
                 />
             </PagerView>
 

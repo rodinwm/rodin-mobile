@@ -1,5 +1,5 @@
 import BottomSheet, {BottomSheetView} from "@gorhom/bottom-sheet";
-import React, {ReactNode, useEffect, useRef} from "react";
+import React, {ReactNode, useCallback, useEffect, useRef, useState} from "react";
 import {ThemedView} from "@/components/base/ThemedView";
 import {Pressable} from "react-native";
 import {BlurView} from "expo-blur";
@@ -14,25 +14,41 @@ export type ThemedBottomSheetProps = {
     takeBottomBarIntoAccount?: boolean;
 };
 
-export function ThemedBottomSheet({closeOnTapOutside = true, ...props}: ThemedBottomSheetProps) {
+export function ThemedBottomSheet({
+                                      isOpen,
+                                      children,
+                                      onClose,
+                                      closeOnTapOutside = true,
+                                      takeBottomBarIntoAccount = false
+                                  }: ThemedBottomSheetProps) {
     const margin = 10;
     const ref = useRef<BottomSheet>(null);
     const insets = useSafeAreaInsets();
 
+    //const snapPoints = useMemo(() => ['CONTENT_HEIGHT'], []);
+    const [localOpen, setLocalOpen] = useState(false);
+
+    // Open/Close logic
     useEffect(() => {
-        if (props.isOpen) {
+        if (isOpen) {
             ref.current?.expand();
+            setLocalOpen(true);
         } else {
             ref.current?.close();
         }
-    }, [props.isOpen]);
+    }, [isOpen]);
+
+    const handleSheetClose = useCallback(() => {
+        setLocalOpen(false);
+        onClose?.();
+    }, [onClose]);
 
     return (
         <>
-            {/* Flou d'arrière-plan */}
+            {/* Background blur */}
             <Pressable
-                className={props.isOpen ? '' : 'hidden'}
-                onPress={closeOnTapOutside ? props.onClose : undefined}
+                className={localOpen ? '' : 'hidden'}
+                onPress={closeOnTapOutside ? handleSheetClose : undefined}
                 style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}
             >
                 <BlurView
@@ -47,9 +63,9 @@ export function ThemedBottomSheet({closeOnTapOutside = true, ...props}: ThemedBo
                 ref={ref}
                 index={-1}
                 detached={true}
-                enablePanDownToClose={true}
-                bottomInset={margin + (props.takeBottomBarIntoAccount ? insets.bottom + useBottomTabOverflow() : 0)}
-                onClose={props.onClose}
+                enablePanDownToClose={closeOnTapOutside}
+                bottomInset={margin + (takeBottomBarIntoAccount ? insets.bottom + useBottomTabOverflow() : 0)}
+                onClose={handleSheetClose}
                 style={{marginHorizontal: margin}}
                 handleComponent={() => (
                     <ThemedView
@@ -74,7 +90,7 @@ export function ThemedBottomSheet({closeOnTapOutside = true, ...props}: ThemedBo
                 )}
             >
                 <BottomSheetView className={'p-6 flex flex-col gap-3'}>
-                    {props.children}
+                    {children}
                 </BottomSheetView>
             </BottomSheet>
         </>

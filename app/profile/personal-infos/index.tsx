@@ -8,18 +8,20 @@ import {
     ThemedView
 } from '@/components';
 import React, {useState} from "react";
+import {useAuthUser} from "@/utils/hooks/useAuthUser";
 
 export default function Page() {
+    const {authUser} = useAuthUser({});
     const [pseudo, setPseudo] = useState({
-        value: "Wsibi9",
+        value: authUser ? authUser.pseudo : '',
         editMode: false,
     });
     const [email, setEmail] = useState({
-        value: "ws35@gmail.com",
+        value: authUser ? authUser.email : '',
         editMode: false,
     });
     const [phoneNumber, setPhoneNumber] = useState({
-        value: "0738047523",
+        value: authUser && authUser.phoneNumber ? authUser.phoneNumber : '',
         editMode: false,
     })
 

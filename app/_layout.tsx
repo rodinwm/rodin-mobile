@@ -1,24 +1,24 @@
 // file: app/_layout.tsx
 
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import {DarkTheme, DefaultTheme, ThemeProvider} from '@react-navigation/native';
+import {useFonts} from 'expo-font';
+import {Stack} from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import {StatusBar} from 'expo-status-bar';
+import {useEffect, useState} from 'react';
 import 'react-native-reanimated';
 import './app.css';
-import { Appearance, Dimensions } from 'react-native';
+import {Appearance, Dimensions} from 'react-native';
 
-import { useColorScheme } from '@/utils/hooks/useColorScheme';
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import {useColorScheme} from '@/utils/hooks/useColorScheme';
+import {SafeAreaProvider} from "react-native-safe-area-context";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
 import ToastManager from "toastify-react-native";
-import { FontService } from "@/utils/services/fontService";
-import { FontWeightEnum } from "@/utils/enums";
-import { Colors } from "@/utils/colors";
-import { AppearanceService } from "@/utils/services/appearanceService";
-import { PreloadService } from "@/utils/services/preloadService";
+import {FontService} from "@/utils/services/fontService";
+import {FontWeightEnum} from "@/utils/enums";
+import {Colors} from "@/utils/colors";
+import {AppearanceService} from "@/utils/services/appearanceService";
+import {PreloadService} from "@/utils/services/preloadService";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync().then();
@@ -76,10 +76,10 @@ export default function RootLayout() {
     }
 
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
+        <GestureHandlerRootView style={{flex: 1}}>
             <SafeAreaProvider>
                 <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-                    <Stack screenOptions={{ headerShown: false }}>
+                    <Stack screenOptions={{headerShown: false}}>
                         {/*
                         <Stack.Screen name="+not-found"/>
                         */}
@@ -88,7 +88,7 @@ export default function RootLayout() {
                     <ToastManager
                         width={Dimensions.get("screen").width * 0.9}
                         height={"auto"}
-                        theme={colorScheme}
+                        //theme={colorScheme}
                         duration={3000}
                         position={"top"}
                         animationIn={"slideInDown"}
@@ -102,19 +102,19 @@ export default function RootLayout() {
                             borderRadius: 18,
                             padding: 10,
                             backgroundColor: Colors.background.toast[colorScheme],
-                            color: Colors.background.toast[colorScheme],
+                            color: Colors.foreground.toast[colorScheme],
                             borderWidth: 1,
                             borderColor: Colors.background[colorScheme == "light" ? "dark" : "light"] + '11',
                             // Shadow
                             shadowColor: "#000000",
-                            shadowOffset: { width: 0, height: 10 },
+                            shadowOffset: {width: 0, height: 10},
                             shadowOpacity: 0.2,
                             shadowRadius: 10,
                             elevation: 8, // Ombre pour Android
                         }}
                     />
 
-                    <StatusBar style="auto" />
+                    <StatusBar style="auto"/>
                 </ThemeProvider>
             </SafeAreaProvider>
         </GestureHandlerRootView>

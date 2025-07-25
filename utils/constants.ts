@@ -8,6 +8,8 @@ export const defaultBreakTime: TimerValue = {hours: 0, minutes: 10, seconds: 0};
 export const clickAudioSource = require("@/assets/sounds/click.mp3");
 
 export const onboardingLogService = new LogService("Onboarding");
+export const loginLogService = new LogService("Login");
+export const authLogService = new LogService("Auth");
 const modelLogService = new LogService("ModelService");
 
 export const modelService = new ModelService((methodName, error) => {
