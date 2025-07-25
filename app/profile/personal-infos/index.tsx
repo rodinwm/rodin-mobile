@@ -7,23 +7,31 @@ import {
     ThemedTextInput,
     ThemedView
 } from '@/components';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
 
 export default function Page() {
     const {authUser} = useAuthUser({});
     const [pseudo, setPseudo] = useState({
-        value: authUser ? authUser.pseudo : '',
+        value: '',
         editMode: false,
     });
     const [email, setEmail] = useState({
-        value: authUser ? authUser.email : '',
+        value: '',
         editMode: false,
     });
     const [phoneNumber, setPhoneNumber] = useState({
-        value: authUser && authUser.phoneNumber ? authUser.phoneNumber : '',
+        value: '',
         editMode: false,
-    })
+    });
+
+    useEffect(() => {
+        if (authUser) {
+            setPseudo(prev => ({...prev, value: authUser.pseudo}));
+            setEmail(prev => ({...prev, value: authUser.email}));
+            setPhoneNumber(prev => ({...prev, value: authUser.phoneNumber ?? ''}));
+        }
+    }, [authUser]);
 
     return (
         <ScreenTemplate
@@ -40,7 +48,10 @@ export default function Page() {
                 >
                     <LucideIcon name={"User"} inverseColor={true}/>
                 </ThemedView>
+                <ThemedText type={'miniBold'}>{authUser ? authUser.pseudo : 'Utilisateur inconnu'}</ThemedText>
+                {/*
                 <ThemedText type={'miniBold'}>Changer de photo</ThemedText>
+                */}
             </ThemedView>
             {/* Options */}
             <ThemedView className={'w-full flex flex-col gap-6'}>
@@ -74,9 +85,9 @@ export default function Page() {
                 <ThemedListTile
                     title={'Adresse mail'}
                     onPress={() => {
-                        setPseudo({...pseudo, editMode: false});
-                        setPhoneNumber({...phoneNumber, editMode: false});
-                        setEmail({...email, editMode: !email.editMode});
+                        setPseudo(prev => ({...prev, editMode: false}));
+                        setPhoneNumber(prev => ({...prev, editMode: false}));
+                        setEmail(prev => ({...prev, editMode: !email.editMode}));
                     }}
                     suffixIcon={
                         email.editMode ? (
@@ -101,9 +112,9 @@ export default function Page() {
                 <ThemedListTile
                     title={'Téléphone'}
                     onPress={() => {
-                        setPseudo({...pseudo, editMode: false});
-                        setEmail({...email, editMode: false});
-                        setPhoneNumber({...phoneNumber, editMode: !phoneNumber.editMode});
+                        setPseudo(prev => ({...prev, editMode: false}));
+                        setEmail(prev => ({...prev, editMode: false}));
+                        setPhoneNumber(prev => ({...prev, editMode: !phoneNumber.editMode}));
                     }}
                     suffixIcon={
                         phoneNumber.editMode ? (
