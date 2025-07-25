@@ -14,17 +14,59 @@ import {Friends} from "@/assets/static/friends";
 import {openBrowserAsync} from "expo-web-browser";
 import {User} from "@rodinwm/rodin-models/frontend";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
+import {onboardingLogService} from "@/utils/constants";
+import {LogType, ToastType} from "@/utils/enums";
+import {ApiService} from "@/utils/services/apiService";
+import {HttpStatusCode} from "axios";
+import {ToastService} from "@/utils/services/toastService";
+import {Loader} from "@/components/layouts/Loader";
 
 export default function Page() {
     const router = useRouter();
-    const {authUser} = useAuthUser({});
+    const {authUser, token} = useAuthUser({});
     const [searchedFriend, setSearchedFriend] = useState('');
-    const [friends, setFriends] = useState<User[]>(Friends.filter(friend => friend.pseudo.includes(searchedFriend)));
+    const [friends, setFriends] = useState<User[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    // Update friend list on search
+    const getFriendsOfUser = async (token: string, user: User) => {
+        setIsLoading(true);
+        try {
+            const response = await ApiService.getFriendsOfUser(token, user);
+
+            switch (response.status) {
+                case HttpStatusCode.Ok:
+                    onboardingLogService.log({
+                        type: LogType.Log,
+                        data: ['Friends successfully fetched:', response.data]
+                    });
+                    setFriends(response.data.data);
+                    break;
+                default:
+                    onboardingLogService.log({
+                        type: LogType.Error,
+                        data: ['Error fetching friends:', response.data]
+                    });
+                    ToastService.show({
+                        type: ToastType.Error,
+                        message: `Erreur lors de la récupération des amis: ${response.data.message || 'Erreur inconnue.'}`,
+                    });
+                    break;
+            }
+        } catch (error) {
+            onboardingLogService.log({
+                type: LogType.Error,
+                data: ['Error fetching friends:', error]
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
-        setFriends(Friends.filter(friend => friend.pseudo.includes(searchedFriend)));
-    }, [searchedFriend]);
+        if (token && authUser) {
+            getFriendsOfUser(token, authUser).then();
+        }
+    }, []);
 
     return (
         <ScreenTemplate
@@ -53,74 +95,96 @@ export default function Page() {
                     onPress={async (event) => {
                         if (Platform.OS !== 'web') {
                             event.preventDefault();
-                            await openBrowserAsync("https://www.instagram.com/alexxtahi/");
+                            await openBrowserAsync("https://rodin-app.com/");
                         }
                     }}
                 />
             </ThemedView>
 
-            {/* Friends */}
-            <ThemedView className={'w-full flex flex-col gap-4'}>
-                <ThemedText type={"h1"}>
-                    Mes amis
-                </ThemedText>
+            {isLoading && (
+                <ThemedView className={'w-full flex-1 items-center justify-center'}>
+                    <Loader/>
+                </ThemedView>
+            )}
 
-                <FlatList
-                    data={friends}
-                    refreshing={false}
-                    onRefresh={() => console.log('refresh')}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    ItemSeparatorComponent={() => (
-                        <ThemedView className={"h-5"}/>
-                    )}
-                    ListFooterComponent={() => friends.length > 0 ? (
-                        <ThemedView className={'w-full mt-14'}>
-                            <ThemedButton
-                                title={"Voir plus"}
-                                onPress={() => console.log("Voir plus")}
+            {!isLoading && friends.length === 0 && (
+                <ThemedView
+                    className={'w-full flex flex-row items-center gap-4'}
+                    fillStyle={'opacity-10'}
+                    paddingStyle={'small'}
+                    radiusStyle={'medium'}
+                >
+                    <LucideIcon name={"Users"} size={24}/>
+                    <ThemedText type={"default"} className={'flex-1'}>
+                        Vous n'avez pas encore d'amis sur Rodin.
+                    </ThemedText>
+                </ThemedView>
+            )}
+
+            {/* Friends */}
+            {!isLoading && friends.length !== 0 && (
+                <ThemedView className={'w-full flex flex-col gap-4'}>
+                    <ThemedText type={"h1"}>
+                        Mes amis
+                    </ThemedText>
+
+                    <FlatList
+                        data={friends.filter(friend => friend.pseudo.includes(searchedFriend))}
+                        refreshing={false}
+                        onRefresh={() => console.log('refresh')}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+                        ItemSeparatorComponent={() => (
+                            <ThemedView className={"h-5"}/>
+                        )}
+                        ListFooterComponent={() => friends.length > 0 ? (
+                            <ThemedView className={'w-full mt-14'}>
+                                <ThemedButton
+                                    title={"Voir plus"}
+                                    onPress={() => console.log("Voir plus")}
+                                />
+                            </ThemedView>
+                        ) : (
+                            <ThemedView
+                                className={'w-full flex flex-row items-center gap-4'}
+                                fillStyle={'opacity-10'}
+                                paddingStyle={'small'}
+                                radiusStyle={'medium'}
+                            >
+                                <LucideIcon name={"SearchX"}/>
+                                <ThemedText type={"default"} className={'flex-1'}>
+                                    <ThemedText type={"defaultExtraBold"}>{searchedFriend}</ThemedText> n'a pas été
+                                    trouvé parmis vos amis.
+                                </ThemedText>
+                            </ThemedView>
+                        )}
+                        keyExtractor={item => item.pseudo}
+                        renderItem={({item}) => (
+                            <ThemedListTile
+                                key={item.pseudo}
+                                icon={'User'}
+                                fillStyle={"none"}
+                                title={item.pseudo}
+                                subtitle={item.pseudo}
+                                suffixIcon={(
+                                    <ThemedView className={'flex flex-row gap-2'}>
+                                        <ThemedButton
+                                            title={"Remove"}
+                                            icon={{name: 'X'}}
+                                            paddingStyle={"none"}
+                                            showTitle={false}
+                                            type={"no-fill"}
+                                        />
+                                    </ThemedView>
+                                )}
                             />
-                        </ThemedView>
-                    ) : (
-                        <ThemedView
-                            className={'w-full flex flex-row items-center gap-4'}
-                            fillStyle={'opacity-10'}
-                            paddingStyle={'small'}
-                            radiusStyle={'medium'}
-                        >
-                            <LucideIcon name={"SearchX"}/>
-                            <ThemedText type={"default"} className={'flex-1'}>
-                                <ThemedText type={"defaultExtraBold"}>{searchedFriend}</ThemedText> n'a pas été trouvé
-                                parmis vos amis.
-                            </ThemedText>
-                        </ThemedView>
-                    )}
-                    keyExtractor={item => item.pseudo}
-                    renderItem={({item}) => (
-                        <ThemedListTile
-                            key={item.pseudo}
-                            icon={'User'}
-                            fillStyle={"none"}
-                            title={item.pseudo}
-                            subtitle={item.pseudo}
-                            suffixIcon={(
-                                <ThemedView className={'flex flex-row gap-2'}>
-                                    <ThemedButton
-                                        title={"Remove"}
-                                        icon={{name: 'X'}}
-                                        paddingStyle={"none"}
-                                        showTitle={false}
-                                        type={"no-fill"}
-                                    />
-                                </ThemedView>
-                            )}
-                        />
-                    )}
-                />
-            </ThemedView>
+                        )}
+                    />
+                </ThemedView>
+            )}
 
             {/* Search outside friends results */}
-            {friends.length === 0 && (
+            {searchedFriend.length >= 3 && (
                 <ThemedView className={'w-full flex flex-col gap-4'}>
                     <ThemedText type={"h1"}>
                         Rechercher des amis

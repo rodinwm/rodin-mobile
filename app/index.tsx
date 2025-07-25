@@ -11,8 +11,6 @@ import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
 import {AuthService} from "@/utils/services/authService";
 import {useAuthUser} from '@/utils/hooks/useAuthUser';
-import {ActivityIndicator} from "react-native";
-import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks";
 import {loginLogService, onboardingLogService} from "@/utils/constants";
 import {LogType, ToastType} from "@/utils/enums";
@@ -20,6 +18,7 @@ import {ApiService} from "@/utils/services/apiService";
 import {HttpStatusCode} from "axios";
 import {ToastService} from "@/utils/services/toastService";
 import {User} from "@rodinwm/rodin-models/frontend";
+import {Loader} from "@/components/layouts/Loader";
 
 export default function Page() {
     const {authUser, token} = useAuthUser({showToasts: false});
@@ -114,7 +113,7 @@ export default function Page() {
                         }}
                         children={(
                             <ThemedView paddingStyle={'default'}>
-                                <ActivityIndicator size="large" color={Colors.foreground[colorScheme]}/>
+                                <Loader/>
                             </ThemedView>
                         )}
                     />

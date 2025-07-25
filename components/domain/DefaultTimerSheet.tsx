@@ -7,9 +7,8 @@ import React, {useState} from "react";
 import {TimerValue} from "@rodinwm/rodin-models/frontend";
 import {defaultBreakTime, defaultWorkTime} from '@/utils/constants';
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
-import {ActivityIndicator} from "react-native";
-import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks";
+import {Loader} from "@/components/layouts/Loader";
 
 type Props = {
     isOpen: boolean;
@@ -23,9 +22,7 @@ export function DefaultTimerSheet(props: Props) {
     const [breakTime, setBreakTime] = useState<TimerValue>(authUser?.defaultBreakTime as unknown as TimerValue ?? defaultBreakTime);
 
     if (!authUser) {
-        return (
-            <ActivityIndicator size="large" color={Colors.foreground[colorScheme]}/>
-        );
+        return <Loader/>;
     }
 
     return (

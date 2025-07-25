@@ -16,13 +16,12 @@ import {SetName} from "@/components/domain/onboarding/set-name";
 import {AgeRange, ExerciseFrequency, Profession} from "@/utils/models/model.enums";
 import {defaultBreakTime, defaultWorkTime, onboardingLogService} from "@/utils/constants";
 import {LogType, ToastType} from "@/utils/enums";
-import {ActivityIndicator} from "react-native";
-import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {ApiService} from "@/utils/services/apiService";
 import {CreateUserPayload} from "@/utils/types";
 import {HttpStatusCode} from "axios";
 import {ToastService} from "@/utils/services/toastService";
+import {Loader} from "@/components/layouts/Loader";
 
 export default function Page() {
     const router = useRouter();
@@ -148,7 +147,7 @@ export default function Page() {
                         }}
                         children={(
                             <ThemedView paddingStyle={'default'}>
-                                <ActivityIndicator size="large" color={Colors.foreground[colorScheme]}/>
+                                <Loader/>
                             </ThemedView>
                         )}
                     />
