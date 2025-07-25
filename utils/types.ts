@@ -15,3 +15,20 @@ export type CreateUserPayload =
     profession: Profession;
     customProfession?: string;
 };
+
+export type LoginPayload = {
+    pseudo: string;
+    email: string;
+    password: string;
+};
+
+export type LoginResponseData = {
+    message: string;
+    token: string;
+    user: {
+        id: string;
+        email: string;
+        pseudo: string;
+        emailVerified: boolean;
+    };
+};

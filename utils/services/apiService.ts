@@ -2,11 +2,12 @@ import axios, {AxiosResponse, HttpStatusCode} from 'axios';
 import {LogService} from "@/utils/services/logService";
 import {LogType} from "@/utils/enums";
 import {FriendStatus, Prisma} from "@rodinwm/rodin-models/frontend";
-import {CreateUserPayload} from "@/utils/types";
+import {CreateUserPayload, LoginPayload} from "@/utils/types";
 
 export abstract class ApiService {
     private static readonly logService = new LogService(this.name);
-    private static readonly host = __DEV__ ? "http://192.168.1.188:3000" : "http://82.29.174.212:3000";
+    //private static readonly host = __DEV__ ? "http://192.168.1.188:3000" : "http://82.29.174.212:3000";
+    private static readonly host = "https://rodin-app.com"; // Production URL
     //private static readonly host = "http://192.168.1.188:3000";
     private static readonly defaultTimeout = 5000; // Timeout en millisecondes
     private static readonly serverErrorResponse = {
@@ -35,10 +36,7 @@ export abstract class ApiService {
         }
     }
 
-    static async login(payload: {
-        email: string;
-        password: string;
-    }): Promise<AxiosResponse> {
+    static async login(payload: LoginPayload): Promise<AxiosResponse> {
         const methodName = "login";
         try {
             const response = await axios.post(`${this.host}/api/users/auth`, payload, {
@@ -177,14 +175,32 @@ export abstract class ApiService {
 
             switch (error.response?.status) {
                 case HttpStatusCode.NotAcceptable:
+                    this.logService.log({
+                        type: LogType.Info,
+                        data: ['NotAcceptable error returned']
+                    });
+                    return error.response;
+                case HttpStatusCode.Unauthorized:
+                    this.logService.log({
+                        type: LogType.Info,
+                        data: ['NotAcceptable error returned']
+                    });
                     return error.response;
                 default:
+                    this.logService.log({
+                        type: LogType.Info,
+                        data: [`${methodName}() server error returned`]
+                    });
                     return this.serverErrorResponse;
             }
         } else {
             this.logService.log({
                 type: LogType.Error,
                 data: [this.serverErrorResponse.data.message, error]
+            });
+            this.logService.log({
+                type: LogType.Info,
+                data: ['Server error returned']
             });
             return this.serverErrorResponse;
         }

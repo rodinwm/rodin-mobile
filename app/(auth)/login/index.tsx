@@ -9,15 +9,100 @@ import {
 } from '@/components';
 import React, {useState} from "react";
 import {useRouter} from "expo-router";
+import {LoginPayload, LoginResponseData} from "@/utils/types";
+import {loginLogService, onboardingLogService} from "@/utils/constants";
+import {LogType, ToastType} from "@/utils/enums";
+import {ApiService} from "@/utils/services/apiService";
+import {HttpStatusCode} from "axios";
+import {ToastService} from "@/utils/services/toastService";
+import {ActivityIndicator} from "react-native";
+import {Colors} from "@/utils/colors";
+import {useColorScheme} from "@/utils/hooks";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Page() {
     const router = useRouter();
-    const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+    const colorScheme = useColorScheme();
+    const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
+        saveCredentials: false,
+        login: false,
+    });
+    const [formData, setFormData] = useState<LoginPayload>({
+        pseudo: 'alexxtahi',
+        email: 'alexandretahi7@gmail.com',
+        password: 'Azerty123#',
+    });
 
     const goToHomeScreen = () => {
-        setIsBottomSheetOpen(false);
+        setIsBottomSheetOpen(prev => ({...prev, login: false}));
         router.back();
         router.replace('/(tabs)');
+    };
+
+    const login = async (saveCredentials: boolean = false) => {
+        loginLogService.log({
+            type: LogType.Log,
+            data: ['Login - User data:', formData]
+        });
+
+        setIsBottomSheetOpen(prev => ({...prev, login: true}));
+
+        try {
+            const response = await ApiService.login(formData);
+
+            switch (response.status) {
+                case HttpStatusCode.Ok:
+                    const loginResponseData: LoginResponseData = response.data;
+                    onboardingLogService.log({
+                        type: LogType.Log,
+                        data: ['User successfully logged in.']
+                    });
+
+                    // Save credentials if requested
+                    if (saveCredentials) {
+                        loginLogService.log({
+                            type: LogType.Log,
+                            data: ['Saving user credentials.']
+                        });
+                        await AsyncStorage.setItem("token", loginResponseData.token);
+                    }
+
+                    // Go to home screen
+                    ToastService.show({
+                        type: ToastType.Success,
+                        message: 'Bon retour parmi nous !',
+                    });
+                    goToHomeScreen();
+                    break;
+                case HttpStatusCode.Unauthorized:
+                    onboardingLogService.log({
+                        type: LogType.Error,
+                        data: ['Error logging in user (unauthorized):', response.status, response.data]
+                    });
+                    ToastService.show({
+                        type: ToastType.Error,
+                        message: 'Identifiants incorrects. Veuillez réessayer.',
+                    })
+                    break;
+                default:
+                    onboardingLogService.log({
+                        type: LogType.Error,
+                        data: ['Error logging in user (unexpected response):', response.status, response.data]
+                    });
+                    ToastService.show({
+                        type: ToastType.Error,
+                        message: 'Une erreur est survenue lors de la connexion. Veuillez réessayer plus tard.',
+                    });
+                    break;
+            }
+        } catch (error) {
+            onboardingLogService.log({
+                type: LogType.Error,
+                data: ['Error logging in user:', error],
+            });
+        } finally {
+            setIsBottomSheetOpen(prev => ({...prev, login: false}));
+        }
     };
 
     return (
@@ -25,22 +110,44 @@ export default function Page() {
             headerLeftBtn={"backBtn"}
             setHeightToScreenSize={true}
             bottomSheet={(
-                <MessageSheet
-                    title={"Enregistrer vos informations de connexions ?"}
-                    subtitle={"Pour que vous n’ayez pas à les entrer lors de votre prochaine connexion."}
-                    isOpen={isBottomSheetOpen}
-                    onClose={goToHomeScreen}
-                    confirm={{
-                        text: "Oui",
-                        onPress: () => {
-                            goToHomeScreen();
-                        }
-                    }}
-                    cancel={{
-                        text: "Plus tard",
-                        onPress: goToHomeScreen
-                    }}
-                />
+                <>
+                    <MessageSheet
+                        title={"Enregistrer vos informations de connexions ?"}
+                        subtitle={"Pour que vous n’ayez pas à les entrer lors de votre prochaine connexion."}
+                        isOpen={isBottomSheetOpen.saveCredentials}
+                        onClose={() => {
+                            setIsBottomSheetOpen({...isBottomSheetOpen, saveCredentials: false});
+                        }}
+                        confirm={{
+                            text: "Oui",
+                            onPress: () => {
+                                setIsBottomSheetOpen({...isBottomSheetOpen, saveCredentials: false});
+                                login(true).then();
+                            }
+                        }}
+                        cancel={{
+                            text: "Plus tard",
+                            onPress: () => {
+                                setIsBottomSheetOpen({...isBottomSheetOpen, saveCredentials: false});
+                                login().then();
+                            }
+                        }}
+                    />
+                    <MessageSheet
+                        title={"Connexion"}
+                        subtitle={"Patientez pendant qu'on vérifie vos informations de connexion."}
+                        isOpen={isBottomSheetOpen.login}
+                        closeOnTapOutside={false}
+                        onClose={() => {
+                            setIsBottomSheetOpen({...isBottomSheetOpen, login: false});
+                        }}
+                        children={(
+                            <ThemedView paddingStyle={'default'}>
+                                <ActivityIndicator size="large" color={Colors.foreground[colorScheme]}/>
+                            </ThemedView>
+                        )}
+                    />
+                </>
             )}
         >
             {/* Logo section */}
@@ -57,12 +164,20 @@ export default function Page() {
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedTextInput
                     label={"Email"}
+                    textContentType={"emailAddress"}
+                    keyboardType={"email-address"}
                     placeholder={"Ex: alexandretahi@gmail.com"}
+                    value={formData.email}
+                    onChangeText={(email) => setFormData(prev => ({...prev, email: email}))}
                 />
                 <ThemedTextInput
                     label={"Mot de passe"}
                     textContentType={"password"}
-                    placeholder={"Ex: ********"}
+                    keyboardType={"visible-password"}
+                    placeholder={"Ex: ******"}
+                    secureTextEntry={true}
+                    value={formData.password}
+                    onChangeText={(password) => setFormData(prev => ({...prev, password: password}))}
                 />
                 <ThemedView className={'w-full flex justify-end items-end'}>
                     <ThemedButton
@@ -77,7 +192,7 @@ export default function Page() {
                 <ThemedButton
                     title={"Se connecter"}
                     onPress={() => {
-                        setIsBottomSheetOpen(true);
+                        setIsBottomSheetOpen({...isBottomSheetOpen, saveCredentials: true});
                     }}
                 />
                 <ThemedButton

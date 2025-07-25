@@ -3,8 +3,6 @@ const restColor = "#5784ba";
 
 export const Colors = {
     foreground: {
-        /*light: "#020617",
-        dark: "#F9FAFB",*/
         light: "#000000",
         dark: "#FFFFFF",
         success: {
@@ -14,6 +12,10 @@ export const Colors = {
         warning: {
             light: "#fefce8",
             dark: "#422006",
+        },
+        toast: {
+            light: "#000000",
+            dark: "#000000",
         },
         work: {
             light: workColor,
@@ -25,8 +27,6 @@ export const Colors = {
         },
     },
     background: {
-        /*light: "#F9FAFB",
-        dark: "#020617",*/
         light: "#FFFFFF",
         dark: "#000000",
         success: {
@@ -39,7 +39,7 @@ export const Colors = {
         },
         toast: {
             light: "#FFFFFF",
-            dark: "#181C2C",
+            dark: "#FFFFFF",
         },
         work: {
             light: workColor,
