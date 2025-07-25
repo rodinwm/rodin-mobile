@@ -1,13 +1,34 @@
-import {AppNameTag, ScreenTemplate, ThemedButton, ThemedListTile, ThemedText, ThemedView} from '@/components';
+import {
+    AppNameTag,
+    MessageSheet,
+    ScreenTemplate,
+    ThemedButton,
+    ThemedListTile,
+    ThemedText,
+    ThemedView
+} from '@/components';
 import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
 import {AuthService} from "@/utils/services/authService";
 import {useAuthUser} from '@/utils/hooks/useAuthUser';
+import {ActivityIndicator} from "react-native";
+import {Colors} from "@/utils/colors";
+import {useColorScheme} from "@/utils/hooks";
+import {loginLogService, onboardingLogService} from "@/utils/constants";
+import {LogType, ToastType} from "@/utils/enums";
+import {ApiService} from "@/utils/services/apiService";
+import {HttpStatusCode} from "axios";
+import {ToastService} from "@/utils/services/toastService";
+import {User} from "@rodinwm/rodin-models/frontend";
 
 export default function Page() {
-    const {authUser} = useAuthUser({showToasts: false});
-    const [previouslyLoggedIn, setPreviouslyLoggedIn] = useState(false);
+    const {authUser, token} = useAuthUser({showToasts: false});
+    const colorScheme = useColorScheme();
     const router = useRouter();
+    const [previouslyLoggedIn, setPreviouslyLoggedIn] = useState(false);
+    const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
+        resumeSession: false,
+    });
 
     // Check if the user was previously logged in
     useEffect(() => {
@@ -23,10 +44,82 @@ export default function Page() {
         router.replace('/(tabs)');
     }
 
+    const resumeSession = async (token: string) => {
+        loginLogService.log({
+            type: LogType.Log,
+            data: ['Stored user data:', authUser],
+        });
+
+        setIsBottomSheetOpen(prev => ({...prev, resumeSession: true}));
+
+        try {
+            const response = await ApiService.getUser(token);
+
+            switch (response.status) {
+                case HttpStatusCode.Ok:
+                    await AuthService.saveCredentials(token, response.data.user as User);
+
+                    onboardingLogService.log({
+                        type: LogType.Log,
+                        data: ['Session resumed successfully.']
+                    });
+
+                    // Go to home screen
+                    ToastService.show({
+                        type: ToastType.Success,
+                        message: 'Bon retour parmi nous !',
+                    });
+                    goToHomeScreen();
+                    break;
+                default:
+                    setPreviouslyLoggedIn(false);
+                    onboardingLogService.log({
+                        type: LogType.Error,
+                        data: ['Error fetching user data after login:', response.status, response.data]
+                    });
+                    ToastService.show({
+                        type: ToastType.Error,
+                        message: "Une erreur est survenue lors de la récupération de vos données utilisateur. Veuillez vous reconnecter s'il vous plait",
+                    });
+                    break;
+            }
+        } catch (error) {
+            setPreviouslyLoggedIn(false);
+            onboardingLogService.log({
+                type: LogType.Error,
+                data: ['Error resuming session:', error],
+            });
+            ToastService.show({
+                type: ToastType.Error,
+                message: "Une erreur est survenue lors de la reprise de votre session. Veuillez vous reconnecter s'il vous plait.",
+            });
+        } finally {
+            setIsBottomSheetOpen(prev => ({...prev, resumeSession: false}));
+        }
+    };
+
     return (
         <ScreenTemplate
             scrollEnabled={false}
             setHeightToScreenSize={true}
+            bottomSheet={(
+                <>
+                    <MessageSheet
+                        title={"Reprise de session"}
+                        subtitle={"Patientez pendant que nous reprenons votre session."}
+                        isOpen={isBottomSheetOpen.resumeSession}
+                        closeOnTapOutside={false}
+                        onClose={() => {
+                            setIsBottomSheetOpen(prev => ({...prev, resumeSession: false}));
+                        }}
+                        children={(
+                            <ThemedView paddingStyle={'default'}>
+                                <ActivityIndicator size="large" color={Colors.foreground[colorScheme]}/>
+                            </ThemedView>
+                        )}
+                    />
+                </>
+            )}
         >
             {/* Logo section */}
             <ThemedView className={'w-full flex flex-col justify-center items-center'}>
@@ -44,10 +137,10 @@ export default function Page() {
                         <ThemedListTile
                             icon={'User'}
                             title={authUser ? authUser.pseudo : "Utilisateur inconnu"}
-                            subtitle={"Reprendre là où vous vous êtes arrêté"}
+                            subtitle={"Reprennez là où vous vous êtes arrêté"}
                             fillStyle={"inversed"}
                             hasPadding={true}
-                            onPress={goToHomeScreen}
+                            onPress={() => resumeSession(token ?? '')}
                         />
 
                         <ThemedButton
