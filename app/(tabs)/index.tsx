@@ -16,11 +16,13 @@ import PagerView from "react-native-pager-view";
 import {ChartPeriod, ChartType} from '@/utils/enums';
 import {ChartService} from "@/utils/services/chartService";
 import {UiService} from "@/utils/services/uiService";
+import {usePrefetchRoutes} from "@/utils/hooks/usePrefetchRoutes";
 
 const chartPeriods = Object.values(ChartPeriod);
 
 export default function Page() {
     const router = useRouter();
+    usePrefetchRoutes(['/timer']);
     const pagerRef = useRef<PagerView | null>(null);
     const [page, setPage] = useState(0);
     const [isRodPicsUnlocked, setIsRodPicsUnlocked] = useState(false);
@@ -66,6 +68,11 @@ export default function Page() {
                 break;
         }
     }, [chartConfig.period, chartConfig.type]);
+
+    // Préchargement des pages
+    useEffect(() => {
+        router.prefetch('/timer');
+    }, []);
 
     return (
         <ScreenTemplate
