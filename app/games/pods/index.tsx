@@ -8,7 +8,7 @@ import {PodColor} from "@/utils/enums";
 import {Pod} from "@/utils/interfaces";
 import {UiService} from "@/utils/services/uiService";
 import {Toast} from "toastify-react-native";
-import {ConcentrationExercise} from "@rodinwm/rodin-models/frontend";
+import {ConcentrationExercise} from "@/utils/models/model.enums";
 
 export default function Page() {
     const router = useRouter();

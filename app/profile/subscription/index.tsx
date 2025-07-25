@@ -8,7 +8,7 @@ import {
     ThemedText,
     ThemedView
 } from '@/components';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
 import {subscriptions} from "@/assets/static/subscriptions";
 import {CurrencyService} from "@/utils/services/currencyService";
@@ -25,6 +25,12 @@ export default function Page() {
     const navigation = useNavigation();
     const [subscriptionFrequency, setSubscriptionFrequency] = useState<SubscriptionFrequency>(SubscriptionFrequency.YEARLY);
     const [selectedPlan, setSelectedPlan] = useState(subscriptions[1]);
+
+    useEffect(() => {
+        if (authUser) {
+            setSelectedPlan(authUser.subscriptionStatus === "PREMIUM" ? subscriptions[0] : subscriptions[1]);
+        }
+    }, [authUser]);
 
     return (
         <ScreenTemplate
@@ -127,7 +133,7 @@ export default function Page() {
                             ))}
                         </ThemedView>
 
-                        {sub.price && (
+                        {sub.price && (authUser === null || authUser.subscriptionStatus !== sub.title.toUpperCase()) && (
                             <ThemedView className={'w-full flex flex-col mt-4'}>
                                 <ThemedButton
                                     title={"S'abonner"}

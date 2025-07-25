@@ -1,9 +1,10 @@
 import {DefaultTimerSheet, ScreenTemplate, ThemedCheckbox, ThemedListTile, ThemedText, ThemedView} from '@/components';
 import React, {useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
-import {ConcentrationExercise} from "@rodinwm/rodin-models/frontend";
+import {modelService} from "@/utils/constants";
+import {ConcentrationExercise} from "@/utils/models/model.enums";
 
-const exercises = Object.values(ConcentrationExercise);
+const concentrationExercise = modelService.getEnumValues('ConcentrationExercise') as ConcentrationExercise[];
 
 export default function Page() {
     const router = useRouter();
@@ -24,7 +25,7 @@ export default function Page() {
         >
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedText type={'h1'} className={"mb-6"}>Exercice par défaut</ThemedText>
-                {exercises.map((exo, index: number) => (
+                {concentrationExercise.map((exo, index: number) => (
                     <ThemedListTile
                         key={`exercise-${index}`}
                         title={exo}
