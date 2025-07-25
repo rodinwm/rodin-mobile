@@ -21,10 +21,10 @@ export abstract class AppearanceService {
                 return JSON.parse(theme);
             }
             console.info(`Aucun thème sauvegardé. Le thème système sera chargé par défaut.`);
-            return ColorTheme.System;
+            return ColorTheme.Dark;
         } catch (error) {
             console.error("Erreur lors du chargement du thème :", error);
-            return ColorTheme.System;
+            return ColorTheme.Dark;
         }
     }
 

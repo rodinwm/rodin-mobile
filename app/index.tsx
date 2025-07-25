@@ -1,10 +1,27 @@
 import {AppNameTag, ScreenTemplate, ThemedButton, ThemedListTile, ThemedText, ThemedView} from '@/components';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
+import {AuthService} from "@/utils/services/authService";
+import {useAuthUser} from '@/utils/hooks/useAuthUser';
 
 export default function Page() {
-    const [alreadyLoggedIn, setAlreadyLoggedIn] = useState(false);
+    const {authUser} = useAuthUser({showToasts: false});
+    const [previouslyLoggedIn, setPreviouslyLoggedIn] = useState(false);
     const router = useRouter();
+
+    // Check if the user was previously logged in
+    useEffect(() => {
+        const checkPreviousLogin = async () => {
+            const isCredentialsSaved = await AuthService.isCredentialsSaved();
+            setPreviouslyLoggedIn(isCredentialsSaved && authUser !== null);
+        };
+
+        checkPreviousLogin().then();
+    })
+
+    const goToHomeScreen = () => {
+        router.replace('/(tabs)');
+    }
 
     return (
         <ScreenTemplate
@@ -22,21 +39,21 @@ export default function Page() {
             </ThemedView>
 
             <ThemedView className={'w-full flex flex-col gap-3'}>
-                {alreadyLoggedIn ? (
+                {previouslyLoggedIn ? (
                     <>
                         <ThemedListTile
                             icon={'User'}
-                            title={"mvxence"}
+                            title={authUser ? authUser.pseudo : "Utilisateur inconnu"}
                             subtitle={"Reprendre là où vous vous êtes arrêté"}
                             fillStyle={"inversed"}
-                            onPress={() => {
-                                console.log('/timer')
-                            }}
+                            hasPadding={true}
+                            onPress={goToHomeScreen}
                         />
+
                         <ThemedButton
                             title={"Utiliser un autre compte"}
                             type={"outlined"}
-                            onPress={() => console.log('/timer')}
+                            onPress={() => router.push('/(auth)/login')}
                         />
                     </>
                 ) : (

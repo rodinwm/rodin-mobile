@@ -38,7 +38,6 @@ export default function Page() {
         [ChartType.Pie]: ChartService.generatePieChartData(chartConfig.period),
     });
 
-
     const handleChartConfigChange = (config: 'type' | 'period', value: ChartType | ChartPeriod) => {
         setChartConfig(prevState => ({...prevState, [config]: value}));
     };

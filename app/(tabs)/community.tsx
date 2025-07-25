@@ -13,9 +13,11 @@ import {FlatList, Platform} from 'react-native';
 import {Friends} from "@/assets/static/friends";
 import {openBrowserAsync} from "expo-web-browser";
 import {User} from "@rodinwm/rodin-models/frontend";
+import {useAuthUser} from "@/utils/hooks/useAuthUser";
 
 export default function Page() {
     const router = useRouter();
+    const {authUser} = useAuthUser({});
     const [searchedFriend, setSearchedFriend] = useState('');
     const [friends, setFriends] = useState<User[]>(Friends.filter(friend => friend.pseudo.includes(searchedFriend)));
 
@@ -45,7 +47,7 @@ export default function Page() {
                     icon={'User'}
                     suffixIcon={'ExternalLink'}
                     title={"Invite tes amis sur RODIN"}
-                    subtitle={"rodin.al/mvxence"}
+                    subtitle={authUser ? `rodin-app.com/${authUser.pseudo}` : 'rodin-app.com'}
                     fillStyle={"inversed"}
                     hasPadding={true}
                     onPress={async (event) => {

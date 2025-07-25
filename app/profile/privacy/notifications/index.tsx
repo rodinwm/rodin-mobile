@@ -2,9 +2,9 @@ import {ScreenTemplate, ThemedCheckbox, ThemedListTile, ThemedText, ThemedView} 
 import React, {useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
 import {NotificationType} from "@/utils/models/model.enums";
+import {modelService} from "@/utils/constants";
 
-//const notificationTypes = modelService.getNotificationTypes().filter((type) => type !== NotificationType.AUTO_SUGGESTIONS);
-const notificationTypes: any[] = [];
+const notificationTypes = modelService.getEnumValues('NotificationType') as NotificationType[];
 
 const Page = () => {
     const router = useRouter();
