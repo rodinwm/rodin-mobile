@@ -10,13 +10,15 @@ import {
 } from '@/components';
 import React, {useEffect, useState} from "react";
 import {useNavigation, useRouter} from "expo-router";
-import {subscriptions} from "@/assets/static/subscriptions";
+import {SubscriptionPlans} from "@/assets/static/subscriptions";
 import {CurrencyService} from "@/utils/services/currencyService";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {Alert} from "react-native";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
-import {SubscriptionFrequency} from "@/utils/models/model.enums";
+import {SubscriptionFrequency, SubscriptionStatus} from "@/utils/models/model.enums";
+
+const subscriptionPlans = Object.values(SubscriptionPlans);
 
 export default function Page() {
     const colorScheme = useColorScheme();
@@ -24,11 +26,11 @@ export default function Page() {
     const router = useRouter();
     const navigation = useNavigation();
     const [subscriptionFrequency, setSubscriptionFrequency] = useState<SubscriptionFrequency>(SubscriptionFrequency.YEARLY);
-    const [selectedPlan, setSelectedPlan] = useState(subscriptions[1]);
+    const [selectedPlan, setSelectedPlan] = useState(SubscriptionStatus.FREE);
 
     useEffect(() => {
         if (authUser) {
-            setSelectedPlan(authUser.subscriptionStatus === "PREMIUM" ? subscriptions[0] : subscriptions[1]);
+            setSelectedPlan(authUser.subscriptionStatus as SubscriptionStatus);
         }
     }, [authUser]);
 
@@ -60,13 +62,13 @@ export default function Page() {
                     />
                 </ThemedView>
 
-                {subscriptions.map((sub, index) => (
+                {subscriptionPlans.map((sub, index) => (
                     <ThemedView
                         key={`subscription-card-${index}`}
                         fillStyle={"opacity-15"}
                         radiusStyle={"default"}
                         paddingStyle={"default"}
-                        borderStyle={selectedPlan === sub ? "default" : "opacity-20"}
+                        borderStyle={selectedPlan === sub.id ? "default" : "opacity-20"}
                         borderWidth={2}
                         className={'w-full flex flex-col gap-4'}
                     >

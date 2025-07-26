@@ -1,8 +1,13 @@
+import {SubscriptionFrequency, SubscriptionStatus} from "@/utils/models/model.enums";
 import {Subscription} from "@/utils/interfaces";
-import {SubscriptionFrequency} from "@/utils/models/model.enums";
 
-export const subscriptions: Subscription[] = [
-    {
+type SubscriptionPlans = {
+    [key in SubscriptionStatus]: Subscription;
+};
+
+export const SubscriptionPlans: SubscriptionPlans = {
+    [SubscriptionStatus.PREMIUM]: {
+        id: SubscriptionStatus.PREMIUM,
         title: "Premium",
         description: "Travaille dans un endroit calme et bien éclairé",
         price: {
@@ -20,7 +25,8 @@ export const subscriptions: Subscription[] = [
             "Phrases de motivation personnalisables",
         ],
     },
-    {
+    [SubscriptionStatus.FREE]: {
+        id: SubscriptionStatus.FREE,
         title: "Gratuit",
         description: "Profite des fonctionnalités de base de Rodin avec des pubs",
         content: [
@@ -30,4 +36,4 @@ export const subscriptions: Subscription[] = [
             "Accès aux Rodpics + Social",
         ],
     },
-];
+};

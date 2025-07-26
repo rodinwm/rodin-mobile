@@ -26,7 +26,7 @@ export default function Page() {
     const {authUser, token} = useAuthUser({});
     const [searchedFriend, setSearchedFriend] = useState('');
     const [friends, setFriends] = useState<User[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const getFriendsOfUser = async (token: string, user: User) => {
         setIsLoading(true);
@@ -66,7 +66,7 @@ export default function Page() {
         if (token && authUser) {
             getFriendsOfUser(token, authUser).then();
         }
-    }, []);
+    }, [token, authUser]);
 
     return (
         <ScreenTemplate
