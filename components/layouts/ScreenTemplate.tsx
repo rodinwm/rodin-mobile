@@ -1,5 +1,5 @@
 import {ThemedText} from '@/components/base/ThemedText';
-import {ThemedView} from '@/components/base/ThemedView';
+import {ThemedView, ThemedViewProps} from '@/components/base/ThemedView';
 import {ThemedButton} from '@/components/base/ThemedButton';
 import {HeaderSpacer} from '@/components/domain/HeaderSpacer';
 import React, {ReactNode} from "react";
@@ -23,7 +23,9 @@ type Props = {
     gap?: "default" | "small";
     backgroundImage?: ImageSourcePropType;
     removeBodyPadding?: boolean;
-}
+    fillStyle?: ThemedViewProps["fillStyle"];
+    customBackgroundColor?: string;
+};
 
 export function ScreenTemplate(props: Props) {
     const router = useRouter();
@@ -42,8 +44,8 @@ export function ScreenTemplate(props: Props) {
             */}
 
             <ThemedView
-                className={"w-full h-screen"}
-                fillStyle={"default"}
+                className={`w-full h-screen ${props.customBackgroundColor}`}
+                fillStyle={props.fillStyle ?? "default"}
                 backgroundImage={props.backgroundImage}
                 showBlackOverlay={props.backgroundImage !== undefined}
             >

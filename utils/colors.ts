@@ -49,5 +49,9 @@ export const Colors = {
             light: restColor,
             dark: restColor,
         },
+        rodshield: {
+            light: "#f2f2f7",
+            dark: "#000000",
+        }
     },
 };
