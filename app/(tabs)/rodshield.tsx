@@ -12,6 +12,7 @@ export default function Page() {
         AppBlockerService.init().then((isInit) => setIsAppBlockerInit(isInit));
     };
 
+    // Initialize the app blocker when the component mounts
     useEffect(() => {
         initAppBlocker();
     }, []);

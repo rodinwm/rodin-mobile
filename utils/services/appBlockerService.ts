@@ -12,6 +12,7 @@ export abstract class AppBlockerService {
     private static readonly SELECTION_ID = "evening_block_selection";
     private static readonly SHIELD_CONFIG_ID = "evening_shield_config";
     private static readonly ACTIVITY_NAME = "evening_block";
+    private static blockedApps: string | null = null;
     private static readonly logService = new LogService(this.name);
     private static readonly shieldConfig: ReactNativeDeviceActivity.ShieldConfiguration = {
         title: "Application bloquée",
@@ -95,12 +96,20 @@ export abstract class AppBlockerService {
         ReactNativeDeviceActivity.stopMonitoring([this.ACTIVITY_NAME]);
     }
 
-    static async selectAppsToBlock(familyActivitySelection: string) {
+    static async savedBlockedApps(familyActivitySelection: string) {
+        this.blockedApps = familyActivitySelection;
         await AsyncStorage.setItem(this.SELECTION_ID, familyActivitySelection);
         ReactNativeDeviceActivity.setFamilyActivitySelectionId({
             id: this.SELECTION_ID,
             familyActivitySelection: familyActivitySelection
         });
+    }
+
+    static async loadBlockedApps(): Promise<string | null> {
+        if (this.blockedApps) return this.blockedApps;
+        this.blockedApps = await AsyncStorage.getItem(this.SELECTION_ID);
+        return this.blockedApps;
+
     }
 
     private static async initAndroid(): Promise<boolean> {
