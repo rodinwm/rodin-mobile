@@ -89,7 +89,7 @@ export default function RootLayout() {
                         width={Dimensions.get("screen").width * 0.9}
                         height={"auto"}
                         //theme={colorScheme}
-                        duration={3000}
+                        duration={10000}
                         position={"top"}
                         animationIn={"slideInDown"}
                         animationOut={"slideOutUp"}

@@ -15,6 +15,7 @@ export const onboardingLogService = new LogService("Onboarding");
 export const loginLogService = new LogService("Login");
 export const authLogService = new LogService("Auth");
 export const timerLogService = new LogService("Timer");
+export const notificationLogService = new LogService("Notification");
 const modelLogService = new LogService("ModelService");
 export const modelService = new ModelService((methodName, error) => {
     modelLogService.log({
