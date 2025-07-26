@@ -16,47 +16,64 @@ export default function Page() {
         initAppBlocker();
     }, []);
 
-    return !isAppBlockerInit ? (
-        <ScreenTemplate
-            title={"RodShield"}
-            takeBottomBarIntoAccount={true}
-            setHeightToScreenSize={true}
-            scrollEnabled={false}
-        >
-            <ThemedView
-                className={'w-full flex-1 flex flex-col justify-center items-center gap-10'}
+    if (!isAppBlockerInit) {
+        return (
+            <ScreenTemplate
+                title={"RodShield"}
+                takeBottomBarIntoAccount={true}
+                setHeightToScreenSize={true}
+                scrollEnabled={false}
             >
                 <ThemedView
-                    className={'w-full flex flex-col justify-center items-center gap-3'}
+                    className={'w-full flex-1 flex flex-col justify-center items-center gap-10'}
                 >
-                    <LucideIcon name={'ShieldOff'} size={150}/>
-                    <ThemedText type={'subtitle'}>Bloqueur d'app désactivé</ThemedText>
-                    <ThemedText type={'default'} className={'text-center'}>
-                        Nous avons besoin de votre accord pour configurer le bloqueur d'applications
-                    </ThemedText>
+                    <ThemedView
+                        className={'w-full flex flex-col justify-center items-center gap-3'}
+                    >
+                        <LucideIcon name={'ShieldOff'} size={150}/>
+                        <ThemedText type={'subtitle'}>Bloqueur d'app désactivé</ThemedText>
+                        <ThemedText type={'default'} className={'text-center'}>
+                            Nous avons besoin de votre accord pour configurer le bloqueur d'applications
+                        </ThemedText>
+                    </ThemedView>
+
+                    <ThemedButton
+                        title={"Demander l'autorisation"}
+                        onPress={initAppBlocker}
+                    />
                 </ThemedView>
+            </ScreenTemplate>
+        );
+    }
 
-                <ThemedButton
-                    title={"Demander l'autorisation"}
-                    onPress={initAppBlocker}
-                />
-            </ThemedView>
-        </ScreenTemplate>
-    ) : (
-        <ScreenTemplate
-            title={"RodShield"}
-            setHeightToScreenSize={true}
-            scrollEnabled={false}
-            removeBodyPadding={true}
-        >
-            {Platform.OS === 'ios' && (
-                <IOSAppBlockerView/>
-            )}
-
-            {Platform.OS === 'android' && (
-                <AndroidAppBlockerView/>
-            )}
-        </ScreenTemplate>
-    );
+    switch (Platform.OS) {
+        case 'ios':
+            return <IOSAppBlockerView/>;
+        case 'android':
+            return <AndroidAppBlockerView/>;
+        default:
+            return (
+                <ScreenTemplate
+                    title={"RodShield"}
+                    takeBottomBarIntoAccount={true}
+                    setHeightToScreenSize={true}
+                    scrollEnabled={false}
+                >
+                    <ThemedView
+                        className={'w-full flex-1 flex flex-col justify-center items-center gap-10'}
+                    >
+                        <ThemedView
+                            className={'w-full flex flex-col justify-center items-center gap-3'}
+                        >
+                            <LucideIcon name={'ShieldOff'} size={150}/>
+                            <ThemedText type={'subtitle'}>RodShield non supporté</ThemedText>
+                            <ThemedText type={'default'} className={'text-center'}>
+                                Le bloqueur d'applications n'est pas supporté sur cette plateforme.
+                            </ThemedText>
+                        </ThemedView>
+                    </ThemedView>
+                </ScreenTemplate>
+            );
+    }
 }
 
