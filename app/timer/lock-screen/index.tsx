@@ -17,32 +17,19 @@ import {UiService} from "@/utils/services/uiService";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
 import {ToastService} from "@/utils/services/toastService";
 import {ToastType} from "@/utils/enums";
+import {useCountdownTimer} from "@/utils/hooks/useCountdownTimer";
 
 export default function Page() {
     const router = useRouter();
     const {authUser} = useAuthUser({});
-    const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes en secondes
-    const [isRunning, setIsRunning] = useState(false);
+    const {secondsLeft, isRunning, startTimer, stopTimer, resetTimer} = useCountdownTimer(30 * 60);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
     const [emergencyCode, setEmergencyCode] = useState('');
+
 
     useEffect(() => {
         setEmergencyCode('');
     }, [isBottomSheetOpen]);
-
-    useEffect(() => {
-        let interval: number | null = null;
-
-        if (isRunning && timeLeft > 0) {
-            interval = setInterval(() => {
-                setTimeLeft(prev => prev - 1);
-            }, 1000);
-        }
-
-        return () => {
-            if (interval) clearInterval(interval);
-        };
-    }, [isRunning, timeLeft]);
 
     // Android back button (physique)
     useFocusEffect(() => {
@@ -78,7 +65,7 @@ export default function Page() {
                         onPress: () => {
                             if (emergencyCode === authUser?.emergencyCode) {
                                 setIsBottomSheetOpen(false);
-                                setIsRunning(false);
+                                stopTimer();
                                 router.replace('/(tabs)')
                             } else {
                                 ToastService.show({
@@ -121,7 +108,7 @@ export default function Page() {
                     isBackgroundBlur={true}
                 >
                     <ThemedText type={'logo'} className={"text-center"}>
-                        {DateService.formatTime(timeLeft)}
+                        {DateService.formatTime(secondsLeft)}
                     </ThemedText>
                 </ThemedView>
 
@@ -145,7 +132,7 @@ export default function Page() {
                         isBackgroundBlur={true}
                         type={"outlined"}
                         paddingStyle={"uniform"}
-                        onPress={() => setIsRunning(!isRunning)}
+                        onPress={isRunning ? stopTimer : startTimer}
                     />
                     <ThemedButton
                         title={"Réinitialiser"}
@@ -154,10 +141,7 @@ export default function Page() {
                         isBackgroundBlur={true}
                         type={"outlined"}
                         paddingStyle={"uniform"}
-                        onPress={() => {
-                            setTimeLeft(30 * 60);
-                            setIsRunning(false);
-                        }}
+                        onPress={resetTimer}
                     />
                 </ThemedView>
             </ThemedView>
