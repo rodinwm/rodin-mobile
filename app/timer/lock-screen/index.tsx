@@ -11,37 +11,26 @@ import {
 import React, {useEffect, useState} from "react";
 import {Colors} from "@/utils/colors";
 import {DateService} from "@/utils/services/dateService";
-import {useFocusEffect, useNavigation, useRouter} from "expo-router";
+import {useFocusEffect, useRouter} from "expo-router";
 import {BackHandler} from "react-native";
 import {UiService} from "@/utils/services/uiService";
-import {useIsFocused} from "@react-navigation/native";
+import {useAuthUser} from "@/utils/hooks/useAuthUser";
+import {ToastService} from "@/utils/services/toastService";
+import {ToastType} from "@/utils/enums";
 
 export default function Page() {
+    const router = useRouter();
+    const {authUser} = useAuthUser({});
     const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes en secondes
     const [isRunning, setIsRunning] = useState(false);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
     const [emergencyCode, setEmergencyCode] = useState('');
-    const router = useRouter();
-    const navigation = useNavigation();
-    const isFocused = useIsFocused();
 
     let timer = setInterval(() => {
         if (isRunning) {
             setTimeLeft(prevTime => prevTime - 1);
         }
     }, 1000);
-
-    /*
-    useLayoutEffect(() => {
-        if (!isFocused) return;
-
-        navigation.setOptions({
-            headerShown: false,
-            gestureEnabled: false,
-            presentation: 'transparentModal',
-        });
-    }, [navigation, isFocused]);
-    */
 
     useEffect(() => {
         setEmergencyCode('');
@@ -86,7 +75,16 @@ export default function Page() {
                         text: "Débloquer",
                         disabled: emergencyCode.length !== 4,
                         onPress: () => {
-                            router.replace('/(tabs)')
+                            if (emergencyCode === authUser?.emergencyCode) {
+                                setIsBottomSheetOpen(false);
+                                setIsRunning(false);
+                                router.replace('/(tabs)')
+                            } else {
+                                ToastService.show({
+                                    type: ToastType.Error,
+                                    message: "Code d'urgence incorrect. Veuillez réessayer."
+                                });
+                            }
                         }
                     }}
                 />

@@ -112,10 +112,10 @@ export default function Page() {
         console.info(`Pod ${pod.color} tapped!`);
         if (pod.color === PodColor.Red) {
             UiService.hapticImpact();
-            setScore(prevState => prevState + 1);
+            setScore(prev => prev + 1);
         } else {
             UiService.hapticImpact("error");
-            setErrorCount(prevState => prevState + 1);
+            setErrorCount(prev => prev + 1);
             setStep(GameService.generatePodsGameStep());
         }
         // Générer de nouveaux pods

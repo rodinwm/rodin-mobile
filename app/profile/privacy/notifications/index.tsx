@@ -17,9 +17,9 @@ const Page = () => {
     });
 
     const updateNotifTypes = (type: NotificationType) => {
-        setNotifTypes(prevState => ({
-            ...prevState,
-            [type]: !prevState[type]
+        setNotifTypes(prev => ({
+            ...prev,
+            [type]: !prev[type]
         }));
     };
 
