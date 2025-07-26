@@ -49,8 +49,8 @@ export const Colors = {
             light: restColor,
             dark: restColor,
         },
-        appBlocker: {
-            light: "#f0f0f0",
+        rodshield: {
+            light: "#f2f2f7",
             dark: "#000000",
         }
     },

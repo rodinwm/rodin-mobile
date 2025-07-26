@@ -25,7 +25,7 @@ export default function Page() {
     usePrefetchRoutes(['/timer']);
     const pagerRef = useRef<PagerView | null>(null);
     const [page, setPage] = useState(0);
-    const [isRodPicsUnlocked, setIsRodPicsUnlocked] = useState(false);
+    const [isRodPicsUnlocked, setIsRodPicsUnlocked] = useState(true);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
         tipOfTheDay: false,
         rodpics: false,

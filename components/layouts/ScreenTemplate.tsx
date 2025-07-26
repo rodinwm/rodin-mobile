@@ -24,6 +24,7 @@ type Props = {
     backgroundImage?: ImageSourcePropType;
     removeBodyPadding?: boolean;
     fillStyle?: ThemedViewProps["fillStyle"];
+    customBackgroundColor?: string;
 };
 
 export function ScreenTemplate(props: Props) {
@@ -43,7 +44,7 @@ export function ScreenTemplate(props: Props) {
             */}
 
             <ThemedView
-                className={"w-full h-screen"}
+                className={`w-full h-screen ${props.customBackgroundColor}`}
                 fillStyle={props.fillStyle ?? "default"}
                 backgroundImage={props.backgroundImage}
                 showBlackOverlay={props.backgroundImage !== undefined}

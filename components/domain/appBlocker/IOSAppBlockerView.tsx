@@ -5,10 +5,12 @@ import * as ReactNativeDeviceActivity from 'react-native-device-activity';
 import {AppBlockerService} from "@/utils/services/appBlockerService";
 import {ToastService} from "@/utils/services/toastService";
 import {ToastType} from "@/utils/enums";
+import {useColorScheme} from "@/utils/hooks";
 
 type Props = {};
 
 export function IOSAppBlockerView({}: Props) {
+    const colorScheme = useColorScheme();
 
     // Manage the selection state of apps/websites to block
     const [currentFamilyActivitySelection, setCurrentFamilyActivitySelection] = useState<string | null>(null);
@@ -66,6 +68,7 @@ export function IOSAppBlockerView({}: Props) {
             scrollEnabled={false}
             removeBodyPadding={true}
             fillStyle={"none"}
+            customBackgroundColor={`bg-background-rodshield-${colorScheme}`}
             headerRightBtn={{
                 icon: "Check",
                 onPress: saveSelection,
