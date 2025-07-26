@@ -30,8 +30,8 @@ export default function Page() {
     };
 
     const toggleFlashMode = () => {
-        setFlashMode((prevState) => {
-            const newState = prevState === 'on' ? 'off' : 'on';
+        setFlashMode((prev) => {
+            const newState = prev === 'on' ? 'off' : 'on';
             Toast.info(newState === 'on' ? "Flash activé" : "Flash désactivé");
             return newState;
         });

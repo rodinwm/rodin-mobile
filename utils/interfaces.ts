@@ -1,7 +1,7 @@
 import {FlatListProps, StyleProp, TextStyle, ViewStyle} from "react-native";
 import {icons} from "lucide-react-native";
 import {PodColor} from "@/utils/enums";
-import {SubscriptionFrequency} from "@rodinwm/rodin-models/frontend";
+import {SubscriptionFrequency, SubscriptionStatus} from "@/utils/models/model.enums";
 
 export interface DailyTip {
     text: string;
@@ -37,6 +37,7 @@ export interface Pod {
 }
 
 export interface Subscription {
+    id: keyof typeof SubscriptionStatus;
     title: string;
     description: string;
     price?: {

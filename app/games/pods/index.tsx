@@ -8,7 +8,7 @@ import {PodColor} from "@/utils/enums";
 import {Pod} from "@/utils/interfaces";
 import {UiService} from "@/utils/services/uiService";
 import {Toast} from "toastify-react-native";
-import {ConcentrationExercise} from "@rodinwm/rodin-models/frontend";
+import {ConcentrationExercise} from "@/utils/models/model.enums";
 
 export default function Page() {
     const router = useRouter();
@@ -112,10 +112,10 @@ export default function Page() {
         console.info(`Pod ${pod.color} tapped!`);
         if (pod.color === PodColor.Red) {
             UiService.hapticImpact();
-            setScore(prevState => prevState + 1);
+            setScore(prev => prev + 1);
         } else {
             UiService.hapticImpact("error");
-            setErrorCount(prevState => prevState + 1);
+            setErrorCount(prev => prev + 1);
             setStep(GameService.generatePodsGameStep());
         }
         // Générer de nouveaux pods

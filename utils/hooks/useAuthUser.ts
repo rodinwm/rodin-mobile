@@ -10,9 +10,10 @@ import {AuthService} from "@/utils/services/authService";
 
 type Props = {
     redirectIfUnauthenticated?: boolean;
+    showToasts?: boolean;
 };
 
-export function useAuthUser({redirectIfUnauthenticated = false}: Props) {
+export function useAuthUser({redirectIfUnauthenticated = false, showToasts = false}: Props) {
     const router = useRouter();
     const [token, setToken] = useState<string | null>(null);
     const [authUser, setAuthUser] = useState<User | null>(null);
@@ -30,10 +31,13 @@ export function useAuthUser({redirectIfUnauthenticated = false}: Props) {
                     type: LogType.Error,
                     data: ['No token found, redirecting to welcome page.']
                 });
-                ToastService.show({
-                    type: ToastType.Error,
-                    message: "Veuillez vous reconnecter s'il vous plait."
-                });
+
+                if (showToasts) {
+                    ToastService.show({
+                        type: ToastType.Error,
+                        message: "Veuillez vous reconnecter s'il vous plait."
+                    });
+                }
                 return;
             }
 

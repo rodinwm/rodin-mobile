@@ -25,7 +25,6 @@ export function ThemedBottomSheet({
     const ref = useRef<BottomSheet>(null);
     const insets = useSafeAreaInsets();
 
-    //const snapPoints = useMemo(() => ['CONTENT_HEIGHT'], []);
     const [localOpen, setLocalOpen] = useState(false);
 
     // Open/Close logic
@@ -47,7 +46,7 @@ export function ThemedBottomSheet({
         <>
             {/* Background blur */}
             <Pressable
-                className={localOpen ? '' : 'hidden'}
+                className={isOpen ? '' : 'hidden'}
                 onPress={closeOnTapOutside ? handleSheetClose : undefined}
                 style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}
             >

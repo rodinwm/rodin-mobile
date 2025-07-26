@@ -11,48 +11,25 @@ import {
 import React, {useEffect, useState} from "react";
 import {Colors} from "@/utils/colors";
 import {DateService} from "@/utils/services/dateService";
-import {useFocusEffect, useNavigation, useRouter} from "expo-router";
+import {useFocusEffect, useRouter} from "expo-router";
 import {BackHandler} from "react-native";
 import {UiService} from "@/utils/services/uiService";
-import {useIsFocused} from "@react-navigation/native";
+import {useAuthUser} from "@/utils/hooks/useAuthUser";
+import {ToastService} from "@/utils/services/toastService";
+import {ToastType} from "@/utils/enums";
+import {useCountdownTimer} from "@/utils/hooks/useCountdownTimer";
 
 export default function Page() {
-    const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes en secondes
-    const [isRunning, setIsRunning] = useState(false);
+    const router = useRouter();
+    const {authUser} = useAuthUser({});
+    const {secondsLeft, isRunning, startTimer, stopTimer, resetTimer} = useCountdownTimer(30 * 60);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
     const [emergencyCode, setEmergencyCode] = useState('');
-    const router = useRouter();
-    const navigation = useNavigation();
-    const isFocused = useIsFocused();
 
-    let timer = setInterval(() => {
-        if (isRunning) {
-            setTimeLeft(prevTime => prevTime - 1);
-        }
-    }, 1000);
-
-    /*
-    useLayoutEffect(() => {
-        if (!isFocused) return;
-
-        navigation.setOptions({
-            headerShown: false,
-            gestureEnabled: false,
-            presentation: 'transparentModal',
-        });
-    }, [navigation, isFocused]);
-    */
 
     useEffect(() => {
         setEmergencyCode('');
     }, [isBottomSheetOpen]);
-
-    useEffect(() => {
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-        }
-        return () => clearInterval(timer);
-    }, [isRunning, timeLeft]);
 
     // Android back button (physique)
     useFocusEffect(() => {
@@ -86,7 +63,17 @@ export default function Page() {
                         text: "Débloquer",
                         disabled: emergencyCode.length !== 4,
                         onPress: () => {
-                            router.replace('/(tabs)')
+                            if (emergencyCode === authUser?.emergencyCode) {
+                                setIsBottomSheetOpen(false);
+                                resetTimer().then();
+                                router.replace('/(tabs)')
+                            } else {
+                                UiService.hapticImpact("error");
+                                ToastService.show({
+                                    type: ToastType.Error,
+                                    message: "Code d'urgence incorrect. Veuillez réessayer."
+                                });
+                            }
                         }
                     }}
                 />
@@ -122,7 +109,7 @@ export default function Page() {
                     isBackgroundBlur={true}
                 >
                     <ThemedText type={'logo'} className={"text-center"}>
-                        {DateService.formatTime(timeLeft)}
+                        {DateService.formatTime(secondsLeft)}
                     </ThemedText>
                 </ThemedView>
 
@@ -146,7 +133,7 @@ export default function Page() {
                         isBackgroundBlur={true}
                         type={"outlined"}
                         paddingStyle={"uniform"}
-                        onPress={() => setIsRunning(!isRunning)}
+                        onPress={isRunning ? stopTimer : startTimer}
                     />
                     <ThemedButton
                         title={"Réinitialiser"}
@@ -155,10 +142,7 @@ export default function Page() {
                         isBackgroundBlur={true}
                         type={"outlined"}
                         paddingStyle={"uniform"}
-                        onPress={() => {
-                            setTimeLeft(30 * 60);
-                            setIsRunning(false);
-                        }}
+                        onPress={resetTimer}
                     />
                 </ThemedView>
             </ThemedView>

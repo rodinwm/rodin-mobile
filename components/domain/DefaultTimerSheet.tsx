@@ -6,15 +6,24 @@ import {ThemedView} from "@/components/base/ThemedView";
 import React, {useState} from "react";
 import {TimerValue} from "@rodinwm/rodin-models/frontend";
 import {defaultBreakTime, defaultWorkTime} from '@/utils/constants';
+import {useAuthUser} from "@/utils/hooks/useAuthUser";
+import {useColorScheme} from "@/utils/hooks";
+import {Loader} from "@/components/layouts/Loader";
 
 type Props = {
     isOpen: boolean;
     onClose: () => void;
-}
+};
 
 export function DefaultTimerSheet(props: Props) {
-    const [workTime, setWorkTime] = useState<TimerValue>(defaultWorkTime);
-    const [breakTime, setBreakTime] = useState<TimerValue>(defaultBreakTime);
+    const {authUser} = useAuthUser({});
+    const colorScheme = useColorScheme();
+    const [workTime, setWorkTime] = useState<TimerValue>(authUser?.defaultWorkTime as unknown as TimerValue ?? defaultWorkTime);
+    const [breakTime, setBreakTime] = useState<TimerValue>(authUser?.defaultBreakTime as unknown as TimerValue ?? defaultBreakTime);
+
+    if (!authUser) {
+        return <Loader/>;
+    }
 
     return (
         <ThemedBottomSheet
@@ -31,7 +40,7 @@ export function DefaultTimerSheet(props: Props) {
                 </ThemedView>
 
                 <TimerSelect
-                    defaultValue={defaultWorkTime}
+                    defaultValue={authUser.defaultWorkTime as unknown as TimerValue ?? defaultWorkTime}
                     onChange={(time: TimerValue) => setWorkTime(time)}
                 />
             </ThemedView>
@@ -44,7 +53,7 @@ export function DefaultTimerSheet(props: Props) {
                 </ThemedView>
 
                 <TimerSelect
-                    defaultValue={defaultBreakTime}
+                    defaultValue={authUser.defaultBreakTime as unknown as TimerValue ?? defaultBreakTime}
                     onChange={(time: TimerValue) => setBreakTime(time)}
                 />
             </ThemedView>

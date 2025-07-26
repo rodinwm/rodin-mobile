@@ -15,11 +15,10 @@ import {LogType, ToastType} from "@/utils/enums";
 import {ApiService} from "@/utils/services/apiService";
 import {HttpStatusCode} from "axios";
 import {ToastService} from "@/utils/services/toastService";
-import {ActivityIndicator} from "react-native";
-import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks";
 import {AuthService} from "@/utils/services/authService";
 import {User} from "@rodinwm/rodin-models/frontend";
+import {Loader} from "@/components/layouts/Loader";
 
 export default function Page() {
     const router = useRouter();
@@ -158,7 +157,7 @@ export default function Page() {
                         }}
                         children={(
                             <ThemedView paddingStyle={'default'}>
-                                <ActivityIndicator size="large" color={Colors.foreground[colorScheme]}/>
+                                <Loader/>
                             </ThemedView>
                         )}
                     />

@@ -1,7 +1,7 @@
 import axios, {AxiosResponse, HttpStatusCode} from 'axios';
 import {LogService} from "@/utils/services/logService";
 import {LogType} from "@/utils/enums";
-import {FriendStatus, Prisma} from "@rodinwm/rodin-models/frontend";
+import {FriendStatus, Prisma, User} from "@rodinwm/rodin-models/frontend";
 import {CreateUserPayload, LoginPayload} from "@/utils/types";
 
 export abstract class ApiService {
@@ -85,13 +85,16 @@ export abstract class ApiService {
         }
     }
 
-    static async getFriends(token: string): Promise<AxiosResponse> {
-        const methodName = "getFriends";
+    static async getFriendsOfUser(token: string, user: User): Promise<AxiosResponse> {
+        const methodName = "getFriendsOfUser";
         try {
             const response = await axios.get(`${this.host}/api/friend`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
+                },
+                params: {
+                    userId: user.id,
                 },
                 timeout: this.defaultTimeout,
             });

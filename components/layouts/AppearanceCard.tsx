@@ -1,10 +1,10 @@
-import { ThemedView } from '@/components/base/ThemedView';
-import { ThemedText } from '@/components/base/ThemedText';
-import { ThemedCheckbox } from '@/components/base/ThemedCheckbox';
+import {ThemedView} from '@/components/base/ThemedView';
+import {ThemedText} from '@/components/base/ThemedText';
+import {ThemedCheckbox} from '@/components/base/ThemedCheckbox';
 import React from "react";
-import { useColorScheme } from "@/utils/hooks/useColorScheme";
-import { ColorTheme } from "@/utils/enums";
-import { TouchableOpacity } from "react-native";
+import {useColorScheme} from "@/utils/hooks/useColorScheme";
+import {ColorTheme} from "@/utils/enums";
+import {TouchableOpacity} from "react-native";
 
 type Props = {
     type?: ColorTheme;
@@ -13,10 +13,10 @@ type Props = {
 }
 
 export function AppearanceCard({
-    type = ColorTheme.Light,
-    selected,
-    onSelect,
-}: Props
+                                   type = ColorTheme.Light,
+                                   selected,
+                                   onSelect,
+                               }: Props
 ) {
     const colorScheme = useColorScheme();
 
@@ -27,7 +27,7 @@ export function AppearanceCard({
         >
             <ThemedView
                 className={`w-24 h-40 flex justify-center items-center ${type === ColorTheme.Dark ? 'bg-background-dark' : 'bg-background-light'}`}
-                borderStyle={"default"}
+                borderStyle={"opacity-20"}
                 radiusStyle={"default"}
             >
                 <ThemedText

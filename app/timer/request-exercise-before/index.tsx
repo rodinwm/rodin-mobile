@@ -20,7 +20,7 @@ export default function Page() {
 
     useEffect(() => {
         router.prefetch('/timer/lock-screen');
-    }, [])
+    }, []);
 
     return (
         <ScreenTemplate
@@ -33,7 +33,7 @@ export default function Page() {
                     subtitle={"Les détails de chaque exercice vous serront donné sur l'écran d'après."}
                     isOpen={isBottomSheetOpen.exerciseSelection}
                     onClose={() => {
-                        setIsBottomSheetOpen(prevState => ({...prevState, exerciseSelection: false}));
+                        setIsBottomSheetOpen(prev => ({...prev, exerciseSelection: false}));
                     }}
                     children={(
                         <ThemedView className={'w-full flex flex-col gap-3 mt-3'}>
@@ -57,17 +57,19 @@ export default function Page() {
                                     router.push('/games/breathing');
                                 }}
                             />
+                            {/*
                             <ThemedListTile
                                 icon={'Shapes'}
                                 title={"Pattern"}
                                 subtitle={"Mémorisez puis refaite une série de motifs"}
                                 fillStyle={"inversed"}
                                 hasPadding={true}
-                                //disabled={true}
+                                disabled={true}
                                 onPress={() => {
                                     router.push('/games/patterns');
                                 }}
                             />
+                            */}
                         </ThemedView>
                     )}
                 />
@@ -86,7 +88,7 @@ export default function Page() {
                 <ThemedButton
                     title={"Oui"}
                     onPress={() => {
-                        setIsBottomSheetOpen(prevState => ({...prevState, exerciseSelection: true}));
+                        setIsBottomSheetOpen(prev => ({...prev, exerciseSelection: true}));
                     }}
                 />
                 <ThemedButton

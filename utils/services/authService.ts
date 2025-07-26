@@ -33,6 +33,11 @@ export abstract class AuthService {
         return null;
     }
 
+    static async isCredentialsSaved(): Promise<boolean> {
+        const storedValue = await AsyncStorage.getItem('isCredentialsSaved');
+        return storedValue === true.toString();
+    }
+
     static async logout(): Promise<void> {
         this.token = null;
         this.authUser = null;
