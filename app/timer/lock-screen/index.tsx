@@ -65,9 +65,10 @@ export default function Page() {
                         onPress: () => {
                             if (emergencyCode === authUser?.emergencyCode) {
                                 setIsBottomSheetOpen(false);
-                                stopTimer();
+                                resetTimer().then();
                                 router.replace('/(tabs)')
                             } else {
+                                UiService.hapticImpact("error");
                                 ToastService.show({
                                     type: ToastType.Error,
                                     message: "Code d'urgence incorrect. Veuillez réessayer."
