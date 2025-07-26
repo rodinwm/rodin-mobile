@@ -26,21 +26,22 @@ export default function Page() {
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
     const [emergencyCode, setEmergencyCode] = useState('');
 
-    let timer = setInterval(() => {
-        if (isRunning) {
-            setTimeLeft(prevTime => prevTime - 1);
-        }
-    }, 1000);
-
     useEffect(() => {
         setEmergencyCode('');
     }, [isBottomSheetOpen]);
 
     useEffect(() => {
-        if (timeLeft <= 0) {
-            clearInterval(timer);
+        let interval: number | null = null;
+
+        if (isRunning && timeLeft > 0) {
+            interval = setInterval(() => {
+                setTimeLeft(prev => prev - 1);
+            }, 1000);
         }
-        return () => clearInterval(timer);
+
+        return () => {
+            if (interval) clearInterval(interval);
+        };
     }, [isRunning, timeLeft]);
 
     // Android back button (physique)
