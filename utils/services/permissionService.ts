@@ -11,12 +11,10 @@ export abstract class PermissionService {
         try {
             switch (Platform.OS) {
                 case "ios":
-                    AppBlockerService.requestPermissions().then(() => {
-                    });
+                    AppBlockerService.requestPermissions().then();
                     break;
                 case "android":
-                    request(PERMISSIONS.ANDROID.CAMERA).then(() => {
-                    });
+                    request(PERMISSIONS.ANDROID.CAMERA).then();
                     break;
                 default:
                     break;
@@ -28,4 +26,5 @@ export abstract class PermissionService {
             });
         }
     }
+
 }

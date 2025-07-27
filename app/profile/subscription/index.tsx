@@ -9,7 +9,6 @@ import {
     ThemedView
 } from '@/components';
 import React, {useEffect, useState} from "react";
-import {useNavigation, useRouter} from "expo-router";
 import {SubscriptionPlans} from "@/assets/static/subscriptions";
 import {CurrencyService} from "@/utils/services/currencyService";
 import {Colors} from "@/utils/colors";
@@ -23,8 +22,6 @@ const subscriptionPlans = Object.values(SubscriptionPlans);
 export default function Page() {
     const colorScheme = useColorScheme();
     const {authUser} = useAuthUser({});
-    const router = useRouter();
-    const navigation = useNavigation();
     const [subscriptionFrequency, setSubscriptionFrequency] = useState<SubscriptionFrequency>(SubscriptionFrequency.YEARLY);
     const [selectedPlan, setSelectedPlan] = useState(SubscriptionStatus.FREE);
 

@@ -105,6 +105,23 @@ export abstract class ApiService {
         }
     }
 
+    static async getCommunityFeed(token: string): Promise<AxiosResponse> {
+        const methodName = "getCommunityFeed";
+        try {
+            const response = await axios.get(`${this.host}/api/rodpics`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                timeout: this.defaultTimeout,
+            });
+
+            return this.handleResponse(methodName, response);
+        } catch (error) {
+            return this.handleError(methodName, error);
+        }
+    }
+
     static async sendFriendRequest(token: string, payload: { friendId: string }): Promise<AxiosResponse> {
         const methodName = "sendFriendRequest";
         try {

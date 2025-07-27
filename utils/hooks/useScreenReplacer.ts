@@ -1,0 +1,30 @@
+import {Href, useRouter} from "expo-router";
+
+
+type Props = {
+    path: Href;
+    stepsToGoBack?: number;
+};
+
+/**
+ * Un hook pour revenir de plusieurs écrans en arrière,
+ * puis rediriger vers une route spécifique.
+ *
+ * @param path Chemin de redirection final
+ * @param stepsToGoBack Nombre d’écrans à revenir (par défaut 1)
+ */
+export function useScreenReplacer({path, stepsToGoBack}: Props) {
+    const router = useRouter();
+
+    const goToScreen = () => {
+        if (stepsToGoBack && stepsToGoBack > 0) {
+            for (let i = 0; i < stepsToGoBack; i++) {
+                router.back();
+            }
+        }
+
+        router.replace(path);
+    };
+
+    return {goToScreen};
+}

@@ -1,6 +1,5 @@
 import {ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React, {useEffect, useState} from "react";
-import {useRouter} from "expo-router";
 import {DateService} from "@/utils/services/dateService";
 import {UiService} from "@/utils/services/uiService";
 import Animated, {
@@ -11,6 +10,7 @@ import Animated, {
     withRepeat,
     withTiming,
 } from 'react-native-reanimated';
+import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
 
 const messages = {
     welcome: "Concentrez vous uniquement sur le point blanc pendant tout l'exercice",
@@ -20,7 +20,10 @@ const messages = {
 };
 
 export default function Page() {
-    const router = useRouter();
+    const {goToScreen: goToLockScreen} = useScreenReplacer({
+        path: '/timer/lock-screen',
+        stepsToGoBack: 3,
+    });
     // Game setup
     const isRunningShared = useSharedValue(false);
     const [isRunning, setIsRunning] = useState(false);
@@ -174,7 +177,7 @@ export default function Page() {
                 disabled={isRunning || (isGameStarted() && !isGameOver())}
                 onPress={() => {
                     if (isGameOver()) {
-                        router.push('/timer/lock-screen');
+                        goToLockScreen();
                     } else {
                         startGame();
                     }

@@ -17,12 +17,15 @@ import {ChartPeriod, ChartType} from '@/utils/enums';
 import {ChartService} from "@/utils/services/chartService";
 import {UiService} from "@/utils/services/uiService";
 import {usePrefetchRoutes} from "@/utils/hooks/usePrefetchRoutes";
+import {useAuthUser} from "@/utils/hooks/useAuthUser";
+import {NotificationService} from "@/utils/services/notificationService";
 
 const chartPeriods = Object.values(ChartPeriod);
 
 export default function Page() {
     const router = useRouter();
     usePrefetchRoutes(['/timer']);
+    const {authUser} = useAuthUser({});
     const pagerRef = useRef<PagerView | null>(null);
     const [page, setPage] = useState(0);
     const [isRodPicsUnlocked, setIsRodPicsUnlocked] = useState(true);
@@ -69,9 +72,9 @@ export default function Page() {
         }
     }, [chartConfig.period, chartConfig.type]);
 
-    // Préchargement des pages
+    // Initialisation des notifications
     useEffect(() => {
-        router.prefetch('/timer');
+        NotificationService.init().then();
     }, []);
 
     return (
@@ -80,6 +83,14 @@ export default function Page() {
             takeBottomBarIntoAccount={true}
             setHeightToScreenSize={true}
             scrollEnabled={false}
+            /*
+            headerRightBtn={{
+                icon: "Check",
+                onPress: () => {
+                    NotificationService.testNotification();
+                }
+            }}
+            */
             bottomSheet={(
                 <>
                     <MessageSheet

@@ -8,19 +8,21 @@ import {
     ThemedText,
     ThemedView
 } from '@/components';
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useRouter} from "expo-router";
+import {usePrefetchRoutes} from "@/utils/hooks/usePrefetchRoutes";
+import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
 
 export default function Page() {
     const router = useRouter();
-    const screensBeforeLockScreen = 2;
+    const {goToScreen: goToLockScreen} = useScreenReplacer({
+        path: '/timer/lock-screen',
+        stepsToGoBack: 2,
+    });
+    usePrefetchRoutes(['/timer/lock-screen']);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
         exerciseSelection: false,
     });
-
-    useEffect(() => {
-        router.prefetch('/timer/lock-screen');
-    }, []);
 
     return (
         <ScreenTemplate
@@ -94,10 +96,7 @@ export default function Page() {
                 <ThemedButton
                     title={"Non"}
                     type={"outlined"}
-                    onPress={() => {
-                        for (let i = 0; i < screensBeforeLockScreen; i++) router.back();
-                        router.replace('/timer/lock-screen');
-                    }}
+                    onPress={goToLockScreen}
                 />
             </ThemedView>
 

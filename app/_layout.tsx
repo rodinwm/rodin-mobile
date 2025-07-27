@@ -8,17 +8,23 @@ import {StatusBar} from 'expo-status-bar';
 import {useEffect, useState} from 'react';
 import 'react-native-reanimated';
 import './app.css';
-import {Appearance, Dimensions} from 'react-native';
+import {Dimensions} from 'react-native';
 
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import ToastManager from "toastify-react-native";
 import {FontService} from "@/utils/services/fontService";
-import {FontWeightEnum} from "@/utils/enums";
+import {FontWeightEnum, LogType, ToastType} from "@/utils/enums";
 import {Colors} from "@/utils/colors";
 import {AppearanceService} from "@/utils/services/appearanceService";
 import {PreloadService} from "@/utils/services/preloadService";
+import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
+import {useAuthUser} from "@/utils/hooks/useAuthUser";
+import {AuthService} from "@/utils/services/authService";
+import {ToastService} from "@/utils/services/toastService";
+import {onboardingLogService} from "@/utils/constants";
+import {LoadingScreen} from "@/components/layouts/LoadingScreen";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync().then();
@@ -31,7 +37,10 @@ SplashScreen.setOptions({
 
 export default function RootLayout() {
     const colorScheme = useColorScheme();
-    const appearance = Appearance.getColorScheme();
+    const {authUser, token} = useAuthUser({showToasts: false});
+    const {goToScreen: goToHomeScreen} = useScreenReplacer({
+        path: '/(tabs)',
+    });
     const [assetsLoaded, setAssetsLoaded] = useState(false);
     const [resourcesLoaded, setResourcesLoaded] = useState(false);
     const [fontLoaded] = useFonts({
@@ -67,12 +76,31 @@ export default function RootLayout() {
     useEffect(() => {
         if (fontLoaded && assetsLoaded) {
             setResourcesLoaded(true);
-            SplashScreen.hideAsync().then();
+            resumeSession().then();
         }
     }, [fontLoaded, assetsLoaded]);
 
+    const resumeSession = async () => {
+        const isSessionResumed = await AuthService.resumeSession();
+
+        if (isSessionResumed) {
+            ToastService.show({
+                type: ToastType.Success,
+                message: 'Bon retour parmi nous !',
+            });
+            goToHomeScreen();
+        } else {
+            onboardingLogService.log({
+                type: LogType.Error,
+                data: ['Failed to resume session.']
+            });
+        }
+
+        SplashScreen.hideAsync().then();
+    };
+
     if (!resourcesLoaded) {
-        return null;
+        return <LoadingScreen/>;
     }
 
     return (
@@ -89,7 +117,7 @@ export default function RootLayout() {
                         width={Dimensions.get("screen").width * 0.9}
                         height={"auto"}
                         //theme={colorScheme}
-                        duration={3000}
+                        duration={7000}
                         position={"top"}
                         animationIn={"slideInDown"}
                         animationOut={"slideOutUp"}

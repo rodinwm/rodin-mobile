@@ -19,10 +19,15 @@ import {useColorScheme} from "@/utils/hooks";
 import {AuthService} from "@/utils/services/authService";
 import {User} from "@rodinwm/rodin-models/frontend";
 import {Loader} from "@/components/layouts/Loader";
+import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
 
 export default function Page() {
     const router = useRouter();
     const colorScheme = useColorScheme();
+    const {goToScreen: goToHomeScreen} = useScreenReplacer({
+        path: '/(tabs)',
+        stepsToGoBack: 1,
+    });
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
         saveCredentials: false,
         login: false,
@@ -32,12 +37,6 @@ export default function Page() {
         email: 'alexandretahi7@gmail.com',
         password: 'Azerty123#',
     });
-
-    const goToHomeScreen = () => {
-        setIsBottomSheetOpen(prev => ({...prev, login: false}));
-        router.back();
-        router.replace('/(tabs)');
-    };
 
     const login = async (saveCredentials: boolean = false) => {
         loginLogService.log({
@@ -86,6 +85,7 @@ export default function Page() {
                         type: ToastType.Success,
                         message: 'Bon retour parmi nous !',
                     });
+                    setIsBottomSheetOpen(prev => ({...prev, login: false}));
                     goToHomeScreen();
                     break;
                 case HttpStatusCode.Unauthorized:

@@ -1,7 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {User} from "@rodinwm/rodin-models/frontend";
-import {authLogService} from "@/utils/constants";
+import {authLogService, onboardingLogService} from "@/utils/constants";
 import {LogType} from "@/utils/enums";
+import {ApiService} from "@/utils/services/apiService";
+import {HttpStatusCode} from "axios";
 
 export abstract class AuthService {
     private static authUser: User | null = null;
@@ -57,5 +59,44 @@ export abstract class AuthService {
     static async storeToken(token: string): Promise<void> {
         this.token = token;
         await AsyncStorage.setItem('token', token);
+    }
+
+    static async resumeSession(): Promise<boolean> {
+        const token = await this.getToken();
+        if (!token) {
+            authLogService.log({
+                type: LogType.Error,
+                data: ['No token found for resuming session.']
+            });
+            return false;
+        }
+
+        try {
+            const response = await ApiService.getUser(token);
+
+            switch (response.status) {
+                case HttpStatusCode.Ok:
+                    await AuthService.saveCredentials(token, response.data.user as User);
+
+                    onboardingLogService.log({
+                        type: LogType.Log,
+                        data: ['Session resumed successfully.']
+                    });
+
+                    return true;
+                default:
+                    onboardingLogService.log({
+                        type: LogType.Error,
+                        data: ['Error fetching user data after resuming session:', response.status, response.data]
+                    });
+                    return false;
+            }
+        } catch (error) {
+            onboardingLogService.log({
+                type: LogType.Error,
+                data: ['Error resuming session:', error],
+            });
+            return false;
+        }
     }
 }

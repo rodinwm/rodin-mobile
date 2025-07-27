@@ -1,6 +1,5 @@
 import {ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React, {useEffect, useRef, useState} from "react";
-import {useRouter} from "expo-router";
 import {DateService} from "@/utils/services/dateService";
 import {FlatList} from "react-native";
 import {GameService} from "@/utils/services/gameService";
@@ -9,9 +8,13 @@ import {Pod} from "@/utils/interfaces";
 import {UiService} from "@/utils/services/uiService";
 import {Toast} from "toastify-react-native";
 import {ConcentrationExercise} from "@/utils/models/model.enums";
+import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
 
 export default function Page() {
-    const router = useRouter();
+    const {goToScreen: goToLockScreen} = useScreenReplacer({
+        path: '/timer/lock-screen',
+        stepsToGoBack: 3,
+    });
     // Game setup
     const [isRunning, setIsRunning] = useState(false);
     const [step, setStep] = useState(GameService.getEmptyPatternsGameStep());
@@ -216,7 +219,7 @@ export default function Page() {
                 disabled={isRunning || (isGameStarted() && !isGameOver())}
                 onPress={() => {
                     if (isGameOver()) {
-                        router.push('/timer/lock-screen');
+                        goToLockScreen();
                     } else {
                         startGame();
                     }

@@ -24,7 +24,11 @@
       "bundleIdentifier": "com.rodinwm.rodinmobile",
       "appleTeamId": "2B2UV6F9BA",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSUserTrackingUsageDescription": "Cette application utilise l'identifiant de l'appareil pour envoyer des notifications.",
+        "UIBackgroundModes": [
+          "remote-notification"
+        ]
       },
       "icon": {
         "light": "./assets/images/logos/logo-rodin-light-1024.png",
