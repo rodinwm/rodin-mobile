@@ -11,19 +11,18 @@ import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
 import {AuthService} from "@/utils/services/authService";
 import {useAuthUser} from '@/utils/hooks/useAuthUser';
-import {useColorScheme} from "@/utils/hooks";
-import {loginLogService, onboardingLogService} from "@/utils/constants";
+import {onboardingLogService} from "@/utils/constants";
 import {LogType, ToastType} from "@/utils/enums";
-import {ApiService} from "@/utils/services/apiService";
-import {HttpStatusCode} from "axios";
 import {ToastService} from "@/utils/services/toastService";
-import {User} from "@rodinwm/rodin-models/frontend";
 import {Loader} from "@/components/layouts/Loader";
+import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
 
 export default function Page() {
-    const {authUser, token} = useAuthUser({showToasts: false});
-    const colorScheme = useColorScheme();
+    const {authUser} = useAuthUser({showToasts: false});
     const router = useRouter();
+    const {goToScreen: goToHomeScreen} = useScreenReplacer({
+        path: '/(tabs)',
+    });
     const [previouslyLoggedIn, setPreviouslyLoggedIn] = useState(false);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
         resumeSession: false,
@@ -37,64 +36,32 @@ export default function Page() {
         };
 
         checkPreviousLogin().then();
-    })
+    }, [authUser]);
 
-    const goToHomeScreen = () => {
-        router.replace('/(tabs)');
-    }
-
-    const resumeSession = async (token: string) => {
-        loginLogService.log({
-            type: LogType.Log,
-            data: ['Stored user data:', authUser],
-        });
-
+    const resumeSession = async () => {
         setIsBottomSheetOpen(prev => ({...prev, resumeSession: true}));
 
-        try {
-            const response = await ApiService.getUser(token);
+        const isSessionResumed = await AuthService.resumeSession();
 
-            switch (response.status) {
-                case HttpStatusCode.Ok:
-                    await AuthService.saveCredentials(token, response.data.user as User);
-
-                    onboardingLogService.log({
-                        type: LogType.Log,
-                        data: ['Session resumed successfully.']
-                    });
-
-                    // Go to home screen
-                    ToastService.show({
-                        type: ToastType.Success,
-                        message: 'Bon retour parmi nous !',
-                    });
-                    goToHomeScreen();
-                    break;
-                default:
-                    setPreviouslyLoggedIn(false);
-                    onboardingLogService.log({
-                        type: LogType.Error,
-                        data: ['Error fetching user data after login:', response.status, response.data]
-                    });
-                    ToastService.show({
-                        type: ToastType.Error,
-                        message: "Une erreur est survenue lors de la récupération de vos données utilisateur. Veuillez vous reconnecter s'il vous plait",
-                    });
-                    break;
-            }
-        } catch (error) {
+        if (isSessionResumed) {
+            ToastService.show({
+                type: ToastType.Success,
+                message: 'Bon retour parmi nous !',
+            });
+            goToHomeScreen();
+        } else {
             setPreviouslyLoggedIn(false);
             onboardingLogService.log({
                 type: LogType.Error,
-                data: ['Error resuming session:', error],
+                data: ['Failed to resume session.']
             });
             ToastService.show({
                 type: ToastType.Error,
                 message: "Une erreur est survenue lors de la reprise de votre session. Veuillez vous reconnecter s'il vous plait.",
             });
-        } finally {
-            setIsBottomSheetOpen(prev => ({...prev, resumeSession: false}));
         }
+
+        setIsBottomSheetOpen(prev => ({...prev, resumeSession: false}));
     };
 
     return (
@@ -139,7 +106,7 @@ export default function Page() {
                             subtitle={"Reprennez là où vous vous êtes arrêté"}
                             fillStyle={"inversed"}
                             hasPadding={true}
-                            onPress={() => resumeSession(token ?? '')}
+                            onPress={() => resumeSession()}
                         />
 
                         <ThemedButton

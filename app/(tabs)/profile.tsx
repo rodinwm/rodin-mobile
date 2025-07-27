@@ -11,16 +11,15 @@ import {
 import React, {useState} from "react";
 import {useRouter} from "expo-router";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
+import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
 
 export default function Page() {
     const router = useRouter();
     const {authUser} = useAuthUser({});
+    const {goToScreen: goToWelcomeScreen} = useScreenReplacer({
+        path: '/(welcome)',
+    });
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-
-    const goToWelcomeScreen = () => {
-        setIsBottomSheetOpen(false);
-        router.replace('/(welcome)');
-    }
 
     return (
         <ScreenTemplate
@@ -36,6 +35,7 @@ export default function Page() {
                     confirm={{
                         text: "Oui",
                         onPress: () => {
+                            setIsBottomSheetOpen(false);
                             goToWelcomeScreen();
                         }
                     }}
