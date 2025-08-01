@@ -73,7 +73,7 @@ export function ScreenTemplate(props: Props) {
                                     icon={{name: 'ChevronLeft'}}
                                     showTitle={false}
                                     paddingStyle={"none"}
-                                    type={"no-fill"}
+                                    type={props.fillStyle === "inversed" ? "inversed-no-fill" : "no-fill"}
                                     onPress={() => router.back()}
                                 />
                             ) : props.headerLeftBtn !== undefined && props.headerLeftBtn !== "backBtn" ? (
@@ -82,7 +82,7 @@ export function ScreenTemplate(props: Props) {
                                     icon={{name: props.headerLeftBtn.icon}}
                                     showTitle={false}
                                     paddingStyle={"none"}
-                                    type={"no-fill"}
+                                    type={props.fillStyle === "inversed" ? "inversed-no-fill" : "no-fill"}
                                     onPress={props.headerLeftBtn.onPress}
                                 />
                             ) : (
@@ -90,7 +90,7 @@ export function ScreenTemplate(props: Props) {
                             )}
 
                             {props.title ? (
-                                <ThemedText type={'title'}>
+                                <ThemedText type={'title'} inverseColor={props.fillStyle === "inversed"}>
                                     {props.title}
                                 </ThemedText>
                             ) : null}
@@ -101,7 +101,7 @@ export function ScreenTemplate(props: Props) {
                                     icon={{name: props.headerRightBtn.icon}}
                                     showTitle={false}
                                     paddingStyle={"none"}
-                                    type={"no-fill"}
+                                    type={props.fillStyle === "inversed" ? "inversed-no-fill" : "no-fill"}
                                     onPress={props.headerRightBtn.onPress}
                                 />
                             ) : (

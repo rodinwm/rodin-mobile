@@ -3,14 +3,19 @@ import {AppState, AppStateStatus} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BackgroundTimer from 'react-native-background-timer';
 
-const STORAGE_KEY = '@rodin_timer_start';       // Date.now() when started
-const REMAINING_KEY = '@rodin_timer_remaining'; // Remaining seconds at start
+const STORAGE_KEY = '@rodin_timer_start';
+const REMAINING_KEY = '@rodin_timer_remaining';
 
-export function useCountdownTimer(initialSeconds: number) {
+type UseCountdownTimerOptions = {
+    initialSeconds: number;
+    onFinish?: () => void;
+};
+
+export function useCountdownTimer({initialSeconds, onFinish}: UseCountdownTimerOptions) {
     const [secondsLeft, setSecondsLeft] = useState(initialSeconds);
     const [isRunning, setIsRunning] = useState(false);
-
     const appState = useRef(AppState.currentState);
+    const finishedRef = useRef(false); // Pour éviter d'appeler onFinish plusieurs fois
 
     useEffect(() => {
         const subscription = AppState.addEventListener('change', handleAppStateChange);
@@ -33,6 +38,10 @@ export function useCountdownTimer(initialSeconds: number) {
 
                 if (newSecondsLeft <= 0) {
                     stopTimer();
+                    if (onFinish && !finishedRef.current) {
+                        finishedRef.current = true;
+                        onFinish();
+                    }
                 }
             }
         }
@@ -42,21 +51,26 @@ export function useCountdownTimer(initialSeconds: number) {
 
     const startTimer = async () => {
         const now = Date.now();
-        const remaining = secondsLeft;
-
         await AsyncStorage.setItem(STORAGE_KEY, now.toString());
-        await AsyncStorage.setItem(REMAINING_KEY, remaining.toString());
+        await AsyncStorage.setItem(REMAINING_KEY, secondsLeft.toString());
 
         setIsRunning(true);
+        finishedRef.current = false;
 
-        BackgroundTimer.stopBackgroundTimer(); // Clear any previous
+        BackgroundTimer.stopBackgroundTimer(); // reset any existing
         BackgroundTimer.runBackgroundTimer(() => {
             setSecondsLeft(prev => {
                 const next = prev - 1;
+
                 if (next <= 0) {
                     stopTimer();
+                    if (onFinish && !finishedRef.current) {
+                        finishedRef.current = true;
+                        onFinish();
+                    }
                     return 0;
                 }
+
                 return next;
             });
         }, 1000);
@@ -67,11 +81,11 @@ export function useCountdownTimer(initialSeconds: number) {
         setIsRunning(false);
         AsyncStorage.removeItem(STORAGE_KEY).catch(() => {
         });
-        // NE PAS retirer REMAINING pour pouvoir reprendre
     };
 
     const resetTimer = async () => {
         stopTimer();
+        finishedRef.current = false;
         setSecondsLeft(initialSeconds);
         await AsyncStorage.multiRemove([STORAGE_KEY, REMAINING_KEY]);
     };
