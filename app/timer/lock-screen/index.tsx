@@ -16,13 +16,24 @@ import {BackHandler} from "react-native";
 import {UiService} from "@/utils/services/uiService";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
 import {ToastService} from "@/utils/services/toastService";
-import {ToastType} from "@/utils/enums";
+import {LogType, ToastType} from "@/utils/enums";
 import {useCountdownTimer} from "@/utils/hooks/useCountdownTimer";
+import {AppBlockerService} from "@/utils/services/appBlockerService";
+import {timerLogService} from "@/utils/constants";
 
 export default function Page() {
     const router = useRouter();
     const {authUser} = useAuthUser({});
-    const {secondsLeft, isRunning, startTimer, stopTimer, resetTimer} = useCountdownTimer(30 * 60);
+    const {secondsLeft, isRunning, startTimer, stopTimer, resetTimer} = useCountdownTimer({
+        initialSeconds: 30 * 60,
+        onFinish: () => {
+            AppBlockerService.stopBlock();
+            timerLogService.log({
+                type: LogType.Info,
+                data: ["Timer finished, stopping app blocker."]
+            });
+        }
+    });
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
     const [emergencyCode, setEmergencyCode] = useState('');
 
@@ -37,6 +48,23 @@ export default function Page() {
         const subscription = BackHandler.addEventListener("hardwareBackPress", onBackPress);
         return () => subscription.remove(); // ✅ la bonne manière de retirer le listener
     });
+
+
+    const startWorkSession = async () => {
+        try {
+            await AppBlockerService.startBlock();
+            await startTimer();
+            timerLogService.log({
+                type: LogType.Info,
+                data: ["Work session started successfully."]
+            });
+        } catch (error) {
+            timerLogService.log({
+                type: LogType.Error,
+                data: ["Failed to start work session:", error]
+            });
+        }
+    };
 
     return (
         <ScreenTemplate
@@ -64,6 +92,7 @@ export default function Page() {
                         disabled: emergencyCode.length !== 4,
                         onPress: () => {
                             if (emergencyCode === authUser?.emergencyCode) {
+                                AppBlockerService.stopBlock();
                                 setIsBottomSheetOpen(false);
                                 resetTimer().then();
                                 router.replace('/(tabs)')
@@ -133,7 +162,7 @@ export default function Page() {
                         isBackgroundBlur={true}
                         type={"outlined"}
                         paddingStyle={"uniform"}
-                        onPress={isRunning ? stopTimer : startTimer}
+                        onPress={isRunning ? stopTimer : startWorkSession}
                     />
                     <ThemedButton
                         title={"Réinitialiser"}

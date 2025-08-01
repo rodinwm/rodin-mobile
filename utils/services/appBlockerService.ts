@@ -69,16 +69,17 @@ export abstract class AppBlockerService {
     }
 
     static async startBlock() {
+        const nowDate = new Date();
         // For testing, you might want a shorter interval that starts soon:
-        const testSchedule = {
+        const testSchedule: ReactNativeDeviceActivity.DeviceActivitySchedule = {
             intervalStart: {
-                hour: new Date().getHours(),
-                minute: new Date().getMinutes(),
-                second: (new Date().getSeconds() + 10) % 60, // +10 seconds from now
+                hour: nowDate.getHours(),
+                minute: nowDate.getMinutes(),
+                second: (nowDate.getSeconds() + 10) % 60, // +10 seconds from now
             },
             intervalEnd: {
-                hour: new Date().getHours() + Math.floor((new Date().getMinutes() + 30) / 60),
-                minute: (new Date().getMinutes() + 30) % 60, // +30 minutes from start
+                hour: nowDate.getHours() + Math.floor((nowDate.getMinutes() + 30) / 60),
+                minute: (nowDate.getMinutes() + 30) % 60, // +30 minutes from start
             },
             repeats: false, // One-time test
         };
@@ -96,20 +97,34 @@ export abstract class AppBlockerService {
         ReactNativeDeviceActivity.stopMonitoring([this.ACTIVITY_NAME]);
     }
 
-    static async savedBlockedApps(familyActivitySelection: string) {
+    static async saveBlockedApps(familyActivitySelection: string) {
         this.blockedApps = familyActivitySelection;
         await AsyncStorage.setItem(this.SELECTION_ID, familyActivitySelection);
         ReactNativeDeviceActivity.setFamilyActivitySelectionId({
             id: this.SELECTION_ID,
             familyActivitySelection: familyActivitySelection
         });
+        this.logService.log({
+            type: LogType.Info,
+            data: ["Blocked apps saved:", familyActivitySelection]
+        });
     }
 
     static async loadBlockedApps(): Promise<string | null> {
         if (this.blockedApps) return this.blockedApps;
         this.blockedApps = await AsyncStorage.getItem(this.SELECTION_ID);
-        return this.blockedApps;
+        if (!this.blockedApps) {
+            this.logService.log({
+                type: LogType.Warning,
+                data: ["Blocked apps not loaded"]
+            });
+        }
 
+        this.logService.log({
+            type: LogType.Info,
+            data: ["Blocked apps loaded:", this.blockedApps]
+        });
+        return this.blockedApps;
     }
 
     private static async initAndroid(): Promise<boolean> {

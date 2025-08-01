@@ -6,11 +6,13 @@ import {Toast} from "toastify-react-native";
 import {TouchableOpacity} from "react-native";
 import {UiService} from "@/utils/services/uiService";
 import {useIsFocused} from "@react-navigation/native";
+import {useColorScheme} from "@/utils/hooks";
 
 export default function Page() {
     const router = useRouter();
     const camRef = useRef<CameraView>(null);
     const isFocused = useIsFocused();
+    const colorScheme = useColorScheme();
 
     const [facing, setFacing] = useState<CameraType>('back');
     const [flashMode, setFlashMode] = useState<'on' | 'off'>('off');
@@ -84,6 +86,7 @@ export default function Page() {
             setHeightToScreenSize={true}
             removeBodyPadding={true}
             scrollEnabled={false}
+            fillStyle={colorScheme === 'light' ? 'inversed' : 'default'}
         >
             <ThemedView className={'relative w-full h-full flex-1'} radiusStyle={"default"}>
                 {isFocused && (
@@ -104,10 +107,14 @@ export default function Page() {
                     {countdown !== 0 && (
                         <ThemedView
                             className={"w-full h-full flex flex-col justify-center items-center bg-black/40"}>
-                            <ThemedText type={"logo"}>
+                            <ThemedText type={"logo"} inverseColor={colorScheme === 'light'}>
                                 {countdown}
                             </ThemedText>
-                            <ThemedText type={"subtitle"} className={"opacity-75"}>
+                            <ThemedText
+                                type={"subtitle"}
+                                className={"opacity-75"}
+                                inverseColor={colorScheme === 'light'}
+                            >
                                 Capture ton travail
                             </ThemedText>
                         </ThemedView>
@@ -119,8 +126,7 @@ export default function Page() {
                 <ThemedButton
                     title={"Flash"}
                     icon={{name: flashMode === 'on' ? "ZapOff" : 'Zap'}}
-                    type={"no-fill"}
-                    isBackgroundBlur={true}
+                    type={colorScheme === 'light' ? "inversed-no-fill" : "no-fill"}
                     paddingStyle={"uniform"}
                     showTitle={false}
                     onPress={toggleFlashMode}
@@ -128,21 +134,21 @@ export default function Page() {
                 />
                 <ThemedView
                     className={'flex flex-row justify-center items-center'}
-                    fillStyle={'inversed'}
+                    fillStyle={colorScheme === 'light' ? "default" : "inversed"}
                     radiusStyle={'full'}
                     paddingStyle={'extraSmall'}
                 >
                     <ThemedView
                         className={'flex flex-row justify-center items-center'}
-                        fillStyle={'default'}
+                        fillStyle={colorScheme === 'light' ? "inversed" : "default"}
                         radiusStyle={'full'}
-                        borderStyle={'inversed'}
+                        borderStyle={'default'}
                         borderWidth={2}
                     >
                         <ThemedButton
                             title={"Shoot"}
                             showTitle={false}
-                            type={"default"}
+                            type={colorScheme === 'light' ? "inversed" : "default"}
                             radiusStyle={"full"}
                             paddingStyle={"uniform-big"}
                             onPress={takePicture}
@@ -154,8 +160,7 @@ export default function Page() {
                     title={"Changer de caméra"}
                     icon={{name: 'RefreshCcw'}}
                     showTitle={false}
-                    isBackgroundBlur={true}
-                    type={"no-fill"}
+                    type={colorScheme === 'light' ? "inversed-no-fill" : "no-fill"}
                     paddingStyle={"uniform"}
                     onPress={toggleFacing}
                     disabled={isCapturing}

@@ -30,6 +30,7 @@ export default function Page() {
             setHeightToScreenSize={true}
             removeBodyPadding={true}
             scrollEnabled={false}
+            fillStyle={colorScheme === 'light' ? 'inversed' : 'default'}
         >
             <ThemedView
                 className={'w-full h-full flex-1 flex flex-col justify-between'}
@@ -60,7 +61,7 @@ export default function Page() {
                                 className={'w-full h-full'}
                                 radiusStyle={"default"}
                                 borderWidth={2}
-                                borderStyle={"inversed"}
+                                borderStyle={colorScheme === 'light' ? 'inversed' : "default"}
                                 backgroundImage={{uri: (isSwapped ? firstPicUri : secondPicUri).toString()}}
                             />
                         </TouchableOpacity>
@@ -110,7 +111,7 @@ export default function Page() {
                         size: 30,
                         strokeWidth: 3.5,
                     }}
-                    type={"no-fill"}
+                    type={colorScheme === 'light' ? "inversed-no-fill" : "no-fill"}
                     textSize={"bigTitle"}
                     title={"ENVOYER"}
                     className={"flex-1 items-center"}
