@@ -142,7 +142,7 @@ export default function Page() {
                         className={'flex flex-row justify-center items-center'}
                         fillStyle={colorScheme === 'light' ? "inversed" : "default"}
                         radiusStyle={'full'}
-                        borderStyle={'default'}
+                        borderStyle={colorScheme === 'light' ? "default" : "inversed"}
                         borderWidth={2}
                     >
                         <ThemedButton

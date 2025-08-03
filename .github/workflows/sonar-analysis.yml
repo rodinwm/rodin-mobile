@@ -3,10 +3,7 @@ name: Sonar analysis
 on:
   push:
     branches:
-      #- main
-      #- dev
       - release/*
-      #- dependabot/*
 
   workflow_dispatch:
     inputs:
