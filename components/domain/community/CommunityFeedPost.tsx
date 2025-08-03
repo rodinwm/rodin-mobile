@@ -1,0 +1,129 @@
+import {ThemedView} from "@/components/base/ThemedView";
+import {useColorScheme} from "@/utils/hooks/useColorScheme";
+import {LucideIcon, ThemedText} from "@/components";
+import React, {useState} from "react";
+import {GestureDetector} from "react-native-gesture-handler";
+import Animated from "react-native-reanimated";
+import {LayoutRectangle, TouchableOpacity} from "react-native";
+import {UiService} from "@/utils/services/uiService";
+import {useDraggableGesture} from "@/utils/hooks";
+
+type Props = {
+    user: {
+        pseudo: string;
+        firtsname: string;
+        lastname: string;
+    };
+    rodpic: {
+        firstPicUri: string;
+        secondPicUri: string;
+        date: Date;
+    };
+};
+
+export function CommunityFeedPost(props: Props) {
+    const colorScheme = useColorScheme();
+    const [isSwapped, setIsSwapped] = useState(false);
+    const [elementLayout, setElementLayout] = useState<LayoutRectangle>({width: 0, height: 0, x: 0, y: 0});
+    const [parentLayout, setParentLayout] = useState<LayoutRectangle>({width: 0, height: 0, x: 0, y: 0});
+    const {gesture, animatedStyle} = useDraggableGesture({
+        elementLayout: elementLayout,
+        parentLayout: parentLayout,
+        padding: 10
+    });
+
+    return (
+        <ThemedView
+            className={'w-full flex flex-col items-center gap-3'}
+        >
+            {/* User Info */}
+            <ThemedView
+                className={'w-full flex flex-row items-center gap-3'}
+            >
+                <ThemedView
+                    className={'flex justify-center items-center w-fit'}
+                    fillStyle={"inversed"}
+                    paddingStyle={"small"}
+                    radiusStyle={"full"}
+                >
+                    <LucideIcon name={"User"} inverseColor={true}/>
+                </ThemedView>
+
+                <ThemedView
+                    className={'w-full flex flex-col'}
+                >
+                    <ThemedText type={'default'}>{`${props.user.firtsname} ${props.user.lastname}`}</ThemedText>
+                    <ThemedText type={'miniBold'}>{`@${props.user.pseudo}`}</ThemedText>
+                </ThemedView>
+            </ThemedView>
+
+            {/* Post Image */}
+            <ThemedView
+                className={'w-full h-96 flex-1 flex flex-col justify-between'}
+                style={{
+                    height: 500,
+                }}
+                radiusStyle={"default"}
+                fillStyle={"inversed"}
+                backgroundImage={{uri: (isSwapped ? props.rodpic.secondPicUri : props.rodpic.firstPicUri).toString()}}
+                onLayout={(e) => setParentLayout(e.nativeEvent.layout)}
+            >
+                {/* Little preview */}
+                <GestureDetector gesture={gesture}>
+                    <Animated.View
+                        style={[animatedStyle, {
+                            height: '40%',
+                            aspectRatio: 9 / 16,
+                            position: 'absolute',
+                            zIndex: 1
+                        }]}
+                        onLayout={(e) => setElementLayout(e.nativeEvent.layout)}
+                    >
+                        <TouchableOpacity
+                            className={'flex-1 shadow-lg'}
+                            onPress={() => {
+                                UiService.hapticImpact();
+                                setIsSwapped(prev => !prev);
+                            }}
+                        >
+                            <ThemedView
+                                className={'w-full h-full'}
+                                radiusStyle={"default"}
+                                borderWidth={2}
+                                borderStyle={colorScheme === 'light' ? 'default' : "inversed"}
+                                backgroundImage={{uri: (isSwapped ? props.rodpic.firstPicUri : props.rodpic.secondPicUri).toString()}}
+                            />
+                        </TouchableOpacity>
+                    </Animated.View>
+                </GestureDetector>
+
+                <ThemedView
+                    className={"w-full h-full flex flex-row justify-end items-end"}
+                    paddingStyle={"small"}
+                >
+                    <ThemedView
+                        className={"w-full flex flex-row justify-between items-end"}
+                    >
+
+                        <ThemedView
+                            className={"w-fit flex flex-row gap-1 justify-center items-center"}
+                            radiusStyle={"default"}
+                            paddingStyle={"small"}
+                            isBackgroundBlur={true}
+                        >
+                            <LucideIcon name={'Brain'} size={12} inverseColor={colorScheme === 'light'}/>
+                            <ThemedText
+                                type={'miniBold'}
+                                className={"opacity-70"}
+                                inverseColor={colorScheme === 'light'}
+                            >
+                                10h30
+                            </ThemedText>
+                        </ThemedView>
+                    </ThemedView>
+                </ThemedView>
+            </ThemedView>
+        </ThemedView>
+    );
+}
+

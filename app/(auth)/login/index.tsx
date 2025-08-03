@@ -34,8 +34,8 @@ export default function Page() {
     });
     const [formData, setFormData] = useState<LoginPayload>({
         pseudo: '',
-        email: '',
-        password: '',
+        email: 'alexandretahi7@gmail.com',
+        password: 'Azerty123#',
     });
 
     const login = async (saveCredentials: boolean = false) => {

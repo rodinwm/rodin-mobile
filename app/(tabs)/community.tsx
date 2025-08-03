@@ -1,4 +1,4 @@
-import {LucideIcon, ScreenTemplate, ThemedButton, ThemedListTile, ThemedText, ThemedView} from '@/components';
+import {LucideIcon, ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
 import {FlatList} from 'react-native';
@@ -8,11 +8,12 @@ import {LogType} from "@/utils/enums";
 import {ApiService} from "@/utils/services/apiService";
 import {HttpStatusCode} from "axios";
 import {Loader} from "@/components/layouts/Loader";
+import {CommunityFeedPost} from "@/components/domain/community/CommunityFeedPost";
 
 export default function Page() {
     const router = useRouter();
     const {token} = useAuthUser({});
-    const [feed, setFeed] = useState<any[]>([]);
+    const [feed, setFeed] = useState<any[]>([1, 2, 3]);
     const [isLoading, setIsLoading] = useState(false);
 
     const getCommunityFeed = async (token: string) => {
@@ -47,7 +48,7 @@ export default function Page() {
 
     useEffect(() => {
         if (token) {
-            getCommunityFeed(token).then();
+            //getCommunityFeed(token).then();
         }
     }, [token]);
 
@@ -87,13 +88,9 @@ export default function Page() {
                 </ThemedView>
             )}
 
-            {/* Friends */}
+            {/* Feed */}
             {!isLoading && feed.length !== 0 && (
                 <ThemedView className={'w-full flex flex-col gap-4'}>
-                    <ThemedText type={"h1"}>
-                        Mes amis
-                    </ThemedText>
-
                     <FlatList
                         data={feed}
                         refreshing={false}
@@ -101,7 +98,9 @@ export default function Page() {
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
                         ItemSeparatorComponent={() => (
-                            <ThemedView className={"h-5"}/>
+                            <ThemedView className={"py-6"}>
+                                <ThemedView className={"w-full h-1"} fillStyle={"opacity-15"}/>
+                            </ThemedView>
                         )}
                         ListFooterComponent={() => feed.length > 0 ? (
                             <ThemedView className={'w-full mt-14'}>
@@ -113,23 +112,17 @@ export default function Page() {
                         ) : null}
                         keyExtractor={item => item.pseudo}
                         renderItem={({item}) => (
-                            <ThemedListTile
-                                key={item.pseudo}
-                                icon={'User'}
-                                fillStyle={"none"}
-                                title={item.pseudo}
-                                subtitle={item.pseudo}
-                                suffixIcon={(
-                                    <ThemedView className={'flex flex-row gap-2'}>
-                                        <ThemedButton
-                                            title={"Remove"}
-                                            icon={{name: 'X'}}
-                                            paddingStyle={"none"}
-                                            showTitle={false}
-                                            type={"no-fill"}
-                                        />
-                                    </ThemedView>
-                                )}
+                            <CommunityFeedPost
+                                user={{
+                                    pseudo: 'test_user92',
+                                    firtsname: 'John',
+                                    lastname: 'Doe',
+                                }}
+                                rodpic={{
+                                    firstPicUri: 'https://picsum.photos/200/300',
+                                    secondPicUri: 'https://picsum.photos/200/300',
+                                    date: new Date(),
+                                }}
                             />
                         )}
                     />
