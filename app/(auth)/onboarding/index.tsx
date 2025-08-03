@@ -33,21 +33,21 @@ export default function Page() {
         createAccount: false,
     });
     const [formData, setFormData] = useState<CreateUserPayload>({
-        firstname: 'Alexandre',
-        lastname: 'TAHI',
-        pseudo: 'alexxtahi',
+        firstname: '',
+        lastname: '',
+        pseudo: '',
         ageRange: AgeRange.AGE_18_24,
         profession: Profession.ETUDIANT,
         customProfession: undefined,
-        email: 'alexandretahi7@gmail.com',
-        phoneNumber: '+33602030405',
-        password: 'Azerty123#',
-        passwordConfirmation: 'Azerty123#',
-        defaultWorkTime: {hours: 0, minutes: 45, seconds: 0},
-        defaultBreakTime: {hours: 0, minutes: 10, seconds: 0},
+        email: '',
+        phoneNumber: '',
+        password: '',
+        passwordConfirmation: '',
+        defaultWorkTime: {hours: 0, minutes: 30, seconds: 0},
+        defaultBreakTime: {hours: 0, minutes: 5, seconds: 0},
         exerciseFrequency: ExerciseFrequency.ONE_PER_SESSION,
-        emergencyCode: '1234',
-        emergencyCodeConfirmation: '1234',
+        emergencyCode: '',
+        emergencyCodeConfirmation: '',
     });
 
     const goToNextStep = () => {
