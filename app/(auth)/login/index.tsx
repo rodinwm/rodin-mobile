@@ -33,7 +33,7 @@ export default function Page() {
         login: false,
     });
     const [formData, setFormData] = useState<LoginPayload>({
-        pseudo: 'alexxtahi',
+        pseudo: '',
         email: 'alexandretahi7@gmail.com',
         password: 'Azerty123#',
     });

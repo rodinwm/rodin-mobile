@@ -1,6 +1,6 @@
 import {LucideIcon, ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React, {useState} from "react";
-import {useLocalSearchParams} from "expo-router";
+import {useLocalSearchParams, useRouter} from "expo-router";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {Alert, LayoutRectangle, TouchableOpacity} from "react-native";
 import Animated from 'react-native-reanimated';
@@ -10,6 +10,7 @@ import {UiService} from "@/utils/services/uiService";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
 
 export default function Page() {
+    const router = useRouter();
     const colorScheme = useColorScheme();
     const {authUser} = useAuthUser({});
     const {firstPicUri, secondPicUri} = useLocalSearchParams();
@@ -61,7 +62,7 @@ export default function Page() {
                                 className={'w-full h-full'}
                                 radiusStyle={"default"}
                                 borderWidth={2}
-                                borderStyle={colorScheme === 'light' ? 'inversed' : "default"}
+                                borderStyle={colorScheme === 'light' ? 'default' : "inversed"}
                                 backgroundImage={{uri: (isSwapped ? firstPicUri : secondPicUri).toString()}}
                             />
                         </TouchableOpacity>
@@ -88,7 +89,7 @@ export default function Page() {
                             paddingStyle={"asymetric"}
                             isBackgroundBlur={true}
                         >
-                            <LucideIcon name={'Brain'} size={18}/>
+                            <LucideIcon name={'Brain'} size={18} inverseColor={colorScheme === 'light'}/>
                             <ThemedText
                                 type={'defaultExtraBold'}
                                 className={"opacity-70"}
@@ -116,7 +117,17 @@ export default function Page() {
                     title={"ENVOYER"}
                     className={"flex-1 items-center"}
                     onPress={() => {
-                        Alert.alert(`Envoi de la Rodpic réussi !`);
+                        UiService.hapticImpact('feedback');
+                        Alert.alert(
+                            `Rodpics publiée !`,
+                            'Vos amis pourront voir vos progrès', [
+                                {
+                                    text: "Ok",
+                                    onPress: () => {
+                                        router.back();
+                                    }
+                                }
+                            ]);
                     }}
                 />
             </ThemedView>

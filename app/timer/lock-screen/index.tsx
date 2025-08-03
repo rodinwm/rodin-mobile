@@ -11,8 +11,8 @@ import {
 import React, {useEffect, useState} from "react";
 import {Colors} from "@/utils/colors";
 import {DateService} from "@/utils/services/dateService";
-import {useFocusEffect, useRouter} from "expo-router";
-import {BackHandler} from "react-native";
+import {useFocusEffect, useLocalSearchParams, useRouter} from "expo-router";
+import {BackHandler, Keyboard} from "react-native";
 import {UiService} from "@/utils/services/uiService";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
 import {ToastService} from "@/utils/services/toastService";
@@ -20,12 +20,18 @@ import {LogType, ToastType} from "@/utils/enums";
 import {useCountdownTimer} from "@/utils/hooks/useCountdownTimer";
 import {AppBlockerService} from "@/utils/services/appBlockerService";
 import {timerLogService} from "@/utils/constants";
+import {TimerService} from "@/utils/services/timerService";
 
 export default function Page() {
     const router = useRouter();
     const {authUser} = useAuthUser({});
+    const {stringWorkTime, stringBreakTime, numberOfSessions} = useLocalSearchParams();
+    const {workTimeInSeconds, breakTimeInSeconds} = TimerService.convertSessionTimeStringInSeconds({
+        stringWorkTime: stringWorkTime as string,
+        stringBreakTime: stringBreakTime as string,
+    });
     const {secondsLeft, isRunning, startTimer, stopTimer, resetTimer} = useCountdownTimer({
-        initialSeconds: 30 * 60,
+        initialSeconds: workTimeInSeconds,
         onFinish: () => {
             AppBlockerService.stopBlock();
             timerLogService.log({
@@ -66,6 +72,21 @@ export default function Page() {
         }
     };
 
+    const checkEmergencyCode = () => {
+        if (emergencyCode === authUser?.emergencyCode) {
+            AppBlockerService.stopBlock();
+            setIsBottomSheetOpen(false);
+            resetTimer().then();
+            router.replace('/(tabs)')
+        } else {
+            UiService.hapticImpact("error");
+            ToastService.show({
+                type: ToastType.Error,
+                message: "Code d'urgence incorrect. Veuillez réessayer."
+            });
+        }
+    };
+
     return (
         <ScreenTemplate
             scrollEnabled={false}
@@ -76,34 +97,30 @@ export default function Page() {
                     title={"Code d'urgence"}
                     subtitle={"Entrez votre code d'urgence pour débloquer l'application et arrêter votre session."}
                     isOpen={isBottomSheetOpen}
-                    onClose={() => setIsBottomSheetOpen(false)}
+                    onClose={() => {
+                        setIsBottomSheetOpen(false);
+                        Keyboard.dismiss();
+                    }}
                     children={(
                         <ThemedTextInput
                             value={emergencyCode}
+                            autoFocus={true}
                             placeholder={"Ex: 1234"}
                             keyboardType={"number-pad"}
+                            returnKeyLabel={"Valider"}
+                            //returnKeyType={"done"}
+                            submitBehavior={'submit'}
+                            onSubmitEditing={checkEmergencyCode}
                             onChangeText={(text) => {
-                                setEmergencyCode(text);
+                                const onlyNumbers = text.replace(/[^0-9]/g, ''); // Ne garde que les chiffres
+                                setEmergencyCode(onlyNumbers);
                             }}
                         />
                     )}
                     confirm={{
                         text: "Débloquer",
-                        disabled: emergencyCode.length !== 4,
-                        onPress: () => {
-                            if (emergencyCode === authUser?.emergencyCode) {
-                                AppBlockerService.stopBlock();
-                                setIsBottomSheetOpen(false);
-                                resetTimer().then();
-                                router.replace('/(tabs)')
-                            } else {
-                                UiService.hapticImpact("error");
-                                ToastService.show({
-                                    type: ToastType.Error,
-                                    message: "Code d'urgence incorrect. Veuillez réessayer."
-                                });
-                            }
-                        }
+                        disabled: emergencyCode.length < 4,
+                        onPress: checkEmergencyCode
                     }}
                 />
             )}

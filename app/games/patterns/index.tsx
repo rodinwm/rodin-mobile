@@ -9,11 +9,14 @@ import {UiService} from "@/utils/services/uiService";
 import {Toast} from "toastify-react-native";
 import {ConcentrationExercise} from "@/utils/models/model.enums";
 import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
+import {useLocalSearchParams} from "expo-router";
 
 export default function Page() {
+    const {stringWorkTime, stringBreakTime, numberOfSessions} = useLocalSearchParams();
     const {goToScreen: goToLockScreen} = useScreenReplacer({
         path: '/timer/lock-screen',
         stepsToGoBack: 3,
+        params: {stringWorkTime, stringBreakTime, numberOfSessions}
     });
     // Game setup
     const [isRunning, setIsRunning] = useState(false);
