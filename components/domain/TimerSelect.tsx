@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useColorScheme} from '@/utils/hooks/useColorScheme';
 import {TimerPicker, TimerPickerProps} from "react-native-timer-picker";
 import MaskedView from "@react-native-masked-view/masked-view"; // for transparent fade-out
-import {LinearGradient} from "expo-linear-gradient"; // or `import LinearGradient from "react-native-linear-gradient"`
+import {LinearGradient} from "expo-linear-gradient";
 import {FontService} from "@/utils/services/fontService";
 import {FontWeightEnum, LogType} from "@/utils/enums";
 import {ThemedView} from "@/components/base/ThemedView";
@@ -10,6 +10,7 @@ import {clickAudioSource, timerLogService} from "@/utils/constants";
 import {useAudioPlayer} from 'expo-audio';
 import {UiService} from "@/utils/services/uiService";
 import {TimerValue} from "@rodinwm/rodin-models/frontend";
+import {Dimensions} from "react-native";
 
 type Props = TimerPickerProps & {
     defaultValue?: TimerValue;
@@ -21,6 +22,7 @@ export function TimerSelect({defaultValue, onChange, onMounted, ...otherProps}: 
     const [isMounted, setIsMounted] = useState(false);
     const [time, setTime] = useState<TimerValue>(defaultValue ?? {hours: 0, minutes: 0, seconds: 0});
     const colorScheme = useColorScheme();
+    const timeColumnWidth = Dimensions.get("screen").width / 3.5;
     const audioPlayer = useAudioPlayer(clickAudioSource); // TODO: Find how to use this to play sound at each change
 
     const updateTime = (time: TimerValue) => {
@@ -39,12 +41,18 @@ export function TimerSelect({defaultValue, onChange, onMounted, ...otherProps}: 
 
     return isMounted ? (
         <ThemedView>
+            <ThemedView
+                className={"absolute w-full top-[50%] -translate-y-1/2 z-0"}
+                fillStyle={"opacity-10"}
+                paddingStyle={'default'}
+                radiusStyle={"small"}
+            />
             <TimerPicker
                 padHoursWithZero={true}
                 padWithNItems={1}
                 hourLabel="heures"
                 minuteLabel="minutes"
-                secondLabel="sec"
+                secondLabel="secondes"
                 maximumHours={23}
                 maximumMinutes={59}
                 maximumSeconds={59}
@@ -60,27 +68,32 @@ export function TimerSelect({defaultValue, onChange, onMounted, ...otherProps}: 
                     theme: colorScheme,
                     backgroundColor: "transparent",
                     text: {fontFamily: FontService.getMainFontStatic(FontWeightEnum.Bold)},
-                    pickerItem: {fontSize: 24, width: 'auto'},
-                    pickerItemContainer: {width: 105},
-                    pickerLabel: {fontSize: 12},
-                    pickerLabelContainer: {width: 50, marginRight: -20},
+                    pickerItem: {
+                        fontSize: 22,
+                    },
+                    pickerItemContainer: {
+                        width: timeColumnWidth,
+                        overflowX: 'visible',
+                        //backgroundColor: '#FF000088', // Uncomment for debugging
+                    },
+                    pickerLabel: {
+                        fontSize: 8,
+                    },
+                    pickerLabelContainer: {
+                        width: '50%',
+                        paddingLeft: 15,
+                        marginRight: -5,
+                        //backgroundColor: '#00FF0088', // Uncomment for debugging
+                    },
                     pickerContainer: {
-                        width: '97.5%',
+                        width: '100%',
                         display: 'flex',
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        padding: 0,
-                        gap: 14,
                     },
                 }}
                 {...otherProps}
-            />
-            <ThemedView
-                className={"absolute w-full top-[50%] -translate-y-1/2"}
-                fillStyle={"opacity-10"}
-                paddingStyle={'default'}
-                radiusStyle={"small"}
             />
         </ThemedView>
     ) : (
