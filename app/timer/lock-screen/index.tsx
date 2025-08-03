@@ -11,7 +11,7 @@ import {
 import React, {useEffect, useState} from "react";
 import {Colors} from "@/utils/colors";
 import {DateService} from "@/utils/services/dateService";
-import {useFocusEffect, useRouter} from "expo-router";
+import {useFocusEffect, useLocalSearchParams, useRouter} from "expo-router";
 import {BackHandler} from "react-native";
 import {UiService} from "@/utils/services/uiService";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
@@ -20,12 +20,18 @@ import {LogType, ToastType} from "@/utils/enums";
 import {useCountdownTimer} from "@/utils/hooks/useCountdownTimer";
 import {AppBlockerService} from "@/utils/services/appBlockerService";
 import {timerLogService} from "@/utils/constants";
+import {TimerService} from "@/utils/services/timerService";
 
 export default function Page() {
     const router = useRouter();
     const {authUser} = useAuthUser({});
+    const {stringWorkTime, stringBreakTime, numberOfSessions} = useLocalSearchParams();
+    const {workTimeInSeconds, breakTimeInSeconds} = TimerService.convertSessionTimeStringInSeconds({
+        stringWorkTime: stringWorkTime as string,
+        stringBreakTime: stringBreakTime as string,
+    });
     const {secondsLeft, isRunning, startTimer, stopTimer, resetTimer} = useCountdownTimer({
-        initialSeconds: 30 * 60,
+        initialSeconds: workTimeInSeconds,
         onFinish: () => {
             AppBlockerService.stopBlock();
             timerLogService.log({

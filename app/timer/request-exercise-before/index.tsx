@@ -9,17 +9,23 @@ import {
     ThemedView
 } from '@/components';
 import React, {useState} from "react";
-import {useRouter} from "expo-router";
+import {useLocalSearchParams, useRouter} from "expo-router";
 import {usePrefetchRoutes} from "@/utils/hooks/usePrefetchRoutes";
 import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
 
 export default function Page() {
     const router = useRouter();
+    usePrefetchRoutes(['/timer/lock-screen']);
+    const {stringWorkTime, stringBreakTime, numberOfSessions} = useLocalSearchParams();
     const {goToScreen: goToLockScreen} = useScreenReplacer({
         path: '/timer/lock-screen',
         stepsToGoBack: 2,
+        params: {
+            stringWorkTime: stringWorkTime,
+            stringBreakTime: stringBreakTime,
+            numberOfSessions: numberOfSessions,
+        }
     });
-    usePrefetchRoutes(['/timer/lock-screen']);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
         exerciseSelection: false,
     });

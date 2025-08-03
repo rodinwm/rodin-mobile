@@ -1,13 +1,13 @@
+import {LucideIcon, ScreenTemplate, ThemedButton, ThemedText, ThemedView, TimerSelect} from '@/components';
 import React, {useState} from "react";
-import {useRouter} from "expo-router";
 import {TimerValue} from "@rodinwm/rodin-models/frontend";
-import {LucideIcon, ScreenTemplate, ThemedButton, ThemedText, ThemedView, TimerSelect} from "@/components";
-import {defaultBreakTime, defaultWorkTime} from '@/utils/constants';
+import {defaultBreakTime, defaultWorkTime} from "@/utils/constants";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
 import {LoadingScreen} from "@/components/layouts/LoadingScreen";
+import {ToastService} from "@/utils/services/toastService";
+import {ToastType} from "@/utils/enums";
 
 export default function Page() {
-    const router = useRouter();
     const {authUser} = useAuthUser({});
     const [numberOfSessions, setNumberOfSessions] = useState(0);
     const [workTime, setWorkTime] = useState<TimerValue>(authUser?.defaultWorkTime as unknown as TimerValue ?? defaultWorkTime);
@@ -19,16 +19,11 @@ export default function Page() {
 
     return (
         <ScreenTemplate
-            scrollEnabled={false}
-            setHeightToScreenSize={true}
-            title={"Minuteur"}
             headerLeftBtn={"backBtn"}
-            headerRightBtn={{
-                icon: 'Settings',
-                onPress: () => router.push('/timer/default-timer'),
-            }}
+            title={"Minuteur par défaut"}
+            setHeightToScreenSize={true}
+            scrollEnabled={false}
         >
-
             {/* Temps de travail */}
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedView className={'w-full flex flex-row items-center gap-2 opacity-50'}>
@@ -80,28 +75,15 @@ export default function Page() {
                 </ThemedView>
             </ThemedView>
 
-
             <ThemedView className={'w-full flex flex-row gap-3'}>
                 <ThemedButton
-                    title={"Réinitialiser"}
-                    type={"danger"}
+                    title={"Enregistrer"}
                     className={'flex-1'}
-                    onPress={() => console.log('/timer')}
-                />
-                <ThemedButton
-                    title={"Suivant"}
-                    className={'flex-1'}
-                    justifyItems={"justify-between"}
-                    onPress={() => router.push({
-                        pathname: '/timer/request-exercise-before',
-                        params: {
-                            stringWorkTime: JSON.stringify(workTime),
-                            stringBreakTime: JSON.stringify(breakTime),
-                            numberOfSessions: numberOfSessions
-                        }
-                    })}
-                    suffixIcon={{
-                        name: "ChevronRight",
+                    onPress={() => {
+                        ToastService.show({
+                            type: ToastType.Success,
+                            message: "Vos minuteries par défaut ont été enregistrées avec succès.",
+                        });
                     }}
                 />
             </ThemedView>

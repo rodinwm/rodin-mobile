@@ -4,6 +4,7 @@ import {Href, useRouter} from "expo-router";
 type Props = {
     path: Href;
     stepsToGoBack?: number;
+    params?: Record<string, any>;
 };
 
 /**
@@ -12,8 +13,9 @@ type Props = {
  *
  * @param path Chemin de redirection final
  * @param stepsToGoBack Nombre d’écrans à revenir (par défaut 1)
+ * @param params Paramètres à passer à la route de redirection
  */
-export function useScreenReplacer({path, stepsToGoBack}: Props) {
+export function useScreenReplacer({path, stepsToGoBack, params}: Props) {
     const router = useRouter();
 
     const goToScreen = () => {
@@ -23,7 +25,10 @@ export function useScreenReplacer({path, stepsToGoBack}: Props) {
             }
         }
 
-        router.replace(path);
+        router.replace({
+            pathname: path.toString(),
+            params: params,
+        });
     };
 
     return {goToScreen};
