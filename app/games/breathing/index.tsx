@@ -11,6 +11,7 @@ import Animated, {
     withTiming,
 } from 'react-native-reanimated';
 import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
+import {useLocalSearchParams} from "expo-router";
 
 const messages = {
     welcome: "Concentrez vous uniquement sur le point blanc pendant tout l'exercice",
@@ -20,9 +21,11 @@ const messages = {
 };
 
 export default function Page() {
+    const {stringWorkTime, stringBreakTime, numberOfSessions} = useLocalSearchParams();
     const {goToScreen: goToLockScreen} = useScreenReplacer({
         path: '/timer/lock-screen',
         stepsToGoBack: 3,
+        params: {stringWorkTime, stringBreakTime, numberOfSessions}
     });
     // Game setup
     const isRunningShared = useSharedValue(false);

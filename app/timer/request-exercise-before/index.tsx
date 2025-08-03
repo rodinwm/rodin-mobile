@@ -10,8 +10,8 @@ import {
 } from '@/components';
 import React, {useState} from "react";
 import {useLocalSearchParams, useRouter} from "expo-router";
-import {usePrefetchRoutes} from "@/utils/hooks/usePrefetchRoutes";
 import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
+import {usePrefetchRoutes} from "@/utils/hooks/usePrefetchRoutes";
 
 export default function Page() {
     const router = useRouter();
@@ -20,11 +20,7 @@ export default function Page() {
     const {goToScreen: goToLockScreen} = useScreenReplacer({
         path: '/timer/lock-screen',
         stepsToGoBack: 2,
-        params: {
-            stringWorkTime: stringWorkTime,
-            stringBreakTime: stringBreakTime,
-            numberOfSessions: numberOfSessions,
-        }
+        params: {stringWorkTime, stringBreakTime, numberOfSessions}
     });
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
         exerciseSelection: false,
@@ -52,7 +48,10 @@ export default function Page() {
                                 fillStyle={"inversed"}
                                 hasPadding={true}
                                 onPress={() => {
-                                    router.push('/games/pods');
+                                    router.push({
+                                        pathname: '/games/pods',
+                                        params: {stringWorkTime, stringBreakTime, numberOfSessions}
+                                    });
                                 }}
                             />
                             <ThemedListTile
@@ -62,7 +61,10 @@ export default function Page() {
                                 fillStyle={"inversed"}
                                 hasPadding={true}
                                 onPress={() => {
-                                    router.push('/games/breathing');
+                                    router.push({
+                                        pathname: '/games/breathing',
+                                        params: {stringWorkTime, stringBreakTime, numberOfSessions}
+                                    });
                                 }}
                             />
                             {/*
@@ -74,7 +76,10 @@ export default function Page() {
                                 hasPadding={true}
                                 disabled={true}
                                 onPress={() => {
-                                    router.push('/games/patterns');
+                                    router.push({
+                                        pathname:'/games/patterns',
+                                        params: {stringWorkTime, stringBreakTime, numberOfSessions}
+                                    });
                                 }}
                             />
                             */}

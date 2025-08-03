@@ -5,6 +5,7 @@ import {Pressable} from "react-native";
 import {BlurView} from "expo-blur";
 import {useBottomTabOverflow} from "@/components/base/TabBarBackground";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {useKeyboard} from "@/utils/hooks/useKeyboard";
 
 export type ThemedBottomSheetProps = {
     isOpen: boolean;
@@ -24,7 +25,7 @@ export function ThemedBottomSheet({
     const margin = 10;
     const ref = useRef<BottomSheet>(null);
     const insets = useSafeAreaInsets();
-
+    const {isKeyboardVisible, keyboardHeight} = useKeyboard();
     const [localOpen, setLocalOpen] = useState(false);
 
     // Open/Close logic
@@ -63,7 +64,7 @@ export function ThemedBottomSheet({
                 index={-1}
                 detached={true}
                 enablePanDownToClose={closeOnTapOutside}
-                bottomInset={margin + (takeBottomBarIntoAccount ? insets.bottom + useBottomTabOverflow() : 0)}
+                bottomInset={margin + (takeBottomBarIntoAccount ? insets.bottom + useBottomTabOverflow() : 0) + (isKeyboardVisible ? keyboardHeight : 0)}
                 onClose={handleSheetClose}
                 style={{marginHorizontal: margin}}
                 handleComponent={() => (

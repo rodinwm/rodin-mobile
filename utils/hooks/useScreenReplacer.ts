@@ -1,10 +1,10 @@
-import {Href, useRouter} from "expo-router";
+import {Href, UnknownOutputParams, useRouter} from "expo-router";
 
 
 type Props = {
     path: Href;
     stepsToGoBack?: number;
-    params?: Record<string, any>;
+    params?: UnknownOutputParams;
 };
 
 /**
