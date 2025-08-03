@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useState} from "react";
 import {Alert} from "react-native";
 import {ScreenTemplate, ThemedView} from '@/components';
 import * as ReactNativeDeviceActivity from 'react-native-device-activity';
@@ -7,6 +7,7 @@ import {ToastService} from "@/utils/services/toastService";
 import {ToastType} from "@/utils/enums";
 import {useColorScheme} from "@/utils/hooks";
 import {LoadingScreen} from "@/components/layouts/LoadingScreen";
+import {useFocusEffect} from "expo-router";
 
 type Props = {};
 
@@ -16,14 +17,20 @@ export function IOSAppBlockerView({}: Props) {
     // Manage the selection state of apps/websites to block
     const [isMounted, setIsMounted] = useState(false);
     const [currentFamilyActivitySelection, setCurrentFamilyActivitySelection] = useState<string | null>(null);
+    const [viewKey, setViewKey] = useState(Date.now()); // Key unique à chaque mount
 
+    const refresh = async () => {
+        const blockedApps = await AppBlockerService.loadBlockedApps();
+        setCurrentFamilyActivitySelection(blockedApps);
+        setViewKey(Date.now()); // Force le remount du composant natif
+        setIsMounted(true);
+    };
 
-    useEffect(() => {
-        AppBlockerService.loadBlockedApps().then(blockedApps => {
-            setCurrentFamilyActivitySelection(blockedApps);
-            setIsMounted(true);
-        });
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            refresh().then();
+        }, [])
+    );
 
     // Save the selection for use by the extension
     const saveSelection = async () => {
@@ -65,6 +72,7 @@ export function IOSAppBlockerView({}: Props) {
             >
                 {/* Native selection view for choosing apps to block */}
                 <ReactNativeDeviceActivity.DeviceActivitySelectionView
+                    key={viewKey} // Force React à recréer le composant
                     familyActivitySelection={currentFamilyActivitySelection}
                     onSelectionChange={(event) => {
                         setCurrentFamilyActivitySelection(event.nativeEvent.familyActivitySelection);
