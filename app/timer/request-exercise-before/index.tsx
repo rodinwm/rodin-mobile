@@ -11,11 +11,10 @@ import {
 import React, {useState} from "react";
 import {useLocalSearchParams, useRouter} from "expo-router";
 import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
-import {usePrefetchRoutes} from "@/utils/hooks/usePrefetchRoutes";
 
 export default function Page() {
     const router = useRouter();
-    usePrefetchRoutes(['/timer/lock-screen']);
+    //usePrefetchRoutes(['/timer/lock-screen']); // Désactivé pour éviter le préchargement sans les paramètres requis
     const {stringWorkTime, stringBreakTime, numberOfSessions} = useLocalSearchParams();
     const {goToScreen: goToLockScreen} = useScreenReplacer({
         path: '/timer/lock-screen',
