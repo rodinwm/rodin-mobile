@@ -37,3 +37,28 @@ export type CGUData = {
     title: string
     content: string[]
 };
+
+export type PublishRodpicPayload = {
+    firstPic: string
+    secondPic: string
+    date: number
+};
+
+export type RodpicData = {
+    user: {
+        pseudo: string
+        firstname: string
+        lastname: string
+    }
+    firstPic: string
+    secondPic: string
+    date: number
+};
+
+export type SearchFriendData = {
+    id: string,
+    pseudo: string,
+    firstname: string,
+    lastname: string,
+    email: string,
+};

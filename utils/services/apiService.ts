@@ -2,7 +2,7 @@ import axios, {AxiosResponse, HttpStatusCode} from 'axios';
 import {LogService} from "@/utils/services/logService";
 import {LogType} from "@/utils/enums";
 import {FriendStatus, Prisma, User} from "@rodinwm/rodin-models/frontend";
-import {CreateUserPayload, LoginPayload} from "@/utils/types";
+import {CreateUserPayload, LoginPayload, PublishRodpicPayload} from "@/utils/types";
 
 export abstract class ApiService {
     private static readonly logService = new LogService(this.name);
@@ -105,10 +105,45 @@ export abstract class ApiService {
         }
     }
 
+    static async searchFriends(token: string, query: string): Promise<AxiosResponse> {
+        const methodName = "searchFriends";
+        try {
+            const response = await axios.get(`${this.host}/api/friend/search`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                params: {query},
+                timeout: this.defaultTimeout,
+            });
+
+            return this.handleResponse(methodName, response);
+        } catch (error) {
+            return this.handleError(methodName, error);
+        }
+    }
+
     static async getCommunityFeed(token: string): Promise<AxiosResponse> {
         const methodName = "getCommunityFeed";
         try {
-            const response = await axios.get(`${this.host}/api/rodpics`, {
+            const response = await axios.get(`${this.host}/api/community`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                timeout: this.defaultTimeout,
+            });
+
+            return this.handleResponse(methodName, response);
+        } catch (error) {
+            return this.handleError(methodName, error);
+        }
+    }
+
+    static async publishRodpic(token: string, payload: PublishRodpicPayload): Promise<AxiosResponse> {
+        const methodName = "publishRodpic";
+        try {
+            const response = await axios.post(`${this.host}/api/community`, payload, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
