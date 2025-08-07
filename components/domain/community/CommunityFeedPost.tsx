@@ -9,6 +9,7 @@ import {UiService} from "@/utils/services/uiService";
 import {useDraggableGesture} from "@/utils/hooks";
 
 type Props = {
+    blurred?: boolean;
     user: {
         pseudo: string;
         firtsname: string;
@@ -120,6 +121,37 @@ export function CommunityFeedPost(props: Props) {
                                 10h30
                             </ThemedText>
                         </ThemedView>
+                    </ThemedView>
+                </ThemedView>
+
+                <ThemedView
+                    className={`${props.blurred ? 'flex' : 'hidden'} flex-col justify-center items-center w-full h-full p-3 gap-3`}
+                    style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2}}
+                    isBackgroundBlur={true}
+                >
+                    <ThemedText type={"logo"} inverseColor={colorScheme === 'light'}>
+                        <LucideIcon
+                            name={"Lock"}
+                            size={48}
+                            inverseColor={colorScheme === 'light'}
+                        />
+                    </ThemedText>
+                    <ThemedView className={'flex flex-col jusitfy-center items-centers gap-1'}>
+                        <ThemedText
+                            type={"title"}
+                            className={"text-center"}
+                            inverseColor={colorScheme === 'light'}
+                        >
+                            RodPic vérouillée
+                        </ThemedText>
+                        <ThemedText
+                            type={"miniBold"}
+                            className={"opacity-75 text-center"}
+                            inverseColor={colorScheme === 'light'}
+                        >
+                            Fait toi aussi des sessions de travail et partage-les pour débloquer les rodpics de tes amis
+                            !
+                        </ThemedText>
                     </ThemedView>
                 </ThemedView>
             </ThemedView>

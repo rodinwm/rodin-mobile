@@ -27,6 +27,10 @@ export default function Page() {
     usePrefetchRoutes(['/timer']);
     const {authUser} = useAuthUser({});
     const pagerRef = useRef<PagerView | null>(null);
+    const [dailyWork, setDailyWork] = useState({
+        hours: 3.2,
+        sessions: 0,
+    });
     const [page, setPage] = useState(0);
     const [isRodPicsUnlocked, setIsRodPicsUnlocked] = useState(true);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
@@ -130,7 +134,8 @@ export default function Page() {
             {/* Stats texts */}
             <ThemedView className={'w-full flex flex-col mt-6'}>
                 <ThemedText type={'default'}>Statistiques du jour</ThemedText>
-                <ThemedText type={'subtitle'}>4,5 heures travaillées - 7 sessions </ThemedText>
+                <ThemedText type={'subtitle'}>{dailyWork.hours} heures travaillées
+                    - {dailyWork.sessions} sessions </ThemedText>
             </ThemedView>
 
             {/* Stats texts */}
@@ -160,7 +165,6 @@ export default function Page() {
                         textSize={"miniExtraBold"}
                         paddingStyle={"small"}
                         radiusStyle={'full'}
-                        //disabled={true}
                         icon={{
                             name: "ChartColumn",
                             size: 14,

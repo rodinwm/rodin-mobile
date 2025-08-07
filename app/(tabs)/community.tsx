@@ -13,7 +13,7 @@ import {CommunityFeedPost} from "@/components/domain/community/CommunityFeedPost
 export default function Page() {
     const router = useRouter();
     const {token} = useAuthUser({});
-    const [feed, setFeed] = useState<any[]>([1, 2, 3]);
+    const [feed, setFeed] = useState<any[]>([1, 2, 3, 4, 5]);
     const [isLoading, setIsLoading] = useState(false);
 
     const getCommunityFeed = async (token: string) => {
@@ -111,16 +111,17 @@ export default function Page() {
                             </ThemedView>
                         ) : null}
                         keyExtractor={item => item.pseudo}
-                        renderItem={({item}) => (
+                        renderItem={({item, index}) => (
                             <CommunityFeedPost
+                                blurred={index % 2 === 0}
                                 user={{
                                     pseudo: 'test_user92',
                                     firtsname: 'John',
                                     lastname: 'Doe',
                                 }}
                                 rodpic={{
-                                    firstPicUri: 'https://picsum.photos/200/300',
-                                    secondPicUri: 'https://picsum.photos/200/300',
+                                    firstPicUri: 'https://images.pexels.com/photos/11741320/pexels-photo-11741320.jpeg',
+                                    secondPicUri: 'https://images.pexels.com/photos/33042335/pexels-photo-33042335.jpeg',
                                     date: new Date(),
                                 }}
                             />

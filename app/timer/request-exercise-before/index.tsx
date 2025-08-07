@@ -17,9 +17,11 @@ export default function Page() {
     //usePrefetchRoutes(['/timer/lock-screen']); // Désactivé pour éviter le préchargement sans les paramètres requis
     const {stringWorkTime, stringBreakTime, numberOfSessions} = useLocalSearchParams();
     const {goToScreen: goToLockScreen} = useScreenReplacer({
-        path: '/timer/lock-screen',
+        path: {
+            pathname: '/timer/lock-screen',
+            params: {stringWorkTime, stringBreakTime, numberOfSessions}
+        },
         stepsToGoBack: 2,
-        params: {stringWorkTime, stringBreakTime, numberOfSessions}
     });
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
         exerciseSelection: false,
