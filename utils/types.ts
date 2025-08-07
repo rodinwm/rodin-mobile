@@ -32,3 +32,8 @@ export type LoginResponseData = {
         emailVerified: boolean;
     };
 };
+
+export type CGUData = {
+    title: string
+    content: string[]
+};

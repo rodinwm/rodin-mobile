@@ -22,6 +22,7 @@ export function SetName(props: Props) {
                     label={"Prénom"}
                     placeholder={"Ex: William"}
                     value={props.firstname}
+                    submitBehavior={'newline'}
                     onChangeText={(firstname) => props.onChangeFirstName(firstname)}
                 />
                 <ThemedTextInput

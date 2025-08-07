@@ -104,11 +104,9 @@ export default function Page() {
                     children={(
                         <ThemedTextInput
                             value={emergencyCode}
-                            autoFocus={true}
                             placeholder={"Ex: 1234"}
                             keyboardType={"number-pad"}
                             returnKeyLabel={"Valider"}
-                            //returnKeyType={"done"}
                             submitBehavior={'submit'}
                             onSubmitEditing={checkEmergencyCode}
                             onChangeText={(text) => {
