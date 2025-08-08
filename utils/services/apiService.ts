@@ -246,6 +246,12 @@ export abstract class ApiService {
                         data: ['Conflict error returned']
                     });
                     return error.response;
+                case HttpStatusCode.NotFound:
+                    this.logService.log({
+                        type: LogType.Info,
+                        data: ['NotFound error returned']
+                    });
+                    return error.response;
                 default:
                     this.logService.log({
                         type: LogType.Info,

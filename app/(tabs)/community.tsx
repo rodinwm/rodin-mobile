@@ -9,11 +9,12 @@ import {ApiService} from "@/utils/services/apiService";
 import {HttpStatusCode} from "axios";
 import {Loader} from "@/components/layouts/Loader";
 import {CommunityFeedPost} from "@/components/domain/community/CommunityFeedPost";
+import {RodpicData} from "@/utils/types";
 
 export default function Page() {
     const router = useRouter();
     const {token} = useAuthUser({});
-    const [feed, setFeed] = useState<any[]>([1, 2, 3, 4, 5]);
+    const [feed, setFeed] = useState<RodpicData[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const getCommunityFeed = async (token: string) => {
@@ -28,6 +29,12 @@ export default function Page() {
                         data: ['Community feed successfully fetched:', response.data]
                     });
                     setFeed(response.data.data);
+                    break;
+                case HttpStatusCode.NotFound:
+                    communityLogService.log({
+                        type: LogType.Log,
+                        data: ['Community feed is empty:', response.data]
+                    });
                     break;
                 default:
                     communityLogService.log({
@@ -48,7 +55,7 @@ export default function Page() {
 
     useEffect(() => {
         if (token) {
-            //getCommunityFeed(token).then();
+            getCommunityFeed(token).then();
         }
     }, [token]);
 
@@ -102,15 +109,7 @@ export default function Page() {
                                 <ThemedView className={"w-full h-1"} fillStyle={"opacity-15"}/>
                             </ThemedView>
                         )}
-                        ListFooterComponent={() => feed.length > 0 ? (
-                            <ThemedView className={'w-full mt-14'}>
-                                <ThemedButton
-                                    title={"Voir plus"}
-                                    onPress={() => console.log("Voir plus")}
-                                />
-                            </ThemedView>
-                        ) : null}
-                        keyExtractor={item => item.pseudo}
+                        keyExtractor={item => item.date.toString()}
                         renderItem={({item, index}) => (
                             <CommunityFeedPost
                                 blurred={index % 2 === 0}
