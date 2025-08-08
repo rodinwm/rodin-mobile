@@ -15,6 +15,7 @@ export default function Page() {
     const router = useRouter();
     const {token} = useAuthUser({});
     const [feed, setFeed] = useState<RodpicData[]>([]);
+    const [isRodpicsUnlocked, setIsRodpicsUnlocked] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
 
     const getCommunityFeed = async (token: string) => {
@@ -112,16 +113,16 @@ export default function Page() {
                         keyExtractor={item => item.date.toString()}
                         renderItem={({item, index}) => (
                             <CommunityFeedPost
-                                blurred={index % 2 === 0}
+                                blurred={!isRodpicsUnlocked}
                                 user={{
-                                    pseudo: 'test_user92',
-                                    firtsname: 'John',
-                                    lastname: 'Doe',
+                                    pseudo: item.user.pseudo,
+                                    firstname: item.user.firstname,
+                                    lastname: item.user.lastname,
                                 }}
                                 rodpic={{
-                                    firstPicUri: 'https://images.pexels.com/photos/11741320/pexels-photo-11741320.jpeg',
-                                    secondPicUri: 'https://images.pexels.com/photos/33042335/pexels-photo-33042335.jpeg',
-                                    date: new Date(),
+                                    firstPicUri: item.firstPic,
+                                    secondPicUri: item.secondPic,
+                                    date: item.date ? new Date(item.date * 1000) : new Date(),
                                 }}
                             />
                         )}
