@@ -7,12 +7,13 @@ import Animated from "react-native-reanimated";
 import {LayoutRectangle, TouchableOpacity} from "react-native";
 import {UiService} from "@/utils/services/uiService";
 import {useDraggableGesture} from "@/utils/hooks";
+import {RodpicService} from "@/utils/services/rodpicService";
 
 type Props = {
     blurred?: boolean;
     user: {
         pseudo: string;
-        firtsname: string;
+        firstname: string;
         lastname: string;
     };
     rodpic: {
@@ -53,7 +54,7 @@ export function CommunityFeedPost(props: Props) {
                 <ThemedView
                     className={'w-full flex flex-col'}
                 >
-                    <ThemedText type={'default'}>{`${props.user.firtsname} ${props.user.lastname}`}</ThemedText>
+                    <ThemedText type={'default'}>{`${props.user.firstname} ${props.user.lastname}`}</ThemedText>
                     <ThemedText type={'miniBold'}>{`@${props.user.pseudo}`}</ThemedText>
                 </ThemedView>
             </ThemedView>
@@ -66,7 +67,11 @@ export function CommunityFeedPost(props: Props) {
                 }}
                 radiusStyle={"default"}
                 fillStyle={"inversed"}
-                backgroundImage={{uri: (isSwapped ? props.rodpic.secondPicUri : props.rodpic.firstPicUri).toString()}}
+                backgroundImage={{
+                    uri: isSwapped
+                        ? RodpicService.decodeBase64ToUri(props.rodpic.secondPicUri)
+                        : RodpicService.decodeBase64ToUri(props.rodpic.firstPicUri)
+                }}
                 onLayout={(e) => setParentLayout(e.nativeEvent.layout)}
             >
                 {/* Little preview */}
@@ -92,7 +97,11 @@ export function CommunityFeedPost(props: Props) {
                                 radiusStyle={"default"}
                                 borderWidth={2}
                                 borderStyle={colorScheme === 'light' ? 'default' : "inversed"}
-                                backgroundImage={{uri: (isSwapped ? props.rodpic.firstPicUri : props.rodpic.secondPicUri).toString()}}
+                                backgroundImage={{
+                                    uri: isSwapped
+                                        ? RodpicService.decodeBase64ToUri(props.rodpic.firstPicUri)
+                                        : RodpicService.decodeBase64ToUri(props.rodpic.secondPicUri)
+                                }}
                             />
                         </TouchableOpacity>
                     </Animated.View>

@@ -7,9 +7,10 @@ import {User} from "@rodinwm/rodin-models/frontend";
 import {ApiService} from "@/utils/services/apiService";
 import {HttpStatusCode} from "axios";
 import {communityLogService} from "@/utils/constants";
-import {LogType} from "@/utils/enums";
+import {LogType, ToastType} from "@/utils/enums";
 import {FriendStatus} from "@/utils/models/model.enums";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
+import {ToastService} from "@/utils/services/toastService";
 
 export default function Page() {
     const pagerRef = useRef<PagerView | null>(null);
@@ -53,12 +54,12 @@ export default function Page() {
         }
     };
 
-    const respondToFriendRequest = async (token: string, friendshipId: string, status: FriendStatus) => {
+    const respondToFriendRequest = async (token: string, friendship: FriendshipData, status: FriendStatus) => {
         setIsLoading(prev => ({...prev, respondToFriendRequest: true}));
 
         try {
             const response = await ApiService.respondToFriendRequest(token, {
-                friendshipId: friendshipId,
+                id: friendship.id,
                 status: status
             });
 
@@ -67,6 +68,10 @@ export default function Page() {
                     communityLogService.log({
                         type: LogType.Log,
                         data: [`Friend request responded with ${status}:`, response.data]
+                    });
+                    ToastService.show({
+                        type: ToastType.Success,
+                        message: `Vous avez ${status === FriendStatus.REJECTED ? "refusé" : 'accepté'} la demande d'ami de ${friendship.user.pseudo}.`,
                     });
                     // Refresh the list of friends and searched friends
                     getFriendshipsOfUser(token, authUser!).then();
@@ -174,7 +179,7 @@ export default function Page() {
                                                 textSize={"miniExtraBold"}
                                                 paddingStyle={"small"}
                                                 type={"opacity-25"}
-                                                onPress={() => respondToFriendRequest(token!, item.id, FriendStatus.ACCEPTED)}
+                                                onPress={() => respondToFriendRequest(token!, item, FriendStatus.ACCEPTED)}
                                             />
                                             <ThemedButton
                                                 title={"Refuser"}
@@ -183,7 +188,7 @@ export default function Page() {
                                                 textSize={"miniExtraBold"}
                                                 paddingStyle={"none"}
                                                 type={"no-fill"}
-                                                onPress={() => respondToFriendRequest(token!, item.id, FriendStatus.REJECTED)}
+                                                onPress={() => respondToFriendRequest(token!, item, FriendStatus.REJECTED)}
                                             />
                                         </ThemedView>
                                     )}

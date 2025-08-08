@@ -175,7 +175,7 @@ export abstract class ApiService {
     }
 
     static async respondToFriendRequest(token: string, payload: {
-        friendshipId: string,
+        id: string, // Friendship ID
         status: FriendStatus
     }): Promise<AxiosResponse> {
         const methodName = "respondToFriendRequest";
@@ -244,6 +244,12 @@ export abstract class ApiService {
                     this.logService.log({
                         type: LogType.Info,
                         data: ['Conflict error returned']
+                    });
+                    return error.response;
+                case HttpStatusCode.NotFound:
+                    this.logService.log({
+                        type: LogType.Info,
+                        data: ['NotFound error returned']
                     });
                     return error.response;
                 default:
