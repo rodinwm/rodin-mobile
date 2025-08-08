@@ -28,7 +28,7 @@ export default function Page() {
                         type: LogType.Log,
                         data: ['Community feed successfully fetched:', response.data]
                     });
-                    setFeed(response.data.data);
+                    setFeed(response.data);
                     break;
                 case HttpStatusCode.NotFound:
                     communityLogService.log({
