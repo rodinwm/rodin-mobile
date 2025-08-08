@@ -22,6 +22,7 @@ import {Loader} from "@/components/layouts/Loader";
 import {FriendData, FriendshipData} from "@/utils/types";
 import {FriendStatus} from "@/utils/models/model.enums";
 import {useIsFocused} from "@react-navigation/native";
+import {LoadingScreen} from "@/components/layouts/LoadingScreen";
 
 export default function Page() {
     const router = useRouter();
@@ -238,6 +239,10 @@ export default function Page() {
         }
     }, [token && searchedFriend]);
 
+    if (!token) {
+        return <LoadingScreen/>;
+    }
+
     return (
         <ScreenTemplate
             title={"Mes amis"}
@@ -357,7 +362,7 @@ export default function Page() {
                                                             textSize={"miniExtraBold"}
                                                             paddingStyle={"small"}
                                                             type={"opacity-25"}
-                                                            onPress={() => respondToFriendRequest(token!, item.id, FriendStatus.ACCEPTED)}
+                                                            onPress={() => respondToFriendRequest(token, item.id, FriendStatus.ACCEPTED)}
                                                         />
                                                         <ThemedButton
                                                             title={"Refuser"}
@@ -366,7 +371,7 @@ export default function Page() {
                                                             textSize={"miniExtraBold"}
                                                             paddingStyle={"none"}
                                                             type={"no-fill"}
-                                                            onPress={() => respondToFriendRequest(token!, item.id, FriendStatus.REJECTED)}
+                                                            onPress={() => respondToFriendRequest(token, item.id, FriendStatus.REJECTED)}
                                                         />
                                                     </>
                                                 )}
@@ -377,7 +382,7 @@ export default function Page() {
                                                         paddingStyle={"none"}
                                                         showTitle={false}
                                                         type={"no-fill"}
-                                                        onPress={() => removeFriend(token!, friend)}
+                                                        onPress={() => removeFriend(token, friend)}
                                                     />
                                                 )*/}
                                             </ThemedView>
@@ -441,7 +446,7 @@ export default function Page() {
                                                 textSize={"miniExtraBold"}
                                                 paddingStyle={"small"}
                                                 type={"opacity-25"}
-                                                onPress={() => sendFriendRequest(token!, item)}
+                                                onPress={() => sendFriendRequest(token, item)}
                                             />
                                         </ThemedView>
                                     )}

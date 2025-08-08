@@ -19,6 +19,7 @@ import {UiService} from "@/utils/services/uiService";
 import {usePrefetchRoutes} from "@/utils/hooks/usePrefetchRoutes";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
 import {NotificationService} from "@/utils/services/notificationService";
+import {LoadingScreen} from "@/components/layouts/LoadingScreen";
 
 const chartPeriods = Object.values(ChartPeriod);
 
@@ -80,6 +81,10 @@ export default function Page() {
     useEffect(() => {
         NotificationService.init().then();
     }, []);
+
+    if (!authUser) {
+        return <LoadingScreen/>;
+    }
 
     return (
         <ScreenTemplate

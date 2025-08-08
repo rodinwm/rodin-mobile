@@ -1,13 +1,13 @@
 import {LucideIcon, ScreenTemplate, ThemedButton, ThemedText, ThemedView} from '@/components';
 import React from "react";
 import {useRouter} from "expo-router";
+import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
 
 export default function Page() {
     const router = useRouter();
-
-    const goToHomeScreen = () => {
-        router.replace('/(tabs)');
-    };
+    const {goToScreen: goToHomeScreen} = useScreenReplacer({
+        path: '/(tabs)',
+    });
 
     return (
         <ScreenTemplate
@@ -16,7 +16,7 @@ export default function Page() {
             {/* Logo section */}
             <ThemedView className={'w-full flex flex-col justify-center items-center gap-3'}>
                 <LucideIcon name={'CircleCheck'} size={150}/>
-                <ThemedText type={"title"}>
+                <ThemedText type={"title"} className={"text-center"}>
                     Bienvenue parmis nous !
                 </ThemedText>
                 <ThemedText type={'small'} className={"text-center opacity-50"}>

@@ -16,6 +16,7 @@ import {LogType, ToastType} from "@/utils/enums";
 import {ToastService} from "@/utils/services/toastService";
 import {RodpicService} from "@/utils/services/rodpicService";
 import {Loader} from "@/components/layouts/Loader";
+import {LoadingScreen} from "@/components/layouts/LoadingScreen";
 
 export default function Page() {
     const router = useRouter();
@@ -77,6 +78,9 @@ export default function Page() {
         }
     };
 
+    if (!token) {
+        return <LoadingScreen/>;
+    }
 
     return (
         <ScreenTemplate
@@ -161,7 +165,9 @@ export default function Page() {
                 paddingStyle={"default"}
             >
                 {isLoading.publishRodpic ? (
-                    <Loader/>
+                    <ThemedView paddingStyle={"default"}>
+                        <Loader/>
+                    </ThemedView>
                 ) : (
                     <ThemedButton
                         suffixIcon={{
@@ -178,7 +184,7 @@ export default function Page() {
                                 const firstPicBase64 = await RodpicService.encodeImageToBase64(firstPicUri.toString());
                                 const secondPicBase64 = await RodpicService.encodeImageToBase64(secondPicUri.toString());
 
-                                await publishRodpic(token!, {
+                                await publishRodpic(token, {
                                     firstPic: `data:image/jpeg;base64,${firstPicBase64}`,
                                     secondPic: `data:image/jpeg;base64,${secondPicBase64}`,
                                     date: Date.now(),

@@ -10,6 +10,7 @@ import {HttpStatusCode} from "axios";
 import {Loader} from "@/components/layouts/Loader";
 import {CommunityFeedPost} from "@/components/domain/community/CommunityFeedPost";
 import {RodpicData} from "@/utils/types";
+import {LoadingScreen} from "@/components/layouts/LoadingScreen";
 
 export default function Page() {
     const router = useRouter();
@@ -60,6 +61,10 @@ export default function Page() {
         }
     }, [token]);
 
+    if (!token) {
+        return <LoadingScreen/>;
+    }
+
     return (
         <ScreenTemplate
             title={"Communauté"}
@@ -91,7 +96,7 @@ export default function Page() {
 
                     <ThemedButton
                         title={"Actualiser"}
-                        onPress={() => getCommunityFeed(token ? token : '')}
+                        onPress={() => getCommunityFeed(token)}
                     />
                 </ThemedView>
             )}

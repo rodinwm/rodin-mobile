@@ -12,6 +12,7 @@ import React, {useState} from "react";
 import {useRouter} from "expo-router";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
 import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
+import {LoadingScreen} from "@/components/layouts/LoadingScreen";
 
 export default function Page() {
     const router = useRouter();
@@ -21,36 +22,42 @@ export default function Page() {
     });
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
+    if (!authUser) {
+        return <LoadingScreen/>;
+    }
+
     return (
         <ScreenTemplate
             title={"Profil"}
             takeBottomBarIntoAccount={true}
             bottomSheet={(
-                <MessageSheet
-                    title={"Deconnexion"}
-                    subtitle={"Voulez vous vraiment quitter l'application ?"}
-                    isOpen={isBottomSheetOpen}
-                    onClose={() => setIsBottomSheetOpen(false)}
-                    takeBottomBarIntoAccount={true}
-                    confirm={{
-                        text: "Oui",
-                        onPress: () => {
-                            setIsBottomSheetOpen(false);
-                            goToWelcomeScreen();
-                        }
-                    }}
-                    cancel={{
-                        text: "Rester",
-                        onPress: () => setIsBottomSheetOpen(false),
-                    }}
-                />
+                <>
+                    <MessageSheet
+                        title={"Deconnexion"}
+                        subtitle={"Voulez vous vraiment quitter l'application ?"}
+                        isOpen={isBottomSheetOpen}
+                        onClose={() => setIsBottomSheetOpen(false)}
+                        takeBottomBarIntoAccount={true}
+                        confirm={{
+                            text: "Oui",
+                            onPress: () => {
+                                setIsBottomSheetOpen(false);
+                                goToWelcomeScreen();
+                            }
+                        }}
+                        cancel={{
+                            text: "Rester",
+                            onPress: () => setIsBottomSheetOpen(false),
+                        }}
+                    />
+                </>
             )}
         >
             {/* Name */}
             <ThemedView className={'w-full flex flex-col'}>
                 <ThemedText type={'default'}>Mon profil</ThemedText>
                 <ThemedText type={'title'}>
-                    {authUser ? authUser.firstname + ' ' + authUser.lastname : "Rodin"}
+                    {authUser.firstname + ' ' + authUser.lastname}
                 </ThemedText>
             </ThemedView>
 

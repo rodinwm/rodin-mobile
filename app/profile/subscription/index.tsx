@@ -16,6 +16,7 @@ import {useColorScheme} from "@/utils/hooks/useColorScheme";
 import {Alert} from "react-native";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
 import {SubscriptionFrequency, SubscriptionStatus} from "@/utils/models/model.enums";
+import {LoadingScreen} from "@/components/layouts/LoadingScreen";
 
 const subscriptionPlans = Object.values(SubscriptionPlans);
 
@@ -30,6 +31,10 @@ export default function Page() {
             setSelectedPlan(authUser.subscriptionStatus as SubscriptionStatus);
         }
     }, [authUser]);
+
+    if (!authUser) {
+        return <LoadingScreen/>;
+    }
 
     return (
         <ScreenTemplate
@@ -132,7 +137,7 @@ export default function Page() {
                             ))}
                         </ThemedView>
 
-                        {sub.price && (authUser === null || authUser.subscriptionStatus !== sub.title.toUpperCase()) && (
+                        {sub.price && authUser.subscriptionStatus !== sub.title.toUpperCase() && (
                             <ThemedView className={'w-full flex flex-col mt-4'}>
                                 <ThemedButton
                                     title={"S'abonner"}

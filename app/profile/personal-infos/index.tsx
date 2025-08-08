@@ -9,6 +9,7 @@ import {
 } from '@/components';
 import React, {useEffect, useState} from "react";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
+import {LoadingScreen} from "@/components/layouts/LoadingScreen";
 
 export default function Page() {
     const {authUser} = useAuthUser({});
@@ -33,6 +34,10 @@ export default function Page() {
         }
     }, [authUser]);
 
+    if (!authUser) {
+        return <LoadingScreen/>;
+    }
+
     return (
         <ScreenTemplate
             title={"Infos personnelles"}
@@ -48,7 +53,7 @@ export default function Page() {
                 >
                     <LucideIcon name={"User"} inverseColor={true}/>
                 </ThemedView>
-                <ThemedText type={'miniBold'}>{authUser ? authUser.pseudo : 'Utilisateur inconnu'}</ThemedText>
+                <ThemedText type={'miniBold'}>{authUser.pseudo}</ThemedText>
                 {/*
                 <ThemedText type={'miniBold'}>Changer de photo</ThemedText>
                 */}
