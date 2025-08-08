@@ -397,7 +397,11 @@ export default function Page() {
                         Rechercher des amis
                     </ThemedText>
 
-                    {searchedFriends.length === 0 ? (
+                    {searchedFriends.filter(sf =>
+                        !friendships.some(f =>
+                            (f.user.id === authUser?.id ? f.friend.id : f.user.id) === sf.id
+                        )
+                    ).length === 0 ? (
                         <ThemedView
                             className={'w-full flex flex-row items-center gap-4'}
                             fillStyle={'opacity-10'}
@@ -411,8 +415,11 @@ export default function Page() {
                         </ThemedView>
                     ) : (
                         <FlatList
-                            data={searchedFriends}
-                            refreshing={false}
+                            data={searchedFriends.filter(sf =>
+                                !friendships.some(f =>
+                                    (f.user.id === authUser?.id ? f.friend.id : f.user.id) === sf.id
+                                )
+                            )} refreshing={false}
                             onRefresh={() => console.log('refresh')}
                             showsHorizontalScrollIndicator={false}
                             showsVerticalScrollIndicator={false}
