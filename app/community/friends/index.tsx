@@ -19,23 +19,27 @@ import {ApiService} from "@/utils/services/apiService";
 import {HttpStatusCode} from "axios";
 import {ToastService} from "@/utils/services/toastService";
 import {Loader} from "@/components/layouts/Loader";
-import {SearchFriendData} from "@/utils/types";
+import {FriendData, FriendshipData} from "@/utils/types";
+import {FriendStatus} from "@/utils/models/model.enums";
 
 export default function Page() {
     const router = useRouter();
     const {authUser, token} = useAuthUser({});
     const [searchedFriend, setSearchedFriend] = useState('');
-    const [friends, setFriends] = useState<User[]>([]);
-    const [searchedFriends, setSearchedFriends] = useState<SearchFriendData[]>([]);
+    const [friendships, setFriendships] = useState<FriendshipData[]>([]);
+    const [searchedFriends, setSearchedFriends] = useState<FriendData[]>([]);
     const [isLoading, setIsLoading] = useState({
         searchInMyFriends: false,
         searchInCommunity: false,
+        sendFriendRequest: false,
+        removeFriend: false,
+        respondToFriendRequest: false,
     });
 
-    const getFriendsOfUser = async (token: string, user: User) => {
+    const getFriendshipsOfUser = async (token: string, user: User) => {
         setIsLoading(prev => ({...prev, searchInMyFriends: true}));
         try {
-            const response = await ApiService.getFriendsOfUser(token, user);
+            const response = await ApiService.getFriendshipsOfUser(token, user);
 
             switch (response.status) {
                 case HttpStatusCode.Ok:
@@ -43,16 +47,12 @@ export default function Page() {
                         type: LogType.Log,
                         data: ['Friends successfully fetched:', response.data]
                     });
-                    setFriends(response.data.data);
+                    setFriendships(response.data.data);
                     break;
                 default:
                     communityLogService.log({
                         type: LogType.Error,
                         data: ['Error fetching friends:', response.data]
-                    });
-                    ToastService.show({
-                        type: ToastType.Error,
-                        message: `Erreur lors de la récupération des amis: ${response.data.message || 'Erreur inconnue.'}`,
                     });
                     break;
             }
@@ -85,10 +85,6 @@ export default function Page() {
                         type: LogType.Error,
                         data: ['Error searching friends:', response.data]
                     });
-                    ToastService.show({
-                        type: ToastType.Error,
-                        message: `Erreur lors de la recherche des amis: ${response.data.message || 'Erreur inconnue.'}`,
-                    });
                     break;
             }
         } catch (error) {
@@ -101,17 +97,144 @@ export default function Page() {
         }
     };
 
+    const sendFriendRequest = async (token: string, friend: FriendData) => {
+        setIsLoading(prev => ({...prev, sendFriendRequest: true}));
+
+        try {
+            const response = await ApiService.sendFriendRequest(token, {friendId: friend.id});
+
+            switch (response.status) {
+                case HttpStatusCode.Created:
+                    communityLogService.log({
+                        type: LogType.Log,
+                        data: ['Friend request successfully sent:', response.data]
+                    });
+                    ToastService.show({
+                        type: ToastType.Success,
+                        message: `Demande d'ami envoyée à ${friend.pseudo}.`,
+                    });
+                    // Refresh the list of searched friends
+                    searchFriends(token, searchedFriend).then();
+                    break;
+                case HttpStatusCode.Conflict:
+                    communityLogService.log({
+                        type: LogType.Log,
+                        data: ['Friend already sent:', response.data]
+                    });
+                    ToastService.show({
+                        type: ToastType.Info,
+                        message: `Vous avez déjà envoyé une demande d'ami à ${friend.pseudo}.`,
+                    });
+                    break;
+                default:
+                    communityLogService.log({
+                        type: LogType.Error,
+                        data: ['Error sending friend request:', response.data]
+                    });
+                    ToastService.show({
+                        type: ToastType.Error,
+                        message: `Erreur lors de l'ajout d'un ami. Veuillez réessayer plus tard.`,
+                    });
+                    break;
+            }
+        } catch (error) {
+            communityLogService.log({
+                type: LogType.Error,
+                data: ['Error searching friends:', error]
+            });
+        } finally {
+            setIsLoading(prev => ({...prev, sendFriendRequest: false}));
+        }
+    };
+
+    const removeFriend = async (token: string, friend: FriendData) => {
+        setIsLoading(prev => ({...prev, removeFriend: true}));
+
+        try {
+            const response = await ApiService.removeFriend(token, {friendId: friend.id});
+
+            switch (response.status) {
+                case HttpStatusCode.Ok:
+                    communityLogService.log({
+                        type: LogType.Log,
+                        data: ['Friend removed successfully:', response.data]
+                    });
+                    ToastService.show({
+                        type: ToastType.Success,
+                        message: `${friend.pseudo} a été retiré de vos amis.`,
+                    });
+                    // Refresh the list of friends and searched friends
+                    getFriendshipsOfUser(token, authUser!).then();
+                    searchFriends(token, searchedFriend).then();
+                    break;
+                default:
+                    communityLogService.log({
+                        type: LogType.Error,
+                        data: ['Error when removind friend:', response.data]
+                    });
+                    ToastService.show({
+                        type: ToastType.Error,
+                        message: `Erreur du retrait de votre ami. Veuillez réessayer plus tard.`,
+                    });
+                    break;
+            }
+        } catch (error) {
+            communityLogService.log({
+                type: LogType.Error,
+                data: ['Error when removing friends:', error]
+            });
+        } finally {
+            setIsLoading(prev => ({...prev, removeFriend: false}));
+        }
+    };
+
+    const respondToFriendRequest = async (token: string, friendshipId: string, status: FriendStatus) => {
+        setIsLoading(prev => ({...prev, respondToFriendRequest: true}));
+
+        try {
+            const response = await ApiService.respondToFriendRequest(token, {
+                friendshipId: friendshipId,
+                status: status
+            });
+
+            switch (response.status) {
+                case HttpStatusCode.Ok:
+                    communityLogService.log({
+                        type: LogType.Log,
+                        data: [`Friend request responded with ${status}:`, response.data]
+                    });
+                    // Refresh the list of friends and searched friends
+                    getFriendshipsOfUser(token, authUser!).then();
+                    searchFriends(token, searchedFriend).then();
+                    break;
+                default:
+                    communityLogService.log({
+                        type: LogType.Error,
+                        data: ['Error when responding to friend request:', response.data]
+                    });
+                    break;
+            }
+        } catch (error) {
+            communityLogService.log({
+                type: LogType.Error,
+                data: ['Error when responding to friend request:', error]
+            });
+        } finally {
+            setIsLoading(prev => ({...prev, respondToFriendRequest: false}));
+        }
+    };
+
     useEffect(() => {
         if (token && authUser) {
-            getFriendsOfUser(token, authUser).then();
+            getFriendshipsOfUser(token, authUser).then();
         }
     }, [token, authUser]);
 
     useEffect(() => {
-        if (searchedFriend.length >= 3) {
+        if (token && searchedFriend.length >= 3) {
             searchFriends(token, searchedFriend).then();
         }
-    }, [searchedFriend]);
+    }, [token && searchedFriend]);
 
     return (
         <ScreenTemplate
@@ -159,7 +282,25 @@ export default function Page() {
                         Mes amis
                     </ThemedText>
 
-                    {friends.length === 0 ? (
+                    {searchedFriend.length >= 3 && friendships.length != 0 && friendships.filter(friendship => {
+                        return friendship.user.id !== authUser?.id ?
+                            friendship.friend.pseudo.toLowerCase().includes(searchedFriend.toLowerCase()) : friendship.user.pseudo.toLowerCase().includes(searchedFriend.toLowerCase());
+                    }).length === 0 && (
+                        <ThemedView
+                            className={'w-full flex flex-row items-center gap-4'}
+                            fillStyle={'opacity-10'}
+                            paddingStyle={'small'}
+                            radiusStyle={'medium'}
+                        >
+                            <LucideIcon name={"SearchX"}/>
+                            <ThemedText type={"default"} className={'flex-1'}>
+                                <ThemedText type={"defaultExtraBold"}>{searchedFriend}</ThemedText> n'a pas été
+                                trouvé parmis vos amis.
+                            </ThemedText>
+                        </ThemedView>
+                    )}
+
+                    {friendships.length === 0 ? (
                         <ThemedView
                             className={'w-full flex flex-row items-center gap-4'}
                             fillStyle={'opacity-10'}
@@ -173,7 +314,10 @@ export default function Page() {
                         </ThemedView>
                     ) : (
                         <FlatList
-                            data={friends.filter(friend => friend.pseudo.includes(searchedFriend))}
+                            data={friendships.filter(friendship => {
+                                return friendship.user.id !== authUser?.id ?
+                                    friendship.friend.pseudo.toLowerCase().includes(searchedFriend.toLowerCase()) : friendship.user.pseudo.toLowerCase().includes(searchedFriend.toLowerCase());
+                            })}
                             refreshing={false}
                             onRefresh={() => console.log('refresh')}
                             showsHorizontalScrollIndicator={false}
@@ -181,48 +325,62 @@ export default function Page() {
                             ItemSeparatorComponent={() => (
                                 <ThemedView className={"h-5"}/>
                             )}
-                            ListFooterComponent={() => friends.length > 0 ? (
-                                <ThemedView className={'w-full mt-14'}>
-                                    <ThemedButton
-                                        title={"Voir plus"}
-                                        onPress={() => console.log("Voir plus")}
+                            keyExtractor={item => item.id}
+                            renderItem={({item}) => {
+                                const friend = item.user.id === authUser?.id ? item.friend : item.user;
+                                return (
+                                    <ThemedListTile
+                                        key={friend.id}
+                                        icon={'User'}
+                                        fillStyle={"none"}
+                                        title={friend.firstname + ' ' + friend.lastname}
+                                        subtitle={friend.pseudo}
+                                        suffixIcon={(
+                                            <ThemedView className={'flex flex-row gap-2'}>
+                                                {item.status === FriendStatus.PENDING && item.user.id === authUser!.id && (
+                                                    <ThemedButton
+                                                        title={"Demande envoyée"}
+                                                        disabled={true}
+                                                        textSize={"miniExtraBold"}
+                                                        paddingStyle={"small"}
+                                                        type={"opacity-25"}
+                                                    />
+                                                )}
+                                                {item.status === FriendStatus.PENDING && item.friend.id === authUser!.id && (
+                                                    <>
+                                                        <ThemedButton
+                                                            title={"Accepter"}
+                                                            textSize={"miniExtraBold"}
+                                                            paddingStyle={"small"}
+                                                            type={"opacity-25"}
+                                                            onPress={() => respondToFriendRequest(token!, item.id, FriendStatus.ACCEPTED)}
+                                                        />
+                                                        <ThemedButton
+                                                            title={"Refuser"}
+                                                            icon={{name: 'Ban'}}
+                                                            showTitle={false}
+                                                            textSize={"miniExtraBold"}
+                                                            paddingStyle={"none"}
+                                                            type={"no-fill"}
+                                                            onPress={() => respondToFriendRequest(token!, item.id, FriendStatus.REJECTED)}
+                                                        />
+                                                    </>
+                                                )}
+                                                {item.status === FriendStatus.ACCEPTED && (
+                                                    <ThemedButton
+                                                        title={"Remove"}
+                                                        icon={{name: 'X'}}
+                                                        paddingStyle={"none"}
+                                                        showTitle={false}
+                                                        type={"no-fill"}
+                                                        onPress={() => removeFriend(token!, friend)}
+                                                    />
+                                                )}
+                                            </ThemedView>
+                                        )}
                                     />
-                                </ThemedView>
-                            ) : (
-                                <ThemedView
-                                    className={'w-full flex flex-row items-center gap-4'}
-                                    fillStyle={'opacity-10'}
-                                    paddingStyle={'small'}
-                                    radiusStyle={'medium'}
-                                >
-                                    <LucideIcon name={"SearchX"}/>
-                                    <ThemedText type={"default"} className={'flex-1'}>
-                                        <ThemedText type={"defaultExtraBold"}>{searchedFriend}</ThemedText> n'a pas été
-                                        trouvé parmis vos amis.
-                                    </ThemedText>
-                                </ThemedView>
-                            )}
-                            keyExtractor={item => item.pseudo}
-                            renderItem={({item}) => (
-                                <ThemedListTile
-                                    key={item.pseudo}
-                                    icon={'User'}
-                                    fillStyle={"none"}
-                                    title={item.pseudo}
-                                    subtitle={item.pseudo}
-                                    suffixIcon={(
-                                        <ThemedView className={'flex flex-row gap-2'}>
-                                            <ThemedButton
-                                                title={"Remove"}
-                                                icon={{name: 'X'}}
-                                                paddingStyle={"none"}
-                                                showTitle={false}
-                                                type={"no-fill"}
-                                            />
-                                        </ThemedView>
-                                    )}
-                                />
-                            )}
+                                );
+                            }}
                         />
                     )}
                 </ThemedView>
@@ -257,14 +415,6 @@ export default function Page() {
                             ItemSeparatorComponent={() => (
                                 <ThemedView className={"h-5"}/>
                             )}
-                            ListFooterComponent={() => friends.length > 0 && (
-                                <ThemedView className={'w-full mt-14'}>
-                                    <ThemedButton
-                                        title={"Voir plus"}
-                                        onPress={() => console.log("Voir plus")}
-                                    />
-                                </ThemedView>
-                            )}
                             keyExtractor={item => item.pseudo}
                             renderItem={({item}) => (
                                 <ThemedListTile
@@ -280,6 +430,7 @@ export default function Page() {
                                                 textSize={"miniExtraBold"}
                                                 paddingStyle={"small"}
                                                 type={"opacity-25"}
+                                                onPress={() => sendFriendRequest(token!, item)}
                                             />
                                         </ThemedView>
                                     )}
