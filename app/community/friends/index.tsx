@@ -345,6 +345,8 @@ export default function Page() {
                                                         />
                                                         <ThemedButton
                                                             title={"Refuser"}
+                                                            icon={{name: 'Ban'}}
+                                                            showTitle={false}
                                                             textSize={"miniExtraBold"}
                                                             paddingStyle={"small"}
                                                             type={"opacity-25"}
