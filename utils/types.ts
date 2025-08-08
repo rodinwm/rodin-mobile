@@ -1,5 +1,5 @@
-import {Prisma, TimerValue} from "@rodinwm/rodin-models/frontend";
-import {AgeRange, ExerciseFrequency, Profession} from "@/utils/models/model.enums";
+import {Prisma, TimerValue, User} from "@rodinwm/rodin-models/frontend";
+import {AgeRange, ExerciseFrequency, FriendStatus, Profession} from "@/utils/models/model.enums";
 
 export type CreateUserPayload =
     Omit<Prisma.UserCreateInput, 'defaultWorkTime' | 'defaultBreakTime' | 'ageRange' | 'exerciseFrequency' | 'profession'>
@@ -55,10 +55,22 @@ export type RodpicData = {
     date: number
 };
 
-export type SearchFriendData = {
+export type FriendData = {
     id: string,
     pseudo: string,
     firstname: string,
     lastname: string,
     email: string,
+    status?: FriendStatus,
+};
+
+export type FriendshipData = {
+    id: string;
+    status: FriendStatus;
+    createdAt: string;
+    updatedAt: string;
+    userId: string;
+    friendId: string;
+    user: User;
+    friend: User;
 };

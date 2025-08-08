@@ -85,8 +85,8 @@ export abstract class ApiService {
         }
     }
 
-    static async getFriendsOfUser(token: string, user: User): Promise<AxiosResponse> {
-        const methodName = "getFriendsOfUser";
+    static async getFriendshipsOfUser(token: string, user: User): Promise<AxiosResponse> {
+        const methodName = "getFriendshipsOfUser";
         try {
             const response = await axios.get(`${this.host}/api/friend`, {
                 headers: {
@@ -175,7 +175,7 @@ export abstract class ApiService {
     }
 
     static async respondToFriendRequest(token: string, payload: {
-        userId: string,
+        friendId: string,
         status: FriendStatus
     }): Promise<AxiosResponse> {
         const methodName = "respondToFriendRequest";
