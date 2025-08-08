@@ -8,6 +8,12 @@ import {GestureDetector} from 'react-native-gesture-handler';
 import {useDraggableGesture} from "@/utils/hooks/useDraggableGesture";
 import {UiService} from "@/utils/services/uiService";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
+import {FriendData} from "@/utils/types";
+import {ApiService} from "@/utils/services/apiService";
+import {HttpStatusCode} from "axios";
+import {communityLogService} from "@/utils/constants";
+import {LogType, ToastType} from "@/utils/enums";
+import {ToastService} from "@/utils/services/toastService";
 
 export default function Page() {
     const router = useRouter();
@@ -22,6 +28,52 @@ export default function Page() {
         parentLayout: parentLayout,
         padding: 15
     });
+    const [isLoading, setIsLoading] = useState({
+        publishRodpic: false,
+    });
+
+    const publishRodpic = async (token: string, friend: FriendData) => {
+        setIsLoading(prev => ({...prev, publishRodpic: true}));
+
+        try {
+            const response = await ApiService.publishRodpic(token, {
+                firstPic: firstPicUri.toString(),
+                secondPic: secondPicUri.toString(),
+                date: Date.now(),
+            });
+
+            switch (response.status) {
+                case HttpStatusCode.Created:
+                    communityLogService.log({
+                        type: LogType.Log,
+                        data: ['Rodpic successfully published:', response.data]
+                    });
+                    ToastService.show({
+                        type: ToastType.Success,
+                        message: `Rodpic publiée !.`,
+                    });
+                    router.back();
+                    break;
+                default:
+                    communityLogService.log({
+                        type: LogType.Error,
+                        data: ['Error publishing Rodpic:', response.data]
+                    });
+                    ToastService.show({
+                        type: ToastType.Error,
+                        message: `Erreur lors de la publication de votre Rodpic.`,
+                    });
+                    break;
+            }
+        } catch (error) {
+            communityLogService.log({
+                type: LogType.Error,
+                data: ['Error whend publishing rodpic:', error]
+            });
+        } finally {
+            setIsLoading(prev => ({...prev, publishRodpic: false}));
+        }
+    };
 
 
     return (

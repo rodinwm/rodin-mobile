@@ -21,9 +21,11 @@ import {ToastService} from "@/utils/services/toastService";
 import {Loader} from "@/components/layouts/Loader";
 import {FriendData, FriendshipData} from "@/utils/types";
 import {FriendStatus} from "@/utils/models/model.enums";
+import {useIsFocused} from "@react-navigation/native";
 
 export default function Page() {
     const router = useRouter();
+    const isFocused = useIsFocused();
     const {authUser, token} = useAuthUser({});
     const [searchedFriend, setSearchedFriend] = useState('');
     const [friendships, setFriendships] = useState<FriendshipData[]>([]);
@@ -47,7 +49,7 @@ export default function Page() {
                         type: LogType.Log,
                         data: ['Friends successfully fetched:', response.data]
                     });
-                    setFriendships(response.data.data);
+                    setFriendships(response.data.data.filter((friendship: FriendshipData) => friendship.status === FriendStatus.ACCEPTED));
                     break;
                 default:
                     communityLogService.log({
@@ -193,7 +195,7 @@ export default function Page() {
 
         try {
             const response = await ApiService.respondToFriendRequest(token, {
-                friendshipId: friendshipId,
+                id: friendshipId,
                 status: status
             });
 
@@ -225,10 +227,10 @@ export default function Page() {
     };
 
     useEffect(() => {
-        if (token && authUser) {
+        if (isFocused && token && authUser) {
             getFriendshipsOfUser(token, authUser).then();
         }
-    }, [token, authUser]);
+    }, [token, authUser, isFocused]);
 
     useEffect(() => {
         if (token && searchedFriend.length >= 3) {
@@ -282,23 +284,25 @@ export default function Page() {
                         Mes amis
                     </ThemedText>
 
-                    {searchedFriend.length >= 3 && friendships.length != 0 && friendships.filter(friendship => {
-                        return friendship.user.id !== authUser?.id ?
-                            friendship.friend.pseudo.toLowerCase().includes(searchedFriend.toLowerCase()) : friendship.user.pseudo.toLowerCase().includes(searchedFriend.toLowerCase());
-                    }).length === 0 && (
-                        <ThemedView
-                            className={'w-full flex flex-row items-center gap-4'}
-                            fillStyle={'opacity-10'}
-                            paddingStyle={'small'}
-                            radiusStyle={'medium'}
-                        >
-                            <LucideIcon name={"SearchX"}/>
-                            <ThemedText type={"default"} className={'flex-1'}>
-                                <ThemedText type={"defaultExtraBold"}>{searchedFriend}</ThemedText> n'a pas été
-                                trouvé parmis vos amis.
-                            </ThemedText>
-                        </ThemedView>
-                    )}
+                    {searchedFriend.length >= 3 &&
+                        friendships.length != 0 &&
+                        friendships.filter(friendship => {
+                            return friendship.user.id === authUser?.id ?
+                                friendship.friend.pseudo.toLowerCase().includes(searchedFriend.toLowerCase()) : friendship.user.pseudo.toLowerCase().includes(searchedFriend.toLowerCase());
+                        }).length === 0 && (
+                            <ThemedView
+                                className={'w-full flex flex-row items-center gap-4'}
+                                fillStyle={'opacity-10'}
+                                paddingStyle={'small'}
+                                radiusStyle={'medium'}
+                            >
+                                <LucideIcon name={"SearchX"}/>
+                                <ThemedText type={"default"} className={'flex-1'}>
+                                    <ThemedText type={"defaultExtraBold"}>{searchedFriend}</ThemedText> n'a pas été
+                                    trouvé parmis vos amis.
+                                </ThemedText>
+                            </ThemedView>
+                        )}
 
                     {friendships.length === 0 ? (
                         <ThemedView
@@ -315,7 +319,7 @@ export default function Page() {
                     ) : (
                         <FlatList
                             data={friendships.filter(friendship => {
-                                return friendship.user.id !== authUser?.id ?
+                                return friendship.user.id === authUser?.id ?
                                     friendship.friend.pseudo.toLowerCase().includes(searchedFriend.toLowerCase()) : friendship.user.pseudo.toLowerCase().includes(searchedFriend.toLowerCase());
                             })}
                             refreshing={false}
@@ -366,7 +370,7 @@ export default function Page() {
                                                         />
                                                     </>
                                                 )}
-                                                {item.status === FriendStatus.ACCEPTED && (
+                                                {/*item.status === FriendStatus.ACCEPTED && (
                                                     <ThemedButton
                                                         title={"Remove"}
                                                         icon={{name: 'X'}}
@@ -375,7 +379,7 @@ export default function Page() {
                                                         type={"no-fill"}
                                                         onPress={() => removeFriend(token!, friend)}
                                                     />
-                                                )}
+                                                )*/}
                                             </ThemedView>
                                         )}
                                     />
