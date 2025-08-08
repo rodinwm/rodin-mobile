@@ -178,11 +178,14 @@ export default function Page() {
         }
     };
 
-    const respondToFriendRequest = async (token: string, friend: FriendData, status: FriendStatus) => {
+    const respondToFriendRequest = async (token: string, friendshipId: string, status: FriendStatus) => {
         setIsLoading(prev => ({...prev, respondToFriendRequest: true}));
 
         try {
-            const response = await ApiService.respondToFriendRequest(token, {friendId: friend.id, status: status});
+            const response = await ApiService.respondToFriendRequest(token, {
+                friendshipId: friendshipId,
+                status: status
+            });
 
             switch (response.status) {
                 case HttpStatusCode.Ok:
@@ -338,14 +341,14 @@ export default function Page() {
                                                             textSize={"miniExtraBold"}
                                                             paddingStyle={"small"}
                                                             type={"opacity-25"}
-                                                            onPress={() => respondToFriendRequest(token!, item.user, FriendStatus.ACCEPTED)}
+                                                            onPress={() => respondToFriendRequest(token!, item.id, FriendStatus.ACCEPTED)}
                                                         />
                                                         <ThemedButton
                                                             title={"Refuser"}
                                                             textSize={"miniExtraBold"}
                                                             paddingStyle={"small"}
                                                             type={"opacity-25"}
-                                                            onPress={() => respondToFriendRequest(token!, item.user, FriendStatus.REJECTED)}
+                                                            onPress={() => respondToFriendRequest(token!, item.id, FriendStatus.REJECTED)}
                                                         />
                                                     </>
                                                 )}

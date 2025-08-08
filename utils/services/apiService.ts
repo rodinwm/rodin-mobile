@@ -175,7 +175,7 @@ export abstract class ApiService {
     }
 
     static async respondToFriendRequest(token: string, payload: {
-        friendId: string,
+        friendshipId: string,
         status: FriendStatus
     }): Promise<AxiosResponse> {
         const methodName = "respondToFriendRequest";
