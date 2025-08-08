@@ -104,7 +104,7 @@ export default function Page() {
             const response = await ApiService.sendFriendRequest(token, {friendId: friend.id});
 
             switch (response.status) {
-                case HttpStatusCode.Ok:
+                case HttpStatusCode.Created:
                     communityLogService.log({
                         type: LogType.Log,
                         data: ['Friend request successfully sent:', response.data]
@@ -115,6 +115,16 @@ export default function Page() {
                     });
                     // Refresh the list of searched friends
                     searchFriends(token, searchedFriend).then();
+                    break;
+                case HttpStatusCode.Conflict:
+                    communityLogService.log({
+                        type: LogType.Log,
+                        data: ['Friend already sent:', response.data]
+                    });
+                    ToastService.show({
+                        type: ToastType.Info,
+                        message: `Vous avez déjà envoyé une demande d'ami à ${friend.pseudo}.`,
+                    });
                     break;
                 default:
                     communityLogService.log({
@@ -272,6 +282,24 @@ export default function Page() {
                         Mes amis
                     </ThemedText>
 
+                    {searchedFriend.length >= 3 && friendships.length != 0 && friendships.filter(friendship => {
+                        return friendship.user.id !== authUser?.id ?
+                            friendship.friend.pseudo.toLowerCase().includes(searchedFriend.toLowerCase()) : friendship.user.pseudo.toLowerCase().includes(searchedFriend.toLowerCase());
+                    }).length === 0 && (
+                        <ThemedView
+                            className={'w-full flex flex-row items-center gap-4'}
+                            fillStyle={'opacity-10'}
+                            paddingStyle={'small'}
+                            radiusStyle={'medium'}
+                        >
+                            <LucideIcon name={"SearchX"}/>
+                            <ThemedText type={"default"} className={'flex-1'}>
+                                <ThemedText type={"defaultExtraBold"}>{searchedFriend}</ThemedText> n'a pas été
+                                trouvé parmis vos amis.
+                            </ThemedText>
+                        </ThemedView>
+                    )}
+
                     {friendships.length === 0 ? (
                         <ThemedView
                             className={'w-full flex flex-row items-center gap-4'}
@@ -287,10 +315,8 @@ export default function Page() {
                     ) : (
                         <FlatList
                             data={friendships.filter(friendship => {
-                                if (friendship.user.id !== authUser?.id) {
-                                    return friendship.friend.pseudo.toLowerCase().includes(searchedFriend.toLowerCase());
-                                }
-                                return friendship.user.pseudo.toLowerCase().includes(searchedFriend.toLowerCase());
+                                return friendship.user.id !== authUser?.id ?
+                                    friendship.friend.pseudo.toLowerCase().includes(searchedFriend.toLowerCase()) : friendship.user.pseudo.toLowerCase().includes(searchedFriend.toLowerCase());
                             })}
                             refreshing={false}
                             onRefresh={() => console.log('refresh')}
@@ -299,29 +325,15 @@ export default function Page() {
                             ItemSeparatorComponent={() => (
                                 <ThemedView className={"h-5"}/>
                             )}
-                            ListFooterComponent={() => friendships.length === 0 && (
-                                <ThemedView
-                                    className={'w-full flex flex-row items-center gap-4'}
-                                    fillStyle={'opacity-10'}
-                                    paddingStyle={'small'}
-                                    radiusStyle={'medium'}
-                                >
-                                    <LucideIcon name={"SearchX"}/>
-                                    <ThemedText type={"default"} className={'flex-1'}>
-                                        <ThemedText type={"defaultExtraBold"}>{searchedFriend}</ThemedText> n'a pas été
-                                        trouvé parmis vos amis.
-                                    </ThemedText>
-                                </ThemedView>
-                            )}
                             keyExtractor={item => item.id}
                             renderItem={({item}) => {
                                 const friend = item.user.id === authUser?.id ? item.friend : item.user;
                                 return (
                                     <ThemedListTile
-                                        key={friend.pseudo}
+                                        key={friend.id}
                                         icon={'User'}
                                         fillStyle={"none"}
-                                        title={friend.pseudo}
+                                        title={friend.firstname + ' ' + friend.lastname}
                                         subtitle={friend.pseudo}
                                         suffixIcon={(
                                             <ThemedView className={'flex flex-row gap-2'}>
@@ -348,8 +360,8 @@ export default function Page() {
                                                             icon={{name: 'Ban'}}
                                                             showTitle={false}
                                                             textSize={"miniExtraBold"}
-                                                            paddingStyle={"small"}
-                                                            type={"opacity-25"}
+                                                            paddingStyle={"none"}
+                                                            type={"no-fill"}
                                                             onPress={() => respondToFriendRequest(token!, item.id, FriendStatus.REJECTED)}
                                                         />
                                                     </>
@@ -402,14 +414,6 @@ export default function Page() {
                             showsVerticalScrollIndicator={false}
                             ItemSeparatorComponent={() => (
                                 <ThemedView className={"h-5"}/>
-                            )}
-                            ListFooterComponent={() => searchedFriends.length > 0 && (
-                                <ThemedView className={'w-full mt-14'}>
-                                    <ThemedButton
-                                        title={"Voir plus"}
-                                        onPress={() => console.log("Voir plus")}
-                                    />
-                                </ThemedView>
                             )}
                             keyExtractor={item => item.pseudo}
                             renderItem={({item}) => (

@@ -162,9 +162,9 @@ export default function Page() {
                             keyExtractor={item => item.id}
                             renderItem={({item}) => (
                                 <ThemedListTile
-                                    key={item.user.pseudo}
+                                    key={item.user.id}
                                     icon={'User'}
-                                    title={item.user.pseudo}
+                                    title={item.user.firstname + ' ' + item.user.lastname}
                                     subtitle={item.user.pseudo}
                                     fillStyle={"none"}
                                     suffixIcon={(
@@ -181,7 +181,7 @@ export default function Page() {
                                                 icon={{name: 'Ban'}}
                                                 showTitle={false}
                                                 textSize={"miniExtraBold"}
-                                                paddingStyle={"small"}
+                                                paddingStyle={"none"}
                                                 type={"no-fill"}
                                                 onPress={() => respondToFriendRequest(token!, item.id, FriendStatus.REJECTED)}
                                             />
@@ -219,10 +219,10 @@ export default function Page() {
                             keyExtractor={item => item.id}
                             renderItem={({item}) => (
                                 <ThemedListTile
-                                    key={item.friend.pseudo}
+                                    key={item.friend.id}
                                     icon={'User'}
                                     fillStyle={"none"}
-                                    title={item.friend.pseudo}
+                                    title={item.friend.firstname + ' ' + item.friend.lastname}
                                     subtitle={item.friend.pseudo}
                                     suffixIcon={(
                                         <ThemedView className={'flex flex-row gap-2'}>
