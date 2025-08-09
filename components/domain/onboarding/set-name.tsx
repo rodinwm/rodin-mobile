@@ -20,15 +20,17 @@ export function SetName(props: Props) {
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedTextInput
                     label={"Prénom"}
-                    placeholder={"Ex: William"}
+                    placeholder={"Ex: John"}
                     value={props.firstname}
                     submitBehavior={'newline'}
+                    autoComplete={'name'}
                     onChangeText={(firstname) => props.onChangeFirstName(firstname)}
                 />
                 <ThemedTextInput
                     label={"Nom"}
-                    placeholder={"Ex: SIBI"}
+                    placeholder={"Ex: Doe"}
                     value={props.lastname}
+                    autoComplete={'family-name'}
                     onChangeText={(lastname) => props.onChangeLastName(lastname)}
                 />
             </ThemedView>

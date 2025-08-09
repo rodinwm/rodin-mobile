@@ -26,7 +26,7 @@ export default function Page() {
 
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedText type={"h1"}>
-                    Exercices et jeux
+                    Exercices
                 </ThemedText>
                 <ThemedText type={"default"}>
                     Lis les instructions affichées avant chaque exercice. Concentre-toi et suis les consignes

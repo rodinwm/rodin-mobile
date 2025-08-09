@@ -22,7 +22,6 @@ export default function Page() {
             headerLeftBtn={"backBtn"}
             title={"Minuteur par défaut"}
             setHeightToScreenSize={true}
-            scrollEnabled={false}
         >
             {/* Temps de travail */}
             <ThemedView className={'w-full flex flex-col gap-3'}>

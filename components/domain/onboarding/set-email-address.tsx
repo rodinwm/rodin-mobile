@@ -20,7 +20,7 @@ export function SetEmailAddress(props: Props) {
                     label={"Email"}
                     textContentType={"emailAddress"}
                     keyboardType={"email-address"}
-                    placeholder={"Ex: alexandretahi@gmail.com"}
+                    placeholder={"Ex: johndoe@gmail.com"}
                     value={props.email}
                     onChangeText={(email) => props.onChangeEmail(email)}
                 />

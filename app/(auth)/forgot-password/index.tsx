@@ -23,7 +23,7 @@ export default function Page() {
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedTextInput
                     label={"Email / Nom d'utilisateur"}
-                    placeholder={"Ex: alexandretahi@gmail.com"}
+                    placeholder={"Ex: johndoe@gmail.com"}
                 />
                 <ThemedButton
                     title={"Réinitialiser"}

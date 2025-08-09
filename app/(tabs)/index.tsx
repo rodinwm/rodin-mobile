@@ -93,15 +93,6 @@ export default function Page() {
             title={"Rodin"}
             takeBottomBarIntoAccount={true}
             setHeightToScreenSize={true}
-            scrollEnabled={false}
-            /*
-            headerRightBtn={{
-                icon: "Check",
-                onPress: () => {
-                    NotificationService.testNotification();
-                }
-            }}
-            */
             bottomSheet={(
                 <>
                     <MessageSheet

@@ -19,7 +19,6 @@ export default function Page() {
 
     return (
         <ScreenTemplate
-            scrollEnabled={false}
             setHeightToScreenSize={true}
             title={"Minuteur"}
             headerLeftBtn={"backBtn"}

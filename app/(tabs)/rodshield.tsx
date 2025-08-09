@@ -24,6 +24,7 @@ export default function Page() {
                 takeBottomBarIntoAccount={true}
                 setHeightToScreenSize={true}
                 scrollEnabled={false}
+                gap={"small"}
             >
                 <ThemedView
                     className={'w-full flex-1 flex flex-col justify-center items-center gap-10'}

@@ -4,8 +4,8 @@ import {ModelService} from "@/utils/services/modelService";
 import {LogType} from "@/utils/enums";
 
 // Timer default values
-export const defaultWorkTime: TimerValue = {hours: 0, minutes: 30, seconds: 0};
-export const defaultBreakTime: TimerValue = {hours: 0, minutes: 10, seconds: 0};
+export const defaultWorkTime: TimerValue = {hours: 0, minutes: 25, seconds: 0};
+export const defaultBreakTime: TimerValue = {hours: 0, minutes: 5, seconds: 0};
 
 // Audio sources
 export const clickAudioSource = require("@/assets/sounds/click.mp3");
