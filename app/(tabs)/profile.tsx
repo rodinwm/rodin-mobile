@@ -58,7 +58,7 @@ export default function Page() {
             )}
         >
             {/* Name */}
-            <ThemedView className={'w-full flex flex-col'}>
+            <ThemedView className={'w-full flex flex-col gap-1'}>
                 <ThemedText type={'default'}>Mon profil</ThemedText>
                 <ThemedText type={'title'}>
                     {authUser.firstname + ' ' + authUser.lastname}

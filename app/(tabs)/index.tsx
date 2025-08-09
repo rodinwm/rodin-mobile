@@ -20,6 +20,7 @@ import {useAuthUser} from "@/utils/hooks/useAuthUser";
 import {NotificationService} from "@/utils/services/notificationService";
 import {LoadingScreen} from "@/components/layouts/LoadingScreen";
 import {ChartsConfig, ChartsData} from "@/utils/types";
+import {EvolutionArrow} from "@/components/domain/EvolutionArrow";
 
 const chartPeriods = Object.values(ChartPeriod);
 
@@ -130,14 +131,12 @@ export default function Page() {
             )}
         >
             {/* Stats texts */}
-            <ThemedView className={'w-full flex flex-col mt-6'}>
+            <ThemedView className={'w-full flex flex-col gap-1 mt-6'}>
                 <ThemedText type={'default'}>Statistiques du jour</ThemedText>
-                <ThemedView className={'w-full flex flex-row items-center gap-3'}>
+                <ThemedView className={'w-full flex flex-row items-center gap-2'}>
+                    <EvolutionArrow type={'up'} variant={'no-fill'}/>
                     <ThemedText type={'subtitle'}>
-                        {dailyWork.hours} heures travaillées
-                    </ThemedText>
-                    <ThemedText type={'subtitle'}>
-                        - {dailyWork.sessions} sessions
+                        {dailyWork.hours} heures travaillées - {dailyWork.sessions} sessions
                     </ThemedText>
                 </ThemedView>
             </ThemedView>
