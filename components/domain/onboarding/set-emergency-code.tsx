@@ -27,6 +27,7 @@ export function SetEmergencyCode(props: Props) {
                     keyboardType={"number-pad"}
                     placeholder={"Ex: ****"}
                     secureTextEntry={true}
+                    maxLength={4}
                     value={props.emergencyCode}
                     onChangeText={(emergencyCode) => props.onChangeEmergencyCode(emergencyCode)}
                 />
@@ -36,6 +37,7 @@ export function SetEmergencyCode(props: Props) {
                     keyboardType={"number-pad"}
                     placeholder={"Ex: ****"}
                     secureTextEntry={true}
+                    maxLength={4}
                     value={props.emergencyCodeConfirmation}
                     onChangeText={(emergencyCodeConfirmation) => props.onChangeEmergencyCodeConfirmation(emergencyCodeConfirmation)}
                 />
