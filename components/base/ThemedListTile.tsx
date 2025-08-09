@@ -1,16 +1,19 @@
-import { LucideIcon } from "@/components/base/LucideIcon";
-import { ThemedText } from "@/components/base/ThemedText";
-import { ThemedView } from "@/components/base/ThemedView";
-import { type ButtonProps, TouchableOpacity } from "react-native";
-import { icons } from "lucide-react-native";
-import { isValidElement, ReactNode } from "react";
-import { UiService } from "@/utils/services/uiService";
-import { Colors } from "@/utils/colors";
-import { useColorScheme } from "@/utils/hooks/useColorScheme";
+import {LucideIcon} from "@/components/base/LucideIcon";
+import {ThemedText} from "@/components/base/ThemedText";
+import {ThemedView} from "@/components/base/ThemedView";
+import {type ButtonProps, TouchableOpacity} from "react-native";
+import {icons} from "lucide-react-native";
+import {isValidElement, ReactNode} from "react";
+import {UiService} from "@/utils/services/uiService";
+import {Colors} from "@/utils/colors";
+import {useColorScheme} from "@/utils/hooks/useColorScheme";
 
 export type ThemedListTileProps = ButtonProps & {
     subtitle?: string;
-    icon?: keyof typeof icons | ReactNode;
+    icon?: ReactNode | {
+        name: keyof typeof icons;
+        color?: string;
+    };
     suffixIcon?: keyof typeof icons | ReactNode | null;
     fillStyle?: "default" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
     hasPadding?: boolean;
@@ -18,16 +21,16 @@ export type ThemedListTileProps = ButtonProps & {
 };
 
 export function ThemedListTile({
-    icon,
-    title,
-    subtitle,
-    hasPadding,
-    suffixIcon = 'ChevronRight',
-    fillStyle = "none",
-    hapticOnPress = true,
-    onPress,
-    ...otherProps
-}: ThemedListTileProps
+                                   icon,
+                                   title,
+                                   subtitle,
+                                   hasPadding,
+                                   suffixIcon = 'ChevronRight',
+                                   fillStyle = "none",
+                                   hapticOnPress = true,
+                                   onPress,
+                                   ...otherProps
+                               }: ThemedListTileProps
 ) {
     const colorScheme = useColorScheme();
 
@@ -49,7 +52,7 @@ export function ThemedListTile({
                     {icon !== undefined && icon !== null ?
                         isValidElement(icon) ? (icon) : (
                             fillStyle === "none" ? (
-                                <LucideIcon name={icon as keyof typeof icons} />
+                                <LucideIcon name={icon.name} color={icon.color}/>
                             ) : (
                                 <ThemedView
                                     fillStyle={fillStyle !== "inversed" ? "inversed" : 'default'}
@@ -58,8 +61,8 @@ export function ThemedListTile({
                                     borderStyle={"default"}
                                 >
                                     <LucideIcon
-                                        name={icon as keyof typeof icons}
-                                        color={otherProps.disabled ? Colors.foreground[colorScheme] + '66' : undefined}
+                                        name={icon.name}
+                                        color={icon.color ?? otherProps.disabled ? Colors.foreground[colorScheme] + '66' : undefined}
                                         inverseColor={fillStyle !== "inversed"}
                                     />
                                 </ThemedView>

@@ -132,8 +132,14 @@ export default function Page() {
             {/* Stats texts */}
             <ThemedView className={'w-full flex flex-col mt-6'}>
                 <ThemedText type={'default'}>Statistiques du jour</ThemedText>
-                <ThemedText type={'subtitle'}>{dailyWork.hours} heures travaillées
-                    - {dailyWork.sessions} sessions </ThemedText>
+                <ThemedView className={'w-full flex flex-row items-center gap-3'}>
+                    <ThemedText type={'subtitle'}>
+                        {dailyWork.hours} heures travaillées
+                    </ThemedText>
+                    <ThemedText type={'subtitle'}>
+                        - {dailyWork.sessions} sessions
+                    </ThemedText>
+                </ThemedView>
             </ThemedView>
 
             {/* Stats texts */}

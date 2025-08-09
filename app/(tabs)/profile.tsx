@@ -76,19 +76,19 @@ export default function Page() {
             {/* Options */}
             <ThemedView className={'w-full flex flex-col gap-6'}>
                 <ThemedListTile
-                    icon={'User'}
+                    icon={{name: 'User'}}
                     title={'Infos personnelles'}
                     subtitle={'Biographie, ID, Statut, Photo de profil'}
                     onPress={() => router.push('/profile/personal-infos')}
                 />
                 <ThemedListTile
-                    icon={'Star'}
+                    icon={{name: 'Star', color: '#FFFF00'}}
                     title={'Abonnement'}
                     subtitle={'Gérer votre abonnement'}
                     onPress={() => router.push('/profile/subscription')}
                 />
                 <ThemedListTile
-                    icon={"Lock"}
+                    icon={{name: "Lock"}}
                     title={'Confidentialité'}
                     subtitle={'Données personnellles, Sécurité, Notifications, Autres services'}
                     onPress={() => router.push('/profile/privacy')}
