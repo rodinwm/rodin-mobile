@@ -14,11 +14,13 @@ import {useRouter} from "expo-router";
 import {DateService} from "@/utils/services/dateService";
 import PagerView from "react-native-pager-view";
 import {ChartPeriod, ChartType} from '@/utils/enums';
-import {ChartService} from "@/utils/services/chartService";
 import {UiService} from "@/utils/services/uiService";
 import {usePrefetchRoutes} from "@/utils/hooks/usePrefetchRoutes";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
 import {NotificationService} from "@/utils/services/notificationService";
+import {LoadingScreen} from "@/components/layouts/LoadingScreen";
+import {ChartsConfig, ChartsData} from "@/utils/types";
+import {EvolutionArrow} from "@/components/domain/EvolutionArrow";
 
 const chartPeriods = Object.values(ChartPeriod);
 
@@ -28,7 +30,7 @@ export default function Page() {
     const {authUser} = useAuthUser({});
     const pagerRef = useRef<PagerView | null>(null);
     const [dailyWork, setDailyWork] = useState({
-        hours: 3.2,
+        hours: 0,
         sessions: 0,
     });
     const [page, setPage] = useState(0);
@@ -37,20 +39,21 @@ export default function Page() {
         tipOfTheDay: false,
         rodpics: false,
     });
-    const [chartConfig, setChartConfig] = useState({
+    const [chartConfig, setChartConfig] = useState<ChartsConfig>({
         type: ChartType.Line,
         period: ChartPeriod.Week,
     });
-    const [chartData, setChartData] = useState({
-        [ChartType.Line]: ChartService.generateLineChartData(chartConfig.period),
-        [ChartType.Bar]: ChartService.generateStackBarChartData(chartConfig.period),
-        [ChartType.Pie]: ChartService.generatePieChartData(chartConfig.period),
+    const [chartData, setChartData] = useState<ChartsData>({
+        [ChartType.Line]: [], //ChartService.generateLineChartData(chartConfig.period),
+        [ChartType.Bar]: [], //ChartService.generateStackBarChartData(chartConfig.period),
+        [ChartType.Pie]: [], //ChartService.generatePieChartData(chartConfig.period),
     });
 
     const handleChartConfigChange = (config: 'type' | 'period', value: ChartType | ChartPeriod) => {
         setChartConfig(prev => ({...prev, [config]: value}));
     };
 
+    /*
     useEffect(() => {
         switch (chartConfig.type) {
             case ChartType.Line:
@@ -75,26 +78,22 @@ export default function Page() {
                 break;
         }
     }, [chartConfig.period, chartConfig.type]);
+     */
 
     // Initialisation des notifications
     useEffect(() => {
         NotificationService.init().then();
     }, []);
 
+    if (!authUser) {
+        return <LoadingScreen/>;
+    }
+
     return (
         <ScreenTemplate
             title={"Rodin"}
             takeBottomBarIntoAccount={true}
             setHeightToScreenSize={true}
-            scrollEnabled={false}
-            /*
-            headerRightBtn={{
-                icon: "Check",
-                onPress: () => {
-                    NotificationService.testNotification();
-                }
-            }}
-            */
             bottomSheet={(
                 <>
                     <MessageSheet
@@ -132,10 +131,14 @@ export default function Page() {
             )}
         >
             {/* Stats texts */}
-            <ThemedView className={'w-full flex flex-col mt-6'}>
+            <ThemedView className={'w-full flex flex-col gap-1 mt-6'}>
                 <ThemedText type={'default'}>Statistiques du jour</ThemedText>
-                <ThemedText type={'subtitle'}>{dailyWork.hours} heures travaillées
-                    - {dailyWork.sessions} sessions </ThemedText>
+                <ThemedView className={'w-full flex flex-row items-center gap-2'}>
+                    <EvolutionArrow type={'up'} variant={'no-fill'}/>
+                    <ThemedText type={'subtitle'}>
+                        {dailyWork.hours} heures travaillées - {dailyWork.sessions} sessions
+                    </ThemedText>
+                </ThemedView>
             </ThemedView>
 
             {/* Stats texts */}

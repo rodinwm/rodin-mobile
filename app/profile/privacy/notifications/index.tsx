@@ -6,7 +6,7 @@ import {modelService} from "@/utils/constants";
 
 const notificationTypes = modelService.getEnumValues('NotificationType') as NotificationType[];
 
-const Page = () => {
+export default function Page() {
     const router = useRouter();
     const navigation = useNavigation();
     const [notifTypes, setNotifTypes] = useState({
@@ -45,7 +45,7 @@ const Page = () => {
                 {notificationTypes.map((type, index: number) => (
                     <ThemedListTile
                         key={`notification-type-${index}`}
-                        title={type.charAt(0).toUpperCase() + type.slice(1)}
+                        title={modelService.getEnumLabel('NotificationType', type)}
                         onPress={() => updateNotifTypes(type)}
                         suffixIcon={(
                             <ThemedCheckbox isChecked={notifTypes[type]} disabled={true}/>
@@ -56,5 +56,3 @@ const Page = () => {
         </ScreenTemplate>
     );
 }
-
-export default Page;

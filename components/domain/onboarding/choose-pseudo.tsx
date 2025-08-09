@@ -20,6 +20,7 @@ export function ChoosePseudo(props: Props) {
                     label={"Pseudo"}
                     placeholder={"Ex: mvxence"}
                     value={props.pseudo}
+                    autoCapitalize={'none'}
                     onChangeText={(pseudo) => props.onChangePseudo(pseudo)}
                 />
             </ThemedView>

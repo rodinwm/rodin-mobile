@@ -39,7 +39,7 @@ export default function Page() {
                         key={`sentence-${index}`}
                         title={sentence.sentence}
                         onPress={() => setSelectedSentence(sentence)}
-                        icon={sentence.id === 0 ? "Star" : undefined} // Pour les fonctionnalités payantes
+                        icon={sentence.id === 0 ? {name: "Star"} : undefined} // Pour les fonctionnalités payantes
                         suffixIcon={(
                             <ThemedCheckbox isChecked={sentence === selectedSentence} disabled={true}/>
                         )}

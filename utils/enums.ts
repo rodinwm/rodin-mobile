@@ -34,7 +34,7 @@ export enum ChartType {
 }
 
 export enum ChartPeriod {
-    Day = "24h",
+    //Day = "24h",
     Week = "7j",
     Month = "30j",
     Trimester = "90j",

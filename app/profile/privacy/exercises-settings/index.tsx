@@ -14,7 +14,7 @@ export default function Page() {
 
     return (
         <ScreenTemplate
-            title={"Paramètres d'exercices"}
+            title={"Exercices"}
             headerLeftBtn={"backBtn"}
             bottomSheet={(
                 <DefaultTimerSheet
@@ -28,7 +28,7 @@ export default function Page() {
                 {concentrationExercise.map((exo, index: number) => (
                     <ThemedListTile
                         key={`exercise-${index}`}
-                        title={exo}
+                        title={modelService.getEnumLabel('ConcentrationExercise', exo)}
                         onPress={() => setDefaultExercise(exo)}
                         suffixIcon={(
                             <ThemedCheckbox isChecked={exo === defaultExercise} disabled={true}/>

@@ -24,7 +24,7 @@ export type ThemedButtonProps = ButtonProps & {
     className?: string;
     radiusStyle?: "default" | "full" | "left-only" | "right-only" | "none";
     paddingStyle?: "default" | "small" | "uniform" | "uniform-big" | "uniform-very-big" | "none";
-    type?: 'default' | 'outlined' | 'blue' | 'danger' | 'success' | 'warning' | 'link' | "no-fill" | 'opacity-25' | 'opacity-15' | 'inversed' | 'inversed-no-fill';
+    type?: 'default' | 'outlined' | 'blue' | 'danger' | 'success' | 'warning' | 'link' | "no-fill" | 'opacity-25' | 'opacity-15' | 'inversed' | 'inversed-no-fill' | 'danger-no-fill';
     justifyItems?: 'justify-center' | 'justify-between';
     isBackgroundBlur?: boolean;
     hapticOnPress?: boolean;
@@ -74,14 +74,15 @@ export function ThemedButton({
                 'bg-background-dark/5 dark:bg-background-light/5 border-foreground-light/10 dark:border-foreground-dark/10' : type === "opacity-25" ?
                     'bg-background-dark/25 dark:bg-background-light/25 border-foreground-light/10 dark:border-foreground-dark/10' : type === "opacity-15" ?
                         'bg-background-dark/15 dark:bg-background-light/15 border-foreground-light/10 dark:border-foreground-dark/10' : type === "danger" ?
-                            'bg-red-700 border-red-700' : type === "inversed" ?
+                            'bg-red-600 border-red-600' : type === "inversed" ?
                                 'bg-background-light dark:bg-background-dark border-foreground-dark dark:border-foreground-light' : type === "inversed-no-fill" ?
-                                    'px-0 py-0 bg-transparent border-transparent' : type === "blue" ?
-                                        'bg-blue-700 border-blue-700' : type === "success" ?
-                                            'bg-emerald-700 border-emerald-700' : type === "warning" ?
-                                                'bg-background-warning-light border-background-warning-light' : type === "link" ?
-                                                    'px-0 py-0 opacity-50 border-transparent' : type === "no-fill" ?
-                                                        'px-0 py-0 bg-transparent border-transparent' : '',
+                                    'px-0 py-0 bg-transparent border-transparent' : type === "danger-no-fill" ?
+                                        'px-0 py-0 bg-transparent border-transparent' : type === "blue" ?
+                                            'bg-blue-700 border-blue-700' : type === "success" ?
+                                                'bg-emerald-700 border-emerald-700' : type === "warning" ?
+                                                    'bg-background-warning-light border-background-warning-light' : type === "link" ?
+                                                        'px-0 py-0 opacity-50 border-transparent' : type === "no-fill" ?
+                                                            'px-0 py-0 bg-transparent border-transparent' : '',
         disabled ? 'opacity-25' : '',
         className ?? '',
     ];
@@ -110,9 +111,13 @@ export function ThemedButton({
             {showTitle && (
                 <ThemedText
                     type={textSize}
-                    filled={type !== "danger"}
-                    className={`${type === "danger" ? 'text-foreground-dark' : ''}`}
+                    filled={type !== "danger" && type !== "danger-no-fill"}
                     inverseColor={type === "default" || type === "inversed-no-fill"}
+                    className={
+                        type === "danger" ?
+                            'text-foreground-dark' : type === "danger-no-fill" ?
+                                'text-red-600' : ''
+                    }
                 >
                     {title}
                 </ThemedText>

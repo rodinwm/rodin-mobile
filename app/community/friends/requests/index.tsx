@@ -11,6 +11,7 @@ import {LogType, ToastType} from "@/utils/enums";
 import {FriendStatus} from "@/utils/models/model.enums";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
 import {ToastService} from "@/utils/services/toastService";
+import {LoadingScreen} from "@/components/layouts/LoadingScreen";
 
 export default function Page() {
     const pagerRef = useRef<PagerView | null>(null);
@@ -99,6 +100,10 @@ export default function Page() {
         }
     }, [token, authUser]);
 
+    if (!token) {
+        return <LoadingScreen/>;
+    }
+
     return (
         <ScreenTemplate
             title={"Demandes d'amis"}
@@ -168,7 +173,7 @@ export default function Page() {
                             renderItem={({item}) => (
                                 <ThemedListTile
                                     key={item.user.id}
-                                    icon={'User'}
+                                    icon={{name: 'User'}}
                                     title={item.user.firstname + ' ' + item.user.lastname}
                                     subtitle={item.user.pseudo}
                                     fillStyle={"none"}
@@ -179,7 +184,7 @@ export default function Page() {
                                                 textSize={"miniExtraBold"}
                                                 paddingStyle={"small"}
                                                 type={"opacity-25"}
-                                                onPress={() => respondToFriendRequest(token!, item, FriendStatus.ACCEPTED)}
+                                                onPress={() => respondToFriendRequest(token, item, FriendStatus.ACCEPTED)}
                                             />
                                             <ThemedButton
                                                 title={"Refuser"}
@@ -188,7 +193,7 @@ export default function Page() {
                                                 textSize={"miniExtraBold"}
                                                 paddingStyle={"none"}
                                                 type={"no-fill"}
-                                                onPress={() => respondToFriendRequest(token!, item, FriendStatus.REJECTED)}
+                                                onPress={() => respondToFriendRequest(token, item, FriendStatus.REJECTED)}
                                             />
                                         </ThemedView>
                                     )}
@@ -225,7 +230,7 @@ export default function Page() {
                             renderItem={({item}) => (
                                 <ThemedListTile
                                     key={item.friend.id}
-                                    icon={'User'}
+                                    icon={{name: 'User'}}
                                     fillStyle={"none"}
                                     title={item.friend.firstname + ' ' + item.friend.lastname}
                                     subtitle={item.friend.pseudo}

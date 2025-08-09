@@ -15,10 +15,10 @@ export const motivationSentences: MotivationSentence[] = [
     },
     {
         id: 4,
-        sentence: "Le succès est la somme la de petits efforts répétés jour après jour."
+        sentence: "Le succès est la somme de petits efforts répétés jour après jour."
     },
-    {
+    /*{
         id: 0,
         sentence: "Phrase personnalisée"
-    },
+    },*/
 ];

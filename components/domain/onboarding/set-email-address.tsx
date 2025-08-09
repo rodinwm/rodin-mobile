@@ -1,6 +1,9 @@
 import {OnboardingStepScreenTemplate, ThemedButton, ThemedTextInput, ThemedView} from '@/components';
 import React from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
+import {emailRegex} from "@/utils/constants";
+import {ToastService} from "@/utils/services/toastService";
+import {ToastType} from "@/utils/enums";
 
 type Props = OnboardingStepScreenProps & {
     email: string;
@@ -20,8 +23,10 @@ export function SetEmailAddress(props: Props) {
                     label={"Email"}
                     textContentType={"emailAddress"}
                     keyboardType={"email-address"}
-                    placeholder={"Ex: alexandretahi@gmail.com"}
+                    placeholder={"Ex: johndoe@gmail.com"}
                     value={props.email}
+                    autoCapitalize={'none'}
+                    autoComplete={'email'}
                     onChangeText={(email) => props.onChangeEmail(email)}
                 />
             </ThemedView>
@@ -29,7 +34,16 @@ export function SetEmailAddress(props: Props) {
             <ThemedView className={'w-full flex flex-col gap-3'}>
                 <ThemedButton
                     title={"Suivant"}
-                    onPress={props.onNextPress}
+                    onPress={() => {
+                        if (!emailRegex.test(props.email)) {
+                            ToastService.show({
+                                type: ToastType.Error,
+                                message: "Veuillez saisir une adresse email valide s'il vous plait."
+                            });
+                            return;
+                        }
+                        props.onNextPress();
+                    }}
                     disabled={props.email === ""}
                 />
             </ThemedView>

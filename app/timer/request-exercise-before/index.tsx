@@ -11,9 +11,12 @@ import {
 import React, {useState} from "react";
 import {useLocalSearchParams, useRouter} from "expo-router";
 import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
+import {LoadingScreen} from "@/components/layouts/LoadingScreen";
+import {useAuthUser} from "@/utils/hooks/useAuthUser";
 
 export default function Page() {
     const router = useRouter();
+    const {authUser} = useAuthUser({});
     //usePrefetchRoutes(['/timer/lock-screen']); // Désactivé pour éviter le préchargement sans les paramètres requis
     const {stringWorkTime, stringBreakTime, numberOfSessions} = useLocalSearchParams();
     const {goToScreen: goToLockScreen} = useScreenReplacer({
@@ -26,6 +29,10 @@ export default function Page() {
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState({
         exerciseSelection: false,
     });
+
+    if (!authUser) {
+        return <LoadingScreen/>;
+    }
 
     return (
         <ScreenTemplate
@@ -43,7 +50,7 @@ export default function Page() {
                     children={(
                         <ThemedView className={'w-full flex flex-col gap-3 mt-3'}>
                             <ThemedListTile
-                                icon={'Circle'}
+                                icon={{name: 'Circle'}}
                                 title={"Pod game"}
                                 subtitle={"Clic sur les pods rouges et évite les autres"}
                                 fillStyle={"inversed"}
@@ -56,7 +63,7 @@ export default function Page() {
                                 }}
                             />
                             <ThemedListTile
-                                icon={'Wind'}
+                                icon={{name: 'Wind'}}
                                 title={"Exercice de respiration"}
                                 subtitle={"Entraine toi a réguler ta respiration"}
                                 fillStyle={"inversed"}
@@ -70,7 +77,7 @@ export default function Page() {
                             />
                             {/*
                             <ThemedListTile
-                                icon={'Shapes'}
+                                icon={{name: 'Shapes'}}
                                 title={"Pattern"}
                                 subtitle={"Mémorisez puis refaite une série de motifs"}
                                 fillStyle={"inversed"}

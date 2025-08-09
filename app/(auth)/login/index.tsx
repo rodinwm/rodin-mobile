@@ -20,6 +20,7 @@ import {AuthService} from "@/utils/services/authService";
 import {User} from "@rodinwm/rodin-models/frontend";
 import {Loader} from "@/components/layouts/Loader";
 import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
+import {UiService} from "@/utils/services/uiService";
 
 export default function Page() {
     const router = useRouter();
@@ -180,7 +181,7 @@ export default function Page() {
                     label={"Email"}
                     textContentType={"emailAddress"}
                     keyboardType={"email-address"}
-                    placeholder={"Ex: alexandretahi@gmail.com"}
+                    placeholder={"Ex: johndoe@gmail.com"}
                     value={formData.email}
                     onChangeText={(email) => setFormData(prev => ({...prev, email: email}))}
                 />
@@ -206,7 +207,15 @@ export default function Page() {
                 <ThemedButton
                     title={"Se connecter"}
                     onPress={() => {
-                        setIsBottomSheetOpen(prev => ({...prev, saveCredentials: true}));
+                        if (formData.email.length === 0 || formData.password.length === 0) {
+                            UiService.hapticImpact("error");
+                            ToastService.show({
+                                type: ToastType.Error,
+                                message: "Veuillez remplir tous les champs.",
+                            });
+                        } else {
+                            setIsBottomSheetOpen(prev => ({...prev, saveCredentials: true}));
+                        }
                     }}
                 />
                 <ThemedButton

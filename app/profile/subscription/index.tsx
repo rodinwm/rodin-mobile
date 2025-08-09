@@ -13,23 +13,31 @@ import {SubscriptionPlans} from "@/assets/static/subscriptions";
 import {CurrencyService} from "@/utils/services/currencyService";
 import {Colors} from "@/utils/colors";
 import {useColorScheme} from "@/utils/hooks/useColorScheme";
-import {Alert} from "react-native";
+import {Platform} from "react-native";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
 import {SubscriptionFrequency, SubscriptionStatus} from "@/utils/models/model.enums";
+import {LoadingScreen} from "@/components/layouts/LoadingScreen";
+import {openBrowserAsync} from "expo-web-browser";
+import {useIsFocused} from "@react-navigation/native";
 
 const subscriptionPlans = Object.values(SubscriptionPlans);
 
 export default function Page() {
     const colorScheme = useColorScheme();
     const {authUser} = useAuthUser({});
+    const isFocused = useIsFocused();
     const [subscriptionFrequency, setSubscriptionFrequency] = useState<SubscriptionFrequency>(SubscriptionFrequency.YEARLY);
     const [selectedPlan, setSelectedPlan] = useState(SubscriptionStatus.FREE);
 
     useEffect(() => {
-        if (authUser) {
+        if (isFocused && authUser) {
             setSelectedPlan(authUser.subscriptionStatus as SubscriptionStatus);
         }
-    }, [authUser]);
+    }, [isFocused, authUser]);
+
+    if (!authUser) {
+        return <LoadingScreen/>;
+    }
 
     return (
         <ScreenTemplate
@@ -71,10 +79,22 @@ export default function Page() {
                     >
                         <ThemedView className={'w-full flex flex-row gap-1 justify-between items-center'}>
                             <ThemedText type={'h1'}>{sub.title}</ThemedText>
+                            {selectedPlan === sub.id && (
+                                <ThemedView
+                                    className={'flex flex-row justify-center items-center'}
+                                    fillStyle={"inversed"}
+                                    paddingStyle={"extraSmall"}
+                                    radiusStyle={"small"}
+                                >
+                                    <ThemedText type={'miniBold'} inverseColor={true}>
+                                        Votre plan actuel
+                                    </ThemedText>
+                                </ThemedView>
+                            )}
                         </ThemedView>
 
                         <ThemedView className={'w-full flex flex-col gap-1'}>
-                            {sub.price && (
+                            {sub.price && selectedPlan !== sub.id && (
                                 <ThemedText>
                                     <ThemedText type={'title'}>
                                         {subscriptionFrequency === SubscriptionFrequency.YEARLY ?
@@ -85,13 +105,13 @@ export default function Page() {
                                 </ThemedText>
                             )}
 
-                            {sub.price && (
+                            {sub.price && selectedPlan !== sub.id && (
                                 <ThemedText className={'mb-2'}>
                                     {subscriptionFrequency === SubscriptionFrequency.YEARLY ? `${CurrencyService.format(sub.price[subscriptionFrequency])} facturé annuellement` : "Facturé mensuellement"}
                                 </ThemedText>
                             )}
 
-                            {sub.price && SubscriptionFrequency && (
+                            {sub.price && selectedPlan !== sub.id && (
                                 <ThemedView
                                     paddingStyle={"small"}
                                     radiusStyle={"small"}
@@ -132,12 +152,15 @@ export default function Page() {
                             ))}
                         </ThemedView>
 
-                        {sub.price && (authUser === null || authUser.subscriptionStatus !== sub.title.toUpperCase()) && (
+                        {sub.price && authUser.subscriptionStatus !== sub.title.toUpperCase() && (
                             <ThemedView className={'w-full flex flex-col mt-4'}>
                                 <ThemedButton
                                     title={"S'abonner"}
-                                    onPress={() => {
-                                        Alert.alert(`Abonnement au plan ${sub.title}`);
+                                    onPress={async (event) => {
+                                        if (Platform.OS !== 'web') {
+                                            event.preventDefault();
+                                            await openBrowserAsync("https://rodin-app.com/");
+                                        }
                                     }}
                                 />
                             </ThemedView>

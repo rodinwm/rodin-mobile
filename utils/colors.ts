@@ -13,6 +13,10 @@ export const Colors = {
             light: "#fefce8",
             dark: "#422006",
         },
+        danger: {
+            light: "#ff0000",
+            dark: "#ff0000",
+        },
         toast: {
             light: "#000000",
             dark: "#000000",
@@ -25,6 +29,10 @@ export const Colors = {
             light: restColor,
             dark: restColor,
         },
+        subscription: {
+            light: "#ca8a04",
+            dark: "#ca8a04",
+        },
     },
     background: {
         light: "#FFFFFF",
@@ -36,6 +44,10 @@ export const Colors = {
         warning: {
             light: "#ca8a04",
             dark: "#ca8a04",
+        },
+        danger: {
+            light: "#ff0000",
+            dark: "#ff0000",
         },
         toast: {
             light: "#FFFFFF",

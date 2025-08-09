@@ -4,8 +4,8 @@ import {ModelService} from "@/utils/services/modelService";
 import {LogType} from "@/utils/enums";
 
 // Timer default values
-export const defaultWorkTime: TimerValue = {hours: 0, minutes: 30, seconds: 0};
-export const defaultBreakTime: TimerValue = {hours: 0, minutes: 10, seconds: 0};
+export const defaultWorkTime: TimerValue = {hours: 0, minutes: 25, seconds: 0};
+export const defaultBreakTime: TimerValue = {hours: 0, minutes: 5, seconds: 0};
 
 // Audio sources
 export const clickAudioSource = require("@/assets/sounds/click.mp3");
@@ -24,3 +24,7 @@ export const modelService = new ModelService((methodName, error) => {
         data: [`${methodName}() error:`, error]
     });
 });
+
+// Regex
+export const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+export const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9]).{6,}$/;

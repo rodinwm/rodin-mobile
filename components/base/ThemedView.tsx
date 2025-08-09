@@ -6,7 +6,7 @@ import {ThemedClassName} from "@/utils/interfaces";
 export type ThemedViewProps = ViewProps & {
     borderWidth?: number;
     borderStyle?: "default" | "inversed" | "opacity-20" | "none";
-    fillStyle?: "default" | "opacity-5" | "opacity-10" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
+    fillStyle?: "default" | "opacity-5" | "opacity-10" | "opacity-15" | "opacity-50" | "warning" | "danger" | "success" | "inversed" | "none";
     radiusStyle?: "full" | "big" | "default" | "medium" | "small" | "none";
     paddingStyle?: "default" | "asymetric" | "small" | "extraSmall" | "none";
     overflow?: "hidden" | "visible";
@@ -42,7 +42,9 @@ export function ThemedView({
                         'bg-foreground-light/10 dark:bg-foreground-dark/10 backdrop-blur-md' : fillStyle === "opacity-5" ?
                             'bg-foreground-light/5 dark:bg-foreground-dark/5 backdrop-blur-md' : fillStyle === "inversed" ?
                                 'bg-background-dark dark:bg-background-light' : fillStyle === "warning" ?
-                                    'bg-background-warning-light dark:bg-background-warning-dark' : '',
+                                    'bg-background-warning-light dark:bg-background-warning-dark' : fillStyle === "danger" ?
+                                        'bg-background-danger-light dark:bg-background-danger-dark' : fillStyle === "success" ?
+                                            'bg-background-success-light dark:bg-background-success-dark' : '',
         radiusStyle: radiusStyle === "full" ?
             'rounded-full' : radiusStyle === "big" ?
                 'rounded-6xl' : radiusStyle === "default" ?

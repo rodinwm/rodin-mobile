@@ -21,6 +21,7 @@ import {useCountdownTimer} from "@/utils/hooks/useCountdownTimer";
 import {AppBlockerService} from "@/utils/services/appBlockerService";
 import {timerLogService} from "@/utils/constants";
 import {TimerService} from "@/utils/services/timerService";
+import {LoadingScreen} from "@/components/layouts/LoadingScreen";
 
 export default function Page() {
     const router = useRouter();
@@ -86,6 +87,10 @@ export default function Page() {
             });
         }
     };
+
+    if (!authUser) {
+        return <LoadingScreen/>;
+    }
 
     return (
         <ScreenTemplate
