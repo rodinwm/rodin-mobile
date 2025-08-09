@@ -3,6 +3,7 @@ import React from "react";
 import {OnboardingStepScreenProps} from "@/utils/interfaces";
 import {ToastService} from "@/utils/services/toastService";
 import {ToastType} from "@/utils/enums";
+import {passwordRegex} from "@/utils/constants";
 
 type Props = OnboardingStepScreenProps & {
     password: string;
@@ -48,6 +49,13 @@ export function SetPassword(props: Props) {
                             ToastService.show({
                                 type: ToastType.Error,
                                 message: "Les mots de passe ne correspondent pas. Veuillez réessayer."
+                            });
+                            return;
+                        }
+                        if (!passwordRegex.test(props.password)) {
+                            ToastService.show({
+                                type: ToastType.Error,
+                                message: "Le mot de passe saisi ne respecte pas les contraintes."
                             });
                             return;
                         }

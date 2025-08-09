@@ -22,6 +22,8 @@ export function SetEmailAddress(props: Props) {
                     keyboardType={"email-address"}
                     placeholder={"Ex: johndoe@gmail.com"}
                     value={props.email}
+                    autoCapitalize={'none'}
+                    autoComplete={'email'}
                     onChangeText={(email) => props.onChangeEmail(email)}
                 />
             </ThemedView>

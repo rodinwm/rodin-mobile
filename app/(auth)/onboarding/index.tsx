@@ -165,11 +165,11 @@ export default function Page() {
                 pageMargin={10}
                 scrollEnabled={false}
                 orientation={"horizontal"}
-                //keyboardDismissMode={"on-drag"}
+                keyboardDismissMode={"on-drag"}
                 onPageSelected={(e) => setStep(e.nativeEvent.position)}
             >
                 <SetName
-                    key={"1"}
+                    key={"SetName"}
                     firstname={formData.firstname}
                     lastname={formData.lastname}
                     onChangeFirstName={(firstname) => setFormData(prev => ({...prev, firstname}))}
@@ -177,19 +177,19 @@ export default function Page() {
                     onNextPress={goToNextStep}
                 />
                 <ChoosePseudo
-                    key={"2"}
+                    key={"ChoosePseudo"}
                     pseudo={formData.pseudo}
                     onChangePseudo={(pseudo) => setFormData(prev => ({...prev, pseudo}))}
                     onNextPress={goToNextStep}
                 />
                 <SetEmailAddress
-                    key={"3"}
+                    key={"SetEmailAddress"}
                     email={formData.email}
                     onChangeEmail={(email) => setFormData(prev => ({...prev, email}))}
                     onNextPress={goToNextStep}
                 />
                 <SetPhoneNumber
-                    key={"4"}
+                    key={"SetPhoneNumber"}
                     phoneNumber={formData.phoneNumber}
                     onChangePhoneNumber={(phoneNumber) => setFormData(prev => ({...prev, phoneNumber}))}
                     onNextPress={goToNextStep}
@@ -199,7 +199,7 @@ export default function Page() {
                     }}
                 />
                 <SetPassword
-                    key={"5"}
+                    key={"SetPassword"}
                     password={formData.password}
                     passwordConfirmation={formData.passwordConfirmation}
                     onChangePassword={(password) => setFormData(prev => ({...prev, password}))}
@@ -212,11 +212,11 @@ export default function Page() {
                     }}
                 />
                 <ReadCGU
-                    key={"6"}
+                    key={"ReadCGU"}
                     onNextPress={goToNextStep}
                 />
                 <SetDefaultTimer
-                    key={"7"}
+                    key={"SetDefaultTimer"}
                     defaultWorkTime={formData.defaultWorkTime}
                     defaultBreakTime={formData.defaultBreakTime}
                     onChangeDefaultWorkTime={(defaultWorkTime) => setFormData(prev => ({
@@ -234,7 +234,7 @@ export default function Page() {
                     }}
                 />
                 <SetExerciseFrequency
-                    key={"8"}
+                    key={"SetExerciseFrequency"}
                     onNextPress={goToNextStep}
                     exerciseFrequency={formData.exerciseFrequency}
                     onChangeExerciseFrequency={(exerciseFrequency) => setFormData(prev => ({
@@ -243,7 +243,7 @@ export default function Page() {
                     }))}
                 />
                 <SetEmergencyCode
-                    key={"9"}
+                    key={"SetEmergencyCode"}
                     onNextPress={goToNextStep}
                     emergencyCode={formData.emergencyCode}
                     emergencyCodeConfirmation={formData.emergencyCodeConfirmation}
@@ -254,13 +254,13 @@ export default function Page() {
                     }))}
                 />
                 <SetAgeRange
-                    key={"10"}
+                    key={"SetAgeRange"}
                     onNextPress={goToNextStep}
                     ageRange={formData.ageRange}
                     onChangeAgeRange={(ageRange) => setFormData(prev => ({...prev, ageRange}))}
                 />
                 <SetProfession
-                    key={"11"}
+                    key={"SetProfession"}
                     profession={formData.profession}
                     onChangeProfession={(profession, customProfession) => {
                         setFormData(prev => ({

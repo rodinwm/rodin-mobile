@@ -22,6 +22,7 @@ export function SetPhoneNumber(props: Props) {
                     keyboardType={"phone-pad"}
                     placeholder={"Ex: +330102030405"}
                     value={props.phoneNumber}
+                    autoComplete={'cc-number'}
                     onChangeText={(phoneNumber) => props.onChangePhoneNumber(phoneNumber)}
                 />
             </ThemedView>

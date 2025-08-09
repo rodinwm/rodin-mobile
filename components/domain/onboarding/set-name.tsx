@@ -23,7 +23,8 @@ export function SetName(props: Props) {
                     placeholder={"Ex: John"}
                     value={props.firstname}
                     submitBehavior={'newline'}
-                    autoComplete={'name'}
+                    autoComplete={'given-name'}
+                    autoCapitalize={'words'}
                     onChangeText={(firstname) => props.onChangeFirstName(firstname)}
                 />
                 <ThemedTextInput
@@ -31,6 +32,7 @@ export function SetName(props: Props) {
                     placeholder={"Ex: Doe"}
                     value={props.lastname}
                     autoComplete={'family-name'}
+                    autoCapitalize={'words'}
                     onChangeText={(lastname) => props.onChangeLastName(lastname)}
                 />
             </ThemedView>
