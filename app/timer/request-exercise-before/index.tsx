@@ -50,7 +50,7 @@ export default function Page() {
                     children={(
                         <ThemedView className={'w-full flex flex-col gap-3 mt-3'}>
                             <ThemedListTile
-                                icon={'Circle'}
+                                icon={{name: 'Circle'}}
                                 title={"Pod game"}
                                 subtitle={"Clic sur les pods rouges et évite les autres"}
                                 fillStyle={"inversed"}
@@ -63,7 +63,7 @@ export default function Page() {
                                 }}
                             />
                             <ThemedListTile
-                                icon={'Wind'}
+                                icon={{name: 'Wind'}}
                                 title={"Exercice de respiration"}
                                 subtitle={"Entraine toi a réguler ta respiration"}
                                 fillStyle={"inversed"}
@@ -77,7 +77,7 @@ export default function Page() {
                             />
                             {/*
                             <ThemedListTile
-                                icon={'Shapes'}
+                                icon={{name: 'Shapes'}}
                                 title={"Pattern"}
                                 subtitle={"Mémorisez puis refaite une série de motifs"}
                                 fillStyle={"inversed"}

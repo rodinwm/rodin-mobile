@@ -10,7 +10,6 @@ import {
 import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
 import {FlatList, Platform} from 'react-native';
-import {openBrowserAsync} from "expo-web-browser";
 import {User} from "@rodinwm/rodin-models/frontend";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
 import {communityLogService} from "@/utils/constants";
@@ -23,6 +22,7 @@ import {FriendData, FriendshipData} from "@/utils/types";
 import {FriendStatus} from "@/utils/models/model.enums";
 import {useIsFocused} from "@react-navigation/native";
 import {LoadingScreen} from "@/components/layouts/LoadingScreen";
+import {openBrowserAsync} from "expo-web-browser";
 
 export default function Page() {
     const router = useRouter();
@@ -261,7 +261,7 @@ export default function Page() {
                     }}
                 />
                 <ThemedListTile
-                    icon={'User'}
+                    icon={{name: 'User'}}
                     suffixIcon={'ExternalLink'}
                     title={"Invite tes amis sur RODIN"}
                     subtitle={authUser ? `rodin-app.com/${authUser.pseudo}` : 'rodin-app.com'}
@@ -340,7 +340,7 @@ export default function Page() {
                                 return (
                                     <ThemedListTile
                                         key={friend.id}
-                                        icon={'User'}
+                                        icon={{name: 'User'}}
                                         fillStyle={"none"}
                                         title={friend.firstname + ' ' + friend.lastname}
                                         subtitle={friend.pseudo}
@@ -435,7 +435,7 @@ export default function Page() {
                             renderItem={({item}) => (
                                 <ThemedListTile
                                     key={item.pseudo}
-                                    icon={'User'}
+                                    icon={{name: 'User'}}
                                     fillStyle={"none"}
                                     title={item.firstname + ' ' + item.lastname}
                                     subtitle={item.pseudo}

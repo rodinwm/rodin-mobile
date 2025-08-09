@@ -101,7 +101,7 @@ export default function Page() {
                 {previouslyLoggedIn ? (
                     <>
                         <ThemedListTile
-                            icon={'User'}
+                            icon={{name: 'User'}}
                             title={authUser ? authUser.pseudo : "Utilisateur inconnu"}
                             subtitle={"Reprennez là où vous vous êtes arrêté"}
                             fillStyle={"inversed"}

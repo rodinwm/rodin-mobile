@@ -14,24 +14,24 @@ export default function Page() {
             {/* Options */}
             <ThemedView className={'w-full flex flex-col gap-6'}>
                 <ThemedListTile
-                    icon={'BookOpenText'}
+                    icon={{name: 'BookOpenText'}}
                     title={'Guide'}
                     onPress={() => router.push('/profile/help/guide')}
                 />
                 <ThemedListTile
-                    icon={'Target'}
+                    icon={{name: 'Target'}}
                     title={'Conseils et astuces'}
                     onPress={() => router.push('/profile/help/tips')}
                 />
 
                 <ThemedListTile
-                    icon={'CircleHelp'}
+                    icon={{name: 'CircleHelp'}}
                     title={'F.A.Q'}
                     onPress={() => router.push('/profile/help/faq')}
                 />
 
                 <ThemedListTile
-                    icon={'Flag'}
+                    icon={{name: 'Flag'}}
                     title={'Signaler un problème'}
                     onPress={() => router.push('/profile/help/faq')}
                 />

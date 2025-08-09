@@ -40,7 +40,7 @@ export default function Page() {
 
             {/* System option */}
             <ThemedListTile
-                icon={'Smartphone'}
+                icon={{name: 'Smartphone'}}
                 title={'Utiliser le thème du système'}
                 fillStyle={isSelected(ColorTheme.System) ? "inversed" : "opacity-15"}
                 hasPadding={true}

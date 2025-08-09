@@ -14,15 +14,15 @@ export default function Page() {
             {/* Options */}
             <ThemedView className={'w-full flex flex-col gap-6'}>
                 <ThemedListTile
-                    icon={"Info"}
+                    icon={{name: "Info"}}
                     title={'Politique de confidentialité'}
                 />
                 <ThemedListTile
-                    icon={"Album"}
+                    icon={{name: "Album"}}
                     title={"Condition d'utilisation"}
                 />
                 <ThemedListTile
-                    icon={"Scale"}
+                    icon={{name: "Scale"}}
                     title={"Juridique"}
                 />
             </ThemedView>

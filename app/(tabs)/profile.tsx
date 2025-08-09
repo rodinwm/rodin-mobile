@@ -94,13 +94,13 @@ export default function Page() {
                     onPress={() => router.push('/profile/privacy')}
                 />
                 <ThemedListTile
-                    icon={'Eye'}
+                    icon={{name: 'Eye'}}
                     title={'Apparence'}
                     subtitle={'Thème clair, Thème sombre, Thème automatique'}
                     onPress={() => router.push('/profile/appearance')}
                 />
                 <ThemedListTile
-                    icon={"MessageCircleQuestion"}
+                    icon={{name: "MessageCircleQuestion"}}
                     title={'Aide'}
                     subtitle={'Serivce client, Guide, Règles générales'}
                     onPress={() => router.push('/profile/help')}

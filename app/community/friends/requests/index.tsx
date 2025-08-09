@@ -173,7 +173,7 @@ export default function Page() {
                             renderItem={({item}) => (
                                 <ThemedListTile
                                     key={item.user.id}
-                                    icon={'User'}
+                                    icon={{name: 'User'}}
                                     title={item.user.firstname + ' ' + item.user.lastname}
                                     subtitle={item.user.pseudo}
                                     fillStyle={"none"}
@@ -230,7 +230,7 @@ export default function Page() {
                             renderItem={({item}) => (
                                 <ThemedListTile
                                     key={item.friend.id}
-                                    icon={'User'}
+                                    icon={{name: 'User'}}
                                     fillStyle={"none"}
                                     title={item.friend.firstname + ' ' + item.friend.lastname}
                                     subtitle={item.friend.pseudo}

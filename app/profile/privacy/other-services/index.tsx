@@ -15,7 +15,7 @@ export default function Page() {
             {/* Options */}
             <ThemedView className={'w-full flex flex-col gap-6'}>
                 <ThemedListTile
-                    icon={"Languages"}
+                    icon={{name: "Languages"}}
                     title={'Langue'}
                     suffixIcon={(
                         <ThemedView className={'flex flex-row items-center gap-3'}>
@@ -34,7 +34,7 @@ export default function Page() {
                     )}
                 />
                 <ThemedListTile
-                    icon={"MapPin"}
+                    icon={{name: "MapPin"}}
                     title={'Position'}
                     suffixIcon={(
                         <ThemedView className={'flex flex-row items-center gap-3'}>
