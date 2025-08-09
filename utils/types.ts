@@ -1,5 +1,7 @@
 import {Prisma, TimerValue, User} from "@rodinwm/rodin-models/frontend";
 import {AgeRange, ExerciseFrequency, FriendStatus, Profession} from "@/utils/models/model.enums";
+import {ChartPeriod, ChartType} from "@/utils/enums";
+import {lineDataItem, pieDataItem, stackDataItem} from "react-native-gifted-charts";
 
 export type CreateUserPayload =
     Omit<Prisma.UserCreateInput, 'defaultWorkTime' | 'defaultBreakTime' | 'ageRange' | 'exerciseFrequency' | 'profession'>
@@ -73,4 +75,15 @@ export type FriendshipData = {
     friendId: string;
     user: User;
     friend: User;
+};
+
+export type ChartsConfig = {
+    type: ChartType;
+    period: ChartPeriod;
+};
+
+export type ChartsData = {
+    [ChartType.Line]: lineDataItem[];
+    [ChartType.Bar]: stackDataItem[];
+    [ChartType.Pie]: pieDataItem[];
 };

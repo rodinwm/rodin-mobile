@@ -40,6 +40,7 @@ export default function Page() {
                     defaultValue={authUser.defaultWorkTime as unknown as TimerValue ?? defaultWorkTime}
                     onMounted={(time: TimerValue) => setWorkTime(time)}
                     onChange={(time: TimerValue) => setWorkTime(time)}
+                    minuteLimit={{min: 1, max: 59}}
                 />
             </ThemedView>
 
@@ -54,6 +55,7 @@ export default function Page() {
                     defaultValue={authUser.defaultBreakTime as unknown as TimerValue ?? defaultBreakTime}
                     onMounted={(time: TimerValue) => setBreakTime(time)}
                     onChange={(time: TimerValue) => setBreakTime(time)}
+                    minuteLimit={{min: 1, max: 59}}
                 />
             </ThemedView>
 
