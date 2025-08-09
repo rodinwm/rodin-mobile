@@ -29,7 +29,7 @@ export default function Page() {
     const {authUser} = useAuthUser({});
     const pagerRef = useRef<PagerView | null>(null);
     const [dailyWork, setDailyWork] = useState({
-        hours: 3.2,
+        hours: 0,
         sessions: 0,
     });
     const [page, setPage] = useState(0);

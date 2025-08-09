@@ -13,8 +13,11 @@ import {useRouter} from "expo-router";
 import {useAuthUser} from "@/utils/hooks/useAuthUser";
 import {useScreenReplacer} from "@/utils/hooks/useScreenReplacer";
 import {LoadingScreen} from "@/components/layouts/LoadingScreen";
+import {Colors} from "@/utils/colors";
+import {useColorScheme} from "@/utils/hooks";
 
 export default function Page() {
+    const colorScheme = useColorScheme();
     const router = useRouter();
     const {authUser} = useAuthUser({});
     const {goToScreen: goToWelcomeScreen} = useScreenReplacer({
@@ -40,6 +43,7 @@ export default function Page() {
                         takeBottomBarIntoAccount={true}
                         confirm={{
                             text: "Oui",
+                            type: "danger",
                             onPress: () => {
                                 setIsBottomSheetOpen(false);
                                 goToWelcomeScreen();
@@ -82,7 +86,7 @@ export default function Page() {
                     onPress={() => router.push('/profile/personal-infos')}
                 />
                 <ThemedListTile
-                    icon={{name: 'Star', color: '#FFFF00'}}
+                    icon={{name: 'Star', color: Colors.foreground.subscription[colorScheme]}}
                     title={'Abonnement'}
                     subtitle={'Gérer votre abonnement'}
                     onPress={() => router.push('/profile/subscription')}
@@ -107,12 +111,15 @@ export default function Page() {
                 />
             </ThemedView>
 
-            <ThemedButton
-                title={"Déconnexion"}
-                type={"no-fill"}
-                icon={{name: 'LogOut'}}
-                onPress={() => setIsBottomSheetOpen(true)}
-            />
+            <ThemedView className={'w-full flex flex-row gap-3 mt-6'}>
+                <ThemedButton
+                    title={"Déconnexion"}
+                    type={"danger-no-fill"}
+                    icon={{name: 'LogOut', color: 'red'}}
+                    className={'flex-1'}
+                    onPress={() => setIsBottomSheetOpen(true)}
+                />
+            </ThemedView>
 
             {/* App name & Version */}
             <AppNameTag/>

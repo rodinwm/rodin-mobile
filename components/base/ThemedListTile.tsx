@@ -10,34 +10,67 @@ import {useColorScheme} from "@/utils/hooks/useColorScheme";
 
 export type ThemedListTileProps = ButtonProps & {
     subtitle?: string;
-    icon?: ReactNode | {
-        name: keyof typeof icons;
-        color?: string;
-    };
+    icon?: ReactNode | { name: keyof typeof icons; color?: string };
     suffixIcon?: keyof typeof icons | ReactNode | null;
     fillStyle?: "default" | "opacity-15" | "opacity-50" | "warning" | "inversed" | "none";
     hasPadding?: boolean;
     hapticOnPress?: boolean;
 };
 
-export function ThemedListTile({
-                                   icon,
-                                   title,
-                                   subtitle,
-                                   hasPadding,
-                                   suffixIcon = 'ChevronRight',
-                                   fillStyle = "none",
-                                   hapticOnPress = true,
-                                   onPress,
-                                   ...otherProps
-                               }: ThemedListTileProps
+export function ThemedListTile(
+    {
+        icon,
+        title,
+        subtitle,
+        hasPadding,
+        suffixIcon = 'ChevronRight',
+        fillStyle = "none",
+        hapticOnPress = true,
+        onPress,
+        ...otherProps
+    }: ThemedListTileProps
 ) {
     const colorScheme = useColorScheme();
 
+    const renderIcon = () => {
+        if (!icon) return null;
+
+        // Si c'est un élément React déjà prêt
+        if (isValidElement(icon)) return icon;
+
+        // Si c'est bien notre objet avec { name, color }
+        if (typeof icon === "object" && "name" in icon) {
+            if (fillStyle === "none") {
+                return <LucideIcon name={icon.name} color={icon.color}/>;
+            }
+            return (
+                <ThemedView
+                    fillStyle={fillStyle !== "inversed" ? "inversed" : 'default'}
+                    radiusStyle={'full'}
+                    className={"p-2"}
+                    borderStyle={"default"}
+                >
+                    <LucideIcon
+                        name={icon.name}
+                        color={
+                            icon.color ??
+                            (otherProps.disabled
+                                ? Colors.foreground[colorScheme] + '66'
+                                : undefined)
+                        }
+                        inverseColor={fillStyle !== "inversed"}
+                    />
+                </ThemedView>
+            );
+        }
+
+        return null;
+    };
+
     return (
         <TouchableOpacity
-            onPress={onPress !== undefined ? (event) => {
-                if (hapticOnPress) UiService.hapticImpact()
+            onPress={onPress ? (event) => {
+                if (hapticOnPress) UiService.hapticImpact();
                 onPress(event);
             } : undefined}
             {...otherProps}
@@ -49,25 +82,7 @@ export function ThemedListTile({
                 className={'w-full flex flex-row justify-between items-center gap-2'}
             >
                 <ThemedView className={'h-fit flex flex-row justify-center items-center gap-4 flex-1'}>
-                    {icon !== undefined && icon !== null ?
-                        isValidElement(icon) ? (icon) : (
-                            fillStyle === "none" ? (
-                                <LucideIcon name={icon.name} color={icon.color}/>
-                            ) : (
-                                <ThemedView
-                                    fillStyle={fillStyle !== "inversed" ? "inversed" : 'default'}
-                                    radiusStyle={'full'}
-                                    className={"p-2"}
-                                    borderStyle={"default"}
-                                >
-                                    <LucideIcon
-                                        name={icon.name}
-                                        color={icon.color ?? otherProps.disabled ? Colors.foreground[colorScheme] + '66' : undefined}
-                                        inverseColor={fillStyle !== "inversed"}
-                                    />
-                                </ThemedView>
-                            ))
-                        : null}
+                    {renderIcon()}
 
                     <ThemedView className={'flex-1 flex flex-col justify-center'}>
                         <ThemedText
@@ -90,7 +105,9 @@ export function ThemedListTile({
                 </ThemedView>
 
                 {suffixIcon !== undefined && suffixIcon !== null ? (
-                    isValidElement(suffixIcon) ? (suffixIcon) : (
+                    isValidElement(suffixIcon) ? (
+                        suffixIcon
+                    ) : (
                         <LucideIcon
                             size={20}
                             name={suffixIcon as keyof typeof icons}
@@ -98,11 +115,7 @@ export function ThemedListTile({
                         />
                     )
                 ) : null}
-
             </ThemedView>
         </TouchableOpacity>
-
-
     );
-};
-
+}

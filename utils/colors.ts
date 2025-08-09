@@ -25,6 +25,10 @@ export const Colors = {
             light: restColor,
             dark: restColor,
         },
+        subscription: {
+            light: "#ca8a04",
+            dark: "#ca8a04",
+        },
     },
     background: {
         light: "#FFFFFF",
